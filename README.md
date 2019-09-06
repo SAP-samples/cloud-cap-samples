@@ -1,10 +1,10 @@
 # cloud-cap-samples
 
-This is a monorepository for sample projects on Cloud Application Programming MOdel (CAP).
+This is a monorepository for sample projects on Cloud Application Programming Model (CAP).
 
 ## Description
 
-This repository provides a list of samples and reusable packages created based on [CAP]()https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/00823f91779d4d42aa29a498e0535cdf.html?q=cloud%20application%20programming%20model
+This repository provides a list of samples and reusable packages created based on [CAP](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/00823f91779d4d42aa29a498e0535cdf.html?q=cloud%20application%20programming%20model)
 The SAP Cloud Application Programming Model enables you to quickly create business applications by allowing you to focus on your domain logic. It offers a consistent end-to-end programming model that includes languages, libraries and APIs tailored for full-stack development on SAP Cloud Platform.
 
 The samples provided can be run in a local setup on sqlite db. 
