@@ -33,7 +33,7 @@ The samples provided can be run in a local setup on sqlite db.
 ## Download and Installation
 
 #### Clone and build the application
-`git clone https://github.wdf.sap.corp/staging-for-SAP-samples-public/cloud-cap-samples.git`
+`git clone https://github.com/SAP-samples/cloud-cap-samples.git`
 
 `cd samples`
 
@@ -63,10 +63,6 @@ None
 ## How to obtain support
 
 In case you find a bug, or you need additional support, please open an issue [here](https://github.wdf.sap.corp/staging-for-SAP-samples-public/cloud-cap-samples/issues) in GitHub.
-
-## Contributing
-
-In case you find a would like to contribute, please create a pull request [here](https://github.wdf.sap.corp/staging-for-SAP-samples-public/cloud-cap-samples/pulls) in GitHub.
 
 ## To-Do (upcoming changes)
 
