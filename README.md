@@ -1,13 +1,13 @@
 # cloud-cap-samples
 
-This is a monorepository for sample projects on Cloud Application Programming Model (CAP).
+This is a monorepository for sample projects on [SAP Cloud Application Programming Model](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/00823f91779d4d42aa29a498e0535cdf.html?q=cloud%20application%20programming%20model).
 
 ## Description
 
-This repository provides a list of samples and reusable packages created based on [CAP](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/00823f91779d4d42aa29a498e0535cdf.html?q=cloud%20application%20programming%20model).
+This repository provides a list of samples and reusable packages created based on SAP Cloud Application Programming Model.
 The SAP Cloud Application Programming Model enables you to quickly create business applications by allowing you to focus on your domain logic. It offers a consistent end-to-end programming model that includes languages, libraries and APIs tailored for full-stack development on SAP Cloud Platform.
 
-The samples provided can be run in a local setup on sqlite db. 
+The samples provided can be run in a local setup on SQLite Database. 
 
 #### Samples:
 * [bookshop](./packages/bookshop) - Showcases different services serving the same set of data entities from a sqlite database. The services match different use cases visualized in corresponding Fiori apps.
@@ -23,8 +23,8 @@ The samples provided can be run in a local setup on sqlite db.
 
 ## Requirements
 * [Node.js](https://nodejs.org/en/) v8 or higher
-* [git](https://git-scm.com) 
-* [sqlite](https://www.sqlite.org/download.html) (Windows only; pre-installed on Mac/Linux)
+* [Git](https://git-scm.com) 
+* [SQLite DB](https://www.sqlite.org/download.html) (Windows only; pre-installed on Mac/Linux)
 
 #### Optional (if you want to import the code into an editor)
 * [VS Code](https://code.visualstudio.com) 
