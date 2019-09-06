@@ -10,16 +10,8 @@ The SAP Cloud Application Programming Model enables you to quickly create busine
 The samples provided can be run in a local setup on SQLite Database. 
 
 #### Samples:
-* [bookshop](./packages/bookshop) - Showcases different services serving the same set of data entities from a sqlite database. The services match different use cases visualized in corresponding Fiori apps.
 * [bookstore](./packages/bookstore) - A variant of the bookshop application, built in a modular fashion on top of products-service and common reuse packages.
-* [common-contacts](./packages/common-contacts) -  A reuse package with common domain models and services for contacts-related data.
-* [common-currencies](./packages/common-currencies) - A reuse package providing common domain models and services for currencies-related data.
-* [media-server](./packages/media-server) - A reuse service to manage and serve media content on behalf of other services and apps.
-* [orders-service](./packages/orders-service) - A reuse package providing domain models and services to submit and manage purchase orders.
 * [products-service](./packages/products-service) - A reuse package providing domain models and services to manage product catalogs.
-* [reviews-service](./packages/reviews-service) - A reuse service providing generic means to add reviews and ratings to target objects, e.g. products.
-* [users-service](./packages/users-service) - A reuse service for users-related functions, like registration, user profile mgmt, etc.
-
 
 ## Requirements
 * [Node.js](https://nodejs.org/en/) v8 or higher
