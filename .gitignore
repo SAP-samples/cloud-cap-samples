@@ -1,0 +1,15 @@
+.gen/
+_out/
+dist/
+edmx/
+gen/
+mta_archives/
+node_modules/
+target/
+
+.DS_Store
+*.log
+*.mtar
+connection.properties
+default-env.json
+packages/messageBox

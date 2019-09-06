@@ -1,0 +1,10 @@
+{
+  "name": "tests-env",
+  "author": "daniel.hutzel@sap.com",
+  "devDependencies": {
+    "@types/jest": "*",
+    "jest": "^24.8.0",
+    "supertest": "^4.0.2"
+  },
+  "license": "ISC"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "@sap/capire-samples",
+  "description": "The umbrella project for all samples to easily setup for local development and tests.",
+  "repository": "https://github.wdf.sap.corp/capire/samples.git",
+  "author": "daniel.hutzel@sap.com",
+  "private": true,
+  "scripts": {
+    "install": "(npx --no-install lerna -v || npm i lerna --no-save) && lerna bootstrap --hoist --ignore tests-env --loglevel warn",
+    "reset": "lerna clean -y && rm -fr node_modules",
+    "test": "jest",
+    "bookstore": "cds run packages/bookstore --in-memory",
+    "products-service": "cds run packages/products-service --in-memory",
+    "reviews-service": "cds run packages/reviews-service --in-memory"
+  },
+  "license": "ISC"
+}
