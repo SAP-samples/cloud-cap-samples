@@ -35,14 +35,6 @@ The samples provided can be run in a local setup on SQLite Database.
 
 `npm run <sample name>`
 
-eg: `npm run bookshop`
-
-#### Test the application
-
-Open these links in your browser:
-
-* <http://localhost:4004/fiori.html> &ndash; Fiori Launchpad sandbox
-* <http://localhost:4004/> &ndash; generic index page
 
 ## Limitations
 
