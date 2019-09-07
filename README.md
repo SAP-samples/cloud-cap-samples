@@ -46,7 +46,7 @@ None
 
 ## How to obtain support
 
-In case you find a bug, or you need additional support, please open an issue [here](https://github.wdf.sap.corp/staging-for-SAP-samples-public/cloud-cap-samples/issues) in GitHub.
+In case you find a bug, or you need additional support, please open an issue [here](https://github.com/SAP-samples/cloud-cap-samples/issues/new) in GitHub.
 
 ## To-Do (upcoming changes)
 
