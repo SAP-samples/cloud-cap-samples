@@ -2,7 +2,7 @@
   "name": "dev-env",
   "author": "daniel.hutzel@sap.com",
   "dependencies": {
-    "@sap/cds": "^3.16.3"
+    "@sap/cds": "^3.17.0"
   },
   "devDependencies": {
     "sqlite3": "^4.0.7"
