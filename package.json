@@ -1,7 +1,7 @@
 {
   "name": "@sap/capire-samples",
   "description": "The umbrella project for all samples to easily setup for local development and tests.",
-  "repository": "https://github.wdf.sap.corp/capire/samples.git",
+  "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
   "private": true,
   "scripts": {
@@ -12,5 +12,5 @@
     "products-service": "cds run packages/products-service --in-memory",
     "reviews-service": "cds run packages/reviews-service --in-memory"
   },
-  "license": "ISC"
+  "license": "SAP SAMPLE CODE LICENSE"
 }
