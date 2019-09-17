@@ -2,8 +2,8 @@
   "name": "@sap/capire-products",
   "version": "1.0.0",
   "description": "A reuse package providing domain models and services to manage product catalogs.",
-  "repository": "https://github.wdf.sap.corp/caps/products-service.git",
-  "license": "ISC",
+  "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
+  "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
     "@sap/cds": "^3.16.3",
     "express": "^4.17.1"
