@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "@sap/cds": "^3.0.0",
-    "@sap/capire-products": "file:sap-capire-products-1.0.0.tgz"
+    "@sap/capire-products": "file:sap-capire-products-1.0.0.tgz",
+    "hdb": "^0.17.1"
   },
   "devDependencies": {
+    "@sap/hdi-deploy": "3.7.0",
     "sqlite3": "^4.1.0"
   },
   "cds": {
