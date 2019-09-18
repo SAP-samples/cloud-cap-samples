@@ -1,0 +1,38 @@
+{
+    "name": "@sap/capire-products",
+    "version": "1.0.0",
+    "description": "A reuse package providing domain models and services to manage product catalogs.",
+    "license": "ISC",
+    "repository": "https://github.wdf.sap.corp/cap/samples",
+    "scripts": {
+        "build": "cds build/all --clean",
+        "schema": "cds compile srv --to sql > srv/src/main/resources/schema.sql",
+        "deploy": "cds deploy"
+    },
+    "dependencies": {
+        "@sap/cds": "^3.0.0"
+    },
+    "devDependencies": {
+        "sqlite3": "^4.1.0"
+    },
+    "cds": {
+        "build": {
+            "target": "."
+        },
+        "requires": {
+            "db": {
+                "kind": "sqlite",
+                "model": [
+                    "db",
+                    "srv"
+                ],
+                "credentials": {
+                    "database": "sqlite.db"
+                }
+            }
+        },
+        "odata": {
+            "version": "v4"
+        }
+    }
+}

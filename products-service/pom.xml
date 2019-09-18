@@ -1,0 +1,135 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.sap.teched.cap</groupId>
+	<artifactId>products-service-parent</artifactId>
+	<version>${revision}</version>
+	<packaging>pom</packaging>
+
+	<name>products-service parent</name>
+
+	<properties>
+		<!-- OUR VERSION -->
+		<revision>1.0-SNAPSHOT</revision>
+
+		<!-- DEPENDENCIES VERSION -->
+		<jdk.version>1.8</jdk.version>
+		<cds.services.version>1.0.1</cds.services.version>
+		<cds4j.version>1.2.1</cds4j.version>
+		<spring.boot.version>2.1.7.RELEASE</spring.boot.version>
+
+		<node.version>v10.4.1</node.version>
+		<node.url>https://nodejs.org/dist/</node.url>
+	</properties>
+
+	<modules>
+		<module>srv</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- CDS SERVICES -->
+			<dependency>
+				<groupId>com.sap.cds</groupId>
+				<artifactId>cds-services-bom</artifactId>
+				<version>${cds.services.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- SPRING BOOT -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- STEPS TO GENERATE CDS ARTIFACTS -->
+				<plugin>
+					<groupId>com.github.eirslett</groupId>
+					<artifactId>frontend-maven-plugin</artifactId>
+					<version>1.6</version>
+					<executions>
+						<execution>
+							<id>install-node-and-npm</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>install-node-and-npm</goal>
+							</goals>
+							<configuration>
+								<downloadRoot>${node.url}</downloadRoot>
+								<nodeVersion>${node.version}</nodeVersion>
+								<npmInheritsProxyConfigFromMaven>true</npmInheritsProxyConfigFromMaven>
+							</configuration>
+						</execution>
+
+						<execution>
+							<id>npm install</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>npm</goal>
+							</goals>
+							<configuration>
+								<arguments>install</arguments>
+							</configuration>
+						</execution>
+
+						<execution>
+							<id>cds build</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>npm</goal>
+							</goals>
+							<configuration>
+								<arguments>run build</arguments>
+							</configuration>
+						</execution>
+
+						<execution>
+							<id>cds schema</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>npm</goal>
+							</goals>
+							<configuration>
+								<arguments>run schema</arguments>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<!-- JAVA VERSION -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+
+			<!-- MAKE SPRING BOOT PLUGIN RUNNABLE FROM ROOT -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring.boot.version}</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

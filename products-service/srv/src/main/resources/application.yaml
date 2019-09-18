@@ -1,0 +1,7 @@
+---
+spring:
+  profiles: default
+  datasource:
+    url: "jdbc:sqlite:sqlite.db"
+    driver-class-name: org.sqlite.JDBC
+    initialization-mode: never
