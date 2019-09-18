@@ -1,0 +1,123 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>bookstore-parent</artifactId>
+		<groupId>com.sap.teched.cap</groupId>
+		<version>${revision}</version>
+	</parent>
+
+	<artifactId>bookstore</artifactId>
+	<packaging>jar</packaging>
+
+	<name>bookstore</name>
+
+	<!-- ACTUAL DEPENDENCIES -->
+	<dependencies>
+		<dependency>
+			<groupId>com.sap.cds</groupId>
+			<artifactId>cds-starter-spring-boot-odata</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- SPRING BOOT PLUGIN -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring.boot.version}</version>
+				<configuration>
+					<skip>false</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- STEPS TO GENERATE CDS ARTIFACTS IMPORTED FROM PARENT -->
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- CONFIGURE ADDITIONAL SOURCE DIRECTORY FOR GENERATED CLASSES -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/gen/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- GENERATE POJO INTERFACES -->
+			<plugin>
+				<groupId>com.sap.cds</groupId>
+				<artifactId>cds4j-maven-plugin</artifactId>
+				<version>${cds4j.version}</version>
+				<configuration>
+					<outputDirectory>${project.basedir}/src/gen</outputDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>cds4j-generate-model</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<csnFile>${project.basedir}/src/main/resources/edmx/csn.json</csnFile>
+							<excludes>
+								<exclude>localized.*</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- CLEAN GENERATED ARTIFACTS -->
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>src/gen</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<fileset>
+							<directory>src/main/resources</directory>
+							<includes>
+								<include>edmx/**</include>
+								<include>schema.sql</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
