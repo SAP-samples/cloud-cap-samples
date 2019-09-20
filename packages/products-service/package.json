@@ -5,7 +5,7 @@
   "repository": "https://github.wdf.sap.corp/caps/products-service.git",
   "license": "ISC",
   "dependencies": {
-    "@sap/cds": "^3.17.0",
+    "@sap/cds": "^3.17.4",
     "express": "^4.17.1"
   },
   "files": [
