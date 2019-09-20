@@ -9,7 +9,6 @@
     },
     "dependencies": {
         "@sap/cds": "^3.17.0",
-        "@sap/cds-rest": "latest",
         "express": "^4.17.1"
     },
     "scripts": {
