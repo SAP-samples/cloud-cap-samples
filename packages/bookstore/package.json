@@ -8,8 +8,7 @@
         "node": "^8.9"
     },
     "dependencies": {
-        "@sap/cds": "^3.17.0",
-        "@sap/cds-rest": "latest",
+        "@sap/cds": "^3.17.4",
         "express": "^4.17.1"
     },
     "scripts": {
