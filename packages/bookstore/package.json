@@ -9,6 +9,7 @@
     },
     "dependencies": {
         "@sap/capire-products": "^1.0.0",
+        "reviews-service": "file:packages/reviews-service-1.0.0.tgz",
         "@sap/cds": "^3.17.4",
         "express": "^4.17.1"
     },
@@ -16,5 +17,16 @@
         "build": "cds build/all --clean",
         "deploy": "cds deploy",
         "start": "cds run"
+    },
+    "cds": {
+      "requires": {
+        "sap.capire.reviews.ReviewsService": {
+          "model": "reviews-service",
+          "kind": "odata",
+          "credentials": {
+            "file": "default"
+          }
+        }
+      }
     }
 }

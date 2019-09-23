@@ -15,3 +15,10 @@ using { sap.capire.products.AdminService } from '@sap/capire-products';
 extend service AdminService with {
   entity Authors as projection on my.Authors;
 }
+
+// Adding reviews via capire-reviews service
+using { sap.capire.reviews.ReviewsService as external} from 'reviews-service';
+
+extend service CatalogService {
+  @readonly entity Reviews @(cds.persistence.skip) as projection on external.Reviews;
+}

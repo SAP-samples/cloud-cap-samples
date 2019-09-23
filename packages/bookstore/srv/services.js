@@ -15,4 +15,21 @@ module.exports = async (srv) => {
       }
     })))
   })
+
+  const reviews_srv = await cds.connect.to('sap.capire.reviews.ReviewsService')
+
+  // react on event messages from reviews service
+  reviews_srv.on('reviewed', (msg) => {
+      console.debug('> received', msg)
+  })
+
+  // delegate requests to reviews service
+  srv.on('READ', 'Reviews', async (req) => {
+    const { Reviews } = reviews_srv.entities
+
+    const tx = reviews_srv.transaction(req)
+    const results = await tx.read(Reviews)
+
+    return results
+  })
 }
