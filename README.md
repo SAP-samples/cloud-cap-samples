@@ -1,3 +1,3 @@
-# Inital branch for CAA265 - Rapid Service Development with SAP Cloud Application Programming Model
+# Final state of exercise 3 for CAA265 - Rapid Service Development with SAP Cloud Application Programming Model
 
 **DO NOT MERGE IN MASTER**
