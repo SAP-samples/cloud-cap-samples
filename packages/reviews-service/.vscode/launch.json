@@ -1,0 +1,16 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "cds run",
+            "request": "launch",
+            "type": "node", "runtimeExecutable": "npx","runtimeArgs": [ "-n" ],
+            "args": [ "--","cds","run","--in-memory?" ], // the leading "--" arg ensures it works with as well as without debugging
+            "console": "integratedTerminal",
+            "skipFiles": [ "<node_internals>/**" ]
+        }
+    ]
+}
