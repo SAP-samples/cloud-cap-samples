@@ -10,7 +10,7 @@
         "deploy": "cds deploy"
     },
     "dependencies": {
-        "@sap/cds": "^3.0.0"
+        "@sap/cds": "3.17.4"
     },
     "devDependencies": {
         "sqlite3": "^4.1.0"
