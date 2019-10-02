@@ -10,7 +10,7 @@
     "deploy": "cds deploy"
   },
   "dependencies": {
-    "@sap/cds": "^3.0.0",
+    "@sap/cds": "3.17.4",
     "@sap/capire-products": "file:sap-capire-products-1.0.0.tgz",
     "hdb": "^0.17.1"
   },
