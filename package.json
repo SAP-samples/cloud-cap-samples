@@ -1,16 +1,27 @@
 {
   "name": "@sap/capire-samples",
   "description": "The umbrella project for all samples to easily setup for local development and tests.",
-  "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
+  "repository": "https://github.wdf.sap.corp/capire/samples.git",
   "author": "daniel.hutzel@sap.com",
   "private": true,
   "scripts": {
-    "install": "(npx --no-install lerna -v || npm i lerna --no-save) && lerna bootstrap --hoist --ignore tests-env --loglevel warn",
-    "reset": "lerna clean -y && rm -fr node_modules",
+    "cleanup": "lerna clean -y && rm -fr node_modules",
+    "install": "(npm -s run lerna) && lerna bootstrap --hoist",
+    "lerna": "npx --no-install lerna -v > /dev/null || npm i lerna --no-save",
     "test": "jest",
+    "bookshop": "cds run packages/bookshop --in-memory",
     "bookstore": "cds run packages/bookstore --in-memory",
     "products-service": "cds run packages/products-service --in-memory",
-    "reviews-service": "cds run packages/reviews-service --in-memory"
+    "reviews-service": "cds run packages/reviews-service --in-memory",
+    "office-supplies": "cds run packages/office-supplies --in-memory"
   },
-  "license": "SAP SAMPLE CODE LICENSE"
+  "dependencies": {
+    "@sap/cds": "latest",
+    "express": "*"
+  },
+  "devDependencies": {
+    "@types/jest": "*",
+    "sqlite3": "^4.0.7"
+  },
+  "license": "ISC"
 }

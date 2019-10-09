@@ -1,0 +1,11 @@
+.idea/
+gen/
+.gen/
+node_modules/
+target/
+*.db
+.DS_Store
+_out
+default-*.json
+
+default-env.json

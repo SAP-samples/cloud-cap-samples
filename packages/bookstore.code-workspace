@@ -1,0 +1,53 @@
+{
+	"folders": [
+		{
+			"path": "../packages/bookstore"
+		},
+		{
+			"path": "../packages/products-service"
+		},
+		{
+			"path": "../packages/reviews-service"
+		},
+		{
+			"path": "../packages/common-contacts"
+		},
+		{
+			"path": "../packages/common-currencies"
+		}
+	],
+	"extensions": {
+		"recommendations": [
+			"dbaeumer.vscode-eslint",
+			"alexcvzz.vscode-sqlite",
+			"danjoa.cdr4vsc",
+			// "sapse.vscode-cds"
+		]
+	},
+	"launch": {
+		"configurations": [
+			{
+				"name": "cds run",
+				"type": "node",
+				"request": "launch",
+				"runtimeExecutable": "npx",
+				"runtimeArgs": [
+					"-n"
+				],
+				"args": [
+					"--", // the leading "--" arg ensures it works with as well as without debugging
+					"cds",
+					"run",
+					"--with-mocks",
+					"--in-memory?"
+				],
+				"cwd": "${workspaceFolder:bookstore}",
+				"console": "integratedTerminal",
+				"skipFiles": [
+					"<node_internals>/**"
+				]
+			}
+		],
+		"compounds": []
+	}
+}

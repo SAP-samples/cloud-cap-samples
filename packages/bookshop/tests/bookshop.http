@@ -1,0 +1,27 @@
+#################################################
+#
+#   Catalog Service
+#
+
+GET http://localhost:4004/browse
+###
+
+GET http://localhost:4004/browse/$metadata
+###
+
+GET http://localhost:4004/browse/Books?
+&$select=title,author
+# &$expand=currency
+# &sap-language=de
+
+
+#################################################
+#
+#   Admin Service
+#
+
+GET http://localhost:4004/admin/Authors?
+# &$select=name,dateOfBirth,placeOfBirth
+# &$expand=books($select=title;$expand=currency)
+# &$filter=ID eq 101
+# &sap-language=de

@@ -1,58 +1,37 @@
-# cloud-cap-samples
+# Samples suite for `capire`
 
-This is a monorepository for sample projects on [SAP Cloud Application Programming Model](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/00823f91779d4d42aa29a498e0535cdf.html?q=cloud%20application%20programming%20model).
-
-## Description
-
-This repository provides a list of samples and reusable packages created based on SAP Cloud Application Programming Model.
-The SAP Cloud Application Programming Model enables you to quickly create business applications by allowing you to focus on your domain logic. It offers a consistent end-to-end programming model that includes languages, libraries and APIs tailored for full-stack development on SAP Cloud Platform.
-
-The samples provided can be run in a local setup on SQLite Database. 
-
-#### Samples:
-* [bookstore](./packages/bookstore) - A variant of the bookshop application, built in a modular fashion on top of products-service and common reuse packages.
-* [products-service](./packages/products-service) - A reuse package providing domain models and services to manage product catalogs.
-
-## Requirements
-* [Node.js](https://nodejs.org/en/) v8 or higher
-* [Git](https://git-scm.com) 
-* [SQLite DB](https://www.sqlite.org/download.html) (Windows only; pre-installed on Mac/Linux)
-
-#### Optional (if you want to import the code into an editor)
-* [VS Code](https://code.visualstudio.com) 
-* [Add CDS extension to VS](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/be944d6d51f343f6b3f53c29c44ff00a.html)
-
-## Download and Installation
-
-#### Clone and build the application
-`git clone https://github.com/SAP-samples/cloud-cap-samples.git`
-
-`cd samples`
-
-`npm install`
-
-#### Run the samples
-
-`npm run <sample name>`
+This is a monorepo for all sample projects in a local setup.<br>
 
 
-## Limitations
+## Setup
 
-None
+Assumed you have installed
+[_Node.js_](https://nodejs.org) v8 or higher,
+[_git_](https://git-scm.com) and
+[_sqlite_](https://sqlite.org) (pre-installed on Mac and Linux),<br>
+**copy and run this** on your command line:
 
-## Known Issues
+    git clone https://github.wdf.sap.corp/cap/samples && cd samples && npm i
 
-None 
 
-## How to obtain support
+## Run
 
-In case you find a bug, or you need additional support, please open an issue [here](https://github.com/SAP-samples/cloud-cap-samples/issues/new) in GitHub.
+With that you're ready to run the samples, e,g, start the [_bookshop_](packages/bookshop) sample as follows:
 
-## To-Do (upcoming changes)
+    npm run bookshop
 
-None
+## Test drive
 
-## License
+For example, try these links in your browser:
+- <http://localhost:4004> to test with generic index page.
+- <http://localhost:4004/fiori.html> to test with Fiori sandbox.
 
-Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under SAP Sample Code License Agreement, except as noted otherwise in the [LICENSE](/LICENSE) file.
 
+## Learn more
+
+**TODO:** Add overview information in a separate .md file or in wiki pages with links to the individual samples
+
+
+## Contributing
+
+**TODO:** Add contrib.md

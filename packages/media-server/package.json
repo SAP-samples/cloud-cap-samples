@@ -1,0 +1,11 @@
+{
+  "name": "@sap/capire-media",
+  "version": "1.0.0",
+  "description": "A generic platform service to manage and serve media content on behalf of other services and apps.",
+  "repository": "https://github.wdf.sap.corp/caps/media-service.git",
+  "license": "ISC",
+  "dependencies": {
+    "@sap/cds": "latest",
+    "express": "*"
+  }
+}

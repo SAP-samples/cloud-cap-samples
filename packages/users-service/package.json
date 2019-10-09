@@ -1,0 +1,12 @@
+{
+  "name": "@sap/capire-users",
+  "version": "1.0.0",
+  "description": "A reuse service for users-related functions, like registration, user profile mgmt, etc.",
+  "repository": "https://github.wdf.sap.corp/caps/users-service.git",
+  "license": "ISC",
+  "dependencies": {
+    "@sap/capire-contacts": "^1.0.0",
+    "@sap/cds": "latest",
+    "express": "*"
+  }
+}

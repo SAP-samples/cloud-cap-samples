@@ -1,0 +1,12 @@
+gen/
+.gen/
+node_modules/
+target/
+*.db
+.DS_Store
+_out
+.che/
+.cds_gen.log
+package-lock.json
+*.orig
+mta_archives/

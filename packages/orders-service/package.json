@@ -1,0 +1,11 @@
+{
+  "name": "@sap/capire-orders",
+  "version": "1.0.0",
+  "description": "A reuse package providing domain models and services to submit and manage purchase orders.",
+  "repository": "https://github.wdf.sap.corp/caps/orders-service.git",
+  "license": "ISC",
+  "dependencies": {
+    "@sap/cds": "latest",
+    "express": "*"
+  }
+}

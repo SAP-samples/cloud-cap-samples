@@ -1,0 +1,26 @@
+{
+  "name": "@sap/capire-reviews",
+  "version": "1.0.0",
+  "description": "A reuse service providing generic means to add reviews and ratings to target objects, e.g. products.",
+  "repository": "https://github.wdf.sap.corp/caps/reviews-service.git",
+  "license": "ISC",
+  "dependencies": {
+    "@sap/cds": "latest",
+    "express": "*"
+  },
+  "files": [
+    "db",
+    "srv",
+    "index.cds"
+  ],
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sql"
+      },
+      "messaging": {
+        "kind": "file-based-messaging"
+      }
+    }
+  }
+}

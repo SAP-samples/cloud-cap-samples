@@ -1,0 +1,10 @@
+{
+  "name": "@sap/capire-currencies",
+  "version": "1.0.0",
+  "description": "A reuse package providing common domain models and services for currencies-related data.",
+  "repository": "https://github.wdf.sap.corp/caps/common-currencies.git",
+  "license": "ISC",
+  "dependencies": {
+    "@sap/cds": "latest"
+  }
+}

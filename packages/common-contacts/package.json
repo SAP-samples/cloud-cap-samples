@@ -1,0 +1,10 @@
+{
+  "name": "@sap/capire-contacts",
+  "version": "1.0.0",
+  "description": "A reuse package providing common domain models and services for contacts-related data.",
+  "repository": "https://github.wdf.sap.corp/caps/common-contacts.git",
+  "license": "ISC",
+  "dependencies": {
+    "@sap/cds": "latest"
+  }
+}
