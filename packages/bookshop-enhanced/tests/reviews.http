@@ -1,0 +1,32 @@
+#################################################
+#
+#   Reviews Service
+#
+
+
+### Use this one for ReviewsService running as a separate process
+# Note: use 5005 instead of 4004 in case of separate service
+POST http://localhost:5005/reviews/Reviews
+# POST http://localhost:4004/reviews/Reviews
+Content-Type: application/json;IEEE754Compatible=true
+
+{"subject":"201", "rating":"5", "title":"boo"}
+
+### Direct Request to ReviewsService
+# Note: use 5005 instead of 4004 in case of separate service
+GET http://localhost:5005/reviews/Reviews?
+# GET http://localhost:4004/reviews/Reviews?
+# &$filter=subject eq '201'
+
+
+### Request to CatalogService > delegated to ReviewsService
+GET http://localhost:4004/browse/Books(201)/reviews
+
+### Alternative OData URL
+GET http://localhost:4004/browse/Books/201/reviews
+
+###
+GET http://localhost:4004/browse/Books(201)?
+&$select=ID,title,rating
+# &$expand=reviews
+# Note: the latter only works in case of ReviewsService in same process

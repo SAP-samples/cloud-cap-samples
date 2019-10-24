@@ -5,12 +5,24 @@
   "author": "daniel.hutzel@sap.com",
   "private": true,
   "scripts": {
-    "install": "(npx --no-install lerna -v || npm i lerna --no-save) && lerna bootstrap --hoist --ignore tests-env --loglevel warn",
-    "reset": "lerna clean -y && rm -fr node_modules",
+    "cleanup": "lerna clean -y && rm -fr node_modules",
+    "install": "(npm -s run lerna) && lerna bootstrap --hoist",
+    "lerna": "npx --no-install lerna -v > /dev/null || npm i lerna --no-save",
     "test": "jest",
-    "bookstore": "cds run packages/bookstore --in-memory",
-    "products-service": "cds run packages/products-service --in-memory",
-    "reviews-service": "cds run packages/reviews-service --in-memory"
+    "bookshop-enhanced": "cds watch packages/bookshop-enhanced",
+    "bookshop": "cds watch packages/bookshop",
+    "bookstore": "cds watch packages/bookstore",
+    "products-service": "cds watch packages/products-service",
+    "reviews-service": "cds watch packages/reviews-service"
+  },
+  "dependencies": {
+    "@sap/cds": "latest",
+    "express": "*"
+  },
+  "--add-these-to-devDependencies-for-tests": {
+    "@types/jest": "*",
+    "sqlite3": "*",
+    "jest": "*"
   },
   "license": "SAP SAMPLE CODE LICENSE"
 }
