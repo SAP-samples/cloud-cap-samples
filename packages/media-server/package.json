@@ -1,16 +1,11 @@
 {
-  "name": "@sap/capire-products",
+  "name": "@sap/capire-media",
   "version": "1.0.0",
-  "description": "A reuse package providing domain models and services to manage product catalogs.",
+  "description": "A generic platform service to manage and serve media content on behalf of other services and apps.",
   "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
   "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
     "@sap/cds": "latest",
     "express": "*"
-  },
-  "files": [
-    "db",
-    "srv",
-    "index.cds"
-  ]
+  }
 }

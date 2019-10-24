@@ -1,0 +1,27 @@
+{
+  "name": "@sap/capire-bookshop-enhanced",
+  "version": "1.0.0",
+  "description": "A sample for extending a base application package, in this case bookshop, e.g. in context of verticalization or customization.",
+  "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
+  "license": "SAP SAMPLE CODE LICENSE",
+  "dependencies": {
+    "@sap/capire-bookshop": "^1.0.0",
+    "@sap/capire-reviews": "^1.0.0",
+    "@sap/cds": "latest",
+    "express": "*"
+  },
+  "scripts": {
+    "start": "npx cds run"
+  },
+  "cds": {
+    "requires": {
+      "sap.capire.reviews.ReviewsService": {
+        "kind": "odata",
+        "model": "@sap/capire-reviews"
+      },
+      "messaging": {
+        "kind": "file-based-messaging"
+      }
+    }
+  }
+}
