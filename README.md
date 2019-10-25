@@ -1,6 +1,6 @@
 # cloud-cap-samples
 
-This is a monorepository for sample projects on [SAP Cloud Application Programming Model](https://cap.cloud.sap/docs/).
+This is a monorepository for sample projects on [SAP Cloud Application Programming Model](https://cap.cloud.sap).
 
 ## Description
 
@@ -20,6 +20,16 @@ The samples provided can be run in a local setup on SQLite Database.
 * [Add CDS extension to VS](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/be944d6d51f343f6b3f53c29c44ff00a.html)
 
 ## Download and Installation
+
+#### Install `cds` development kit
+```sh
+# sets the registry for `@sap` packages
+npm set @sap:registry=https://npm.sap.com
+
+npm install -g @sap/cds-dk
+cds  #> test-run it
+```
+Got issues?  Check out the [documentation](https://cap.cloud.sap/docs/get-started/).
 
 #### Clone and build the application
 `git clone https://github.com/SAP-samples/cloud-cap-samples samples && cd samples && npm i`
@@ -48,11 +58,11 @@ None
 
 ## Known Issues
 
-None 
+None
 
 ## How to obtain support
 
-In case you find a bug, or you need additional support, please open an issue [here](https://github.com/SAP-samples/cloud-cap-samples/issues/new) in GitHub.
+Check out the documentation on https://cap.cloud.sap.  In case you find a bug, or you need additional support, please open an issue [here](https://github.com/SAP-samples/cloud-cap-samples/issues/new) in GitHub.
 
 ## To-Do (upcoming changes)
 
