@@ -1,16 +1,12 @@
 {
-  "name": "@sap/capire-products",
+  "name": "@sap/capire-users",
   "version": "1.0.0",
-  "description": "A reuse package providing domain models and services to manage product catalogs.",
+  "description": "A reuse service for users-related functions, like registration, user profile mgmt, etc.",
   "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
   "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
+    "@sap/capire-contacts": "^1.0.0",
     "@sap/cds": "latest",
     "express": "*"
-  },
-  "files": [
-    "db",
-    "srv",
-    "index.cds"
-  ]
+  }
 }
