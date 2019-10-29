@@ -20,7 +20,7 @@
 							"raw": "{ \"ID\":0, \"name\":\"Some Sample Categories...\", \"children\":[\n    { \"ID\":1, \"name\":\"Cat\", \"children\":[\n        { \"ID\":2, \"name\":\"Kitty\", \"children\":[\n            { \"ID\":3, \"name\":\"Kitty Cat\", \"children\":[\n                { \"ID\":4, \"name\":\"Aristocat\" }\n            ]},\n            { \"ID\":5, \"name\":\"Kitty Bat\" }\n        ]},\n        { \"ID\":6, \"name\":\"Catwoman\", \"children\":[\n            { \"ID\":7, \"name\":\"Catalina\" }\n        ]}\n    ] },\n    { \"ID\":8, \"name\":\"Catweazle\" }\n]}\n"
 						},
 						"url": {
-							"raw": "http://localhost:4004/admin/cats",
+							"raw": "http://localhost:4004/admin/Categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -28,7 +28,7 @@
 							"port": "4004",
 							"path": [
 								"admin",
-								"cats"
+								"Categories"
 							]
 						}
 					},
@@ -44,7 +44,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:4004/admin/cats/0?$expand=children($expand=children($expand=children($expand=children)))",
+							"raw": "http://localhost:4004/admin/Categories/0?$expand=children($expand=children($expand=children($expand=children)))",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -52,7 +52,7 @@
 							"port": "4004",
 							"path": [
 								"admin",
-								"cats",
+								"Categories",
 								"0"
 							],
 							"query": [
@@ -74,7 +74,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "http://localhost:4004/admin/cats/0?$expand=children($expand=children($expand=children($expand=children)))",
+									"raw": "http://localhost:4004/admin/Categories/0?$expand=children($expand=children($expand=children($expand=children)))",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -82,7 +82,7 @@
 									"port": "4004",
 									"path": [
 										"admin",
-										"cats",
+										"Categories",
 										"0"
 									],
 									"query": [
@@ -137,7 +137,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:4004/admin/cats/0",
+							"raw": "http://localhost:4004/admin/Categories/0",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -145,7 +145,7 @@
 							"port": "4004",
 							"path": [
 								"admin",
-								"cats",
+								"Categories",
 								"0"
 							]
 						}
