@@ -30,7 +30,6 @@ annotate AdminService.Orders with @(
 		SelectionFields: [ createdAt, createdBy ],
 		LineItem: [
 			{Value: createdBy, Label:'Customer'},
-			{Value: total, Label: 'Order Value' },
 			{Value: createdAt, Label:'Date'}
 		],
 		////////////////////////////////////////////////////////////////////////////
@@ -60,7 +59,6 @@ annotate AdminService.Orders with @(
 		],
 		FieldGroup#Details: {
 			Data: [
-				{Value: total, Label:'Total'},
 				{Value: currency_code, Label:'Currency'}
 			]
 		},
@@ -77,24 +75,9 @@ annotate AdminService.Orders with @(
 			]
 		},
 	},
-	Common: {
-		SideEffects#AmountChanges: {
-			SourceEntities: [
-				Items
-			],
-			TargetProperties: [
-				total
-			]
-		}
-	}
 ) {
 	createdAt @UI.HiddenFilter:false;
 	createdBy @UI.HiddenFilter:false;
-	total
-		@Common.FieldControl: #ReadOnly
-		@Measures.ISOCurrency:currency.code; //Bind the currency field to the amount field
-		//In all services we always find currency as the code and not as an object that contains a property code
-		//it seems to work but at least to me this is unconventional modeling.
 };
 
 
@@ -121,39 +104,14 @@ annotate AdminService.OrderItems with @(
 			//The following entry is only used to have the assoication followed in the read event
 			{Value: book.price, Label:'Book Price'},
 			{Value: amount, Label:'Quantity'},
-			{Value: netAmount, Label: 'Net amount'}
 		],
 		Identification: [ //Is the main field group
 			//{Value: ID, Label:'ID'}, //A guid shouldn't be on the UI
 			{Value: book_ID, Label:'Book'},
 			{Value: amount, Label:'Amount'},
-			{Value: netAmount, Label: 'Net amount'}
 		],
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>OrderItems}', Target: '@UI.Identification'},
 		],
 	},
-	Common: {
-		SideEffects#AmountChanges: {
-			SourceProperties: [
-				amount
-			],
-			TargetProperties: [
-				netAmount, parent.total
-			]
-		},
-		SideEffects#BookChanges: {
-			SourceProperties: [
-				book_ID
-			],
-			TargetProperties: [
-				netAmount, book.price, parent.total
-			]
-		}
-	}
-) {
-	netAmount
-		@Common.FieldControl: #ReadOnly;
-		//ERROR ALERT: The following line refering to the parents currency code will lead to a server error
-		//@Measures.ISOCurrency:parent.currency.code; //Bind the currency field to the amount field of the parent
-};
+);
