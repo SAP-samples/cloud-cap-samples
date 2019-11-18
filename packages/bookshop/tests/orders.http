@@ -2,6 +2,10 @@
 ### List Books with their current stocks
 GET http://localhost:4004/admin/Books?$select=ID,stock
 
+### List all Orders
+GET http://localhost:4004/admin/Orders?
+&$expand=Items
+
 ### Submit Orders
 POST http://localhost:4004/browse/Orders
 Content-Type: application/json
