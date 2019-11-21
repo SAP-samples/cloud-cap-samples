@@ -28,6 +28,8 @@ public class DataLoader implements ApplicationRunner {
 				CsvUploader uploader = new CsvUploader(runtime.getCdsModel(), ds);
 				for (File file : folder.listFiles()) {
 					try {
+						if(file.getName().equals("sap.capire.bookstore-Books_texts.csv"))
+							continue;
 						uploader.insertContent(file);
 					} catch (RuntimeException | IOException e) {
 						throw new RuntimeException("exception reading file " + file.getName(), e);
