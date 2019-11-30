@@ -72,3 +72,10 @@ annotate my.Authors with {
 	ID @title:'{i18n>ID}' @UI.HiddenFilter;
 	name @title:'{i18n>AuthorName}';
 }
+
+annotate my.ShippingAddresses with {
+	AddressID @title:'{i18n>AddressID}';
+	CityName @title:'{i18n>CityName}';
+	StreetName @title:'{i18n>StreetName}';
+	HouseNumber @title:'{i18n>HouseNumber}';
+}

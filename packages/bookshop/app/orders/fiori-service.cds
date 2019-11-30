@@ -52,6 +52,7 @@ annotate AdminService.Orders with @(
 		HeaderFacets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Created}', Target: '@UI.FieldGroup#Created'},
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Modified}', Target: '@UI.FieldGroup#Modified'},
+			{$Type: 'UI.ReferenceFacet', Label: '{i18n>ShippingAddress}', Target: '@UI.FieldGroup#ShippingAddress'},
 		],
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}', Target: '@UI.FieldGroup#Details'},
@@ -72,6 +73,14 @@ annotate AdminService.Orders with @(
 			Data: [
 				{Value: modifiedBy},
 				{Value: modifiedAt},
+			]
+		},
+		// TODO: Trigger side effects when `shippingAddress_AddressID` is changed
+		FieldGroup#ShippingAddress: {
+			Data: [
+				{Value: shippingAddress_AddressID, Label:'{i18n>ShippingAddress}'},
+				{Value: shippingAddress.HouseNumber, Label:'{i18n>HouseNumber}'},
+				{Value: shippingAddress.StreetName, Label:'{i18n>StreetName}'}
 			]
 		},
 	},

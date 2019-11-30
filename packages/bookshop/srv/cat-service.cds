@@ -1,5 +1,6 @@
 using { sap.capire.bookshop as my } from '../db/schema';
 
+
 @path:'/browse'
 service CatalogService {
 
@@ -9,5 +10,6 @@ service CatalogService {
 
   @requires_: 'authenticated-user'
   @insertonly entity Orders as projection on my.Orders;
+  entity Addresses as projection on my.ShippingAddresses;
 
 }
