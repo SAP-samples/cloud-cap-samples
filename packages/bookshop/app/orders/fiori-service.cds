@@ -20,6 +20,15 @@ annotate AdminService.OrderItems with {
 	);
 }
 
+annotate AdminService.Orders with {
+	shippingAddress @(
+		ValueList.entity:'Addresses',
+	);
+	shippingAddress @(
+		Common.FieldControl: #Mandatory
+	);
+}
+
 
 annotate AdminService.Orders with @(
 	UI: {

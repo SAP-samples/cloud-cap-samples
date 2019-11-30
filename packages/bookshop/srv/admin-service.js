@@ -12,8 +12,21 @@ module.exports = cds.service.impl(function () {
   this.on('READ', 'Addresses', _readAddresses)
 })
 
-function _readAddresses (req) {
-  // TODO: Delegate to external service
+async function _readAddresses (req) {
+  const tx = bupaSrv.transaction(req)
+  const ql = SELECT.from('API_BUSINESS_PARTNER.A_BusinessPartnerAddress')
+  if (req.query.SELECT.columns) {
+    ql.columns(req.query.SELECT.columns)
+  } else {
+    ql.columns('AddressID', 'CityName', 'StreetName', 'HouseNumber')
+  }
+  if (req.query.SELECT.where) {
+    ql.where(req.query.SELECT.where)
+  }
+  const result = await tx.run(ql)
+  delete result.BusinessPartner
+  console.log(result)
+  return result
 }
 
 /** Fill Address data from external service */
