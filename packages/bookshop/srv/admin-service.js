@@ -1,5 +1,11 @@
 const cds = require('@sap/cds')
 const { Books, ShippingAddresses, UserMappings } = cds.entities
+const RELEVANT_ADDRESS_COLUMNS = [
+  'AddressID',
+  'CityName',
+  'StreetName',
+  'HouseNumber'
+]
 
 const bupaSrv = cds.connect.to('API_BUSINESS_PARTNER')
 
@@ -7,7 +13,6 @@ const bupaSrv = cds.connect.to('API_BUSINESS_PARTNER')
 module.exports = cds.service.impl(function () {
   this.before('CREATE', 'Orders', _reduceStock)
   this.before('PATCH', 'Orders', _fillAddress)
-
   this.on('READ', 'Addresses', _readAddresses)
 })
 
@@ -20,7 +25,7 @@ async function _readAddresses (req) {
   if (req.query && req.query.SELECT && req.query.SELECT.columns) {
     ql.columns(req.query.SELECT.columns)
   } else {
-    ql.columns('AddressID', 'CityName', 'StreetName', 'HouseNumber')
+    ql.columns(RELEVANT_ADDRESS_COLUMNS)
   }
   if (req.query && req.query.SELECT && req.query.SELECT.where) {
     ql.where(req.query.SELECT.where)
@@ -47,7 +52,7 @@ async function _fillAddress (req) {
     const tx = bupaSrv.transaction(req)
     const response = await tx.run(
       SELECT.from('API_BUSINESS_PARTNER.A_BusinessPartnerAddress')
-        .columns('AddressID', 'CityName', 'StreetName', 'HouseNumber')
+        .columns(RELEVANT_ADDRESS_COLUMNS)
         .where({
           AddressID: req.data.shippingAddress_AddressID,
           BusinessPartner: businessPartnerID
