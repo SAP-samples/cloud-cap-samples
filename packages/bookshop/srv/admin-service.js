@@ -28,7 +28,6 @@ async function _readAddresses (req) {
   }
   const result = await tx.run(ql)
   delete result.BusinessPartner
-  console.log(result)
   return result
 }
 
@@ -44,7 +43,6 @@ async function _getBusinessPartnerID (req) {
 
 /** Fill Address data from external service */
 async function _fillAddress (req) {
-  console.log('retrieving addresses')
   if (req.data.shippingAddress_AddressID) {
     const businessPartnerID = await _getBusinessPartnerID(req)
     const tx = bupaSrv.transaction(req)
@@ -57,7 +55,6 @@ async function _fillAddress (req) {
         })
     )
     if (response && response.length > 0) {
-      console.log('filling addresses')
       const tx2 = cds.transaction(req)
       try {
         await tx2.run(INSERT.into(ShippingAddresses).entries(response))
