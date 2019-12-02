@@ -22,6 +22,11 @@ entity Authors : managed {
   books  : Association to many Books on books.author = $self;
 }
 
+entity UserMappings {
+  key userID: String;
+  businessPartnerID: String;
+}
+
 entity Orders : cuid, managed {
   OrderNo  : String @title:'Order Number'; //> readable key
   Items    : Composition of many OrderItems on Items.parent = $self;

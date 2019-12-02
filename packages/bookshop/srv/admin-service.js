@@ -1,5 +1,5 @@
 const cds = require('@sap/cds')
-const { Books, ShippingAddresses } = cds.entities
+const { Books, ShippingAddresses, UserMappings } = cds.entities
 
 const bupaSrv = cds.connect.to('API_BUSINESS_PARTNER')
 
@@ -13,8 +13,11 @@ module.exports = cds.service.impl(function () {
 })
 
 async function _readAddresses (req) {
+  const businessPartnerID = await _getBusinessPartnerID(req)
   const tx = bupaSrv.transaction(req)
-  const ql = SELECT.from('API_BUSINESS_PARTNER.A_BusinessPartnerAddress')
+  const ql = SELECT.from('API_BUSINESS_PARTNER.A_BusinessPartnerAddress').where(
+    { BusinessPartner: businessPartnerID }
+  )
   if (req.query.SELECT.columns) {
     ql.columns(req.query.SELECT.columns)
   } else {
@@ -29,23 +32,35 @@ async function _readAddresses (req) {
   return result
 }
 
+async function _getBusinessPartnerID (req) {
+  const ownTx = cds.transaction(req)
+  const { businessPartnerID } = await ownTx.run(
+    SELECT.one(['businessPartnerID'])
+      .from(UserMappings)
+      .where({ userID: req.user.id })
+  )
+  return businessPartnerID
+}
+
 /** Fill Address data from external service */
 async function _fillAddress (req) {
   console.log('retrieving addresses')
   if (req.data.shippingAddress_AddressID) {
+    const businessPartnerID = await _getBusinessPartnerID(req)
     const tx = bupaSrv.transaction(req)
     const response = await tx.run(
       SELECT.from('API_BUSINESS_PARTNER.A_BusinessPartnerAddress')
         .columns('AddressID', 'CityName', 'StreetName', 'HouseNumber')
-        .where({ AddressID: req.data.shippingAddress_AddressID })
+        .where({
+          AddressID: req.data.shippingAddress_AddressID,
+          BusinessPartner: businessPartnerID
+        })
     )
     if (response && response.length > 0) {
       console.log('filling addresses')
       const tx2 = cds.transaction(req)
       try {
-        await tx2.run(
-          INSERT.into('sap.capire.bookshop.ShippingAddresses').entries(response)
-        )
+        await tx2.run(INSERT.into(ShippingAddresses).entries(response))
       } catch (e) {
         // already in there
       }
