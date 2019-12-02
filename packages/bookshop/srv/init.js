@@ -7,10 +7,17 @@ module.exports = db => {
   INSERT.into(Addresses).entries(
     {
       BusinessPartner: '1234567',
-      AddressID: '12345',
+      AddressID: '11111',
       CityName: 'Walldorf',
       StreetName: 'Dietmar-Hopp-Allee',
-      HouseNumber: '123'
+      HouseNumber: '111'
+    },
+    {
+      BusinessPartner: '1234567',
+      AddressID: '22222',
+      CityName: 'Walldorf',
+      StreetName: 'Dietmar-Hopp-Allee',
+      HouseNumber: '222'
     },
     {
       BusinessPartner: '1003765',

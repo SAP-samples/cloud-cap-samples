@@ -6,7 +6,6 @@ const bupaSrv = cds.connect.to('API_BUSINESS_PARTNER')
 /** Service implementation for CatalogService */
 module.exports = cds.service.impl(function () {
   this.before('CREATE', 'Orders', _reduceStock)
-  // this.before('CREATE', 'Orders', _fillAddress)
   this.before('PATCH', 'Orders', _fillAddress)
 
   this.on('READ', 'Addresses', _readAddresses)
@@ -18,12 +17,12 @@ async function _readAddresses (req) {
   const ql = SELECT.from('API_BUSINESS_PARTNER.A_BusinessPartnerAddress').where(
     { BusinessPartner: businessPartnerID }
   )
-  if (req.query.SELECT.columns) {
+  if (req.query && req.query.SELECT && req.query.SELECT.columns) {
     ql.columns(req.query.SELECT.columns)
   } else {
     ql.columns('AddressID', 'CityName', 'StreetName', 'HouseNumber')
   }
-  if (req.query.SELECT.where) {
+  if (req.query && req.query.SELECT && req.query.SELECT.where) {
     ql.where(req.query.SELECT.where)
   }
   const result = await tx.run(ql)
