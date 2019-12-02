@@ -1,10 +1,9 @@
 module.exports = (srv) => {
 
-    var loki = require('lokijs');
-    var db = new loki('DB');
-    var mediaDB= db.addCollection("Media");
-    var Readable = require('stream').Readable;
-    var PassThroughStream = require('stream').PassThrough;
+    const loki = require('lokijs');
+    const db = new loki('DB');
+    const mediaDB= db.addCollection("Media");
+    const { Readable, PassThrough } = require('stream')
 
     srv.before('CREATE', 'Media', (req) => {
         var obj = mediaDB.insert({media: ""});
@@ -21,7 +20,7 @@ module.exports = (srv) => {
                     req.reject(404,"No record found for the ID");
                     return;
                 }
-                var stream = new PassThroughStream();
+                var stream = new PassThrough();
                 let chunks = [];
                 stream.on('data',  (chunk) => {
                     chunks.push(chunk);
