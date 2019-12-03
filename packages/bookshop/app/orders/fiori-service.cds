@@ -22,10 +22,20 @@ annotate AdminService.OrderItems with {
 
 annotate AdminService.Orders with {
 	shippingAddress @(
-		ValueList.entity:'Addresses',
-	);
-	shippingAddress @(
-		Common.FieldControl: #Mandatory
+		Common: {
+			FieldControl: #Mandatory,
+			ValueList: { 
+				CollectionPath: 'Addresses',
+				Label: 'Addresses',
+				SearchSupported: 'true',
+				Parameters: [
+					{ $Type: 'Common.ValueListParameterOut', LocalDataProperty: 'shippingAddress_AddressID', ValueListProperty: 'AddressID'},
+					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'CityName'},
+					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'StreetName'},
+					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'HouseNumber'},
+				]
+			}
+		}
 	);
 }
 
@@ -61,9 +71,9 @@ annotate AdminService.Orders with @(
 		HeaderFacets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Created}', Target: '@UI.FieldGroup#Created'},
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Modified}', Target: '@UI.FieldGroup#Modified'},
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>ShippingAddress}', Target: '@UI.FieldGroup#ShippingAddress'},
 		],
 		Facets: [
+			{$Type: 'UI.ReferenceFacet', Label: '{i18n>ShippingAddress}', Target: '@UI.FieldGroup#ShippingAddress'},
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}', Target: '@UI.FieldGroup#Details'},
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>OrderItems}', Target: 'Items/@UI.LineItem'},
 		],
@@ -86,10 +96,20 @@ annotate AdminService.Orders with @(
 		},
 		// TODO: Trigger side effects when `shippingAddress_AddressID` is changed
 		FieldGroup#ShippingAddress: {
+    Common.SideEffects : {
+      EffectTypes      : #ValueChange,
+      SourceProperties : [shippingAddress_AddressID],
+      TargetProperties : [
+        shippingAddress.HouseNumber,
+        shippingAddress.StreetName,
+        shippingAddress.CityName
+      ]
+    },
 			Data: [
 				{Value: shippingAddress_AddressID, Label:'{i18n>ShippingAddress}'},
 				{Value: shippingAddress.HouseNumber, Label:'{i18n>HouseNumber}'},
-				{Value: shippingAddress.StreetName, Label:'{i18n>StreetName}'}
+				{Value: shippingAddress.StreetName, Label:'{i18n>StreetName}'},
+				{Value: shippingAddress.CityName, Labe:'{i18n>CityName}'}
 			]
 		},
 	},

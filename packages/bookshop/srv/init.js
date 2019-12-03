@@ -10,14 +10,14 @@ module.exports = db => {
       AddressID: '11111',
       CityName: 'Walldorf',
       StreetName: 'Dietmar-Hopp-Allee',
-      HouseNumber: '111'
+      HouseNumber: '16'
     },
     {
       BusinessPartner: '1234567',
       AddressID: '22222',
-      CityName: 'Walldorf',
-      StreetName: 'Dietmar-Hopp-Allee',
-      HouseNumber: '222'
+      CityName: 'St. Leon-Rot',
+      StreetName: 'SAP-Allee',
+      HouseNumber: '25'
     },
     {
       BusinessPartner: '1003765',
