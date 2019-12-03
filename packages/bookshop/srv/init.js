@@ -21,7 +21,7 @@ module.exports = db => {
       PostalCode: '68789',
       Country: 'Germany',
       StreetName: 'SAP-Allee',
-      HouseNumber: '25',
+      HouseNumber: '25'
     },
     {
       BusinessPartner: '1003765',

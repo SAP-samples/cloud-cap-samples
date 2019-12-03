@@ -30,6 +30,7 @@ annotate AdminService.Orders with {
 				SearchSupported: 'true',
 				Parameters: [
 					{ $Type: 'Common.ValueListParameterOut', LocalDataProperty: 'shippingAddress_AddressID', ValueListProperty: 'AddressID'},
+					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'PostalCode'},
 					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'CityName'},
 					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'StreetName'},
 					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'HouseNumber'},
@@ -96,15 +97,6 @@ annotate AdminService.Orders with @(
 		},
 		// TODO: Trigger side effects when `shippingAddress_AddressID` is changed
 		FieldGroup#ShippingAddress: {
-    Common.SideEffects : {
-      EffectTypes      : #ValueChange,
-      SourceProperties : [shippingAddress_AddressID],
-      TargetProperties : [
-        shippingAddress.HouseNumber,
-        shippingAddress.StreetName,
-        shippingAddress.CityName
-      ]
-    },
 			Data: [
 				{Value: shippingAddress_AddressID, Label:'{i18n>ShippingAddress}'},
 				{Value: shippingAddress.HouseNumber, Label:'{i18n>HouseNumber}'},
@@ -114,6 +106,16 @@ annotate AdminService.Orders with @(
 			]
 		},
 	},
+  Common.SideEffects : {
+    EffectTypes      : #ValueChange,
+    SourceProperties : [shippingAddress_AddressID],
+    TargetProperties : [
+      shippingAddress.HouseNumber,
+      shippingAddress.StreetName,
+      shippingAddress.CityName,
+			shippingAddress.PostalCode
+    ]
+  },
 ) {
 	createdAt @UI.HiddenFilter:false;
 	createdBy @UI.HiddenFilter:false;
