@@ -35,12 +35,25 @@ annotate AdminService.Orders with {
 					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'StreetName'},
 					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'HouseNumber'},
 				]
-			}
+			},
+			SideEffects : {
+    		EffectTypes      : #ValueChange,
+    		SourceProperties : [shippingAddress_AddressID],
+    		TargetProperties : [
+      		shippingAddress.HouseNumber,
+      		shippingAddress.StreetName,
+      		shippingAddress.CityName,
+					shippingAddress.PostalCode
+    		]
+  		}
 		}
 	);
 }
 
-
+////////////////////////////////////////////////////////////////////////////
+//
+//	UI
+//
 annotate AdminService.Orders with @(
 	UI: {
 		////////////////////////////////////////////////////////////////////////////
@@ -65,9 +78,11 @@ annotate AdminService.Orders with @(
 			Description: {Value: createdBy}
 		},
 		Identification: [ //Is the main field group
+			// labels not considered
 			{Value: createdBy, Label:'Customer'},
 			{Value: createdAt, Label:'Date'},
 			{Value: OrderNo },
+			{Value: 'shippingAddress_AddressID', Label: 'Address ID'}
 		],
 		HeaderFacets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Created}', Target: '@UI.FieldGroup#Created'},
@@ -95,33 +110,20 @@ annotate AdminService.Orders with @(
 				{Value: modifiedAt},
 			]
 		},
-		// TODO: Trigger side effects when `shippingAddress_AddressID` is changed
 		FieldGroup#ShippingAddress: {
 			Data: [
 				{Value: shippingAddress_AddressID, Label:'{i18n>ShippingAddress}'},
 				{Value: shippingAddress.HouseNumber, Label:'{i18n>HouseNumber}'},
 				{Value: shippingAddress.StreetName, Label:'{i18n>StreetName}'},
-				{Value: shippingAddress.CityName, Labe:'{i18n>CityName}'},
+				{Value: shippingAddress.CityName, Label:'{i18n>CityName}'},
 				{Value: shippingAddress.PostalCode, Label:'{i18n>PostalCode}'},
 			]
 		},
 	},
-  Common.SideEffects : {
-    EffectTypes      : #ValueChange,
-    SourceProperties : [shippingAddress_AddressID],
-    TargetProperties : [
-      shippingAddress.HouseNumber,
-      shippingAddress.StreetName,
-      shippingAddress.CityName,
-			shippingAddress.PostalCode
-    ]
-  },
 ) {
 	createdAt @UI.HiddenFilter:false;
 	createdBy @UI.HiddenFilter:false;
 };
-
-
 
 //The enity types name is AdminService.my_bookshop_OrderItems
 //The annotations below are not generated in edmx WHY?
