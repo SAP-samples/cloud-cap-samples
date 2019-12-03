@@ -9,6 +9,8 @@ module.exports = db => {
       BusinessPartner: '1234567',
       AddressID: '11111',
       CityName: 'Walldorf',
+      PostalCode: '69190',
+      Country: 'Germany',
       StreetName: 'Dietmar-Hopp-Allee',
       HouseNumber: '16'
     },
@@ -16,13 +18,17 @@ module.exports = db => {
       BusinessPartner: '1234567',
       AddressID: '22222',
       CityName: 'St. Leon-Rot',
+      PostalCode: '68789',
+      Country: 'Germany',
       StreetName: 'SAP-Allee',
-      HouseNumber: '25'
+      HouseNumber: '25',
     },
     {
       BusinessPartner: '1003765',
       AddressID: '28241',
       CityName: 'Palo Alto',
+      PostalCode: '94306',
+      Country: 'United States',
       StreetName: 'Hillview Avenue',
       HouseNumber: '26'
     },
@@ -30,6 +36,8 @@ module.exports = db => {
       BusinessPartner: '1003766',
       AddressID: '28244',
       CityName: 'Hallbergmoos',
+      PostalCode: '85396',
+      Country: 'Germany',
       StreetName: 'Zeppelinstraße',
       HouseNumber: '93'
     },
@@ -37,6 +45,8 @@ module.exports = db => {
       BusinessPartner: '1003767',
       AddressID: '28247',
       CityName: 'Potsdam',
+      PostalCode: '14467',
+      Country: 'Germany',
       StreetName: 'Konrad-Zuse-Ring',
       HouseNumber: '29'
     }

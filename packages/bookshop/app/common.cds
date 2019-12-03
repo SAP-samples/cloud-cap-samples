@@ -77,5 +77,7 @@ annotate my.ShippingAddresses with {
 	AddressID @title:'{i18n>AddressID}';
 	CityName @title:'{i18n>CityName}';
 	StreetName @title:'{i18n>StreetName}';
+	PostalCode @title:'{i18n>PostalCode}';
+	Country @title:'{i18n>Country}';
 	HouseNumber @title:'{i18n>HouseNumber}';
 }
