@@ -44,7 +44,9 @@ entity OrderItems : cuid {
 // TODO: Use external information
 entity ShippingAddresses  {
   key AddressID: String;
+  Country: String @readonly;
   CityName: String @readonly;
+  PostalCode: String @readonly;
   StreetName: String @readonly;
   HouseNumber: String @readonly;
 }

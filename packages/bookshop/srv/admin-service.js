@@ -4,6 +4,8 @@ const RELEVANT_ADDRESS_COLUMNS = [
   'AddressID',
   'CityName',
   'StreetName',
+  'PostalCode',
+  'Country',
   'HouseNumber'
 ]
 

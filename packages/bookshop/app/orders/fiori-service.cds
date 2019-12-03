@@ -89,7 +89,9 @@ annotate AdminService.Orders with @(
 			Data: [
 				{Value: shippingAddress_AddressID, Label:'{i18n>ShippingAddress}'},
 				{Value: shippingAddress.HouseNumber, Label:'{i18n>HouseNumber}'},
-				{Value: shippingAddress.StreetName, Label:'{i18n>StreetName}'}
+				{Value: shippingAddress.StreetName, Label:'{i18n>StreetName}'},
+				{Value: shippingAddress.PostalCode, Label:'{i18n>PostalCode}'},
+				{Value: shippingAddress.Country, Label:'{i18n>Country}'}
 			]
 		},
 	},
