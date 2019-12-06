@@ -90,13 +90,11 @@ async function _fillAddress (req) {
         })
     )
     if (response && response.length > 0) {
-      console.log('to be inserted: ', response)
       const tx2 = cds.transaction(req)
       try {
         await tx2.run(INSERT.into(ShippingAddresses).entries(response))
       } catch (e) {
         // already in there
-        console.log(e)
       }
     } else {
       req.error('Shipping address not found.')
