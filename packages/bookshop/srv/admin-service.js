@@ -1,5 +1,5 @@
 const cds = require('@sap/cds')
-const { Books, ShippingAddresses, UserMappings } = cds.entities
+const { Books, ShippingAddresses, Orders } = cds.entities
 const RELEVANT_ADDRESS_COLUMNS = [
   'AddressID',
   'CityName',
@@ -10,6 +10,44 @@ const RELEVANT_ADDRESS_COLUMNS = [
 ]
 
 const bupaSrv = cds.connect.to('API_BUSINESS_PARTNER')
+const messagingSrv = cds.connect.to('messaging')
+
+messagingSrv.on('sap/messaging/ccf/BO/BusinessPartner/Changed', async msg => {
+  console.log('>> MSG', msg.data)
+  const BusinessPartner = msg.data.KEY[0].BUSINESSPARTNER
+  // TODO: Remove toLower hack.
+  // Every BusinessPartner from S/4HANA is UPPERCASE.
+  const ownOrders = await cds.run(SELECT.from(Orders).where('createdBy like', BusinessPartner))
+  console.log(ownOrders)
+  // const ownAddresses = await cds.run(
+  //   SELECT(['AddressID'])
+  //     .from(ShippingAddresses)
+  //     .where({ BusinessPartner: businessPartner })
+  // )
+  // if (ownAddresses && ownAddresses.length > 0) {
+  //   console.log('found business partner', businessPartner)
+  // }
+  // const tx = bupaSrv.transaction()
+  // const remoteAddresses = await Promise.all(
+  //   ownAddresses.map(addressResult => {
+  //     return tx.run(
+  //       SELECT.one.from('API_BUSINESS_PARTNER.A_BusinessPartnerAddress')
+  //         .columns(RELEVANT_ADDRESS_COLUMNS)
+  //         .where({
+  //           AddressID: addressResult.AddressID,
+  //           BusinessPartner: businessPartner
+  //         })
+  //     )
+  //   })
+  // )
+  // console.log('addresses found:', remoteAddresses)
+  // await Promise.all(remoteAddresses.map(address => {
+  //   console.log('updating', address)
+  //   if (address) {
+  //     return cds.run(UPDATE(ShippingAddresses).set(address))
+  //   }
+  // }))
+})
 
 /** Service implementation for CatalogService */
 module.exports = cds.service.impl(function () {
@@ -19,10 +57,10 @@ module.exports = cds.service.impl(function () {
 })
 
 async function _readAddresses (req) {
-  const businessPartnerID = await _getBusinessPartnerID(req)
+  const BusinessPartner = req.user.id
   const tx = bupaSrv.transaction(req)
   const ql = SELECT.from('API_BUSINESS_PARTNER.A_BusinessPartnerAddress').where(
-    { BusinessPartner: businessPartnerID }
+    { BusinessPartner }
   )
   if (req.query && req.query.SELECT && req.query.SELECT.columns) {
     ql.columns(req.query.SELECT.columns)
@@ -37,35 +75,28 @@ async function _readAddresses (req) {
   return result
 }
 
-async function _getBusinessPartnerID (req) {
-  const ownTx = cds.transaction(req)
-  const { businessPartnerID } = await ownTx.run(
-    SELECT.one(['businessPartnerID'])
-      .from(UserMappings)
-      .where({ userID: req.user.id })
-  )
-  return businessPartnerID
-}
-
 /** Fill Address data from external service */
 async function _fillAddress (req) {
   if (req.data.shippingAddress_AddressID) {
-    const businessPartnerID = await _getBusinessPartnerID(req)
+    const BusinessPartner = req.user.id
     const tx = bupaSrv.transaction(req)
     const response = await tx.run(
       SELECT.from('API_BUSINESS_PARTNER.A_BusinessPartnerAddress')
         .columns(RELEVANT_ADDRESS_COLUMNS)
         .where({
           AddressID: req.data.shippingAddress_AddressID,
-          BusinessPartner: businessPartnerID
+          BusinessPartner
         })
     )
     if (response && response.length > 0) {
+      response[0].BusinessPartner = BusinessPartner
+      console.log('to be inserted: ', response)
       const tx2 = cds.transaction(req)
       try {
         await tx2.run(INSERT.into(ShippingAddresses).entries(response))
       } catch (e) {
         // already in there
+        console.log(e)
       }
     } else {
       req.error('Shipping address not found.')

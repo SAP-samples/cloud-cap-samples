@@ -75,6 +75,7 @@ annotate my.Authors with {
 
 annotate my.ShippingAddresses with {
 	AddressID @title:'{i18n>AddressID}';
+	BusinessPartner @UI.hidden;
 	CityName @title:'{i18n>CityName}';
 	StreetName @title:'{i18n>StreetName}';
 	PostalCode @title:'{i18n>PostalCode}';

@@ -22,11 +22,6 @@ entity Authors : managed {
   books  : Association to many Books on books.author = $self;
 }
 
-entity UserMappings {
-  key userID: String;
-  businessPartnerID: String;
-}
-
 entity Orders : cuid, managed {
   OrderNo  : String @title:'Order Number'; //> readable key
   Items    : Composition of many OrderItems on Items.parent = $self;
@@ -42,8 +37,26 @@ entity OrderItems : cuid {
 }
 
 // TODO: Use external information
-entity ShippingAddresses  {
+// @cds.persistence.skip: false
+// @cds.persistence.table
+// entity ShippingAddresses as projection on extAddresses  {
+//   key AddressID,
+//   key BusinessPartner,
+//   Country,
+//   CityName,
+//   PostalCode,
+//   StreetName,
+//   HouseNumber
+//   // key AddressID: String;
+//   // Country: String @readonly;
+//   // CityName: String @readonly;
+//   // PostalCode: String @readonly;
+//   // StreetName: String @readonly;
+//   // HouseNumber: String @readonly;
+// }
+entity ShippingAddresses {
   key AddressID: String;
+  key BusinessPartner: String;
   Country: String @readonly;
   CityName: String @readonly;
   PostalCode: String @readonly;

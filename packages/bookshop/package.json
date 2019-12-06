@@ -5,6 +5,7 @@
   "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
     "@sap/cds": "latest",
+    "@sap/xb-msg-amqp-v100": "^0.9.31-SNAPSHOT",
     "express": "*",
     "sqlite3": "^4.1.0"
   },
@@ -17,13 +18,8 @@
         "kind": "odata",
         "model": "srv/external/API_BUSINESS_PARTNER"
       },
-      "db": {
-        "kind": "sqlite",
-        "model": [
-          "db/",
-          "srv/",
-          "app/"
-        ]
+      "messaging": {
+        "kind": "enterprise-messaging"
       }
     }
   }

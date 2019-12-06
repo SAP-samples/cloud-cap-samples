@@ -30,6 +30,7 @@ annotate AdminService.Orders with {
 				SearchSupported: 'true',
 				Parameters: [
 					{ $Type: 'Common.ValueListParameterOut', LocalDataProperty: 'shippingAddress_AddressID', ValueListProperty: 'AddressID'},
+					{ $Type: 'Common.ValueListParameterOut', LocalDataProperty: 'shippingAddress_BusinessPartner', ValueListProperty: 'BusinessPartner'},
 					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'PostalCode'},
 					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'CityName'},
 					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'StreetName'},
@@ -40,10 +41,11 @@ annotate AdminService.Orders with {
     		EffectTypes      : #ValueChange,
     		SourceProperties : [shippingAddress_AddressID],
     		TargetProperties : [
-      		shippingAddress.HouseNumber,
-      		shippingAddress.StreetName,
-      		shippingAddress.CityName,
-					shippingAddress.PostalCode
+				shippingAddress.Country,
+				shippingAddress.HouseNumber,
+				shippingAddress.StreetName,
+				shippingAddress.CityName,
+				shippingAddress.PostalCode
     		]
   		}
 		}
@@ -82,7 +84,7 @@ annotate AdminService.Orders with @(
 			{Value: createdBy, Label:'Customer'},
 			{Value: createdAt, Label:'Date'},
 			{Value: OrderNo },
-			{Value: 'shippingAddress_AddressID', Label: 'Address ID'}
+			{Value: 'shippingAddress', Label: 'Address ID'}
 		],
 		HeaderFacets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Created}', Target: '@UI.FieldGroup#Created'},
