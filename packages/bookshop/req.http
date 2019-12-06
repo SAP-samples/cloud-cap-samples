@@ -1,0 +1,6 @@
+PATCH  http://localhost:4004/api-business-partner/A_BusinessPartnerAddress(BusinessPartner='ANONYMOUS',AddressID='62640')
+Content-Type: application/json
+
+{
+    "PostalCode": "123456"
+}

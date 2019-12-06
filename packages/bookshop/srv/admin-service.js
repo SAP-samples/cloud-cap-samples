@@ -14,7 +14,7 @@ const bupaSrv = cds.connect.to('API_BUSINESS_PARTNER')
 const messagingSrv = cds.connect.to('messaging')
 
 messagingSrv.on('sap/messaging/ccf/BO/BusinessPartner/Changed', async msg => {
-  console.log('>> MSG', msg.data)
+  console.log('>> Message:', msg.data)
   const BusinessPartner = msg.data.KEY[0].BUSINESSPARTNER
   // TODO: Remove toLower hack.
   // Every BusinessPartner from S/4HANA is UPPERCASE.

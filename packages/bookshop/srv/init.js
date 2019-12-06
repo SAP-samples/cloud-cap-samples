@@ -10,7 +10,7 @@ module.exports = db => {
       AddressID: '62640',
       CityName: 'Walldorf',
       PostalCode: '69190',
-      Country: 'Germany',
+      Country: 'GER',
       StreetName: 'Dietmar-Hopp-Allee',
       HouseNumber: '16'
     },
@@ -19,7 +19,7 @@ module.exports = db => {
       AddressID: '22222',
       CityName: 'St. Leon-Rot',
       PostalCode: '68789',
-      Country: 'Germany',
+      Country: 'GER',
       StreetName: 'SAP-Allee',
       HouseNumber: '25'
     },
@@ -28,7 +28,7 @@ module.exports = db => {
       AddressID: '62640',
       CityName: 'Walldorf',
       PostalCode: '69190',
-      Country: 'Germany',
+      Country: 'GER',
       StreetName: 'Dietmar-Hopp-Allee',
       HouseNumber: '16'
     },
@@ -37,7 +37,7 @@ module.exports = db => {
       AddressID: '22222',
       CityName: 'St. Leon-Rot',
       PostalCode: '68789',
-      Country: 'Germany',
+      Country: 'GER',
       StreetName: 'SAP-Allee',
       HouseNumber: '25'
     },
@@ -46,7 +46,7 @@ module.exports = db => {
       AddressID: '28241',
       CityName: 'Palo Alto',
       PostalCode: '94306',
-      Country: 'United States',
+      Country: 'USA',
       StreetName: 'Hillview Avenue',
       HouseNumber: '26'
     },
@@ -55,7 +55,7 @@ module.exports = db => {
       AddressID: '28244',
       CityName: 'Hallbergmoos',
       PostalCode: '85396',
-      Country: 'Germany',
+      Country: 'GER',
       StreetName: 'Zeppelinstraße',
       HouseNumber: '93'
     },
@@ -64,7 +64,7 @@ module.exports = db => {
       AddressID: '28247',
       CityName: 'Potsdam',
       PostalCode: '14467',
-      Country: 'Germany',
+      Country: 'GER',
       StreetName: 'Konrad-Zuse-Ring',
       HouseNumber: '29'
     }
