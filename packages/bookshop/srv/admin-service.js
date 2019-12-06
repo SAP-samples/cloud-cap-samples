@@ -64,7 +64,7 @@ async function _readAddresses (req) {
   }
   const tx = bupaSrv.transaction(req)
   const ql = SELECT.from('API_BUSINESS_PARTNER.A_BusinessPartnerAddress').where(
-    { BusinessPartner: businessPartner.toUpperCase() }
+    { BusinessPartner: businessPartner }
   )
   if (req.query && req.query.SELECT && req.query.SELECT.columns) {
     ql.columns(req.query.SELECT.columns)
@@ -92,7 +92,7 @@ async function _fillAddress (req) {
         .columns(RELEVANT_ADDRESS_COLUMNS)
         .where({
           AddressID: req.data.shippingAddress_AddressID,
-          BusinessPartner: businessPartner.toUpperCase()
+          BusinessPartner: businessPartner
         })
     )
     if (response && response.length > 0) {
