@@ -7,6 +7,7 @@
     "@sap/cds": "latest",
     "@sap/xb-msg-amqp-v100": "^0.9.31-SNAPSHOT",
     "express": "*",
+    "passport": "^0.4.0",
     "sqlite3": "^4.1.0"
   },
   "scripts": {
@@ -20,6 +21,12 @@
       },
       "messaging": {
         "kind": "enterprise-messaging"
+      }
+    },
+    "auth": {
+      "passport": {
+        "strategy": "mock",
+        "users": { "alice": { "roles": [ "admin" ], "password": "secret", "ID": "ALICE" } }
       }
     }
   }

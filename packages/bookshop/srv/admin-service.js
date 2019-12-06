@@ -59,6 +59,9 @@ module.exports = cds.service.impl(function () {
 
 async function _readAddresses (req) {
   const businessPartner = req.user.id
+  if (!businessPartner) {
+    return req.reject('You need to be authorized.')
+  }
   const tx = bupaSrv.transaction(req)
   const ql = SELECT.from('API_BUSINESS_PARTNER.A_BusinessPartnerAddress').where(
     { BusinessPartner: businessPartner.toUpperCase() }
@@ -80,6 +83,9 @@ async function _readAddresses (req) {
 async function _fillAddress (req) {
   if (req.data.shippingAddress_AddressID) {
     const businessPartner = req.user.id
+    if (!businessPartner) {
+      return req.reject('You need to be authorized.')
+    }
     const tx = bupaSrv.transaction(req)
     const response = await tx.run(
       SELECT.from('API_BUSINESS_PARTNER.A_BusinessPartnerAddress')

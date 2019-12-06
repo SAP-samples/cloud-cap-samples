@@ -24,6 +24,24 @@ module.exports = db => {
       HouseNumber: '25'
     },
     {
+      BusinessPartner: 'ALICE',
+      AddressID: '62640',
+      CityName: 'Walldorf',
+      PostalCode: '69190',
+      Country: 'Germany',
+      StreetName: 'Dietmar-Hopp-Allee',
+      HouseNumber: '16'
+    },
+    {
+      BusinessPartner: 'ALICE',
+      AddressID: '22222',
+      CityName: 'St. Leon-Rot',
+      PostalCode: '68789',
+      Country: 'Germany',
+      StreetName: 'SAP-Allee',
+      HouseNumber: '25'
+    },
+    {
       BusinessPartner: '1003765',
       AddressID: '28241',
       CityName: 'Palo Alto',
