@@ -6,7 +6,7 @@ module.exports = db => {
   DELETE.from(Addresses)
   INSERT.into(Addresses).entries(
     {
-      BusinessPartner: 'anonymous',
+      BusinessPartner: 'ANONYMOUS',
       AddressID: '62640',
       CityName: 'Walldorf',
       PostalCode: '69190',
@@ -15,7 +15,7 @@ module.exports = db => {
       HouseNumber: '16'
     },
     {
-      BusinessPartner: 'anonymous',
+      BusinessPartner: 'ANONYMOUS',
       AddressID: '22222',
       CityName: 'St. Leon-Rot',
       PostalCode: '68789',

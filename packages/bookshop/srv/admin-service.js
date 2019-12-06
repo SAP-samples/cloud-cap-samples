@@ -2,6 +2,7 @@ const cds = require('@sap/cds')
 const { Books, ShippingAddresses, Orders } = cds.entities
 const RELEVANT_ADDRESS_COLUMNS = [
   'AddressID',
+  'BusinessPartner',
   'CityName',
   'StreetName',
   'PostalCode',
@@ -57,10 +58,10 @@ module.exports = cds.service.impl(function () {
 })
 
 async function _readAddresses (req) {
-  const BusinessPartner = req.user.id
+  const businessPartner = req.user.id
   const tx = bupaSrv.transaction(req)
   const ql = SELECT.from('API_BUSINESS_PARTNER.A_BusinessPartnerAddress').where(
-    { BusinessPartner }
+    { BusinessPartner: businessPartner.toUpperCase() }
   )
   if (req.query && req.query.SELECT && req.query.SELECT.columns) {
     ql.columns(req.query.SELECT.columns)
@@ -78,18 +79,17 @@ async function _readAddresses (req) {
 /** Fill Address data from external service */
 async function _fillAddress (req) {
   if (req.data.shippingAddress_AddressID) {
-    const BusinessPartner = req.user.id
+    const businessPartner = req.user.id
     const tx = bupaSrv.transaction(req)
     const response = await tx.run(
       SELECT.from('API_BUSINESS_PARTNER.A_BusinessPartnerAddress')
         .columns(RELEVANT_ADDRESS_COLUMNS)
         .where({
           AddressID: req.data.shippingAddress_AddressID,
-          BusinessPartner
+          BusinessPartner: businessPartner.toUpperCase()
         })
     )
     if (response && response.length > 0) {
-      response[0].BusinessPartner = BusinessPartner
       console.log('to be inserted: ', response)
       const tx2 = cds.transaction(req)
       try {
