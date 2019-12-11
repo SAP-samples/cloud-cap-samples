@@ -40,26 +40,35 @@ const _qlsToUpdateDifferences = (ownAddresses, remoteAddresses) =>
 
 bupaSrv.on('sap/messaging/ccf/BO/BusinessPartner/Changed', async msg => {
   console.log('>> Message:', msg.data)
+
   const BusinessPartner = msg.data.KEY[0].BUSINESSPARTNER
   const tx = cds.transaction()
   const selectQl = SELECT.from(ShippingAddresses).where({ BusinessPartner })
 
   const ownAddresses = await tx.run(selectQl)
+  await tx.commit()
   console.log('own:', ownAddresses)
   if (ownAddresses && ownAddresses.length > 0) {
     console.log('found')
     const txExt = bupaSrv.transaction()
-    const remoteAddresses = await txExt.run(selectQl)
-
-    await _qlsToUpdateDifferences(ownAddresses, remoteAddresses).map(async ql =>
-      await tx.run(ql)
-    )
+    try {
+      const remoteAddresses = await txExt.run(selectQl)
+      const qlsToUpdateDifferences = _qlsToUpdateDifferences(ownAddresses, remoteAddresses)
+      const tx2 = cds.transaction()
+      if (qlsToUpdateDifferences.length) {
+        await Promise.all(qlsToUpdateDifferences.map(ql =>
+          tx2.run(ql)
+        ))
+        tx2.commit()
+      }
+    } catch (e) {
+      console.error(e)
+    }
   }
-  await tx.commit()
 })
 
 module.exports = cds.service.impl(function () {
-  async function _readAddresses (req) {
+  async function _readAddresses(req) {
     console.log('Addresses', ShippingAddresses)
     const BusinessPartner = req.user.id
     const txExt = bupaSrv.transaction(req)
@@ -73,36 +82,42 @@ module.exports = cds.service.impl(function () {
       ql.where(req.query.SELECT.where)
     }
 
-    const result = await txExt.run(ql)
-
-    return result
+    try {
+      const result = await txExt.run(ql)
+      return result
+    } catch (e) {
+      console.error(e)
+    }
   }
 
-  async function _fillAddress (req) {
+  async function _fillAddress(req) {
     if (req.data.shippingAddress_AddressID) {
       const BusinessPartner = req.user.id
       const txExt = bupaSrv.transaction(req)
-      const response = await txExt.run(
-        SELECT.from(ShippingAddresses).where({
-          AddressID: req.data.shippingAddress_AddressID,
-          BusinessPartner
-        })
-      )
-      if (response && response.length > 0) {
-        const tx = cds.transaction(req)
-        try {
-          const qlStatement = INSERT.into(ShippingAddresses).entries(response)
-          await tx.run(qlStatement)
-        } catch (e) {
-          // already in there
+      try {
+        const response = await txExt.run(
+          SELECT.from(ShippingAddresses).where({
+            AddressID: req.data.shippingAddress_AddressID,
+            BusinessPartner
+          }))
+        if (response && response.length > 0) {
+          const tx = cds.transaction(req)
+          try {
+            const qlStatement = INSERT.into(ShippingAddresses).entries(response)
+            await tx.run(qlStatement)
+          } catch (e) {
+            // already in there
+          }
+        } else {
+          req.error('Shipping address not found.')
         }
-      } else {
-        req.error('Shipping address not found.')
+      } catch (e) {
+        console.error(e)
       }
     }
   }
 
-  async function _reduceStock (req) {
+  async function _reduceStock(req) {
     const { Items: OrderItems } = req.data
     if (OrderItems && OrderItems.length > 0) {
       const all = await cds.transaction(req).run(() =>
@@ -118,7 +133,7 @@ module.exports = cds.service.impl(function () {
           req.error(
             409,
             `${OrderItems[i].amount} exceeds stock for book #${
-              OrderItems[i].book_ID
+            OrderItems[i].book_ID
             }`
           )
       })
