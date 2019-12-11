@@ -29,8 +29,8 @@ annotate AdminService.Orders with {
 				Label: 'Addresses',
 				SearchSupported: 'true',
 				Parameters: [
-					{ $Type: 'Common.ValueListParameterOut', LocalDataProperty: 'shippingAddress_addressID', ValueListProperty: 'addressID'},
-					{ $Type: 'Common.ValueListParameterOut', LocalDataProperty: 'shippingAddress_businessPartner', ValueListProperty: 'businessPartner'},
+					{ $Type: 'Common.ValueListParameterOut', LocalDataProperty: 'shippingAddress_AddressID', ValueListProperty: 'AddressID'},
+					{ $Type: 'Common.ValueListParameterOut', LocalDataProperty: 'shippingAddress_BusinessPartner', ValueListProperty: 'BusinessPartner'},
 					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'postalCode'},
 					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'cityName'},
 					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'country'},
@@ -40,7 +40,7 @@ annotate AdminService.Orders with {
 			},
 			SideEffects : {
     		EffectTypes      : #ValueChange,
-    		SourceProperties : [shippingAddress_addressID],
+    		SourceProperties : [shippingAddress_AddressID],
     		TargetProperties : [
 				shippingAddress.country,
 				shippingAddress.houseNumber,
@@ -115,7 +115,7 @@ annotate AdminService.Orders with @(
 		},
 		FieldGroup#ShippingAddress: {
 			Data: [
-				{Value: shippingAddress_addressID, Label:'{i18n>shippingAddress}'},
+				{Value: shippingAddress_AddressID, Label:'{i18n>shippingAddress}'},
 				{Value: shippingAddress.houseNumber, Label:'{i18n>houseNumber}'},
 				{Value: shippingAddress.streetName, Label:'{i18n>streetName}'},
 				{Value: shippingAddress.cityName, Label:'{i18n>cityName}'},

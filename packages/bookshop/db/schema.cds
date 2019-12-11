@@ -40,8 +40,8 @@ entity OrderItems : cuid {
 @cds.persistence.skip: false
 @cds.persistence.table
 entity ShippingAddresses as projection on extAddresses  {
-  key AddressID as addressID,
-  key BusinessPartner as businessPartner,
+  key AddressID,
+  key BusinessPartner,
   Country as country,
   CityName as cityName,
   PostalCode as postalCode,

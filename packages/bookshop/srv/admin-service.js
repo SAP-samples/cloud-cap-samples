@@ -15,8 +15,8 @@ const _qlsToUpdateDifferences = (ownAddresses, remoteAddresses) =>
     .map(ownAddress => {
       const remoteAddress = remoteAddresses.find(
         address =>
-          address.businessPartner === ownAddress.businessPartner &&
-          address.addressID === ownAddress.addressID
+          address.BusinessPartner === ownAddress.BusinessPartner &&
+          address.AddressID === ownAddress.AddressID
       )
       if (remoteAddress) {
         const diff = _diff(ownAddress, remoteAddress)
@@ -26,25 +26,25 @@ const _qlsToUpdateDifferences = (ownAddresses, remoteAddresses) =>
           UPDATE(ShippingAddresses)
             .set(diff)
             .where({
-              businessPartner: ownAddress.businessPartner,
-              addressID: ownAddress.addressID
+              BusinessPartner: ownAddress.BusinessPartner,
+              AddressID: ownAddress.AddressID
             })
         )
       }
       return DELETE(ShippingAddresses).where({
-        businessPartner: ownAddress.businessPartner,
-        addressID: ownAddress.addressID
+        BusinessPartner: ownAddress.BusinessPartner,
+        AddressID: ownAddress.AddressID
       })
     })
     .filter(el => el)
 
 bupaSrv.on('sap/messaging/ccf/BO/BusinessPartner/Changed', async msg => {
   console.log('>> Message:', msg.data)
-  const businessPartner = msg.data.KEY[0].BUSINESSPARTNER
+  const BusinessPartner = msg.data.KEY[0].BUSINESSPARTNER
   const tx = cds.transaction()
-  const selectQl = SELECT.from(ShippingAddresses).where({ businessPartner })
+  const selectQl = SELECT.from(ShippingAddresses).where({ BusinessPartner })
   const selectQlToBeDeleted = SELECT.from(ShippingAddresses).where({
-    businessPartner
+    BusinessPartner
   })
 
   const ownAddresses = await tx.run(selectQl)
@@ -55,8 +55,8 @@ bupaSrv.on('sap/messaging/ccf/BO/BusinessPartner/Changed', async msg => {
     const txExt = bupaSrv.transaction()
     const remoteAddresses = await txExt.run(selectQlToBeDeleted)
 
-    await _qlsToUpdateDifferences(ownAddresses, remoteAddresses).map(ql =>
-      tx.run(ql)
+    await _qlsToUpdateDifferences(ownAddresses, remoteAddresses).map(async ql =>
+      await tx.run(ql)
     )
     await tx.commit()
   }
@@ -65,10 +65,10 @@ bupaSrv.on('sap/messaging/ccf/BO/BusinessPartner/Changed', async msg => {
 module.exports = cds.service.impl(function () {
   async function _readAddresses (req) {
     console.log('Addresses', ShippingAddresses)
-    const businessPartner = req.user.id
-    const tx = bupaSrv.transaction(req)
+    const BusinessPartner = req.user.id
+    const txExt = bupaSrv.transaction(req)
     const ql = SELECT.from(ShippingAddresses).where({
-      businessPartner
+      BusinessPartner
     })
     if (req.query && req.query.SELECT && req.query.SELECT.columns) {
       ql.columns(req.query.SELECT.columns)
@@ -77,26 +77,26 @@ module.exports = cds.service.impl(function () {
       ql.where(req.query.SELECT.where)
     }
 
-    const result = await tx.run(ql)
-    delete result.businessPartner
+    const result = await txExt.run(ql)
+
     return result
   }
 
   async function _fillAddress (req) {
-    if (req.data.shippingAddress_addressID) {
-      const businessPartner = req.user.id
-      const tx = bupaSrv.transaction(req)
-      const response = await tx.run(
+    if (req.data.shippingAddress_AddressID) {
+      const BusinessPartner = req.user.id
+      const txExt = bupaSrv.transaction(req)
+      const response = await txExt.run(
         SELECT.from(ShippingAddresses).where({
-          addressID: req.data.shippingAddress_addressID,
-          businessPartner
+          AddressID: req.data.shippingAddress_AddressID,
+          BusinessPartner
         })
       )
       if (response && response.length > 0) {
-        const tx2 = cds.transaction(req)
+        const tx = cds.transaction(req)
         try {
           const qlStatement = INSERT.into(ShippingAddresses).entries(response)
-          await tx2.run(qlStatement)
+          await tx.run(qlStatement)
         } catch (e) {
           // already in there
         }
