@@ -48,7 +48,6 @@ bupaSrv.on('sap/messaging/ccf/BO/BusinessPartner/Changed', async msg => {
   })
 
   const ownAddresses = await tx.run(selectQl)
-  await tx.commit()
   console.log('own:', ownAddresses)
   if (ownAddresses && ownAddresses.length > 0) {
     console.log('found')
@@ -58,8 +57,8 @@ bupaSrv.on('sap/messaging/ccf/BO/BusinessPartner/Changed', async msg => {
     await _qlsToUpdateDifferences(ownAddresses, remoteAddresses).map(async ql =>
       await tx.run(ql)
     )
-    await tx.commit()
   }
+  await tx.commit()
 })
 
 module.exports = cds.service.impl(function () {
