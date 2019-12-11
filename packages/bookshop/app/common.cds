@@ -74,11 +74,11 @@ annotate my.Authors with {
 }
 
 annotate my.ShippingAddresses with {
-	AddressID @title:'{i18n>AddressID}';
-	BusinessPartner @title:'{i18n>BusinessPartner}';
-	CityName @title:'{i18n>CityName}';
-	StreetName @title:'{i18n>StreetName}';
-	PostalCode @title:'{i18n>PostalCode}';
-	Country @title:'{i18n>Country}';
-	HouseNumber @title:'{i18n>HouseNumber}';
+	addressID @title:'{i18n>addressID}';
+	businessPartner @title:'{i18n>businessPartner}';
+	cityName @title:'{i18n>cityName}';
+	streetName @title:'{i18n>streetName}';
+	postalCode @title:'{i18n>postalCode}';
+	country @title:'{i18n>country}';
+	houseNumber @title:'{i18n>houseNumber}';
 }

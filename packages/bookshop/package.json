@@ -17,16 +17,27 @@
     "requires": {
       "API_BUSINESS_PARTNER": {
         "kind": "odata",
-        "model": "srv/external/API_BUSINESS_PARTNER"
+        "model": "srv/external/API_BUSINESS_PARTNER",
+        "--credentials": {
+          "url": "http://www.google.com"
+        }
       },
       "messaging": {
-        "kind": "enterprise-messaging"
+        "kind": "file-based-messaging"
       }
     },
     "auth": {
       "passport": {
         "strategy": "mock",
-        "users": { "alice": { "roles": [ "admin" ], "password": "secret", "ID": "ALICE" } }
+        "users": {
+          "alice": {
+            "roles": [
+              "admin"
+            ],
+            "password": "secret",
+            "ID": "ALICE"
+          }
+        }
       }
     }
   }

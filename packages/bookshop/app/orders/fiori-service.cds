@@ -29,23 +29,24 @@ annotate AdminService.Orders with {
 				Label: 'Addresses',
 				SearchSupported: 'true',
 				Parameters: [
-					{ $Type: 'Common.ValueListParameterOut', LocalDataProperty: 'shippingAddress_AddressID', ValueListProperty: 'AddressID'},
-					{ $Type: 'Common.ValueListParameterOut', LocalDataProperty: 'shippingAddress_BusinessPartner', ValueListProperty: 'BusinessPartner'},
-					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'PostalCode'},
-					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'CityName'},
-					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'StreetName'},
-					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'HouseNumber'},
+					{ $Type: 'Common.ValueListParameterOut', LocalDataProperty: 'shippingAddress_addressID', ValueListProperty: 'addressID'},
+					{ $Type: 'Common.ValueListParameterOut', LocalDataProperty: 'shippingAddress_businessPartner', ValueListProperty: 'businessPartner'},
+					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'postalCode'},
+					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'cityName'},
+					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'country'},
+					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'streetName'},
+					{ $Type: 'Common.ValueListParameterDisplayOnly', ValueListProperty: 'houseNumber'},
 				]
 			},
 			SideEffects : {
     		EffectTypes      : #ValueChange,
-    		SourceProperties : [shippingAddress_AddressID],
+    		SourceProperties : [shippingAddress_addressID],
     		TargetProperties : [
-				shippingAddress.Country,
-				shippingAddress.HouseNumber,
-				shippingAddress.StreetName,
-				shippingAddress.CityName,
-				shippingAddress.PostalCode
+				shippingAddress.country,
+				shippingAddress.houseNumber,
+				shippingAddress.streetName,
+				shippingAddress.cityName,
+				shippingAddress.postalCode
     		]
   		}
 		}
@@ -114,11 +115,11 @@ annotate AdminService.Orders with @(
 		},
 		FieldGroup#ShippingAddress: {
 			Data: [
-				{Value: shippingAddress_AddressID, Label:'{i18n>ShippingAddress}'},
-				{Value: shippingAddress.HouseNumber, Label:'{i18n>HouseNumber}'},
-				{Value: shippingAddress.StreetName, Label:'{i18n>StreetName}'},
-				{Value: shippingAddress.CityName, Label:'{i18n>CityName}'},
-				{Value: shippingAddress.PostalCode, Label:'{i18n>PostalCode}'},
+				{Value: shippingAddress_addressID, Label:'{i18n>shippingAddress}'},
+				{Value: shippingAddress.houseNumber, Label:'{i18n>houseNumber}'},
+				{Value: shippingAddress.streetName, Label:'{i18n>streetName}'},
+				{Value: shippingAddress.cityName, Label:'{i18n>cityName}'},
+				{Value: shippingAddress.postalCode, Label:'{i18n>postalCode}'},
 			]
 		},
 	},

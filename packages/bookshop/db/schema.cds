@@ -37,29 +37,23 @@ entity OrderItems : cuid {
 }
 
 // TODO: Use external information
-// @cds.persistence.skip: false
-// @cds.persistence.table
-// entity ShippingAddresses as projection on extAddresses  {
-//   key AddressID,
-//   key BusinessPartner,
-//   Country,
-//   CityName,
-//   PostalCode,
-//   StreetName,
-//   HouseNumber
-//   // key AddressID: String;
-//   // Country: String @readonly;
-//   // CityName: String @readonly;
-//   // PostalCode: String @readonly;
-//   // StreetName: String @readonly;
-//   // HouseNumber: String @readonly;
-// }
-entity ShippingAddresses {
-  key AddressID: String;
-  key BusinessPartner: String;
-  Country: String @readonly;
-  CityName: String @readonly;
-  PostalCode: String @readonly;
-  StreetName: String @readonly;
-  HouseNumber: String @readonly;
+@cds.persistence.skip: false
+@cds.persistence.table
+entity ShippingAddresses as projection on extAddresses  {
+  key AddressID as addressID,
+  key BusinessPartner as businessPartner,
+  Country as country,
+  CityName as cityName,
+  PostalCode as postalCode,
+  StreetName as streetName,
+  HouseNumber as houseNumber
 }
+// entity ShippingAddresses {
+//   key AddressID: String;
+//   key BusinessPartner: String;
+//   Country: String @readonly;
+//   CityName: String @readonly;
+//   PostalCode: String @readonly;
+//   StreetName: String @readonly;
+//   HouseNumber: String @readonly;
+// }
