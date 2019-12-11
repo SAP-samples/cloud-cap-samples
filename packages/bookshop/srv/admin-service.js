@@ -54,11 +54,13 @@ bupaSrv.on('sap/messaging/ccf/BO/BusinessPartner/Changed', async msg => {
     try {
       const remoteAddresses = await txExt.run(selectQl)
       const qlsToUpdateDifferences = _qlsToUpdateDifferences(ownAddresses, remoteAddresses)
-      const tx2 = cds.transaction()
-      await Promise.all(qlsToUpdateDifferences.map(ql =>
-        tx2.run(ql)
-      ))
-      tx2.commit()
+      if (qlsToUpdateDifferences.length) {
+        const tx2 = cds.transaction()
+        await Promise.all(qlsToUpdateDifferences.map(ql =>
+          tx2.run(ql)
+        ))
+        tx2.commit()
+      }
     } catch (e) {
       console.error(e)
     }

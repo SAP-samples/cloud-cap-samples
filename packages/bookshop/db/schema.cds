@@ -1,6 +1,6 @@
 namespace sap.capire.bookshop;
 using { Currency, managed, cuid } from '@sap/cds/common';
-using { API_BUSINESS_PARTNER.A_BusinessPartnerAddress as extAddresses } from '../srv/external/API_BUSINESS_PARTNER.csn';
+using { API_BUSINESS_PARTNER.A_BusinessPartnerAddress as extAddresses } from '../srv/external/API_BUSINESS_PARTNER';
 
 entity Books : managed {
   key ID : Integer;

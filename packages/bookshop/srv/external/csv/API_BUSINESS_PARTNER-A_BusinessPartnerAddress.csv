@@ -1,0 +1,3 @@
+BusinessPartner;AddressID;CityName;PostalCode;Country;StreetName;HouseNumber
+ALICE;62640;Walldorf;69190;GER;Dietmer-Hopp-Allee;16
+ALICE;62641;Berlin;69390;GER;Berlin-Street;19

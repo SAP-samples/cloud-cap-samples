@@ -22,7 +22,7 @@
         }
       },
       "messaging": {
-        "kind": "file-based-messaging"
+        "kind": "enterprise-messaging"
       }
     },
     "auth": {
