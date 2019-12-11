@@ -54,7 +54,6 @@ bupaSrv.on('sap/messaging/ccf/BO/BusinessPartner/Changed', async msg => {
     console.log('found')
     const txExt = bupaSrv.transaction()
     const remoteAddresses = await txExt.run(selectQlToBeDeleted)
-    await txExt.commit()
 
     await _qlsToUpdateDifferences(ownAddresses, remoteAddresses).map(ql =>
       tx.run(ql)
