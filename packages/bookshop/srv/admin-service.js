@@ -20,9 +20,9 @@ const _qlsToUpdateDifferences = (ownAddresses, remoteAddresses) =>
       )
       if (remoteAddress) {
         const diff = _diff(ownAddress, remoteAddress)
-        console.log('changing', diff)
         return (
           Object.keys(diff).length &&
+          console.log('changing', diff) && 
           UPDATE(ShippingAddresses)
             .set(diff)
             .where({
