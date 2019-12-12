@@ -6,7 +6,7 @@ module.exports = srv => {
             KEY: [{ BUSINESSPARTNER: req.data.BusinessPartner }]
         }
         console.log('<< Message:', payload)
-        srv.emit('sap/messaging/ccf/BO/BusinessPartner/Changed', payload)
+        srv.emit('sap/S4HANAOD/c532/BO/BusinessPartner/Changed', payload)
 
     })
 

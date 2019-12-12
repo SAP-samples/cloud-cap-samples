@@ -20,21 +20,20 @@ const _qlsToUpdateDifferences = (ownAddresses, remoteAddresses) =>
       )
       if (remoteAddress) {
         const diff = _diff(ownAddress, remoteAddress)
-        return (
-          Object.keys(diff).length &&
-          console.log('changing', diff) && 
-          UPDATE(ShippingAddresses)
+        if(Object.keys(diff).length) {
+          console.log('changing', diff)
+          return UPDATE(ShippingAddresses)
             .set(diff)
             .where({
               BusinessPartner: ownAddress.BusinessPartner,
               AddressID: ownAddress.AddressID
             })
-        )
+          }
       }
     })
     .filter(el => el)
 
-bupaSrv.on('sap/messaging/ccf/BO/BusinessPartner/Changed', async msg => {
+bupaSrv.on('sap/S4HANAOD/c532/BO/BusinessPartner/Changed', async msg => {
   console.log('>> Message:', msg.data)
 
   const BusinessPartner = msg.data.KEY[0].BUSINESSPARTNER
