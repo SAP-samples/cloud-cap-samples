@@ -38,24 +38,20 @@ bupaSrv.on('sap/messaging/ccf/BO/BusinessPartner/Changed', async msg => {
   console.log('>> Message:', msg.data)
 
   const BusinessPartner = msg.data.KEY[0].BUSINESSPARTNER
-  const tx = cds.transaction()
+  const tx = cds.transaction(msg)
   const selectQl = SELECT.from(ShippingAddresses).where({ BusinessPartner })
 
   const ownAddresses = await tx.run(selectQl)
-  // await tx.commit()
-  console.log('own:', ownAddresses)
   if (ownAddresses && ownAddresses.length > 0) {
     console.log('found')
-    const txExt = bupaSrv.transaction()
+    const txExt = bupaSrv.transaction(msg)
     try {
       const remoteAddresses = await txExt.run(selectQl)
       const qlsToUpdateDifferences = _qlsToUpdateDifferences(ownAddresses, remoteAddresses)
       if (qlsToUpdateDifferences.length) {
-        const tx2 = cds.transaction()
         await Promise.all(qlsToUpdateDifferences.map(ql =>
-          tx2.run(ql)
+          tx.run(ql)
         ))
-        tx2.commit()
       }
     } catch (e) {
       console.error(e)
