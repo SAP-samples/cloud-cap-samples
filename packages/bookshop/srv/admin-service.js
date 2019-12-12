@@ -31,10 +31,6 @@ const _qlsToUpdateDifferences = (ownAddresses, remoteAddresses) =>
             })
         )
       }
-      return DELETE(ShippingAddresses).where({
-        BusinessPartner: ownAddress.BusinessPartner,
-        AddressID: ownAddress.AddressID
-      })
     })
     .filter(el => el)
 
@@ -46,7 +42,7 @@ bupaSrv.on('sap/messaging/ccf/BO/BusinessPartner/Changed', async msg => {
   const selectQl = SELECT.from(ShippingAddresses).where({ BusinessPartner })
 
   const ownAddresses = await tx.run(selectQl)
-  await tx.commit()
+  // await tx.commit()
   console.log('own:', ownAddresses)
   if (ownAddresses && ownAddresses.length > 0) {
     console.log('found')
