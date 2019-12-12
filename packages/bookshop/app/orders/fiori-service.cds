@@ -59,17 +59,6 @@ annotate AdminService.Orders with {
                 },
             ]
         },
-        SideEffects  : {
-            EffectTypes      : #ValueChange,
-            SourceProperties : [shippingAddress_AddressID],
-            TargetProperties : [
-                shippingAddress.country,
-                shippingAddress.houseNumber,
-                shippingAddress.streetName,
-                shippingAddress.cityName,
-                shippingAddress.postalCode
-            ]
-        }
     });
 }
 
@@ -188,7 +177,19 @@ annotate AdminService.Orders with @(UI : {
             Label : '{i18n>postalCode}'
         },
     ]},
-}, ) {
+},
+Common.SideEffects : {
+        EffectTypes      : #ValueChange,
+        SourceProperties : [shippingAddress_AddressID],
+        TargetProperties : [
+            shippingAddress.country,
+            shippingAddress.houseNumber,
+            shippingAddress.streetName,
+            shippingAddress.cityName,
+            shippingAddress.postalCode
+        ]
+    },
+) {
     createdAt @UI.HiddenFilter : false;
     createdBy @UI.HiddenFilter : false;
 };
