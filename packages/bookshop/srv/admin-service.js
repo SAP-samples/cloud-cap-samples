@@ -21,7 +21,6 @@ const _qlsToUpdateDifferences = (ownAddresses, remoteAddresses) =>
       if (remoteAddress) {
         const diff = _diff(ownAddress, remoteAddress)
         if (Object.keys(diff).length) {
-          console.log('changing', diff)
           return UPDATE(ShippingAddresses)
             .set(diff)
             .where({
@@ -42,7 +41,6 @@ bupaSrv.on('sap/S4HANAOD/c532/BO/BusinessPartner/Changed', async msg => {
 
   const ownAddresses = await tx.run(selectQl)
   if (ownAddresses && ownAddresses.length > 0) {
-    console.log('found')
     const txExt = bupaSrv.transaction(msg)
     try {
       const remoteAddresses = await txExt.run(selectQl)
@@ -52,6 +50,7 @@ bupaSrv.on('sap/S4HANAOD/c532/BO/BusinessPartner/Changed', async msg => {
       )
       if (qlsToUpdateDifferences.length) {
         await Promise.all(qlsToUpdateDifferences.map(ql => tx.run(ql)))
+        // await tx.run(qlsToUpdateDifferences)
       }
     } catch (e) {
       console.error(e)
