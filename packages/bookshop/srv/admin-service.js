@@ -113,7 +113,12 @@ async function _reduceStock (req) {
 }
 
 function _checkMandatoryParams(req) {
-  return !req.data.shippingAddress_AddressID && req.error('Please enter a valid shpping address.', 'shippingAddess_AddressID')
+  if (!req.data.Items || !req.data.Items.length){
+   return req.reject('Please order at least one item.')
+  }
+  if (!req.data.shippingAddress_AddressID) {
+   return req.reject('Please enter a valid shpping address.', 'shippingAddess_AddressID')
+  }
 }
 
 module.exports = cds.service.impl(function () {
