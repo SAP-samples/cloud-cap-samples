@@ -46,11 +46,12 @@ bupaSrv.on('sap/S4HANAOD/c532/BO/BusinessPartner/Changed', async msg => {
     const txExt = bupaSrv.transaction(msg)
     try {
       const remoteAddresses = await txExt.run(selectQl)
-      const qlsToUpdateDifferences = _qlsToUpdateDifferences(ownAddresses, remoteAddresses)
+      const qlsToUpdateDifferences = _qlsToUpdateDifferences(
+        ownAddresses,
+        remoteAddresses
+      )
       if (qlsToUpdateDifferences.length) {
-        await Promise.all(qlsToUpdateDifferences.map(ql =>
-          tx.run(ql)
-        ))
+        await Promise.all(qlsToUpdateDifferences.map(ql => tx.run(ql)))
       }
     } catch (e) {
       console.error(e)
@@ -58,71 +59,64 @@ bupaSrv.on('sap/S4HANAOD/c532/BO/BusinessPartner/Changed', async msg => {
   }
 })
 
-module.exports = cds.service.impl(function () {
-  async function _readAddresses(req) {
-    console.log('Addresses', ShippingAddresses)
+async function _readAddresses (req) {
+  console.log('Addresses', ShippingAddresses)
+  const BusinessPartner = req.user.id
+  const txExt = bupaSrv.transaction(req)
+  const ql = req.query.from(ShippingAddresses).where({ BusinessPartner })
+
+  try {
+    const result = await txExt.run(ql)
+    return result
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+async function _fillAddress (req) {
+  if (req.data.shippingAddress_AddressID) {
     const BusinessPartner = req.user.id
     const txExt = bupaSrv.transaction(req)
-    const ql = req.query.from(ShippingAddresses).where({ BusinessPartner })
-
     try {
-      const result = await txExt.run(ql)
-      return result
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
-  async function _fillAddress(req) {
-    if (req.data.shippingAddress_AddressID) {
-      const BusinessPartner = req.user.id
-      const txExt = bupaSrv.transaction(req)
-      try {
-        const response = await txExt.run(
-          SELECT.from(ShippingAddresses).where({
-            AddressID: req.data.shippingAddress_AddressID,
-            BusinessPartner
-          }))
-        if (response && response.length > 0) {
-          const tx = cds.transaction(req)
-          try {
-            const qlStatement = INSERT.into(ShippingAddresses).entries(response)
-            await tx.run(qlStatement)
-          } catch (e) {
-            // already in there
-          }
-        } else {
-          req.error('Shipping address not found.')
-        }
-      } catch (e) {
-        console.error(e)
-      }
-    }
-  }
-
-  async function _reduceStock(req) {
-    const { Items: OrderItems } = req.data
-    if (OrderItems && OrderItems.length > 0) {
-      const all = await cds.transaction(req).run(() =>
-        OrderItems.map(order =>
-          UPDATE(Books)
-            .set('stock -=', order.amount)
-            .where('ID =', order.book_ID)
-            .and('stock >=', order.amount)
-        )
+      const response = await txExt.run(
+        SELECT.from(ShippingAddresses).where({
+          AddressID: req.data.shippingAddress_AddressID,
+          BusinessPartner
+        })
       )
-      all.forEach((affectedRows, i) => {
-        if (affectedRows === 0)
-          req.error(
-            409,
-            `${OrderItems[i].amount} exceeds stock for book #${
-            OrderItems[i].book_ID
-            }`
-          )
-      })
-    }
+      if (response && response.length === 1) {
+        const tx = cds.transaction(req)
+        const qlStatement = INSERT.into(ShippingAddresses).entries(response)
+        await tx.run(qlStatement)
+      }
+    } catch (e) {}
   }
+}
 
+async function _reduceStock (req) {
+  const { Items: OrderItems } = req.data
+  if (OrderItems && OrderItems.length > 0) {
+    const all = await cds.transaction(req).run(() =>
+      OrderItems.map(order =>
+        UPDATE(Books)
+          .set('stock -=', order.amount)
+          .where('ID =', order.book_ID)
+          .and('stock >=', order.amount)
+      )
+    )
+    all.forEach((affectedRows, i) => {
+      if (affectedRows === 0)
+        req.error(
+          409,
+          `${OrderItems[i].amount} exceeds stock for book #${
+            OrderItems[i].book_ID
+          }`
+        )
+    })
+  }
+}
+
+module.exports = cds.service.impl(function () {
   this.before('CREATE', 'Orders', _reduceStock)
   this.before('PATCH', 'Orders', _fillAddress)
   this.on('READ', 'Addresses', _readAddresses)

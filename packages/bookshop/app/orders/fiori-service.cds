@@ -129,7 +129,7 @@ annotate AdminService.Orders with @(UI : {
     Facets                      : [
         {
             $Type  : 'UI.ReferenceFacet',
-            Label  : '{i18n>ShippingAddress}',
+            Label  : '{i18n>shippingAddress}',
             Target : '@UI.FieldGroup#ShippingAddress'
         },
         {
