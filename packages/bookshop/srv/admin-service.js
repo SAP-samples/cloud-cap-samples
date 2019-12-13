@@ -48,9 +48,7 @@ bupaSrv.on('sap/S4HANAOD/c532/BO/BusinessPartner/Changed', async msg => {
         ownAddresses,
         remoteAddresses
       )
-      if (qlsToUpdateDifferences.length) {
-        await Promise.all(qlsToUpdateDifferences.map(ql => tx.run(ql)))
-      }
+      await tx.run(qlsToUpdateDifferences)
     } catch (e) {
       console.error(e)
     }
@@ -94,7 +92,7 @@ async function _fillAddress (req) {
 async function _reduceStock (req) {
   const { Items: OrderItems } = req.data
   if (OrderItems && OrderItems.length > 0) {
-    const all = await cds.transaction(req).run(() =>
+    const all = await cds.transaction(req).run(
       OrderItems.map(order =>
         UPDATE(Books)
           .set('stock -=', order.amount)
@@ -114,8 +112,13 @@ async function _reduceStock (req) {
   }
 }
 
+function _checkMandatoryParams(req) {
+  return !req.data.shippingAddress_AddressID && req.error('Please enter a valid shpping address.', 'shippingAddess_AddressID')
+}
+
 module.exports = cds.service.impl(function () {
   this.before('CREATE', 'Orders', _reduceStock)
+  this.before('CREATE', 'Orders', _checkMandatoryParams)
   this.before('PATCH', 'Orders', _fillAddress)
   this.on('READ', 'Addresses', _readAddresses)
 })
