@@ -50,7 +50,6 @@ bupaSrv.on('sap/S4HANAOD/c532/BO/BusinessPartner/Changed', async msg => {
       )
       if (qlsToUpdateDifferences.length) {
         await Promise.all(qlsToUpdateDifferences.map(ql => tx.run(ql)))
-        // await tx.run(qlsToUpdateDifferences)
       }
     } catch (e) {
       console.error(e)
