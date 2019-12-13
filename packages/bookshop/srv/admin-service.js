@@ -66,11 +66,14 @@ module.exports = cds.service.impl(function () {
     const ql = SELECT.from(ShippingAddresses).where({
       BusinessPartner
     })
-    if (req.query && req.query.SELECT && req.query.SELECT.columns) {
+    if (req.query.SELECT.columns) {
       ql.columns(req.query.SELECT.columns)
     }
-    if (req.query && req.query.SELECT && req.query.SELECT.where) {
+    if (req.query.SELECT.where) {
       ql.where(req.query.SELECT.where)
+    }
+    if (req.query.SELECT.limit) {
+      ql.SELECT.limit = req.query.SELECT.limit
     }
 
     try {
