@@ -20,7 +20,7 @@ const _qlsToUpdateDifferences = (ownAddresses, remoteAddresses) =>
       )
       if (remoteAddress) {
         const diff = _diff(ownAddress, remoteAddress)
-        if(Object.keys(diff).length) {
+        if (Object.keys(diff).length) {
           console.log('changing', diff)
           return UPDATE(ShippingAddresses)
             .set(diff)
@@ -28,7 +28,7 @@ const _qlsToUpdateDifferences = (ownAddresses, remoteAddresses) =>
               BusinessPartner: ownAddress.BusinessPartner,
               AddressID: ownAddress.AddressID
             })
-          }
+        }
       }
     })
     .filter(el => el)
@@ -63,18 +63,7 @@ module.exports = cds.service.impl(function () {
     console.log('Addresses', ShippingAddresses)
     const BusinessPartner = req.user.id
     const txExt = bupaSrv.transaction(req)
-    const ql = SELECT.from(ShippingAddresses).where({
-      BusinessPartner
-    })
-    if (req.query.SELECT.columns) {
-      ql.columns(req.query.SELECT.columns)
-    }
-    if (req.query.SELECT.where) {
-      ql.where(req.query.SELECT.where)
-    }
-    if (req.query.SELECT.limit) {
-      ql.SELECT.limit = req.query.SELECT.limit
-    }
+    const ql = req.query.from(ShippingAddresses).where({ BusinessPartner })
 
     try {
       const result = await txExt.run(ql)
