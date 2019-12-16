@@ -62,10 +62,12 @@ async function _readAddresses (req) {
   const ql = req.query.from(ShippingAddresses).where({ BusinessPartner })
 
   try {
-    const result = await txExt.run(ql)
-    return result
+    return txExt.run(ql)
   } catch (e) {
+    // If external system is not available, use own replicated data
     console.error(e)
+    const tx = cds.transaction(req)
+    return tx.run(ql)
   }
 }
 
@@ -85,7 +87,10 @@ async function _fillAddress (req) {
         const qlStatement = INSERT.into(ShippingAddresses).entries(response)
         await tx.run(qlStatement)
       }
-    } catch (e) {}
+    } catch (e) {
+      // If external system is not available and data was fetched
+      // using own replicated data, nothing needs to be done here.
+    }
   }
 }
 
@@ -112,12 +117,15 @@ async function _reduceStock (req) {
   }
 }
 
-function _checkMandatoryParams(req) {
-  if (!req.data.Items || !req.data.Items.length){
-   return req.reject('Please order at least one item.')
+function _checkMandatoryParams (req) {
+  if (!req.data.Items || !req.data.Items.length) {
+    return req.reject('Please order at least one item.')
   }
   if (!req.data.shippingAddress_AddressID) {
-   return req.reject('Please enter a valid shpping address.', 'shippingAddess_AddressID')
+    return req.reject(
+      'Please enter a valid shpping address.',
+      'shippingAddess_AddressID'
+    )
   }
 }
 
