@@ -64,10 +64,7 @@ async function _readAddresses (req) {
   try {
     return txExt.run(ql)
   } catch (e) {
-    // If external system is not available, use own replicated data
-    console.error(e)
-    const tx = cds.transaction(req)
-    return tx.run(ql)
+    console.log(e)
   }
 }
 
@@ -88,8 +85,6 @@ async function _fillAddress (req) {
         await tx.run(qlStatement)
       }
     } catch (e) {
-      // If external system is not available and data was fetched
-      // using own replicated data, nothing needs to be done here.
     }
   }
 }
