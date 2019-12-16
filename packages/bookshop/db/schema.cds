@@ -36,7 +36,6 @@ entity OrderItems : cuid {
   netAmount : Decimal(9,2);
 }
 
-// TODO: Use external information
 @cds.persistence.skip: false
 @cds.persistence.table
 entity ShippingAddresses as projection on extAddresses  {
@@ -48,12 +47,3 @@ entity ShippingAddresses as projection on extAddresses  {
   StreetName as streetName,
   HouseNumber as houseNumber
 }
-// entity ShippingAddresses {
-//   key AddressID: String;
-//   key BusinessPartner: String;
-//   Country: String @readonly;
-//   CityName: String @readonly;
-//   PostalCode: String @readonly;
-//   StreetName: String @readonly;
-//   HouseNumber: String @readonly;
-// }
