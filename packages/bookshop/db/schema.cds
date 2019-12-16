@@ -27,7 +27,7 @@ entity Orders : cuid, managed {
   Items    : Composition of many OrderItems on Items.parent = $self;
   total    : Decimal(9,2) @readonly;
   currency : Currency;
-  shippingAddress : Association to one ShippingAddresses; // TODO: Composition or Association?
+  shippingAddress : Association to one ShippingAddresses;
 }
 entity OrderItems : cuid {
   parent    : Association to Orders;
