@@ -4,7 +4,6 @@ service AdminService @(requires:'admin') {
   entity Books as projection on my.Books;
   entity Authors as projection on my.Authors;
   entity Orders as select from my.Orders;
-  entity Addresses as projection on my.ShippingAddresses;
 }
 
 // Enable Fiori Draft for Orders

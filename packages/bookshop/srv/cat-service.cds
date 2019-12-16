@@ -10,6 +10,5 @@ service CatalogService {
 
   @requires_: 'authenticated-user'
   @insertonly entity Orders as projection on my.Orders;
-  entity Addresses as projection on my.ShippingAddresses;
 
 }

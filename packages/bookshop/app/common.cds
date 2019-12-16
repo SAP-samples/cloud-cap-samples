@@ -73,12 +73,12 @@ annotate my.Authors with {
 	name @title:'{i18n>AuthorName}';
 }
 
-annotate my.ShippingAddresses with {
-	AddressID @title:'{i18n>AddressID}';
+annotate my.Addresses with {
+	ID @title:'{i18n>AddressID}';
 	BusinessPartner @title:'{i18n>BusinessPartner}';
-	cityName @title:'{i18n>cityName}' @readonly;
-	streetName @title:'{i18n>streetName}' @readonly;
-	postalCode @title:'{i18n>postalCode}' @readonly;
-	country @title:'{i18n>country}' @readonly;
-	houseNumber @title:'{i18n>houseNumber}' @readonly;
+	@readonly cityName @title:'{i18n>cityName}';
+	@readonly streetName @title:'{i18n>streetName}';
+	@readonly postalCode @title:'{i18n>postalCode}';
+	@readonly country @title:'{i18n>country}';
+	@readonly houseNumber @title:'{i18n>houseNumber}';
 }

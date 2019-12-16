@@ -29,8 +29,8 @@ annotate AdminService.Orders with {
             Parameters      : [
                 {
                     $Type             : 'Common.ValueListParameterOut',
-                    LocalDataProperty : 'shippingAddress_AddressID',
-                    ValueListProperty : 'AddressID'
+                    LocalDataProperty : 'shippingAddress_ID',
+                    ValueListProperty : 'ID'
                 },
                 {
                     $Type             : 'Common.ValueListParameterOut',
@@ -110,7 +110,7 @@ annotate AdminService.Orders with @(UI : {
         },
         {Value    : OrderNo},
         {
-            Value : 'shippingAddress',
+            Value : 'shippingAddress_ID',
             Label : 'Address ID'
         }
     ],
@@ -157,7 +157,7 @@ annotate AdminService.Orders with @(UI : {
     ]},
     FieldGroup #ShippingAddress : {Data : [
         {
-            Value : shippingAddress_AddressID,
+            Value : shippingAddress_ID,
             Label : '{i18n>shippingAddress}'
         },
         {
@@ -180,7 +180,7 @@ annotate AdminService.Orders with @(UI : {
 },
 Common.SideEffects : {
         EffectTypes      : #ValueChange,
-        SourceProperties : [shippingAddress_AddressID],
+        SourceProperties : [shippingAddress_ID],
         TargetProperties : [
             shippingAddress.country,
             shippingAddress.houseNumber,
