@@ -15,10 +15,10 @@ const queriesToUpdateDifferences = (entity, ownEntries, otherEntries) =>
         )
       )
       if (remoteAddress) {
-        const diff = diff(ownEntry, remoteAddress)
+        const differences = diff(ownEntry, remoteAddress)
         if (Object.keys(diff).length) {
           return UPDATE(entity)
-            .set(diff)
+            .set(differences)
             .where({
               BusinessPartner: ownEntry.BusinessPartner,
               AddressID: ownEntry.AddressID
