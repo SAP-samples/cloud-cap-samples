@@ -4,7 +4,7 @@ const { Books, ShippingAddresses } = cds.entities
 
 const bupaSrv = cds.connect.to('API_BUSINESS_PARTNER')
 
-bupaSrv.on('Changed', 'BusinessPartner', async msg => {
+bupaSrv.on('sap/S4HANAOD/c532/BO/BusinessPartner/Changed', async msg => {
   console.log('>> Message:', msg.data)
 
   const BusinessPartner = msg.data.KEY[0].BUSINESSPARTNER
