@@ -81,8 +81,9 @@ admin.before ('CREATE', 'Orders', async (req) => {
 
   // reduce stock on ordered books...
   const all = await db.tx(req) .run (Items.map (each =>
-    UPDATE (Books) .set ('stock -=', each.amount)
-    .where ('ID =', each.book_ID) .and ('stock >=', each.amount)
+    UPDATE (Books) .where ('ID =', each.book_ID)
+    .and ('stock >=', each.amount)
+    .set ('stock -=', each.amount)
   ))
   all.forEach ((affectedRows,i) => affectedRows > 0 || req.error (409,
     `${Items[i].amount} exceeds stock for book #${Items[i].book_ID}`
