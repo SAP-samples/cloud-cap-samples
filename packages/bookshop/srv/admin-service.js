@@ -118,7 +118,7 @@ function _checkMandatoryParams (req) {
   if (!req.data.shippingAddress_AddressID) {
     return req.reject(
       'Please enter a valid shpping address.',
-      'shippingAddess_AddressID'
+      'shippingAddress_AddressID'
     )
   }
 }
