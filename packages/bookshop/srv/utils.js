@@ -16,7 +16,7 @@ const queriesToUpdateDifferences = (entity, ownEntries, otherEntries) =>
       )
       if (remoteAddress) {
         const differences = diff(ownEntry, remoteAddress)
-        if (Object.keys(diff).length) {
+        if (Object.keys(differences).length) {
           return UPDATE(entity)
             .set(differences)
             .where(
