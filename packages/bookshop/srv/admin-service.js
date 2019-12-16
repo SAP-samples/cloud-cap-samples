@@ -32,7 +32,7 @@ const _queriesToUpdateDifferences = (ownAddresses, remoteAddresses) =>
     })
     .filter(el => el)
 
-bupaSrv.on('sap/S4HANAOD/c532/BO/BusinessPartner/Changed', async msg => {
+bupaSrv.on('Changed', 'BusinessPartner', async msg => {
   console.log('>> Message:', msg.data)
 
   const BusinessPartner = msg.data.KEY[0].BUSINESSPARTNER
