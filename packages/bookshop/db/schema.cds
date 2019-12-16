@@ -36,8 +36,7 @@ entity OrderItems : cuid {
   netAmount : Decimal(9,2);
 }
 
-@cds.persistence.skip: false
-@cds.persistence.table
+@cds.persistence: {table, skip: false}
 entity ShippingAddresses as projection on extAddresses  {
   key AddressID,
   key BusinessPartner,
