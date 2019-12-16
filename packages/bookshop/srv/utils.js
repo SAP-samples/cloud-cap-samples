@@ -19,10 +19,12 @@ const queriesToUpdateDifferences = (entity, ownEntries, otherEntries) =>
         if (Object.keys(diff).length) {
           return UPDATE(entity)
             .set(differences)
-            .where({
-              BusinessPartner: ownEntry.BusinessPartner,
-              AddressID: ownEntry.AddressID
-            })
+            .where(
+              Object.keys(entity.keys).reduce(
+                (res, curr) => (res[curr] = ownEntry[curr]) && res,
+                {}
+              )
+            )
         }
       }
     })
