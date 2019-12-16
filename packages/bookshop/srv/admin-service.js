@@ -84,8 +84,7 @@ async function _fillAddress (req) {
         const qlStatement = INSERT.into(ShippingAddresses).entries(response)
         await tx.run(qlStatement)
       }
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 }
 
