@@ -1,6 +1,6 @@
 namespace sap.capire.bookshop;
 using { Currency, managed, cuid } from '@sap/cds/common';
-using { API_BUSINESS_PARTNER.A_BusinessPartnerAddress as extAddresses } from '../srv/external/API_BUSINESS_PARTNER';
+using { API_BUSINESS_PARTNER as external } from '../srv/external/API_BUSINESS_PARTNER';
 
 entity Books : managed {
   key ID : Integer;
@@ -37,7 +37,7 @@ entity OrderItems : cuid {
 }
 
 @cds.persistence: {table, skip: false}
-entity ShippingAddresses as projection on extAddresses  {
+entity ShippingAddresses as projection on external.A_BusinessPartnerAddress  {
   key AddressID,
   key BusinessPartner,
   Country as country,
