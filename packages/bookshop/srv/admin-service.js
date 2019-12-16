@@ -10,7 +10,7 @@ const _diff = (obj1, obj2) =>
     {}
   )
 
-const _qlsToUpdateDifferences = (ownAddresses, remoteAddresses) =>
+const _queriesToUpdateDifferences = (ownAddresses, remoteAddresses) =>
   ownAddresses
     .map(ownAddress => {
       const remoteAddress = remoteAddresses.find(
@@ -37,18 +37,18 @@ bupaSrv.on('sap/S4HANAOD/c532/BO/BusinessPartner/Changed', async msg => {
 
   const BusinessPartner = msg.data.KEY[0].BUSINESSPARTNER
   const tx = cds.transaction(msg)
-  const selectQl = SELECT.from(ShippingAddresses).where({ BusinessPartner })
+  const selectQuery = SELECT.from(ShippingAddresses).where({ BusinessPartner })
 
-  const ownAddresses = await tx.run(selectQl)
+  const ownAddresses = await tx.run(selectQuery)
   if (ownAddresses && ownAddresses.length > 0) {
     const txExt = bupaSrv.transaction(msg)
     try {
-      const remoteAddresses = await txExt.run(selectQl)
-      const qlsToUpdateDifferences = _qlsToUpdateDifferences(
+      const remoteAddresses = await txExt.run(selectQuery)
+      const queriesToUpdateDifferences = _queriesToUpdateDifferences(
         ownAddresses,
         remoteAddresses
       )
-      await tx.run(qlsToUpdateDifferences)
+      await tx.run(queriesToUpdateDifferences)
     } catch (e) {
       console.error(e)
     }
@@ -59,10 +59,10 @@ async function _readAddresses (req) {
   console.log('Addresses', ShippingAddresses)
   const BusinessPartner = req.user.id
   const txExt = bupaSrv.transaction(req)
-  const ql = req.query.from(ShippingAddresses).where({ BusinessPartner })
+  const selectQuery = req.query.from(ShippingAddresses).where({ BusinessPartner })
 
   try {
-    return txExt.run(ql)
+    return txExt.run(selectQuery)
   } catch (e) {
     console.log(e)
   }
@@ -81,8 +81,8 @@ async function _fillAddress (req) {
       )
       if (response && response.length === 1) {
         const tx = cds.transaction(req)
-        const qlStatement = INSERT.into(ShippingAddresses).entries(response)
-        await tx.run(qlStatement)
+        const insertQuery = INSERT.into(ShippingAddresses).entries(response)
+        await tx.run(insertQuery)
       }
     } catch (e) {}
   }
