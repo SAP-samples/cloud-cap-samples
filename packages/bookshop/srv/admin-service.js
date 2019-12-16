@@ -1,36 +1,8 @@
 const cds = require('@sap/cds')
+const { queriesToUpdateDifferences } = require('./utils')
 const { Books, ShippingAddresses } = cds.entities
 
 const bupaSrv = cds.connect.to('API_BUSINESS_PARTNER')
-
-const _diff = (obj1, obj2) =>
-  Object.keys(obj1).reduce(
-    (res, curr) =>
-      obj1[curr] === obj2[curr] ? res : (res[curr] = obj2[curr]) && res,
-    {}
-  )
-
-const _queriesToUpdateDifferences = (ownAddresses, remoteAddresses) =>
-  ownAddresses
-    .map(ownAddress => {
-      const remoteAddress = remoteAddresses.find(
-        address =>
-          address.BusinessPartner === ownAddress.BusinessPartner &&
-          address.AddressID === ownAddress.AddressID
-      )
-      if (remoteAddress) {
-        const diff = _diff(ownAddress, remoteAddress)
-        if (Object.keys(diff).length) {
-          return UPDATE(ShippingAddresses)
-            .set(diff)
-            .where({
-              BusinessPartner: ownAddress.BusinessPartner,
-              AddressID: ownAddress.AddressID
-            })
-        }
-      }
-    })
-    .filter(el => el)
 
 bupaSrv.on('Changed', 'BusinessPartner', async msg => {
   console.log('>> Message:', msg.data)
@@ -44,11 +16,12 @@ bupaSrv.on('Changed', 'BusinessPartner', async msg => {
     const txExt = bupaSrv.transaction(msg)
     try {
       const remoteAddresses = await txExt.run(selectQuery)
-      const queriesToUpdateDifferences = _queriesToUpdateDifferences(
+      const updateQueries = queriesToUpdateDifferences(
+        ShippingAddresses,
         ownAddresses,
         remoteAddresses
       )
-      await tx.run(queriesToUpdateDifferences)
+      await tx.run(updateQueries)
     } catch (e) {
       console.error(e)
     }
@@ -59,7 +32,9 @@ async function _readAddresses (req) {
   console.log('Addresses', ShippingAddresses)
   const BusinessPartner = req.user.id
   const txExt = bupaSrv.transaction(req)
-  const selectQuery = req.query.from(ShippingAddresses).where({ BusinessPartner })
+  const selectQuery = req.query
+    .from(ShippingAddresses)
+    .where({ BusinessPartner })
 
   try {
     return txExt.run(selectQuery)
