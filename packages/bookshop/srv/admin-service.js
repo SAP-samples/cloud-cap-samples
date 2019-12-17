@@ -14,7 +14,7 @@ module.exports = (admin => {
   // Handler to delegate ValueHelp requests to S/4 backend, fetching current user's addresses from there
   admin.on ('READ', 'usersAddresses', (req) => {
     const { SELECT } = cds.ql(req) //> convenient alternative to bupa.transaction(req).run(SELECT...)
-    return SELECT.from (externalAddresses) .where ({ BusinessPartner: req.user.id || 'anonymous' })
+    return SELECT.from (externalAddresses) .where ({ contact: req.user.id || 'anonymous' })
     //> this is applying projection from CDS model generically, i.e. the equivalent of:
     // const { A_BusinessPartnerAddress } = bupa.entities
     // return SELECT.from (A_BusinessPartnerAddress, a => {
@@ -36,7 +36,7 @@ admin.before ('PATCH', 'Orders', async (req) => {
   const ID = req.data.shippingAddress_ID; if (!ID) return //> something else
   const { SELECT, UPSERT } = cds.ql(req) //> convenient alternative to <srv>.transaction(req).run(SELECT...)
   const address = await SELECT.one.from (externalAddresses) .where ({
-    ID, BusinessPartner: req.user.id
+    ID, contact: req.user.id
   })
   if (address) return UPSERT (Addresses) .entries (address)
 })
@@ -46,16 +46,16 @@ admin.before ('PATCH', 'Orders', async (req) => {
 bupa.on ('BusinessPartner/Changed', async (msg) => {
   console.log('>> received:', msg.data)
 
-  const BusinessPartner = msg.data.KEY[0].BUSINESSPARTNER  // TODO: .KEY[0] >> revisit w/ Oliver
+  const BPID = msg.data.KEY[0].BUSINESSPARTNER  // TODO: .KEY[0] >> revisit w/ Oliver
   const { SELECT, UPDATE } = cds.ql(msg) //> convenient alternative to <srv>.transaction(req).run(SELECT...)
 
   // fetch affected entries from local replicas
-  const replicas = await SELECT.from (Addresses) .where ({BusinessPartner})
+  const replicas = await SELECT.from (Addresses) .where ({contact:BPID})
   if (replicas.length === 0) return //> not affected
 
   // fetch changed data from S/4 -> might be less than local due to deletes
   const changed = await SELECT.from (externalAddresses) .where ({
-    BusinessPartner, ID: replicas.map(a => a.ID) // where in
+    contact:BPID, ID: replicas.map(a => a.ID) // where in
   })
 
   // update local replicas with changes from S/4

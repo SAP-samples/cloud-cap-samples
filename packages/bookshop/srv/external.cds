@@ -9,8 +9,8 @@ extend service API_BUSINESS_PARTNER with {
    * Simplified view on external addresses
    */
   @mashup entity Addresses as projection on external.A_BusinessPartnerAddress {
+    key BusinessPartner as contact,
     key AddressID as ID,
-    key BusinessPartner,
     Country as country,
     CityName as cityName,
     PostalCode as postalCode,
