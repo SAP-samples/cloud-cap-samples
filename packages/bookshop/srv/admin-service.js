@@ -35,7 +35,7 @@ module.exports = (admin => {
 admin.before ('PATCH', 'Orders', async (req) => {
   const ID = req.data.shippingAddress_ID; if (!ID) return //> something else
   const { SELECT, UPSERT } = cds.ql(req) //> convenient alternative to <srv>.transaction(req).run(SELECT...)
-  const address = await SELECT.one.from(externalAddresses).where({
+  const address = await SELECT.one.from (externalAddresses) .where ({
     ID, BusinessPartner: req.user.id
   })
   if (address) return UPSERT (Addresses) .entries (address)
@@ -50,22 +50,17 @@ bupa.on ('BusinessPartner/Changed', async (msg) => {
   const { SELECT, UPDATE } = cds.ql(msg) //> convenient alternative to <srv>.transaction(req).run(SELECT...)
 
   // fetch affected entries from local replicas
-  const local = db.transaction (msg)
   const replicas = await SELECT.from (Addresses) .where ({BusinessPartner})
-
-  // skip if not affected
-  if (replicas.length === 0) return
+  if (replicas.length === 0) return //> not affected
 
   // fetch changed data from S/4 -> might be less than local due to deletes
   const changed = await SELECT.from (externalAddresses) .where ({
     BusinessPartner, ID: replicas.map(a => a.ID) // where in
   })
 
-  // update local replicas with changes from remote
-  return local.run (changed.map (a =>
-    UPDATE (Addresses) .with(a) .where ({ ID: a.ID })
-  ))
-
+  // update local replicas with changes from S/4
+  const local = db.transaction (msg) //> using that variant to benefit from bulk runs
+  return local.run (changed.map (a => UPDATE (Addresses,a.ID) .with (a) ))
 })
 
 
