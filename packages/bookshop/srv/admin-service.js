@@ -1,3 +1,8 @@
+process.env["http_proxy"] = ""
+process.env["https_proxy"] = ""
+process.env["HTTP_PROXY"] = ""
+process.env["HTTPS_PROXY"] = ""
+
 const cds = require('@sap/cds')
 const { queriesToUpdateDifferences } = require('./utils')
 const { Books, ShippingAddresses } = cds.entities
@@ -28,7 +33,7 @@ bupaSrv.on('sap/S4HANAOD/c532/BO/BusinessPartner/Changed', async msg => {
   }
 })
 
-async function _readAddresses (req) {
+async function _readAddresses(req) {
   console.log('Addresses', ShippingAddresses)
   const BusinessPartner = req.user.id
   const txExt = bupaSrv.transaction(req)
@@ -43,7 +48,7 @@ async function _readAddresses (req) {
   }
 }
 
-async function _fillAddress (req) {
+async function _fillAddress(req) {
   if (req.data.shippingAddress_AddressID) {
     const BusinessPartner = req.user.id
     const txExt = bupaSrv.transaction(req)
@@ -59,11 +64,11 @@ async function _fillAddress (req) {
         const insertQuery = INSERT.into(ShippingAddresses).entries(response)
         await tx.run(insertQuery)
       }
-    } catch (e) {}
+    } catch (e) { }
   }
 }
 
-async function _reduceStock (req) {
+async function _reduceStock(req) {
   const { Items: OrderItems } = req.data
   if (OrderItems && OrderItems.length > 0) {
     const all = await cds.transaction(req).run(
@@ -79,14 +84,14 @@ async function _reduceStock (req) {
         req.error(
           409,
           `${OrderItems[i].amount} exceeds stock for book #${
-            OrderItems[i].book_ID
+          OrderItems[i].book_ID
           }`
         )
     })
   }
 }
 
-function _checkMandatoryParams (req) {
+function _checkMandatoryParams(req) {
   if (!req.data.Items || !req.data.Items.length) {
     return req.reject('Please order at least one item.')
   }
