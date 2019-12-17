@@ -6,7 +6,8 @@ const bupa = cds.connect.to ('API_BUSINESS_PARTNER')
 const db = cds.connect.to ('db')
 
 // Using reflected definitions from connected services/database
-const { Addresses: externalAddresses } = bupa.entities // projection on external addresses
+// const { Addresses: externalAddresses } = bupa.entities // projection on external addresses
+const { Addresses: externalAddresses } = require ('./lib/external')
 const { Books, Addresses } = db.entities // entities in local database
 
 
@@ -28,7 +29,6 @@ module.exports = (admin => {
     // }) .where ({ BusinessPartner: req.user.id })
   })
 })
-
 
 
 // Replicate chosen addresses from S/4 when filing orders.
@@ -93,11 +93,3 @@ admin.before ('CREATE', 'Orders', async (req) => {
   ))
 
 })
-
-
-// eslint-disable-next-line no-unused-vars
-function _diff (a,b) {
-  let any, diff={}
-  for (let each in b) if (b[each] !== a[each])  diff[each] = b[any=each]
-  return any && diff
-}
