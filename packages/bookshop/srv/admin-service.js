@@ -30,7 +30,6 @@ module.exports = (admin => {
 })
 
 
-
 // Replicate chosen addresses from S/4 when filing orders.
 admin.before ('PATCH', 'Orders', async (req) => {
   const ID = req.data.shippingAddress_ID; if (!ID) return //> something else
@@ -93,11 +92,3 @@ admin.before ('CREATE', 'Orders', async (req) => {
   ))
 
 })
-
-
-// eslint-disable-next-line no-unused-vars
-function _diff (a,b) {
-  let any, diff={}
-  for (let each in b) if (b[each] !== a[each])  diff[each] = b[any=each]
-  return any && diff
-}

@@ -1,5 +1,4 @@
 module.exports = srv => {
-
     srv.on('UPDATE', req => {
 
         const payload = {
@@ -8,6 +7,5 @@ module.exports = srv => {
         console.log('<< emitting:', payload)
         srv.emit('BusinessPartner/Changed', payload)
 
-    })
-
+  })
 }
