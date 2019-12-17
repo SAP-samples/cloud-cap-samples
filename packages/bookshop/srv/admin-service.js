@@ -12,10 +12,10 @@ const { Books, Addresses } = db.entities // entities in local database
 
 module.exports = (admin => {
   // Handler to delegate ValueHelp requests to S/4 backend, fetching current user's addresses from there
-  admin.on ('READ', 'Addresses', (req) => {
+  admin.on ('READ', 'usersAddresses', (req) => {
     const { SELECT } = cds.ql(req) //> convenient alternative to bupa.transaction(req).run(SELECT...)
     return SELECT.from (externalAddresses) .where ({ BusinessPartner: req.user.id || 'anonymous' })
-    //> this is applying projection generically, i.e. the equivalent of:
+    //> this is applying projection from CDS model generically, i.e. the equivalent of:
     // const { A_BusinessPartnerAddress } = bupa.entities
     // return SELECT.from (A_BusinessPartnerAddress, a => {
     //   a.AddressID.as('ID'),
