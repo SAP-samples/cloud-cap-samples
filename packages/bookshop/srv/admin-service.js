@@ -2,60 +2,62 @@ const cds = require('@sap/cds')
 
 // We are mashing up three services...
 const admin = cds.connect.to ('AdminService')
-const bupa = cds.connect.to('API_BUSINESS_PARTNER')
-const db = cds.connect.to('db')
+const bupa = cds.connect.to ('API_BUSINESS_PARTNER')
+const db = cds.connect.to ('db')
 
-// Reflected entities for local database
-const { Books, Addresses } = db.entities
+// Using reflected definitions from connected services/database
+const { Addresses: externalAddresses } = bupa.entities // projection on external addresses
+const { Books, Addresses } = db.entities // entities in local database
 
-// Fetch current user's addresses from S/4 for ValueHelp.
+
 module.exports = (admin => {
-  admin.on ('READ', 'usersAddresses', async (req) => {
-    // const UsersAddresses = req.query.from (Addresses) .where ({ BusinessPartner: req.user.id })
-    // FIXME: Again that absolutely useless error message:
-    // [2019-12-16T20:30:14.106Z | ERROR | 1940862]: The server does not support the functionality required to fulfill the request
-    // FIXME: Even worse: click Orders Edit ->
-    // [2019-12-16T20:38:52.918Z | WARNING | 1575675]: Not Found
-    const { A_BusinessPartnerAddress:Addresses } = bupa.entities
-    const UsersAddresses = SELECT.from (Addresses, a => {
-      a.AddressID.as('ID'),
-      a.BusinessPartner,
-      a.Country.as('country'),
-      a.CityName.as('cityName'),
-      a.PostalCode.as('postalCode'),
-      a.StreetName.as('streetName'),
-      a.HouseNumber.as('houseNumber')
-    }) .where ({ BusinessPartner: req.user.id })
-    return bupa.transaction(req) .run (UsersAddresses) // TODO: I'd like to write .read instead of .run
+  // Handler to delegate ValueHelp requests to S/4 backend, fetching current user's addresses from there
+  admin.on ('READ', 'Addresses', (req) => {
+    const { SELECT } = cds.ql(req) //> convenient alternative to bupa.transaction(req).run(SELECT...)
+    return SELECT.from (externalAddresses) .where ({ BusinessPartner: req.user.id || 'anonymous' })
+    //> this is applying projection generically, i.e. the equivalent of:
+    // const { A_BusinessPartnerAddress } = bupa.entities
+    // return SELECT.from (A_BusinessPartnerAddress, a => {
+    //   a.AddressID.as('ID'),
+    //   a.BusinessPartner,
+    //   a.Country.as('country'),
+    //   a.CityName.as('cityName'),
+    //   a.PostalCode.as('postalCode'),
+    //   a.StreetName.as('streetName'),
+    //   a.HouseNumber.as('houseNumber')
+    // }) .where ({ BusinessPartner: req.user.id })
   })
 })
+
+
 
 // Replicate chosen addresses from S/4 when filing orders.
 admin.before ('PATCH', 'Orders', async (req) => {
   const ID = req.data.shippingAddress_ID; if (!ID) return //> something else
-  const address = await bupa.tx(req) .run (
-    SELECT.one.from(Addresses).where({
-      ID, BusinessPartner: req.user.id
-    })
-  )
-  if (address) return db.tx(req) .upsert (Addresses) .entries (address)
+  const { SELECT, UPSERT } = cds.ql(req) //> convenient alternative to <srv>.transaction(req).run(SELECT...)
+  const address = await SELECT.one.from(externalAddresses).where({
+    ID, BusinessPartner: req.user.id
+  })
+  if (address) return UPSERT (Addresses) .entries (address)
 })
+
 
 // Update local replicas when sources change in S/4.
 bupa.on ('BusinessPartner/Changed', async (msg) => {
   console.log('>> received:', msg.data)
 
-  const BusinessPartner = msg.data.KEY[0].BUSINESSPARTNER //> .KEY[0] >> revisit w/ Oliver
+  const BusinessPartner = msg.data.KEY[0].BUSINESSPARTNER  // TODO: .KEY[0] >> revisit w/ Oliver
+  const { SELECT, UPDATE } = cds.ql(msg) //> convenient alternative to <srv>.transaction(req).run(SELECT...)
 
   // fetch affected entries from local replicas
   const local = db.transaction (msg)
-  const replicas = await local.read (Addresses) .where ({BusinessPartner})
+  const replicas = await SELECT.from (Addresses) .where ({BusinessPartner})
 
   // skip if not affected
   if (replicas.length === 0) return
 
   // fetch changed data from S/4 -> might be less than local due to deletes
-  const changed = await bupa.tx(msg).read (Addresses) .where ({
+  const changed = await SELECT.from (externalAddresses) .where ({
     BusinessPartner, ID: replicas.map(a => a.ID) // where in
   })
 
@@ -65,6 +67,7 @@ bupa.on ('BusinessPartner/Changed', async (msg) => {
   ))
 
 })
+
 
 // Validate incoming orders and reduce books' stocks.
 admin.before ('CREATE', 'Orders', async (req) => {
@@ -78,6 +81,11 @@ admin.before ('CREATE', 'Orders', async (req) => {
     'Please enter a valid shpping address.',
     'shippingAddress_ID'
   )
+  // TODO: future way of doing that:
+  // const {assert} = req
+  // assert ('Items') .check (items => items && items.length, 'Please enter at least one order item')
+  // assert ('shippingAddress') .mandatory() .exists()
+  // if (req.hasErrors)  return
 
   // reduce stock on ordered books...
   const all = await db.tx(req) .run (Items.map (each =>
@@ -90,6 +98,7 @@ admin.before ('CREATE', 'Orders', async (req) => {
   ))
 
 })
+
 
 // eslint-disable-next-line no-unused-vars
 function _diff (a,b) {

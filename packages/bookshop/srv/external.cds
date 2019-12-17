@@ -8,6 +8,7 @@ extend service API_BUSINESS_PARTNER with {
   /**
    * Simplified view on external addresses
    */
+  @mashup @cds.autoexpose //> for ValueHelps
   entity Addresses as projection on external.A_BusinessPartnerAddress {
     key AddressID as ID,
     key BusinessPartner,
@@ -21,12 +22,12 @@ extend service API_BUSINESS_PARTNER with {
   /**
    * Re-modelling the event which is currently not available declaratively from S/4
    */
-  // @messaging.topic:'sap/S4HANAOD/c532/BO/BusinessPartner/Changed'
-  // event "BusinessPartner/Changed" {
-  //   "KEY": array of {
-  //     BUSINESSPARTNER : external.A_BusinessPartner.BusinessPartner
-  //   }
-  // }
+  // @messaging.topic:'${prefix}/BusinessPartner/Changed'
+  event "BusinessPartner/Changed" {
+    "KEY": array of {
+      BUSINESSPARTNER : external.A_BusinessPartner.BusinessPartner
+    }
+  }
 }
 
 
@@ -35,13 +36,14 @@ extend service API_BUSINESS_PARTNER with {
  */
 using { AdminService } from './admin-service';
 extend service AdminService {
-  entity usersAddresses as projection on bookshop.Addresses;
+  // entity usersAddresses as projection on external.Addresses;
 }
 
+// TODO: not used so far...
 using { CatalogService } from './cat-service';
 extend service CatalogService {
   @readonly @requires:'authenticated-user'
-  entity usersAddresses as projection on bookshop.Addresses;
+  entity usersAddresses as projection on external.Addresses;
 }
 
 
@@ -65,12 +67,3 @@ extend bookshop.Orders with {
 entity sap.capire.bookshop.Addresses as SELECT from external.Addresses { *,
   false as tombstone : Boolean
 };
-// entity sap.capire.bookshop.Addresses as SELECT from external.A_BusinessPartnerAddress {
-//   key AddressID as ID,
-//   key BusinessPartner,
-//   Country as country,
-//   CityName as cityName,
-//   PostalCode as postalCode,
-//   StreetName as streetName,
-//   HouseNumber as houseNumber
-// };
