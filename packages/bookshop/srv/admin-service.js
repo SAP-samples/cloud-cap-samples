@@ -9,13 +9,16 @@ const db = cds.connect.to ('db')
 const { Addresses: externalAddresses } = bupa.entities // projection on external addresses
 const { Books, Addresses } = db.entities // entities in local database
 
+console.log (Addresses._service.name, Addresses._service)
 
 module.exports = (admin => {
   // Handler to delegate ValueHelp requests to S/4 backend, fetching current user's addresses from there
   // admin.on ('READ', 'usersAddresses', (req) => {  // REVISIT: all requests go to auto-exposed Addresses
   admin.on ('READ', 'Addresses', (req) => {
-    const { SELECT } = cds.ql(req) //> convenient alternative to bupa.transaction(req).run(SELECT...)
-    return SELECT.from (externalAddresses) .where ({ contact: req.user.id || 'anonymous' })
+    return bupa.tx(req) .run (SELECT.from (externalAddresses) .where ({ contact: req.user.id || 'anonymous' }))
+    // return bupa.tx(req) .read (externalAddresses) .where ({ contact: req.user.id || 'anonymous' }) //> FIXME: doesn't work !?!?
+    // const { SELECT } = cds.ql(req) //> convenient alternative to bupa.transaction(req).run(SELECT...)
+    // return SELECT.from (externalAddresses) .where ({ contact: req.user.id || 'anonymous' })
     //> this is applying projection from CDS model generically, i.e. the equivalent of:
     // const { A_BusinessPartnerAddress } = bupa.entities
     // return SELECT.from (A_BusinessPartnerAddress, a => {
@@ -34,14 +37,22 @@ module.exports = (admin => {
 // Replicate chosen addresses from S/4 when filing orders.
 admin.before ('PATCH', 'Orders', async (req) => {
   const ID = req.data.shippingAddress_ID; if (!ID) return //> something else
-  const { SELECT, INSERT, UPSERT } = cds.ql(req) //> convenient alternative to <srv>.transaction(req).run(SELECT...)
-  // const address = await SELECT.one.from (externalAddresses) .where ({ //> TODO
-  const [address] = await SELECT.from (externalAddresses) .where ({
+  // const { SELECT, INSERT, UPSERT } = cds.ql(req) //> convenient alternative to <srv>.transaction(req).run(SELECT...)
+  const local = db.transaction (req)
+  const [replica] = await local.read (Addresses) .where ({
     ID, contact: req.user.id
   })
+  if (!replica) {
+    // const [address] = await bupa.read (externalAddresses) .where ({  //> FIXME -> das erzeugt ein super-komisches Verhalten, mit zweimal PATCH, etc. !!!
+    // const [address] = await bupa.tx(req) .read (externalAddresses) .where ({  //> FIXME !!!
+    const [address] = await bupa.tx(req) .run (SELECT.from (externalAddresses) .where ({
+      ID, contact: req.user.id
+    }))
+    if (address) return local.create (Addresses) .entries (address)
+  }
+  // const address = await SELECT.one.from (externalAddresses) .where ({ //> TODO
   // FIXME: Zweimal INSERT -> constraint violation !!
-  if (address) return db.tx(req).run (INSERT.into (Addresses) .entries (address))
-  // if (address) return INSERT.into (Addresses) .entries (address) //> TODO
+  // if (address) return db.tx(req).run (INSERT.into (Addresses) .entries (address))
   // if (address) return UPSERT (Addresses) .entries (address) //> TODO
 })
 
