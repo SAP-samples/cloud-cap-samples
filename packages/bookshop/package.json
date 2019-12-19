@@ -10,23 +10,5 @@
   },
   "scripts": {
     "start": "npx cds run"
-  },
-  "cds": {
-    "requires": {
-      "db": {
-        "kind": "sqlite",
-        "model": [
-          "db/",
-          "srv/",
-          "app/"
-        ],
-        "credentials": {
-          "database": "bookshop.db"
-        },
-        "[production]": {
-          "kind": "hana"
-        }
-      }
-    }
   }
 }
