@@ -23,7 +23,18 @@
           "prefix": "sap/S4HANAOD/c532/BO"
         }
       }
+    },
+    "auth": {
+      "passport": {
+        "strategy": "mock",
+        "users": {
+          "alice": {
+            "roles": ["admin"],
+            "password": "secret",
+            "ID": "ALICE"
+          }
+        }
+      }
     }
-
   }
 }
