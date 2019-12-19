@@ -5,7 +5,7 @@ module.exports = srv => {
     }
     console.log('<< Message:', payload)
     req.on('succeeded', () => {
-      srv.emit('sap/S4HANAOD/c532/BO/BusinessPartner/Changed', payload)
+      srv.emit('BusinessPartner/Changed', payload)
     })
   })
 }

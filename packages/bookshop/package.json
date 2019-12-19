@@ -23,7 +23,10 @@
         }
       },
       "messaging": {
-        "kind": "enterprise-messaging"
+        "kind": "enterprise-messaging",
+        "credentials": {
+          "prefix": "sap/S4HANAOD/c532/BO"
+        }
       }
     },
     "auth": {
