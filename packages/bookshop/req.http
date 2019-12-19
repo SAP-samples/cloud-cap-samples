@@ -6,3 +6,9 @@ Authorization: Basic QUxJQ0Utc2VjcmV0
     "PostalCode": "123456",
     "CityName": "AlteredTown"
 }
+
+###
+
+GET http://localhost:4004/admin/Orders(ID=7e2f2640-6866-4dcf-8f4d-3027aa831cad,IsActiveEntity=false)?
+&$expand=shippingAddress($select=cityName,houseNumber,postalCode,streetName)
+Authorization: Basic QUxJQ0U6c2VjcmV0
