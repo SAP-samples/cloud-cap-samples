@@ -3,8 +3,8 @@ module.exports = srv => {
     const payload = {
       KEY: [{ BUSINESSPARTNER: req.data.BusinessPartner }]
     }
-    console.log('<< Message:', payload)
     req.on('succeeded', () => {
+      console.log('<< Message:', payload)
       srv.emit('BusinessPartner/Changed', payload)
     })
   })
