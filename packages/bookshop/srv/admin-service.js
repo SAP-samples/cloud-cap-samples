@@ -39,6 +39,7 @@ admin.before ('PATCH', 'Orders', async (req) => {
   const [address] = await SELECT.from (externalAddresses) .where ({
     ID, contact: req.user.id
   })
+  // FIXME: Zweimal INSERT -> constraint violation !!
   if (address) return db.tx(req).run (INSERT.into (Addresses) .entries (address))
   // if (address) return INSERT.into (Addresses) .entries (address) //> TODO
   // if (address) return UPSERT (Addresses) .entries (address) //> TODO
