@@ -8,5 +8,17 @@
     "@sap/cds": "latest",
     "express": "*",
     "lokijs": "^1.5.6"
+  },
+  "files": [
+    "db",
+    "srv",
+    "index.cds"
+  ],
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sql"
+      }
+    }
   }
 }
