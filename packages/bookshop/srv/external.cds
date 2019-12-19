@@ -22,11 +22,11 @@ extend service API_BUSINESS_PARTNER with {
    * Re-modelling the event which is currently not available declaratively from S/4
    */
   // @messaging.topic:'${prefix}/BusinessPartner/Changed'
-  event "BusinessPartner/Changed" {
-    "KEY": array of {
-      BUSINESSPARTNER : external.A_BusinessPartner.BusinessPartner
-    }
-  }
+  // event "BusinessPartner/Changed" {
+  //   "KEY": array of {
+  //     BUSINESSPARTNER : external.A_BusinessPartner.BusinessPartner
+  //   }
+  // }
 }
 
 
