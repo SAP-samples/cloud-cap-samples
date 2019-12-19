@@ -35,7 +35,7 @@ annotate AdminService.Orders with {
                 {
                     $Type             : 'Common.ValueListParameterOut',
                     LocalDataProperty : 'shippingAddress_contact',
-                    ValueListProperty : 'BusinessPartner'
+                    ValueListProperty : 'contact'
                 },
                 {
                     $Type             : 'Common.ValueListParameterDisplayOnly',
