@@ -19,10 +19,11 @@
     "@sap/cds": "latest",
     "express": "*"
   },
-  "--add-these-to-devDependencies-for-tests": {
+  "devDependencies": {
     "@types/jest": "*",
     "sqlite3": "*",
-    "jest": "*"
+    "jest": "*",
+    "supertest": "^4.0.2"
   },
   "license": "SAP SAMPLE CODE LICENSE"
 }
