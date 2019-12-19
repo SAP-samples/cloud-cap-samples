@@ -72,7 +72,7 @@ admin.before ('CREATE', 'Orders', async (req) => {
   if (!Items || Items.length === 0)
     return req.reject ('Please order at least one item.')
   if (!req.data.shippingAddress_ID) return req.reject (
-    'Please enter a valid shpping address.',
+    'Please enter a valid shipping address.',
     'shippingAddress_ID'
   )
   // TODO: future way of doing that:
