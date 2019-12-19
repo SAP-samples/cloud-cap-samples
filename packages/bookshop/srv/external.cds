@@ -33,17 +33,17 @@ extend service API_BUSINESS_PARTNER with {
 /**
  * Mashup w/ services to also serve shipping addresses
  */
-using { AdminService } from './admin-service';
-extend service AdminService { // for ValueHelps from S/4 backend
-  @readonly entity usersAddresses as projection on external.Addresses;
-}
+// using { AdminService } from './admin-service';
+// extend service AdminService { // for ValueHelps from S/4 backend
+//   @readonly entity usersAddresses as projection on external.Addresses;
+// }
 
-// TODO: not used so far...
-using { CatalogService } from './cat-service';
-extend service CatalogService { // for ValueHelps from S/4 backend
-  @requires:'authenticated-user'
-  @readonly entity usersAddresses as projection on external.Addresses;
-}
+// // TODO: not used so far...
+// using { CatalogService } from './cat-service';
+// extend service CatalogService { // for ValueHelps from S/4 backend
+//   @requires:'authenticated-user'
+//   @readonly entity usersAddresses as projection on external.Addresses;
+// }
 
 // have external Addresses auto-exposed as targets
 annotate external.Addresses with @cds.autoexpose;
