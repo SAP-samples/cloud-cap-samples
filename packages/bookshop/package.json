@@ -5,9 +5,28 @@
   "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
     "@sap/cds": "latest",
-    "express": "*"
+    "express": "*",
+    "hdb": "^0.17.1"
   },
   "scripts": {
     "start": "npx cds run"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "model": [
+          "db/",
+          "srv/",
+          "app/"
+        ],
+        "credentials": {
+          "database": "bookshop.db"
+        },
+        "[production]": {
+          "kind": "hana"
+        }
+      }
+    }
   }
 }
