@@ -34,11 +34,14 @@ module.exports = (admin => {
 // Replicate chosen addresses from S/4 when filing orders.
 admin.before ('PATCH', 'Orders', async (req) => {
   const ID = req.data.shippingAddress_ID; if (!ID) return //> something else
-  const { SELECT, UPSERT } = cds.ql(req) //> convenient alternative to <srv>.transaction(req).run(SELECT...)
-  const address = await SELECT.one.from (externalAddresses) .where ({
+  const { SELECT, INSERT, UPSERT } = cds.ql(req) //> convenient alternative to <srv>.transaction(req).run(SELECT...)
+  // const address = await SELECT.one.from (externalAddresses) .where ({ //> TODO
+  const [address] = await SELECT.from (externalAddresses) .where ({
     ID, contact: req.user.id
   })
-  if (address) return UPSERT (Addresses) .entries (address)
+  if (address) return db.tx(req).run (INSERT.into (Addresses) .entries (address))
+  // if (address) return INSERT.into (Addresses) .entries (address) //> TODO
+  // if (address) return UPSERT (Addresses) .entries (address) //> TODO
 })
 
 
