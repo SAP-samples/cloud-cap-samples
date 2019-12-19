@@ -45,6 +45,9 @@ extend service CatalogService { // for ValueHelps from S/4 backend
   @readonly entity usersAddresses as projection on external.Addresses;
 }
 
+// have external Addresses auto-exposed as targets
+annotate external.Addresses with @cds.autoexpose;
+
 
 /**
  * Mashup w/ domain model for federated data access
