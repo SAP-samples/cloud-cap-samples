@@ -21,8 +21,6 @@ module.exports = cds.service.impl (()=>{
 
   // Replicate chosen addresses from S/4 when filing orders.
   admin.before ('PATCH', 'Orders', async (req) => {
-    // REVISIT: Investigate strange behavior when first assigning A then B ... together with Fiori colleagues
-    // const assigned = { ID: req.data.shippingAddress_ID, contact: req.data.shippingAddress_contact }
     const assigned = { ID: req.data.shippingAddress_ID, contact: req.user.id }
     if (!assigned.ID) return //> something else
     const local = db.transaction (req)
