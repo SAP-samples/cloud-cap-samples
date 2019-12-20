@@ -1,3 +1,9 @@
+// Hack for SAP Application Studio
+process.env["http_proxy"] = ""
+process.env["https_proxy"] = ""
+process.env["HTTP_PROXY"] = ""
+process.env["HTTPS_PROXY"] = ""
+
 const diff = (obj1, obj2) =>
   Object.keys(obj1).reduce(
     (res, curr) =>
