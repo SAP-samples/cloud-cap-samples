@@ -1,10 +1,10 @@
 const cds = require('@sap/cds')
-module.exports = cds.service.impl (()=>{
+module.exports = cds.service.impl (async ()=>{
 
   // We are mashing up three services...
-  const admin = cds.connect.to ('AdminService')
-  const bupa = cds.connect.to ('API_BUSINESS_PARTNER')
-  const db = cds.connect.to ('db')
+  const admin = await cds.connect.to ('AdminService')
+  const bupa = await cds.connect.to ('API_BUSINESS_PARTNER')
+  const db = await cds.connect.to ('db')
 
   // Using reflected definitions from connected services/database
   const { Addresses: externalAddresses } = bupa.entities // projection on external addresses
