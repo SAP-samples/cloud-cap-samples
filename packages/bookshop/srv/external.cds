@@ -16,56 +16,37 @@ extend service API_BUSINESS_PARTNER with {
     PostalCode as postalCode,
     StreetName as streetName,
     HouseNumber as houseNumber
-  };
+  }
 
   /**
    * Re-modelling the event which is currently not available declaratively from S/4
    */
-  // @messaging.topic:'${prefix}/BusinessPartner/Changed'
-  // event "BusinessPartner/Changed" {
-  //   "KEY": array of {
-  //     BUSINESSPARTNER : external.A_BusinessPartner.BusinessPartner
-  //   }
-  // }
+  entity BusinessPartner as projection on external.A_BusinessPartner;
+  @messaging.topic:'${prefix}/BusinessPartner/Changed'
+  event BusinessPartner_CHANGED {
+    _KEY: array of {
+      BUSINESSPARTNER : external.A_BusinessPartner.BusinessPartner
+    }
+  }
+
 }
 
-
-/**
- * Mashup w/ services to also serve shipping addresses
- */
-// using { AdminService } from './admin-service';
-// extend service AdminService { // for ValueHelps from S/4 backend
-//   @readonly entity usersAddresses as projection on external.Addresses;
-// }
-
-// // TODO: not used so far...
-// using { CatalogService } from './cat-service';
-// extend service CatalogService { // for ValueHelps from S/4 backend
-//   @requires:'authenticated-user'
-//   @readonly entity usersAddresses as projection on external.Addresses;
-// }
-
-// have external Addresses auto-exposed as targets
-annotate external.Addresses with @cds.autoexpose;
-
-
-/**
- * Mashup w/ domain model for federated data access
- */
-using { sap.capire.bookshop } from '../db/schema';
 
 /**
  * Add an entity to replicate external address data for quick access,
  * e.g. when displaying lists of orders.
  */
-@cds.persistence:{table,skip:false}
+@cds.persistence:{table,skip:false} //> create a table with the view's inferred signature
+@cds.autoexpose //> auto-expose in services as targets for ValueHelps and joins
 entity sap.capire.bookshop.Addresses as SELECT from external.Addresses { *,
   false as tombstone : Boolean
 };
 
+
 /**
- * Extend Orders to with references to replicated external Addresses
+ * Extend Orders with references to replicated external Addresses
  */
+using { sap.capire.bookshop } from '../db/schema';
 extend bookshop.Orders with {
   shippingAddress : Association to bookshop.Addresses;
 }

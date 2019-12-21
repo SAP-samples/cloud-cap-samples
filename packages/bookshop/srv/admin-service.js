@@ -1,11 +1,9 @@
-const utils = require('./utils')
-
 const cds = require('@sap/cds')
-module.exports = cds.service.impl (async ()=>{
+module.exports = cds.service.impl (async()=>{
 
   // We are mashing up three services...
-  const admin = await cds.connect.to ('AdminService')
   const bupa = await cds.connect.to ('API_BUSINESS_PARTNER')
+  const admin = await cds.connect.to ('AdminService')
   const db = await cds.connect.to ('db')
 
   // Using reflected definitions from connected services/database
@@ -15,9 +13,9 @@ module.exports = cds.service.impl (async ()=>{
 
   // Delegate ValueHelp requests to S/4 backend, fetching current user's addresses from there
   admin.on ('READ', 'Addresses', (req) => {
-    const UsersAddresses = req.query.from (externalAddresses) .where ({ contact: req.user.id || 'anonymous' })
-    //> redirecting the incoming query with req.query.from preserves all .columns and .where clauses
-    return bupa.tx(req) .read (UsersAddresses)
+    console.log ('Delegating to S/4 bupa service...')
+    const UsersAddresses = SELECT.from (externalAddresses) .where ({ contact: req.user.id || 'anonymous' })
+    return bupa.tx(req) .run (UsersAddresses.where (req.query.SELECT.where))
   })
 
 
@@ -81,3 +79,4 @@ module.exports = cds.service.impl (async ()=>{
   })
 
 })
+require('./utils') // ugly workaround for AppStudio
