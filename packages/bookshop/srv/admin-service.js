@@ -14,8 +14,8 @@ module.exports = cds.service.impl(async () => {
     console.log('Delegating to S/4 bupa service...')
     const UsersAddresses = SELECT.from(externalAddresses).where({
       contact: req.user.id
-    })
-    return bupa.tx(req).run(UsersAddresses.where(req.query.SELECT.where))
+    }).where(req.query.SELECT.where)
+    return bupa.tx(req).run(UsersAddresses)
   })
 
   // Replicate chosen addresses from S/4 when filing orders.
