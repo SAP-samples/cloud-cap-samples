@@ -17,18 +17,6 @@ extend service API_BUSINESS_PARTNER with {
     StreetName as streetName,
     HouseNumber as houseNumber
   }
-
-  /**
-   * Re-modelling the event which is currently not available declaratively from S/4
-   */
-  entity BusinessPartner as projection on external.A_BusinessPartner;
-  @messaging.topic:'${prefix}/BusinessPartner/Changed'
-  event BusinessPartner_CHANGED {
-    _KEY: array of {
-      BUSINESSPARTNER : external.A_BusinessPartner.BusinessPartner
-    }
-  }
-
 }
 
 
