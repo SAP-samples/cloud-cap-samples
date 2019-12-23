@@ -14,7 +14,7 @@ module.exports = cds.service.impl (async()=>{
   // Delegate ValueHelp requests to S/4 backend, fetching current user's addresses from there
   admin.on ('READ', 'Addresses', (req) => {
     console.log ('Delegating to S/4 bupa service...')
-    const UsersAddresses = SELECT.from (externalAddresses) .where ({ contact: req.user.id || 'anonymous' })
+    const UsersAddresses = SELECT.from (externalAddresses) .where ({ contact: req.user.id })
     return bupa.tx(req) .run (UsersAddresses.where (req.query.SELECT.where))
   })
 
