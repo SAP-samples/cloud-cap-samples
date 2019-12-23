@@ -85,4 +85,4 @@ module.exports = cds.service.impl(async () => {
     )
   })
 })
-require('./utils') // ugly workaround for AppStudio
+require('./utils')
