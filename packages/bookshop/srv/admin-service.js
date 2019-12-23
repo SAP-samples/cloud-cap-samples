@@ -12,9 +12,11 @@ module.exports = cds.service.impl(async () => {
   // Delegate ValueHelp requests to S/4 backend, fetching current user's addresses from there
   admin.on('READ', 'Addresses', req => {
     console.log('Delegating to S/4 bupa service...')
-    const UsersAddresses = SELECT.from(externalAddresses).where({
-      contact: req.user.id
-    }).where(req.query.SELECT.where)
+    const UsersAddresses = SELECT.from(externalAddresses)
+      .where({
+        contact: req.user.id
+      })
+      .where(req.query.SELECT.where)
     return bupa.tx(req).run(UsersAddresses)
   })
 
@@ -43,10 +45,9 @@ module.exports = cds.service.impl(async () => {
     if (replicas.length === 0) return //> not affected
 
     // fetch changed data from S/4 -> might be less than local due to deletes
-    const changed = await SELECT.from(externalAddresses).where({
-      contact: BPID,
-      ID: replicas.map(a => a.ID) // where in
-    })
+    const changed = (await SELECT.from(externalAddresses).where({
+      contact: BPID
+    })).filter(({ ID }) => replicas.some(rep => ID === rep.ID))
 
     // update local replicas with changes from S/4
     const local = db.transaction(msg) //> using that variant to benefit from bulk runs

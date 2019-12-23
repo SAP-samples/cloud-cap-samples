@@ -15,13 +15,11 @@ module.exports = admin => {
   // Handler to delegate ValueHelp requests to S/4 backend, fetching current user's addresses from there
   // admin.on ('READ', 'usersAddresses', (req) => {  // REVISIT: all requests go to auto-exposed Addresses
   admin.on('READ', 'Addresses', req => {
-    return bupa
-      .tx(req)
-      .run(
-        SELECT.from(externalAddresses).where({
-          contact: req.user.id || 'anonymous'
-        })
-      )
+    return bupa.tx(req).run(
+      SELECT.from(externalAddresses).where({
+        contact: req.user.id || 'anonymous'
+      })
+    )
     // return bupa.tx(req) .read (externalAddresses) .where ({ contact: req.user.id || 'anonymous' }) //> FIXME: doesn't work !?!?
     // const { SELECT } = cds.ql(req) //> convenient alternative to bupa.transaction(req).run(SELECT...)
     // return SELECT.from (externalAddresses) .where ({ contact: req.user.id || 'anonymous' })

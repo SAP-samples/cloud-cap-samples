@@ -19,9 +19,13 @@
         "kind": "odata",
         "model": "srv/external",
         "--credentials": {
-          ">>": "should go to bindings !!!",
-          "destination": "cap-api532",
-          "prefix": "sap/S4HANAOD/c532/BO"
+          "destination": "cap-api098"
+        }
+      },
+      "--messaging": {
+        "kind": "enterprise-messaging",
+        "credentials": {
+          "prefix": "sap/S4HANAOD/c098/BO"
         }
       }
     },
