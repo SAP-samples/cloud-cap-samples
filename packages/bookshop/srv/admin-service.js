@@ -37,7 +37,7 @@ module.exports = cds.service.impl(async () => {
   bupa.on('BusinessPartner/Changed', async msg => {
     console.log('>> received:', msg.data)
 
-    const BPID = msg.data.KEY[0].BUSINESSPARTNER // TODO: .KEY[0] >> revisit w/ Oliver
+    const BPID = msg.data.KEY[0].BUSINESSPARTNER
     const { SELECT, UPDATE } = cds.ql(msg) //> convenient alternative to <srv>.transaction(req).run(SELECT...)
 
     // fetch affected entries from local replicas
