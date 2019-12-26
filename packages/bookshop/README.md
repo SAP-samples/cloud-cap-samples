@@ -22,7 +22,6 @@ Just execute the following command in the `bookshop` folder.
 ```
 cds run --in-memory --with-mocks
 ```
-You can emit an event by executing the first request in the file `req.http`.
 
 ## Running With an S/4HANA Backend
 Provide the credentials in the `cds.requires` section of the `package.json` file in the `bookshop` folder, e.g.
