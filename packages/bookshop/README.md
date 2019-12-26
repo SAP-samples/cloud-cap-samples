@@ -57,5 +57,6 @@ cds run --in-memory
 
 ## User Flow
 After starting the app, go to http://localhost:4004/fiori.html#Shell-home and open the app `Manage Orders` to create an order.
+Use the value help of the shipping address to select an address. Create an order item and save the order.
 Then change the address of your business partner (in the mocked case you can trigger the PATCH request in `req.http` ). Refresh
 the object page of your order and see the change.
