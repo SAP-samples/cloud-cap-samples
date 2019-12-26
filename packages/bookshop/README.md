@@ -26,16 +26,27 @@ You can emit an event by executing the first request in the file `req.http`.
 
 ## Running With an S/4HANA Backend
 Provide the credentials in the `cds.requires` section of the `package.json` file in the `bookshop` folder, e.g.
+
 ```json
+  "cds": {
+    "requires": {
       "API_BUSINESS_PARTNER": {
         "kind": "odata",
         "model": "srv/external",
         "credentials": {
-          "destination": "cap-api532",
-          "prefix": "sap/S4HANAOD/c532/BO"
+          "destination": "cap-api098"
+        }
+      },
+      "messaging": {
+        "kind": "enterprise-messaging",
+        "credentials": {
+          "prefix": "sap/S4HANAOD/c098/BO"
         }
       }
+    }
+  }
 ```
+
 Here, `destination` is the destination of your business-partner service and `prefix` is the prefix
 of the topic of the events.
 
@@ -46,3 +57,5 @@ cds run --in-memory
 
 ## User Flow
 After starting the app, go to http://localhost:4004/fiori.html#Shell-home and open the app `Manage Orders` to create an order.
+Then change the address of your business partner (in the mocked case you can trigger the PATCH request in `req.http` ). Refresh
+the object page of your order and see the change.
