@@ -75,7 +75,7 @@ annotate my.Authors with {
 
 annotate my.Addresses with {
 	ID @title:'{i18n>AddressID}';
-	BusinessPartner @title:'{i18n>BusinessPartner}';
+	contact @title:'{i18n>contact}';
 	@readonly cityName @title:'{i18n>cityName}';
 	@readonly streetName @title:'{i18n>streetName}';
 	@readonly postalCode @title:'{i18n>postalCode}';
