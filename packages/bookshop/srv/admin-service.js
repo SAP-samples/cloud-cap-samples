@@ -20,7 +20,7 @@ module.exports = cds.service.impl(async () => {
     return bupa.tx(req).run(UsersAddresses)
   })
 
-  // Replicate chosen addresses from S/4 when filing orders.
+  // Replicate chosen addresses from S/4 when filling orders.
   admin.before('PATCH', 'Orders', async req => {
     const assigned = { ID: req.data.shippingAddress_ID, contact: req.user.id }
     if (!assigned.ID) return //> something else
