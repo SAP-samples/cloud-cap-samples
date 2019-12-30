@@ -49,7 +49,7 @@ module.exports = cds.service.impl(async () => {
       contact
     })
 
-    // Add a tombstone if external address was deleted
+    // Add tombstone if external address was deleted
     const changed = replicas.map(
       rep =>
         externals.find(ext => ext.ID === rep.ID) || {
