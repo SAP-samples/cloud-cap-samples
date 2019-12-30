@@ -14,14 +14,14 @@ const diff = (obj1, obj2) =>
 const queriesToUpdateDifferences = (entity, ownEntries, otherEntries) =>
   ownEntries
     .map(ownEntry => {
-      const remoteAddress = otherEntries.find(otherEntry =>
+      const otherEntry = otherEntries.find(otherEntry =>
         Object.keys(entity.keys).reduce(
           (res, curr) => res && otherEntry[curr] === ownEntry[curr],
           true
         )
       )
-      if (remoteAddress) {
-        const differences = diff(ownEntry, remoteAddress)
+      if (otherEntry) {
+        const differences = diff(ownEntry, otherEntry)
         if (Object.keys(differences).length) {
           return UPDATE(entity)
             .set(differences)
