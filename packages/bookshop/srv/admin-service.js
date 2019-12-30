@@ -37,16 +37,16 @@ module.exports = cds.service.impl(async () => {
   bupa.on('BusinessPartner/Changed', async msg => {
     console.log('>> received:', msg.data)
 
-    const BPID = msg.data.KEY[0].BUSINESSPARTNER
+    const contact = msg.data.KEY[0].BUSINESSPARTNER
     const { SELECT, UPDATE } = cds.ql(msg) //> convenient alternative to <srv>.transaction(req).run(SELECT...)
 
     // fetch affected entries from local replicas
-    const replicas = await SELECT.from(Addresses).where({ contact: BPID })
+    const replicas = await SELECT.from(Addresses).where({ contact })
     if (replicas.length === 0) return //> not affected
 
     // fetch changed data from S/4 -> might be less than local due to deletes
     const changed = (await SELECT.from(externalAddresses).where({
-      contact: BPID
+      contact
     })).filter(({ ID }) => replicas.some(rep => ID === rep.ID))
 
     // update local replicas with changes from S/4
