@@ -49,11 +49,14 @@ module.exports = cds.service.impl(async () => {
       contact
     })
 
-    const changed = replicas.map(rep => {
-      const ext = externals.find(ext => ext.ID === rep.ID)
-      if (ext) return ext
-      return { ...rep, ...{ tombstone: true } }
-    })
+    // Add a tombstone if remote address was deleted
+    const changed = replicas.map(
+      rep =>
+        externals.find(ext => ext.ID === rep.ID) || {
+          ...rep,
+          ...{ tombstone: true }
+        }
+    )
 
     // update local replicas with changes from S/4
     const local = db.transaction(msg) //> using that variant to benefit from bulk runs
