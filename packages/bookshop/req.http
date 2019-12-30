@@ -12,3 +12,8 @@ Authorization: Basic QUxJQ0Utc2VjcmV0
 GET http://localhost:4004/admin/Orders(ID=7e2f2640-6866-4dcf-8f4d-3027aa831cad,IsActiveEntity=false)?
 &$expand=shippingAddress($select=cityName,houseNumber,postalCode,streetName)
 Authorization: Basic QUxJQ0U6c2VjcmV0
+
+
+###
+
+DELETE  http://localhost:4004/api-business-partner/A_BusinessPartnerAddress(BusinessPartner='ALICE',AddressID='62640')

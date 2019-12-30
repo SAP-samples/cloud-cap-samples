@@ -1,5 +1,5 @@
 module.exports = srv => {
-    srv.on('UPDATE', req => {
+    srv.on(['CREATE', 'UPDATE', 'DELETE'], req => {
 
         const payload = {
             KEY: [{ BUSINESSPARTNER: req.data.BusinessPartner }]
