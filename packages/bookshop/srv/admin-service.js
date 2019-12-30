@@ -37,7 +37,7 @@ module.exports = cds.service.impl(async () => {
   bupa.on('BusinessPartner/Changed', async msg => {
     console.log('>> received:', msg.data)
 
-    const contact = msg.data.KEY[0].BUSINESSPARTNER
+    const contact = msg.data.KEY[0].BUSINESSPARTNER //> S/4HANA's weird payload format
     const { SELECT, UPDATE } = cds.ql(msg) //> convenient alternative to <srv>.transaction(req).run(SELECT...)
 
     // fetch affected entries from local replicas
