@@ -11,7 +11,9 @@
     "express": "*"
   },
   "scripts": {
-    "start": "npx cds run"
+    "reviews-service": "PORT=5005 cds run ../reviews-service --bind --in-memory?",
+    "start": "cds run --in-memory?",
+    "watch": "cds watch"
   },
   "cds": {
     "requires": {

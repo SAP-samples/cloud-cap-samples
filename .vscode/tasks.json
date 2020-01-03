@@ -4,23 +4,14 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "type": "shell", "label": "cds run bookshop",
-            "command": "npx", "args": [ "cds", "watch", "packages/bookshop" ],
-            "presentation": { "group": "A" },
-            "problemMatcher": []
+            "type": "npm", "script": "watch", "path": "packages/bookshop/",
+            "options": { "env": { "PORT": "4004" }},
+            "presentation": { "group": "A" }
         },
         {
-            "type": "shell", "label": "cds run bookshop-enhanced",
-            "command": "npx", "args": [ "cds", "watch", "packages/bookshop-enhanced" ],
-            "presentation": { "group": "A" },
-            "problemMatcher": []
-        },
-        {
-            "type": "shell", "label": "cds run reviews-service",
-            "command": "npx", "args": [ "cds", "watch", "packages/reviews-service" ],
-            "options": {"env": { "PORT":"5005" }},
-            "presentation": { "group": "A" },
-            "problemMatcher": []
+            "type": "npm", "script": "watch", "path": "packages/reviews-service/",
+            "options": { "env": { "PORT": "5005" }},
+            "presentation": { "group": "A" }
         }
     ]
 }
