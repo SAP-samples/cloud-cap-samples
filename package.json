@@ -5,15 +5,13 @@
   "author": "daniel.hutzel@sap.com",
   "private": true,
   "scripts": {
-    "cleanup": "lerna clean -y && rm -fr node_modules",
-    "install": "(npm -s run lerna) && lerna bootstrap --hoist",
     "lerna": "npx --no-install lerna -v > /dev/null || npm i lerna --no-save",
-    "test": "jest",
-    "bookshop-enhanced": "cds watch packages/bookshop-enhanced",
+    "install": "(npm -s run lerna) && lerna bootstrap --hoist",
+    "cleanup": "lerna clean -y && rm -fr node_modules",
     "bookshop": "cds watch packages/bookshop",
-    "bookstore": "cds watch packages/bookstore",
-    "products-service": "cds watch packages/products-service",
-    "reviews-service": "cds watch packages/reviews-service"
+    "bookshop-enhanced": "cds watch packages/bookshop-enhanced",
+    "reviews-service": "cds watch packages/reviews-service",
+    "bookstore": "cds watch packages/bookstore"
   },
   "dependencies": {
     "@sap/cds": "latest",
