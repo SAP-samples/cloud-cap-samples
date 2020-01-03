@@ -11,7 +11,8 @@
     "sqlite3": "^4.1.0"
   },
   "scripts": {
-    "start": "npx cds run"
+    "start": "cds run --in-memory?",
+    "watch": "cds watch"
   },
   "cds": {
     "requires": {

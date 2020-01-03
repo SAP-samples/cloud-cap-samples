@@ -5,35 +5,19 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "bookshop",
-      "request": "launch",
-      "type": "node",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["-n"],
-      "args": ["--", "cds", "run", "--with-mocks", "--in-memory"], // the leading "--" arg ensures it works with as well as without debugging
+      "name": "bookshop", "request": "launch",
+      "type": "node", "runtimeExecutable": "npx", "runtimeArgs": [ "-n", "--" ],
+      "args": [ "cds", "run", "--in-memory" ],
       "cwd": "${workspaceFolder}/packages/bookshop",
       "console": "integratedTerminal",
-      "serverReadyAction": {
-        "pattern": "server listening on (https?://\\S+|[0-9]+)",
-        "uriFormat": "http://localhost:%s",
-        "action": "openExternally"
-      },
       "skipFiles": ["<node_internals>/**"]
     },
     {
-      "name": "cds run",
-      "request": "launch",
-      "type": "node",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["-n"],
-      "args": ["--", "cds", "run", "--with-mocks", "--in-memory"], // the leading "--" arg ensures it works with as well as without debugging
+      "name": "cds run ...", "request": "launch",
+      "type": "node", "runtimeExecutable": "npx", "runtimeArgs": [ "-n", "--" ],
+      "args": [ "cds", "run", "--with-mocks", "--in-memory?" ],
       "cwd": "${workspaceFolder}/packages/${input:service}",
       "console": "integratedTerminal",
-      "serverReadyAction": {
-        "pattern": "server listening on (https?://\\S+|[0-9]+)",
-        "uriFormat": "http://localhost:%s",
-        "action": "openExternally"
-      },
       "skipFiles": ["<node_internals>/**"]
     }
   ],
@@ -47,12 +31,9 @@
         "bookstore",
         "media-server",
         "office-supplies",
-        "orders-service",
-        "products-service",
-        "reviews-service",
-        "user-service"
+        "reviews-service"
       ],
-      "default": "bookstore"
+      "default": "bookshop"
     }
   ]
 }
