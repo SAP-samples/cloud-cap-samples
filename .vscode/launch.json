@@ -5,17 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "bookshop", "request": "launch",
-      "type": "node", "runtimeExecutable": "npx", "runtimeArgs": [ "-n", "--" ],
-      "args": [ "cds", "run", "--in-memory" ],
+      "name": "bookshop", "request": "launch", "type": "node", "runtimeExecutable": "npx", "runtimeArgs": [ "-n" ],
+      "args": [ "--", "cds", "run", "--in-memory" ],
       "cwd": "${workspaceFolder}/packages/bookshop",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**"]
     },
     {
-      "name": "cds run ...", "request": "launch",
-      "type": "node", "runtimeExecutable": "npx", "runtimeArgs": [ "-n", "--" ],
-      "args": [ "cds", "run", "--with-mocks", "--in-memory?" ],
+      "name": "cds run ...", "request": "launch", "type": "node", "runtimeExecutable": "npx", "runtimeArgs": [ "-n" ],
+      "args": [ "--", "cds", "run", "--with-mocks", "--in-memory?" ],
       "cwd": "${workspaceFolder}/packages/${input:service}",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**"]
