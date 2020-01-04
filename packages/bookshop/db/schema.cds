@@ -7,7 +7,7 @@ entity Books : managed {
   descr  : localized String(1111);
   author : Association to Authors;
   stock  : Integer;
-  price  : Decimal;
+  price  : Decimal(9,2);
   currency : Currency;
 }
 
@@ -24,12 +24,12 @@ entity Authors : managed {
 entity Orders : cuid, managed {
   OrderNo  : String @title:'Order Number'; //> readable key
   Items    : Composition of many OrderItems on Items.parent = $self;
-  total    : Decimal @readonly;
+  total    : Decimal(9,2) @readonly;
   currency : Currency;
 }
 entity OrderItems : cuid {
   parent    : Association to Orders;
   book      : Association to Books;
   amount    : Integer;
-  netAmount : Decimal;
+  netAmount : Decimal(9,2);
 }
