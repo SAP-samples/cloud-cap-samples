@@ -1,7 +1,6 @@
 {
   "files.exclude": {
-    "**/.gitignore": false,
-    "**/.git": false,
-    "**/.vscode": false
+    "**/.gitignore": true,
+    "**/.vscode": true
   }
 }
