@@ -5,6 +5,9 @@
   "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
     "@sap/cds": "latest",
+    "@sap/cloud-sdk-core": "^1.15.0",
+    "@sap/cloud-sdk-vdm-business-partner-service": "^1.15.0",
+    "@sap/cloud-sdk-vdm-material-stock-service": "^1.15.0",
     "@sap/xb-msg-amqp-v100": "^0.9.31-SNAPSHOT",
     "express": "*",
     "passport": "^0.4.0",
@@ -34,7 +37,9 @@
         "strategy": "mock",
         "users": {
           "alice": {
-            "roles": ["admin"],
+            "roles": [
+              "admin"
+            ],
             "password": "secret",
             "ID": "ALICE"
           }

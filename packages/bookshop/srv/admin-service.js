@@ -4,6 +4,8 @@ process.env["HTTP_PROXY"] = ""
 process.env["HTTPS_PROXY"] = ""
 
 const cds = require('@sap/cds')
+const { MaterialStock } = require('@sap/cloud-sdk-vdm-material-stock-service')
+const { retrieveJwt } = require('@sap/cloud-sdk-core')
 const { queriesToUpdateDifferences } = require('./utils')
 const { Books, ShippingAddresses } = cds.entities
 
@@ -80,15 +82,33 @@ async function _reduceStock(req) {
       )
     )
     all.forEach((affectedRows, i) => {
-      if (affectedRows === 0)
+      if (affectedRows === 0) {
+        if (isAvailableInStores(order.amount, order.book, req)) {
+					orderItem.setFulfillFromStores(true);
+        } else
         req.error(
           409,
           `${OrderItems[i].amount} exceeds stock for book #${
           OrderItems[i].book_ID
           }`
         )
-    })
+    }
+  })
+}
+
+async function isAvailableInStores(orderedAmount, book, req) {
+  const dest = {
+    destinationName : 's4-business-partner-api',
+    jwt : retrieveJwt(req)
   }
+  const stock = await MaterialStock.requestBuilder().getByKey(book.s4MaterialNo).select(MaterialStock.TO_MATL_STK_IN_ACCT_MOD).execute(dest)
+
+  let booksInStock = 0;
+  // availability in stores from S4
+  if (!stock.toMatlStkInAcctMod.length) {
+    booksInStock = stock.toMatlStkInAcctMod[0].matlWrhsStkQtyInMatlBaseUnit.integerValue;
+  }
+  return booksInStock >= orderedAmount;
 }
 
 function _checkMandatoryParams(req) {

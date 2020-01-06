@@ -1,6 +1,6 @@
 namespace sap.capire.bookshop;
 using { Currency, managed, cuid } from '@sap/cds/common';
-using { API_BUSINESS_PARTNER as external } from '../srv/external/API_BUSINESS_PARTNER.csn';
+using { API_BUSINESS_PARTNER as external } from '../node_modules/@sap/cloud-sdk-vdm-business-partner-service/business-partner-service-csn.json';
 
 entity Books : managed {
   key ID : Integer;
@@ -10,6 +10,7 @@ entity Books : managed {
   stock  : Integer;
   price  : Decimal(9,2);
   currency : Currency;
+  s4MaterialNo : String;
 }
 
 entity Authors : managed {
@@ -34,6 +35,7 @@ entity OrderItems : cuid {
   book      : Association to Books;
   amount    : Integer;
   netAmount : Decimal(9,2);
+  fulfillFromStores : Boolean;
 }
 
 @cds.persistence: {table, skip: false}
