@@ -38,7 +38,6 @@
             "roles": [
               "admin"
             ],
-            "password": "secret",
             "ID": "ALICE"
           }
         }
