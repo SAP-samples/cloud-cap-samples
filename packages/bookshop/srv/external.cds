@@ -3,7 +3,7 @@ using { API_BUSINESS_PARTNER as external } from './external/API_BUSINESS_PARTNER
 /**
  * Tailor the imported API to our needs...
  */
-extend service API_BUSINESS_PARTNER with {
+extend service external with {
 
   /**
    * Simplified view on external addresses
