@@ -1,11 +1,11 @@
 # Bookshop With Address Data From S/4HANA
 
 This is an extended bookshop with business-partner address data from S/4HANA.
-When the user creates an order, using the value help of the shipping address 
-triggers a synchronous request to S/4HANA yielding all possible addresses
+When the user creates an order and uses the value help of the shipping address,
+a synchronous request to S/4HANA is triggered yielding all possible addresses
 belonging to this business partner. Once an address is selected, its data
 is replicated into a local database. To keep data in sync, an event handler
-is registered listening to all changes of business partners updating the 
+is registered listening to all changes of business partners which updates the 
 local database table.
 
 
