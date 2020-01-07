@@ -5,7 +5,7 @@ When the user creates an order and uses the value help of the shipping address,
 a synchronous request to S/4HANA is triggered yielding all possible addresses
 belonging to this business partner. Once an address is selected, its data
 is replicated into a local database. To keep data in sync, an event handler
-is registered listening to all changes of business partners which updates the 
+is registered which listens to all changes of business partners and updates the 
 local database table.
 
 
