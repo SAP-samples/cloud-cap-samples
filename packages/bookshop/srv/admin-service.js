@@ -35,26 +35,17 @@ module.exports = cds.service.impl(async () => {
   bupa.on('BusinessPartner/Changed', async msg => {
     console.log('>> received:', msg.data)
 
-    const contact = msg.data.KEY[0].BUSINESSPARTNER //> S/4HANA's weird payload format
+    const BuPaID = msg.data.KEY[0].BUSINESSPARTNER //> S/4HANA's weird payload format
     const { SELECT, UPDATE } = cds.ql(msg) //> convenient alternative to <srv>.transaction(req).run(SELECT...)
 
     // fetch affected entries from local replicas
-    const replicas = await SELECT.from(Addresses).where({ contact })
+    const replicas = await SELECT.from(Addresses).where({ contact: BuPaID })
     if (replicas.length === 0) return //> not affected
 
     // fetch changed data from S/4 -> might be less than local due to deletes
-    const externals = await SELECT.from(externalAddresses).where({
-      contact
+    const changed = await SELECT.from(externalAddresses).where({
+      contact: BuPaID, ID: replicas.map(({ ID }) => ID)
     })
-
-    // Add tombstone if external address was deleted
-    const changed = replicas.map(
-      rep =>
-        externals.find(ext => ext.ID === rep.ID) || {
-          ...rep,
-          ...{ tombstone: true }
-        }
-    )
 
     // update local replicas with changes from S/4
     const local = db.transaction(msg) //> using that variant to benefit from bulk runs
@@ -78,7 +69,10 @@ module.exports = cds.service.impl(async () => {
           .set('stock -=', each.amount)
       )
     )
-    all.forEach((affectedRows, i) => affectedRows > 0 || req.error(409, `${Items[i].amount} exceeds stock for book #${Items[i].book_ID}`))
+    all.forEach(
+      (affectedRows, i) =>
+        affectedRows > 0 || req.error(409, `${Items[i].amount} exceeds stock for book #${Items[i].book_ID}`)
+    )
   })
 })
 require('./utils')
