@@ -7,7 +7,7 @@ module.exports = cds.service.impl(async () => {
 
   // Using reflected definitions from connected services/database
   const { Addresses: externalAddresses } = bupa.entities // projection on external addresses
-  const { Books, Addresses } = db.entities // entities in local database
+  const { Books, Addresses } = db.entities('sap.capire.bookshop') // entities in local database
 
   // Delegate ValueHelp requests to S/4 backend, fetching current user's addresses from there
   admin.on('READ', 'Addresses', req => {
