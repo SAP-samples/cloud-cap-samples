@@ -8,6 +8,7 @@ extend service external with {
   /**
    * Simplified view on external addresses
    */
+   // @cds.persistence.skip: false
   @mashup entity Addresses as projection on external.A_BusinessPartnerAddress {
     key AddressID as ID,
     key BusinessPartner as contact,
