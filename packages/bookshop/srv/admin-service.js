@@ -27,9 +27,7 @@ module.exports = cds.service.impl(async () => {
     const local = db.transaction(req)
     const [replica] = await local.read(Addresses).where(assigned)
     if (replica) return //> already replicated
-    const [address] = await bupa
-      .tx(req)
-      .run(SELECT.from(externalAddresses).where(assigned))
+    const [address] = await bupa.tx(req).run(SELECT.from(externalAddresses).where(assigned))
     if (address) return local.create(Addresses).entries(address)
   })
 
@@ -68,13 +66,8 @@ module.exports = cds.service.impl(async () => {
     const { Items } = req.data
 
     // validate input...
-    if (!Items || Items.length === 0)
-      return req.reject('Please order at least one item.')
-    if (!req.data.shippingAddress_ID)
-      return req.reject(
-        'Please enter a valid shipping address.',
-        'shippingAddress_ID'
-      )
+    if (!Items || Items.length === 0) return req.reject('Please order at least one item.')
+    if (!req.data.shippingAddress_ID) return req.reject('Please enter a valid shipping address.', 'shippingAddress_ID')
 
     // reduce stock on ordered books...
     const all = await db.tx(req).run(
@@ -85,14 +78,7 @@ module.exports = cds.service.impl(async () => {
           .set('stock -=', each.amount)
       )
     )
-    all.forEach(
-      (affectedRows, i) =>
-        affectedRows > 0 ||
-        req.error(
-          409,
-          `${Items[i].amount} exceeds stock for book #${Items[i].book_ID}`
-        )
-    )
+    all.forEach((affectedRows, i) => affectedRows > 0 || req.error(409, `${Items[i].amount} exceeds stock for book #${Items[i].book_ID}`))
   })
 })
 require('./utils')
