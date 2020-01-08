@@ -26,9 +26,7 @@ extend service external with {
  */
 @cds.persistence:{table,skip:false} //> create a table with the view's inferred signature
 @cds.autoexpose //> auto-expose in services as targets for ValueHelps and joins
-entity sap.capire.bookshop.Addresses as SELECT from external.Addresses { *,
-  false as tombstone : Boolean
-};
+entity sap.capire.bookshop.Addresses as projection on external.Addresses;
 
 
 /**
