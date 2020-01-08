@@ -13,7 +13,8 @@ module.exports = cds.service.impl(async () => {
   admin.on('READ', 'Addresses', req => {
     console.log('Delegating to S/4 bupa service...')
     const UsersAddresses = SELECT.from(externalAddresses)
-      .where({ contact: req.user.id }).and(req.query.SELECT.where)
+      .where({ contact: req.user.id })
+      .and(req.query.SELECT.where)
     return bupa.tx(req).run(UsersAddresses)
   })
 
@@ -41,7 +42,8 @@ module.exports = cds.service.impl(async () => {
 
     // fetch changed data from S/4 -> might be less than local due to deletes
     const changed = await SELECT.from(externalAddresses).where({
-      contact: BuPaID, ID: replicas.map(({ ID }) => ID)
+      contact: BuPaID,
+      ID: replicas.map(({ ID }) => ID)
     })
 
     // update local replicas with changes from S/4
