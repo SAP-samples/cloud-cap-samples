@@ -23,9 +23,7 @@ The samples provided can be run in a local setup on SQLite Database.
 
 #### Install `cds` development kit
 ```sh
-# sets the registry for `@sap` packages
-npm set @sap:registry=https://npm.sap.com
-
+# `@sap`-scoped packages are set via .npmrc
 npm install -g @sap/cds-dk
 cds  #> test-run it
 ```
