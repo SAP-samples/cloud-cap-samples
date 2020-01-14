@@ -37,7 +37,7 @@ modules:
    path: gen/db  
    parameters:
      app-name: capire-bookshop-db  
-   requires:
+   # requires:
     #### Hana and xsuaa resources extracted from CAP configuration ####
  ############################################################
 
