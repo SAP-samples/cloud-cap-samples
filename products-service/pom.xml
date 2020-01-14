@@ -16,9 +16,9 @@
 
 		<!-- DEPENDENCIES VERSION -->
 		<jdk.version>1.8</jdk.version>
-		<cds.services.version>1.1.0</cds.services.version>
-		<cds4j.version>1.5.1</cds4j.version>
-		<spring.boot.version>2.2.1.RELEASE</spring.boot.version>
+		<cds.services.version>1.0.1</cds.services.version>
+		<cds4j.version>1.2.1</cds4j.version>
+		<spring.boot.version>2.1.7.RELEASE</spring.boot.version>
 
 		<node.version>v10.4.1</node.version>
 		<node.url>https://nodejs.org/dist/</node.url>
