@@ -17,15 +17,13 @@ The samples provided can be run in a local setup on SQLite Database.
 
 #### Optional (if you want to import the code into an editor)
 * [VS Code](https://code.visualstudio.com)
-* [Add CDS extension to VS](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/be944d6d51f343f6b3f53c29c44ff00a.html)
+* [Add CDS extension to VS](https://cap.cloud.sap/docs/get-started/in-vscode#add-cds-editor)
 
 ## Download and Installation
 
 #### Install `cds` development kit
 ```sh
-# sets the registry for `@sap` packages
-npm set @sap:registry=https://npm.sap.com
-
+# `@sap`-scoped packages are set via .npmrc
 npm install -g @sap/cds-dk
 cds  #> test-run it
 ```

@@ -8,6 +8,7 @@
     "express": "*"
   },
   "scripts": {
-    "start": "npx cds run"
+    "start": "cds run --in-memory?",
+    "watch": "cds watch"
   }
 }

@@ -8,6 +8,10 @@
     "@sap/cds": "latest",
     "express": "*"
   },
+  "scripts": {
+    "start": "cds run --in-memory?",
+    "watch": "cds watch"
+  },
   "files": [
     "db",
     "srv",
