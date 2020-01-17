@@ -11,7 +11,9 @@
     "bookshop": "cds watch packages/bookshop",
     "bookshop-enhanced": "cds watch packages/bookshop-enhanced",
     "reviews-service": "cds watch packages/reviews-service",
-    "bookstore": "cds watch packages/bookstore"
+
+    "bookstore": "cds watch packages/bookstore",
+    "media-server": "cds watch packages/media-server"
   },
   "dependencies": {
     "@sap/cds": "latest",
