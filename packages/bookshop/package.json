@@ -9,5 +9,13 @@
   },
   "scripts": {
     "start": "npx cds run"
+  },
+  "cds": {
+    "requires": {
+      "API_BUSINESS_PARTNER": {
+        "kind": "odata",
+        "model": "srv/external/API_BUSINESS_PARTNER"
+      }
+    }
   }
 }
