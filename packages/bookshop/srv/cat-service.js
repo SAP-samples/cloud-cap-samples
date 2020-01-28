@@ -11,7 +11,9 @@ module.exports = cds.service.impl(async function () {
     console.log('>> Received message', msg.data)
     const BUSINESSPARTNER = msg.data.KEY[0].BUSINESSPARTNER
     const orders = await cds.tx(msg).run(SELECT.from(Orders).where({ createdBy: BUSINESSPARTNER }))
-    this.emit('ContactDetailsChanged', { orders })
+    const payload = { orders }
+    this.emit('ContactDetailsChanged', payload)
+    console.log('<< Emitting message', payload)
   })
 
   /** Add some discount for overstocked books */
