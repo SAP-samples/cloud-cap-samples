@@ -1,0 +1,6 @@
+PATCH http://localhost:4004/api-business-partner/A_BusinessPartnerAddress(AddressID='19292',BusinessPartner='ALICE')
+Content-Type: application/json
+
+{
+    "StreetName": "ChangedStreet"
+}
