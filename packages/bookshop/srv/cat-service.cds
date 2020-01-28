@@ -18,6 +18,10 @@ service CatalogService {
     Country
   };
 
+  event ContactDetailsChanged {
+    orders: array of my.Orders
+  }
+
   @requires_: 'authenticated-user'
   @insertonly entity Orders as projection on my.Orders;
 

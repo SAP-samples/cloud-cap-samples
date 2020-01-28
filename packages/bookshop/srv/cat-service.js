@@ -7,11 +7,12 @@ module.exports = cds.service.impl(async function () {
   this.after('READ', Books, each => each.stock > 111 && _addDiscount2(each, 11))
   this.before('CREATE', Orders, _reduceStock)
   this.on('READ', Addresses, req => bupaSrv.tx(req).run(req.query))
-  this.on('BusinessPartner/Changed', async msg => {
+  bupaSrv.on('BusinessPartner/Changed', async msg => {
     console.log('>> Received message', msg.data)
     const BUSINESSPARTNER = msg.data.KEY[0].BUSINESSPARTNER
     const orders = await cds.tx(msg).run(SELECT.from(Orders).where({ createdBy: BUSINESSPARTNER }))
-    console.log(orders)
+    this.emit('ContactDetailsChanged', { orders })
+    console.log('=== EMITTED ====')
   })
 
   /** Add some discount for overstocked books */
