@@ -2,9 +2,12 @@ const cds = require('@sap/cds')
 const { Books } = cds.entities
 
 /** Service implementation for CatalogService */
-module.exports = cds.service.impl(function() {
+module.exports = cds.service.impl(async function() {
+  const bupaSrv = await cds.connect.to('API_BUSINESS_PARTNER')
+  const { A_BusinessPartnerAddress } = bupaSrv.entities
   this.after ('READ', 'Books', each => each.stock > 111 && _addDiscount2(each,11))
   this.before ('CREATE', 'Orders', _reduceStock)
+  this.on('READ', 'Addresses', req => bupaSrv.run(req.query.from(A_BusinessPartnerAddress)))
 })
 
 /** Add some discount for overstocked books */
