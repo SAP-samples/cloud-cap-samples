@@ -12,8 +12,9 @@ service CatalogService {
     key AddressID,
     key BusinessPartner,
     StreetName,
-    CityName,
     HouseNumber,
+    CityName,
+    PostalCode,
     Country
   };
 
