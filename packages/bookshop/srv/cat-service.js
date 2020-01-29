@@ -9,13 +9,15 @@ module.exports = cds.service.impl(async function () {
   this.on('READ', BusinessPartners, req => bupaSrv.tx(req).run(req.query))
 
   bupaSrv.on('BusinessPartner/Changed', async msg => {
-    console.log('>> Received', msg.data)
+    console.log('>> Received BusinessPartner/Changed', msg.data)
     const BUSINESSPARTNER = msg.data.KEY[0].BUSINESSPARTNER
-    const orders = await cds.tx(msg).run(SELECT('ID').from(Orders).where({ createdBy: BUSINESSPARTNER }))
+    const tx = cds.tx(msg)
+    const orders = await tx.run(SELECT('ID').from(Orders).where({ createdBy: BUSINESSPARTNER, status: 'processing' }))
     if (!orders.length) return
     const businessPartner = await bupaSrv.tx(msg).run(SELECT.one(BusinessPartners).where({ ID: BUSINESSPARTNER }))
     if (!businessPartner || !businessPartner.BusinessPartnerIsBlocked) return
-    orders.forEach(order => this.emit('OrderBlocked', order) && console.log('>> Emitted', order))
+    await Promise.all(orders.map(order => tx.run(UPDATE(Orders).where(order).set({ status: 'blocked' }))))
+    orders.forEach(order => this.emit('OrderBlocked', order) && console.log('>> Emitted OrderBlocked', order))
   })
 
   /** Add some discount for overstocked books */

@@ -4,6 +4,6 @@ module.exports = srv => {
             KEY: [{ BUSINESSPARTNER: req.data.BusinessPartner }]
         }
         srv.emit('BusinessPartner/Changed', payload)
-        console.log('<< Emitted', payload)
+        console.log('<< Emitted BusinessPartner/Changed', payload)
     })
 }

@@ -1,4 +1,5 @@
-ID;modifiedAt;createdAt;createdBy;modifiedBy;OrderNo;currency_code
-da86efd0-4ba1-4078-b7f0-5c9c530297f7;;2019-01-31;ALICE;;1;EUR
-2f2f2640-6866-4dcf-8f4d-3027aa831cad;;2019-03-25;ALICE;;10;EUR
-64e718c9-ff99-47f1-8ca3-950c850777d4;;2019-01-30;BOB;;2;EUR
+ID;modifiedAt;createdAt;createdBy;modifiedBy;OrderNo;currency_code;status
+da86efd0-4ba1-4078-b7f0-5c9c530297f7;;2019-01-31;ALICE;;1;EUR;processing
+2f2f2640-6866-4dcf-8f4d-3027aa831cad;;2019-03-25;ALICE;;10;EUR;completed
+64e718c9-ff99-47f1-8ca3-950c850777d4;;2019-01-30;BOB;;2;EUR;processing
+1af3322d-3cb1-46be-b312-0ae9ec311537;;2019-03-16;BOB;;9;EUR;completed
