@@ -8,6 +8,7 @@ module.exports = cds.service.impl(async function () {
   this.before('CREATE', Orders, _reduceStock)
   this.on('READ', BusinessPartners, req => bupaSrv.tx(req).run(req.query))
 
+  /** Block orders if business partner is blocked */
   bupaSrv.on('BusinessPartner/Changed', async msg => {
     console.log('>> Received BusinessPartner/Changed', msg.data)
     const BUSINESSPARTNER = msg.data.KEY[0].BUSINESSPARTNER
