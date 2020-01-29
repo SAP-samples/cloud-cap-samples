@@ -1,6 +1,0 @@
-BusinessPartner;AddressID;CityName;PostalCode;Country;StreetName;HouseNumber
-ALICE;19292;Walldorf;69190;GER;Dietmer-Hopp-Allee;16
-ALICE;93719;Walldorf;69190;GER;Hasso-Plattner-Ring;7
-ALICE;92939;St.Leon-Rot;68789;GER;SAP-Allee;29
-BOB;92786;Dresden;00187;GER;Chemnitzer Str.;48
-BOB;92840;Dresden;01067;GER;Postplatz;1

@@ -2,16 +2,22 @@ const cds = require('@sap/cds')
 
 /** Service implementation for CatalogService */
 module.exports = cds.service.impl(async function () {
-  const { Books, Addresses, Orders } = this.entities
+  const { Books, Orders, BusinessPartners } = this.entities
   const bupaSrv = await cds.connect.to('API_BUSINESS_PARTNER')
   this.after('READ', Books, each => each.stock > 111 && _addDiscount2(each, 11))
   this.before('CREATE', Orders, _reduceStock)
-  this.on('READ', Addresses, req => bupaSrv.tx(req).run(req.query))
+  this.on('READ', BusinessPartners, req => bupaSrv.tx(req).run(req.query))
+
   bupaSrv.on('BusinessPartner/Changed', async msg => {
-    console.log('>> Received message', msg.data)
+    console.log('>> Received', msg.data)
     const BUSINESSPARTNER = msg.data.KEY[0].BUSINESSPARTNER
     const orders = await cds.tx(msg).run(SELECT('ID').from(Orders).where({ createdBy: BUSINESSPARTNER }))
-    orders.forEach(order => this.emit('OrderOutdated', order) && console.log('<< Emitting message', order))
+    if (orders.length) {
+      const businessPartner = await bupaSrv.tx(msg).run(SELECT.one(BusinessPartners).where({ ID: BUSINESSPARTNER }))
+      if (businessPartner.IsMarkedForArchiving) {
+        orders.forEach(order => this.emit('OrderMadeObsolete', order) && console.log('>> Emitted', order))
+      }
+    }
   })
 
   /** Add some discount for overstocked books */

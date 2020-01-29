@@ -1,5 +1,5 @@
 using { sap.capire.bookshop as my } from '../db/schema';
-using { API_BUSINESS_PARTNER.A_BusinessPartnerAddress } from './external/API_BUSINESS_PARTNER.csn';
+using { API_BUSINESS_PARTNER as external } from './external/API_BUSINESS_PARTNER.csn';
 
 @path:'/browse'
 service CatalogService {
@@ -8,17 +8,15 @@ service CatalogService {
     author.name as author
   } excluding { createdBy, modifiedBy };
 
-  @readonly entity Addresses as projection on A_BusinessPartnerAddress {
-    key AddressID as ID,
-    key BusinessPartner,
-    StreetName,
-    HouseNumber,
-    CityName,
-    PostalCode,
-    Country
+  @readonly entity BusinessPartners as projection on external.A_BusinessPartner {
+    key BusinessPartner as ID,
+    FirstName,
+    MiddleName,
+    LastName,
+    IsMarkedForArchiving
   };
 
-  event OrderOutdated { 
+  event OrderMadeObsolete {
     ID: UUID;
   };
 
