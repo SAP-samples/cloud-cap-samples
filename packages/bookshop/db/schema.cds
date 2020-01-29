@@ -35,7 +35,7 @@ entity Authors : managed {
 
 entity Orders : cuid, managed {
   OrderNo  : String       @title : 'Order Number'; //> readable key
-  status   : Status;
+  status   : Status default 'processing';
   Items    : Composition of many OrderItems
                on Items.parent = $self;
   total    : Decimal(9, 2)@readonly;
