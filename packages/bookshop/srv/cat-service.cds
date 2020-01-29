@@ -13,10 +13,10 @@ service CatalogService {
     FirstName,
     MiddleName,
     LastName,
-    IsMarkedForArchiving
+    BusinessPartnerIsBlocked
   };
 
-  event OrderMadeObsolete {
+  event OrderBlocked {
     ID: UUID;
   };
 

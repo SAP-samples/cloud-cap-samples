@@ -1,4 +1,4 @@
-BusinessPartner;FirstName;MiddleName;LastName;IsMarkedForArchiving
+BusinessPartner;FirstName;MiddleName;LastName;BusinessPartnerIsBlocked
 ALICE;Alice;In;Wonderland;false
 BOB;Bob;The;Builder;false
 JABBA;Jabba;The;Hutt;true

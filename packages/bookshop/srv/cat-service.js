@@ -14,10 +14,14 @@ module.exports = cds.service.impl(async function () {
     const orders = await cds.tx(msg).run(SELECT('ID').from(Orders).where({ createdBy: BUSINESSPARTNER }))
     if (orders.length) {
       const businessPartner = await bupaSrv.tx(msg).run(SELECT.one(BusinessPartners).where({ ID: BUSINESSPARTNER }))
-      if (businessPartner && businessPartner.IsMarkedForArchiving) {
-        orders.forEach(order => this.emit('OrderMadeObsolete', order) && console.log('>> Emitted', order))
+      if (businessPartner && businessPartner.BusinessPartnerIsBlocked) {
+        orders.forEach(order => this.emit('OrderBlocked', order) && console.log('>> Emitted', order))
       }
     }
+  })
+
+  this.on('OrderBlocked', msg => {
+    console.log('>>>> Received', msg.data)
   })
 
   /** Add some discount for overstocked books */

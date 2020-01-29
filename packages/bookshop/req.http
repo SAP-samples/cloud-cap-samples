@@ -2,5 +2,5 @@ PATCH http://localhost:4004/api-business-partner/A_BusinessPartner('ALICE')
 Content-Type: application/json
 
 {
-    "IsMarkedForArchiving": true
+    "BusinessPartnerIsBlocked": true
 }
