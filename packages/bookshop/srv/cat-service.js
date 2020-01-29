@@ -10,9 +10,8 @@ module.exports = cds.service.impl(async function () {
   bupaSrv.on('BusinessPartner/Changed', async msg => {
     console.log('>> Received message', msg.data)
     const BUSINESSPARTNER = msg.data.KEY[0].BUSINESSPARTNER
-    const orders = await cds.tx(msg).run(SELECT.from(Orders).where({ createdBy: BUSINESSPARTNER }))
-    this.emit('OrdersOutdated', { orders })
-    console.log('<< Emitting message', { orders })
+    const orders = await cds.tx(msg).run(SELECT('ID').from(Orders).where({ createdBy: BUSINESSPARTNER }))
+    orders.forEach(order => this.emit('OrderOutdated', order) && console.log('<< Emitting message', order))
   })
 
   /** Add some discount for overstocked books */

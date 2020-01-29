@@ -4,6 +4,7 @@
   "description": "A simple bookshop application, build in a self-contained all-in-one fashion, i.e. w/o reusing other packages.",
   "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
+    "@sap/xb-msg-amqp-v100": "latest",
     "@sap/cds": "latest",
     "express": "*"
   },
@@ -18,8 +19,14 @@
       "API_BUSINESS_PARTNER": {
         "kind": "odata",
         "model": "srv/external/API_BUSINESS_PARTNER",
-        "--credentials": {
+        "credentials": {
           "destination": "cap-api098"
+        }
+      },
+      "messaging": {
+        "kind": "enterprise-messaging",
+        "credentials": {
+          "prefix": "sap/S4HANAOD/c098/BO"
         }
       }
     }

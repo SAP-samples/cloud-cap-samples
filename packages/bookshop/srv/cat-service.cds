@@ -9,7 +9,7 @@ service CatalogService {
   } excluding { createdBy, modifiedBy };
 
   @readonly entity Addresses as projection on A_BusinessPartnerAddress {
-    key AddressID,
+    key AddressID as ID,
     key BusinessPartner,
     StreetName,
     HouseNumber,
@@ -18,8 +18,8 @@ service CatalogService {
     Country
   };
 
-  event OrdersOutdated {
-    orders: array of my.Orders
+  event OrderOutdated { 
+    ID: UUID;
   };
 
   @requires_: 'authenticated-user'
