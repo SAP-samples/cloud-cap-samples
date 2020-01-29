@@ -12,12 +12,10 @@ module.exports = cds.service.impl(async function () {
     console.log('>> Received', msg.data)
     const BUSINESSPARTNER = msg.data.KEY[0].BUSINESSPARTNER
     const orders = await cds.tx(msg).run(SELECT('ID').from(Orders).where({ createdBy: BUSINESSPARTNER }))
-    if (orders.length) {
-      const businessPartner = await bupaSrv.tx(msg).run(SELECT.one(BusinessPartners).where({ ID: BUSINESSPARTNER }))
-      if (businessPartner && businessPartner.BusinessPartnerIsBlocked) {
-        orders.forEach(order => this.emit('OrderBlocked', order) && console.log('>> Emitted', order))
-      }
-    }
+    if (!orders.length) return
+    const businessPartner = await bupaSrv.tx(msg).run(SELECT.one(BusinessPartners).where({ ID: BUSINESSPARTNER }))
+    if (!businessPartner || !businessPartner.BusinessPartnerIsBlocked) return
+    orders.forEach(order => this.emit('OrderBlocked', order) && console.log('>> Emitted', order))
   })
 
   /** Add some discount for overstocked books */
