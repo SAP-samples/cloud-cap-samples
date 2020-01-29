@@ -20,10 +20,6 @@ module.exports = cds.service.impl(async function () {
     }
   })
 
-  this.on('OrderBlocked', msg => {
-    console.log('>>>> Received', msg.data)
-  })
-
   /** Add some discount for overstocked books */
   function _addDiscount2(each, discount) {
     each.title += ` -- ${discount}% discount!`
