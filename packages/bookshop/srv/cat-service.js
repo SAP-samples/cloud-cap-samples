@@ -14,7 +14,7 @@ module.exports = cds.service.impl(async function () {
     const orders = await cds.tx(msg).run(SELECT('ID').from(Orders).where({ createdBy: BUSINESSPARTNER }))
     if (orders.length) {
       const businessPartner = await bupaSrv.tx(msg).run(SELECT.one(BusinessPartners).where({ ID: BUSINESSPARTNER }))
-      if (businessPartner.IsMarkedForArchiving) {
+      if (businessPartner && businessPartner.IsMarkedForArchiving) {
         orders.forEach(order => this.emit('OrderMadeObsolete', order) && console.log('>> Emitted', order))
       }
     }
