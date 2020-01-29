@@ -18,9 +18,9 @@ service CatalogService {
     Country
   };
 
-  event ContactDetailsChanged {
+  event OrdersOutdated {
     orders: array of my.Orders
-  }
+  };
 
   @requires_: 'authenticated-user'
   @insertonly entity Orders as projection on my.Orders;

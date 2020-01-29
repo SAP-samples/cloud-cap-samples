@@ -21,9 +21,6 @@
         "--credentials": {
           "destination": "cap-api098"
         }
-      },
-      "messaging": {
-        "kind": "file-based-messaging"
       }
     }
   }
