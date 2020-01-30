@@ -5,10 +5,38 @@
   "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
     "@sap/cds": "latest",
-    "express": "*"
+    "express": "*",
+    "passport": "^0.4.1"
   },
   "scripts": {
     "start": "cds run --in-memory?",
     "watch": "cds watch"
+  },
+  "auth": {
+    "passport": {
+      "strategy": "mock",
+      "users": {
+        "alice": {
+          "password": "123",
+          "ID": "alice",
+          "roles": [
+            "admin",
+            "authenticated-user"
+          ],
+          "xs.user.attributes": {
+            "country": [
+              "US"
+            ]
+          }
+        },
+        "bob": {
+          "password": "123",
+          "ID": "bob",
+          "roles": [
+            "authenticated-user"
+          ]
+        }
+      }
+    }
   }
 }

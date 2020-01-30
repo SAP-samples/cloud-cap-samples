@@ -14,3 +14,7 @@ annotate AdminService.Orders with @odata.draft.enabled;
 extend service AdminService with {
   entity OrderItems as select from my.OrderItems;
 }
+// Restrict access to orders to users with role "admin"
+ annotate AdminService.Orders with  @(restrict: [
+   { grant: 'READ', to: 'admin' } 
+  ]);
