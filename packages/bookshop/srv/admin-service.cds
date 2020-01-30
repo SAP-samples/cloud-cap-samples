@@ -10,7 +10,7 @@ service AdminService @(_requires:'authenticated-user') {
 annotate AdminService.Orders with @odata.draft.enabled;
 // annotate AdminService.Books with @odata.draft.enabled;
 
-// Temporary workaround -> https://github.wdf.sap.corp/cap/issues/issues/3121
+// Temporary workaround
 extend service AdminService with {
   entity OrderItems as select from my.OrderItems;
 }
