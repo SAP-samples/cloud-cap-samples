@@ -15,7 +15,7 @@ module.exports = cds.service.impl(async function () {
     const tx = cds.tx(msg)
     const orders = await tx.run(SELECT('ID').from(Orders).where({ createdBy: BUSINESSPARTNER, status: 'processing' }))
     if (!orders.length) return
-    const businessPartner = await bupaSrv.tx(msg).run(SELECT.one(BusinessPartners).where({ ID: BUSINESSPARTNER }))
+    const businessPartner = await bupaSrv.tx(msg).run(SELECT.one('BusinessPartnerIsBlocked').from(BusinessPartners).where({ ID: BUSINESSPARTNER }))
     if (!businessPartner || !businessPartner.BusinessPartnerIsBlocked) return
     await Promise.all(orders.map(order => tx.run(UPDATE(Orders).where(order).set({ status: 'blocked' }))))
     orders.forEach(order => this.emit('OrderBlocked', order) && console.log('>> Emitted OrderBlocked', order))
