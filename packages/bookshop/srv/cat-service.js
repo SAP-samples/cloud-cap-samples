@@ -4,7 +4,6 @@ const { Books } = cds.entities
 /** Service implementation for CatalogService */
 module.exports = cds.service.impl(function() {
   this.after ('READ', 'Books', each => each.stock > 111 && _addDiscount2(each,11))
-  this.before ('CREATE', 'Orders', _checkOrderCreateAuth)
   this.before ('CREATE', 'Orders', _reduceStock)
 })
 
@@ -26,9 +25,5 @@ async function _reduceStock (req) {
   }))
 }
 
-/** Check authorization  */
-function _checkOrderCreateAuth (req) {
-  req.user.country === req.data.country || req.reject(403)
-}
 
 
