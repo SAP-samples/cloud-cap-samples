@@ -61,6 +61,7 @@ resources:
    type: com.sap.xs.hdi-container 
    
    parameters:
+     service: hanatrial
    properties:
      hdi-service-name: ${service-name}   # required for Java case
  - name: capire-samples-uaa
