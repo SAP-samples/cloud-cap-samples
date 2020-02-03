@@ -10,5 +10,12 @@
   "scripts": {
     "start": "cds run --in-memory?",
     "watch": "cds watch"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sql"
+      }
+    }
   }
 }
