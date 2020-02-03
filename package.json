@@ -31,7 +31,8 @@
     "cds": {
         "requires": {
             "db": {
-                "kind": "hana"
+                "kind": "hana",
+                "model": "srv"
             },
             "uaa": {
                 "kind": "xsuaa"
