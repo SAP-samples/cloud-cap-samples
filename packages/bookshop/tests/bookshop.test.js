@@ -1,13 +1,15 @@
 
 const cds = require('@sap/cds/lib/cds')
-const { setup, close } = require('./utils')
-const request = require('supertest')
+const app = require('express')()
+const request = require('supertest')(app)
 
 describe('Samples: Bookshop', () => {
-  beforeAll(done => setup('packages/bookshop', done))
-  afterAll(close)
 
-  test('Service $metadata document', async () => {
+  it ('should serve BooksShop', async ()=>{
+    await cds.serve('CatalogService').from(__dirname+'/browse') .in (app)
+  })
+
+  it('Service $metadata document', async () => {
     const response = await request(cds.serve.app)
       .get('/browse/$metadata')
       .expect('Content-Type', /^application\/xml/)
@@ -20,7 +22,7 @@ describe('Samples: Bookshop', () => {
   })
 
 
-  test('Get with select, expand and localized', async () => {
+  it('Get with select, expand and localized', async () => {
     const response = await request(cds.serve.app)
       .get('/browse/Books?$select=title,author&$expand=currency&sap-language=de')
       .expect('Content-Type', /^application\/json/)
