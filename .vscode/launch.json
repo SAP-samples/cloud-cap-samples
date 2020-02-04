@@ -9,8 +9,16 @@
       "request": "launch",
       "type": "node",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["-n"],
-      "args": ["--", "cds", "run", "--with-mocks", "--in-memory"], // the leading "--" arg ensures it works with as well as without debugging
+      "runtimeArgs": [
+        "-n"
+      ],
+      "args": [
+        "--",
+        "cds",
+        "run",
+        "--with-mocks",
+        "--in-memory"
+      ], // the leading "--" arg ensures it works with as well as without debugging
       "cwd": "${workspaceFolder}/packages/${input:service}",
       "console": "integratedTerminal",
       "serverReadyAction": {
@@ -18,7 +26,9 @@
         "uriFormat": "http://localhost:%s",
         "action": "openExternally"
       },
-      "skipFiles": ["<node_internals>/**"]
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
     }
   ],
   "inputs": [

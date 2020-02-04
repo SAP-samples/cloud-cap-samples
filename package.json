@@ -9,11 +9,7 @@
     "install": "(npm -s run lerna) && lerna bootstrap --hoist",
     "lerna": "npx --no-install lerna -v > /dev/null || npm i lerna --no-save",
     "test": "jest",
-    "bookshop-enhanced": "cds watch packages/bookshop-enhanced",
-    "bookshop": "cds watch packages/bookshop",
-    "bookstore": "cds watch packages/bookstore",
-    "products-service": "cds watch packages/products-service",
-    "reviews-service": "cds watch packages/reviews-service"
+    "bookshop": "cds watch packages/bookshop"
   },
   "dependencies": {
     "@sap/cds": "latest",
@@ -23,7 +19,8 @@
     "@types/jest": "*",
     "sqlite3": "*",
     "jest": "*",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "@sap/hdi-deploy": "3.7.0"
   },
   "license": "SAP SAMPLE CODE LICENSE"
 }
