@@ -1,8 +1,8 @@
-# Bookshop With Address Data From S/4HANA
+# Bookshop With Address Data From SAP S/4HANA
 
-This is an extended bookshop with business-partner address data from S/4HANA.
+This is an extended bookshop with business-partner address data from SAP S/4HANA.
 When the user creates an order and uses the value help of the shipping address,
-a synchronous request to S/4HANA is triggered yielding all possible addresses
+a synchronous request to SAP S/4HANA is triggered yielding all possible addresses
 belonging to this business partner. Once an address is selected, its data
 is replicated into a local database. To keep data in sync, an event handler
 is registered which listens to all changes of business partners and updates the 
@@ -19,7 +19,7 @@ cds run --in-memory --with-mocks
 
 ## Running With an S/4HANA Backend
 
-To run your app in non-mock mode you need an S/4HANA Cloud system and connect it to your SAP Cloud Platform. You can use the
+To run your app in non-mock mode you need an SAP S/4HANA Cloud system and connect it to your SAP Cloud Platform. You can use the
 [SAP Cloud Platform Extension Factory](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/346864df64f24011b49abee07bbd79af.html) to automate parts of this task. You need to enable synchronous APIs as well as events that are sent whenever business partners are changed.
 
 To run the app locally, you need to create a `default-env.json` file in the `bookshop` folder containing the binding information (credentials of Enterprise Messaging as well as the destination to the business-partner service).
