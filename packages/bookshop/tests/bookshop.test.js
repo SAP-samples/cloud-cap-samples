@@ -1,12 +1,13 @@
 
 const cds = require('@sap/cds/lib/cds')
-const app = require('express')()
-const request = require('supertest')(app)
 
-describe('Samples: Bookshop', () => {
-
+describe('Bookshop: OData Protocol Level Testing', () => {
+  const app = require('express')()
+  const request = require('supertest')(app)
+  
   it ('should serve BooksShop', async ()=>{
-    await cds.serve('CatalogService').from(__dirname+'/browse') .in (app)
+    //await cds.serve('CatalogService').from(__dirname+'/browse') .in (app)
+    await cds.serve('CatalogService').from(__dirname+'/../srv') .in (app)
   })
 
   it('Service $metadata document', async () => {
@@ -86,4 +87,29 @@ describe('Samples: Bookshop', () => {
         }
     ])
   }) 
+})
+
+describe('Bookshop: CDS Service Level Testing', () => {
+  let srv, Books
+
+    test('Should serve bookshop', async () => {
+      srv = await cds.serve('CatalogService')
+      .from(__dirname+'/browse')
+    Books = srv.entities.Books
+      expect(Books).toBeDefined()
+    })
+
+    test('GET all books', async () => {
+      const books = await srv.read (
+        Books, b=>{ b.ID, b.title }
+    )
+  
+      expect(books).toMatchObject([
+        { ID: 201, title: 'Wuthering Heights' },
+        { ID: 207, title: 'Jane Eyre' },
+        { ID: 251, title: 'The Raven' },
+        { ID: 252, title: 'Eleonora' },
+        { ID: 271, title: 'Catweazle' }
+      ])
+    })
 })
