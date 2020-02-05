@@ -10,7 +10,7 @@ local database table.
 
 ## Prerequisites
 
-`@sap/cds` > 1.22
+`@sap/cds` >= 1.22
 
 
 ## Running With Mocks
