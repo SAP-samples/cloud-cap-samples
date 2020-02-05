@@ -8,6 +8,10 @@ is replicated into a local database. To keep data in sync, an event handler
 is registered which listens to all changes of business partners and updates the 
 local database table.
 
+## Prerequisites
+
+`@sap/cds` > 1.22
+
 
 ## Running With Mocks
 Just execute the following command in the `bookshop` folder.
