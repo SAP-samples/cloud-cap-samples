@@ -6,12 +6,14 @@ describe('Bookshop: OData Protocol Level Testing', () => {
   const request = require('supertest')(app)
   
   it ('should serve BooksShop', async ()=>{
-    //await cds.serve('CatalogService').from(__dirname+'/browse') .in (app)
-    await cds.serve('CatalogService').from(__dirname+'/../srv') .in (app)
+    await cds.deploy (__dirname+'/cat-service') .to ('sqlite::memory:')
+    await cds.serve('CatalogService').from(__dirname+'/cat-service') .in (app)
+    //await cds.serve('CatalogService').from(__dirname+'/../srv') .in (app)
   })
 
   it('Service $metadata document', async () => {
-    const response = await request(cds.serve.app)
+    //const response = await request(cds.serve.app)
+    const response = await request
       .get('/browse/$metadata')
       .expect('Content-Type', /^application\/xml/)
       .expect(200)
@@ -24,7 +26,8 @@ describe('Bookshop: OData Protocol Level Testing', () => {
 
 
   it('Get with select, expand and localized', async () => {
-    const response = await request(cds.serve.app)
+    //const response = await request(cds.serve.app)
+    const response = await request
       .get('/browse/Books?$select=title,author&$expand=currency&sap-language=de')
       .expect('Content-Type', /^application\/json/)
       .expect(200)
@@ -94,22 +97,23 @@ describe('Bookshop: CDS Service Level Testing', () => {
 
     test('Should serve bookshop', async () => {
       srv = await cds.serve('CatalogService')
-      .from(__dirname+'/browse')
+      .from(__dirname+'/cat-service')
     Books = srv.entities.Books
       expect(Books).toBeDefined()
     })
 
     test('GET all books', async () => {
       const books = await srv.read (
-        Books, b=>{ b.ID, b.title }
+        //Books, b=>{ b.ID, b.title }
+        Books, b=>{ b.title }
     )
-  
-      expect(books).toMatchObject([
-        { ID: 201, title: 'Wuthering Heights' },
-        { ID: 207, title: 'Jane Eyre' },
-        { ID: 251, title: 'The Raven' },
-        { ID: 252, title: 'Eleonora' },
-        { ID: 271, title: 'Catweazle' }
-      ])
+
+        expect (books) .toMatchObject([
+            { title: 'Wuthering Heights' },
+            { title: 'Jane Eyre' },
+            { title: 'The Raven' },
+            { title: 'Eleonora' },
+            { title: 'Catweazle' }
+        ]) 
     })
 })
