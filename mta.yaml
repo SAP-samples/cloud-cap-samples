@@ -1,0 +1,78 @@
+####### Generated mta.yaml based on template version 0.2.0
+####### appName = capire-samples
+####### language=nodejs; multiTenant=
+####### approuter=
+
+_schema-version: '3.1'
+ID: sap.capire-samples
+version: 1.0.0
+description: "The umbrella project for all samples to easily setup for local development and tests."
+
+build-parameters:
+  before-all:
+   - builder: custom
+     commands:
+      - npm install
+      - cds build/all
+
+parameters:
+  enable-parallel-deployments: true  
+
+modules:
+ ##############    SERVER MODULE   ##########################
+ - name: capire-samples-srv
+   type: nodejs
+   path: 
+   properties:
+     EXIT: 1  # required by deploy.js task to terminate 
+
+   
+   requires:
+    #### Resources extracted from CAP configuration ####
+    - name: capire-samples-db
+    - name: capire-samples-uaa
+
+   provides:
+    - name: srv-binding    # required by consumers of CAP services (e.g. approuter)
+      properties:
+        srv-url: ${default-url}
+
+ ############################################################
+
+ ##############    SIDECAR MODULE   #########################
+ - name: db
+    
+   type: hdb
+   path: gen/db  
+   parameters:
+     app-name: capire-samples-db  
+   requires:
+    #### Hana and xsuaa resources extracted from CAP configuration ####
+    - name: capire-samples-db
+    - name: capire-samples-uaa
+ ############################################################
+
+
+##############  RESOURCES  ##################################
+resources:
+ ##### Services extracted from CAP configuration  ####
+ ##### 'service-plan' can be configured via 'cds.requires.<name>.vcap.plan'
+ - name: capire-samples-db
+   type: com.sap.xs.hdi-container 
+   
+   parameters:
+     service: hanatrial
+   properties:
+     hdi-service-name: ${service-name}   # required for Java case
+ - name: capire-samples-uaa
+    
+   type: org.cloudfoundry.managed-service
+   parameters:
+     path: ./xs-security.json
+     service: xsuaa
+     service-plan: application  
+     config:
+       xsappname: capire-samples-${space}    #  name + space dependency
+       tenant-mode: dedicated
+       ### scopes and role templates will be added below by a developer or by CAP tools
+############################################################
