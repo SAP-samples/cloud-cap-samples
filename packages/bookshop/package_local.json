@@ -9,22 +9,15 @@
         "passport": "^0.4.1",
         "hdb": "^0.17.1"
     },
-    "scripts": {
-        "start": "cds run --in-memory?",
-        "watch": "cds watch"
-    },
     "cds": {
         "requires": {
-            "db": {
-                "kind": "sqlite",
-                "[production]": {
-                    "kind": "hana"
-                },
-                "model": "srv"
-            },
             "uaa": {
                 "kind": "xsuaa"
             }
         }
+    },
+    "scripts": {
+        "start": "cds run --in-memory?",
+        "watch": "cds watch"
     }
 }

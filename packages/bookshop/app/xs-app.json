@@ -1,0 +1,22 @@
+{
+  "welcomeFile": "/fiori.html",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/.*(html|js)$",
+      "localDir": "."
+    },
+    {
+      "source": "^/sapui5/.*",
+      "localDir": "."
+    },
+    {
+      "source": "^/.*/webapp/.*",
+      "localDir": "."
+    },
+    {
+      "source": "/",
+      "destination": "srv-binding"
+    }
+  ]
+}

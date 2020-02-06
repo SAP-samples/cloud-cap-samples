@@ -1,0 +1,11 @@
+{
+  "name": "capire-bookshop-approuter",
+  "version": "0.0.1",
+  "description": "",
+  "dependencies": {
+    "@sap/approuter": "^6"
+  },
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js"
+  }
+}
