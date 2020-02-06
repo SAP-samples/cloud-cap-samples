@@ -1,5 +1,4 @@
-{
-<<<<<<< HEAD
+ {
   "name": "@sap/capire-samples",
   "description": "The umbrella project for all samples to easily setup for local development and tests.",
   "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
@@ -9,11 +8,7 @@
     "lerna": "npx --no-install lerna -v > /dev/null || npm i lerna --no-save",
     "install": "(npm -s run lerna) && lerna bootstrap --hoist",
     "cleanup": "lerna clean -y && rm -fr node_modules",
-    "bookshop": "cds watch packages/bookshop",
-    "bookshop-enhanced": "cds watch packages/bookshop-enhanced",
-    "reviews-service": "cds watch packages/reviews-service",
-    "bookstore": "cds watch packages/bookstore",
-    "media-server": "cds watch packages/media-server"
+    "bookshop": "cds watch packages/bookshop"
   },
   "dependencies": {
     "@sap/cds": "latest",
@@ -27,46 +22,4 @@
     "jest": "*"
   },
   "license": "SAP SAMPLE CODE LICENSE"
-=======
-    "name": "@sap/capire-samples",
-    "description": "The umbrella project for all samples to easily setup for local development and tests.",
-    "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
-    "author": "daniel.hutzel@sap.com",
-    "private": true,
-    "scripts": {
-        "lerna": "npx --no-install lerna -v > /dev/null || npm i lerna --no-save",
-        "install": "(npm -s run lerna) && lerna bootstrap --hoist",
-        "cleanup": "lerna clean -y && rm -fr node_modules",
-        "bookshop": "cds watch packages/bookshop",
-        "bookshop-enhanced": "cds watch packages/bookshop-enhanced",
-        "reviews-service": "cds watch packages/reviews-service",
-        "bookstore": "cds watch packages/bookstore",
-        "media-server": "cds watch packages/media-server"
-    },
-    "dependencies": {
-        "@sap/cds": "latest",
-        "express": "*",
-        "passport": "^0.4.1",
-        "hdb": "^0.17.1"
-    },
-    "devDependencies": {
-        "sqlite3": "*"
-    },
-    "--add-these-to-devDependencies-for-tests": {
-        "@types/jest": "*",
-        "jest": "*"
-    },
-    "license": "SAP SAMPLE CODE LICENSE",
-    "cds": {
-        "requires": {
-            "db": {
-                "kind": "hana",
-                "model": "srv"
-            },
-            "uaa": {
-                "kind": "xsuaa"
-             }
-        }
-    }
->>>>>>> cad3a32c78620f4c4558fad34991dd48866af8d3
 }
