@@ -9,6 +9,7 @@
     "hdb": "^0.17.1"
   },
   "scripts": {
-    "start": "npx cds run"
+    "start": "npx cds run",
+    "test": "../../node_modules/.bin/jest"
   }
 }

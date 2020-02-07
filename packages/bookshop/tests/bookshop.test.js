@@ -94,17 +94,14 @@ describe('Bookshop: OData Protocol Level Testing', () => {
 describe('Bookshop: CDS Service Level Testing', () => {
   let srv, Books
 
-  test('Should serve bookshop', async () => {
+  it('Should serve bookshop', async () => {
     srv = await cds.serve('CatalogService').from(__dirname + '/../srv/cat-service')
     Books = srv.entities.Books
     expect(Books).toBeDefined()
   })
 
-  test('GET  all books', async () => {
-    const books = await srv.read(
-      //Books, b=>{ b.ID, b.title }
-      Books, b => { b.title }
-    )
+  it('GETs all books', async () => {
+    const books = await srv.read(Books, b => { b.title })
 
     expect(books).toMatchObject([
       { title: 'Wuthering Heights' },
