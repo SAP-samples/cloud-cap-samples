@@ -1,6 +1,6 @@
 ####### Generated mta.yaml based on template version 0.2.0
 ####### appName = capire-bookshop
-####### language=nodejs; multiTenant=false
+####### language=nodejs; multiTenant=
 ####### approuter=
 
 _schema-version: '3.1'
@@ -27,7 +27,15 @@ modules:
      EXIT: 1  # required by deploy.js task to terminate 
 
    
-   
+   requires:
+    #### Resources extracted from CAP configuration ####
+    - name: capire-bookshop-db
+
+   provides:
+    - name: srv-binding    # required by consumers of CAP services (e.g. approuter)
+      properties:
+        srv-url: ${default-url}
+
  ############################################################
 
  ##############    SIDECAR MODULE   #########################
@@ -37,8 +45,20 @@ modules:
    path: gen/db  
    parameters:
      app-name: capire-bookshop-db  
-   # requires:
+   requires:
     #### Hana and xsuaa resources extracted from CAP configuration ####
+    - name: capire-bookshop-db
  ############################################################
 
 
+##############  RESOURCES  ##################################
+resources:
+ ##### Services extracted from CAP configuration  ####
+ ##### 'service-plan' can be configured via 'cds.requires.<name>.vcap.plan'
+ - name: capire-bookshop-db
+   type: com.sap.xs.hdi-container 
+   
+   parameters:
+   properties:
+     hdi-service-name: ${service-name}   # required for Java case
+############################################################
