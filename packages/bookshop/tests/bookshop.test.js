@@ -4,11 +4,10 @@ const cds = require('@sap/cds/lib/cds')
 describe('Bookshop: OData Protocol Level Testing', () => {
   const app = require('express')()
   const request = require('supertest')(app)
-  
-  it ('should serve BooksShop', async ()=>{
-    await cds.deploy (__dirname+'/cat-service') .to ('sqlite::memory:')
-    await cds.serve('CatalogService').from(__dirname+'/cat-service') .in (app)
-    //await cds.serve('CatalogService').from(__dirname+'/../srv') .in (app)
+
+  it('should serve BooksShop', async () => {
+    await cds.deploy(__dirname + '/../srv/cat-service').to('sqlite::memory:')
+    await cds.serve('CatalogService').from(__dirname + '/../srv/cat-service').in(app)
   })
 
   it('Service $metadata document', async () => {
@@ -38,82 +37,81 @@ describe('Bookshop: OData Protocol Level Testing', () => {
         title: "Sturmhöhe",
         author: "Emily Brontë",
         currency: {
-        name: "Pfund",
-        descr: "Britische Pfund",
-        code: "GBP",
-        symbol: "£"
+          name: "Pfund",
+          descr: "Britische Pfund",
+          code: "GBP",
+          symbol: "£"
         }
-        },
-        {
+      },
+      {
         ID: 207,
         title: "Jane Eyre",
         author: "Charlotte Brontë",
         currency: {
-        name: "Pfund",
-        descr: "Britische Pfund",
-        code: "GBP",
-        symbol: "£"
+          name: "Pfund",
+          descr: "Britische Pfund",
+          code: "GBP",
+          symbol: "£"
         }
-        },
-        {
+      },
+      {
         ID: 251,
         title: "The Raven",
         author: "Edgar Allen Poe",
         currency: {
-        name: "US-Dollar",
-        descr: "United States Dollar",
-        code: "USD",
-        symbol: "$"
+          name: "US-Dollar",
+          descr: "United States Dollar",
+          code: "USD",
+          symbol: "$"
         }
-        },
-        {
+      },
+      {
         ID: 252,
         title: "Eleonora",
         author: "Edgar Allen Poe",
         currency: {
-        name: "US-Dollar",
-        descr: "United States Dollar",
-        code: "USD",
-        symbol: "$"
+          name: "US-Dollar",
+          descr: "United States Dollar",
+          code: "USD",
+          symbol: "$"
         }
-        },
-        {
+      },
+      {
         ID: 271,
         title: "Catweazle",
         author: "Richard Carpenter",
         currency: {
-        name: "Euro",
-        descr: "European Euro",
-        code: "EUR",
-        symbol: "€"
+          name: "Euro",
+          descr: "European Euro",
+          code: "EUR",
+          symbol: "€"
         }
-        }
+      }
     ])
-  }) 
+  })
 })
 
-describe('Bookshop: CDS Service Level Testing', () => {
+describe('Bookshop: CDS Service Level Testing', () => {
   let srv, Books
 
-    test('Should serve bookshop', async () => {
-      srv = await cds.serve('CatalogService')
-      .from(__dirname+'/cat-service')
+  test('Should serve bookshop', async () => {
+    srv = await cds.serve('CatalogService').from(__dirname + '/../srv/cat-service')
     Books = srv.entities.Books
-      expect(Books).toBeDefined()
-    })
+    expect(Books).toBeDefined()
+  })
 
-    test('GET all books', async () => {
-      const books = await srv.read (
-        //Books, b=>{ b.ID, b.title }
-        Books, b=>{ b.title }
+  test('GET  all books', async () => {
+    const books = await srv.read(
+      //Books, b=>{ b.ID, b.title }
+      Books, b => { b.title }
     )
 
-        expect (books) .toMatchObject([
-            { title: 'Wuthering Heights' },
-            { title: 'Jane Eyre' },
-            { title: 'The Raven' },
-            { title: 'Eleonora' },
-            { title: 'Catweazle' }
-        ]) 
-    })
+    expect(books).toMatchObject([
+      { title: 'Wuthering Heights' },
+      { title: 'Jane Eyre' },
+      { title: 'The Raven' },
+      { title: 'Eleonora' },
+      { title: 'Catweazle' }
+    ])
+  })
 })
