@@ -1,0 +1,8 @@
+{
+    "file_suffixes": {
+    "hdbtable":         { "plugin_name": "com.sap.hana.di.table",         "plugin_version": "11.1.0" },
+    "hdbtabletype":     { "plugin_name": "com.sap.hana.di.tabletype",     "plugin_version": "11.1.0" },
+    "hdbtabledata":     { "plugin_name": "com.sap.hana.di.tabledata",     "plugin_version": "11.1.0" },
+    "csv":              { "plugin_name" : "com.sap.hana.di.tabledata.source" }
+    }
+}

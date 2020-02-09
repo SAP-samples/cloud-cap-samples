@@ -1,0 +1,19 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "SAP_CAPIRE_BOOKSHOP_BOOKS",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "Books.csv",
+                "has_header": true,
+                "no_data_import": false,
+                "delete_existing_foreign_data": false,
+                "dialect": "HANA",
+                "type_config": {
+                    "delimiter": ";"
+                }
+            }
+        }
+    ]
+}
