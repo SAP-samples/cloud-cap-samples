@@ -31,59 +31,24 @@ describe('Bookshop: OData Protocol Level Testing', () => {
 
     expect(response.body.value).toEqual([
       {
-        ID: 201,
-        title: "Sturmhöhe",
-        author: "Emily Brontë",
-        currency: {
-          name: "Pfund",
-          descr: "Britische Pfund",
-          code: "GBP",
-          symbol: "£"
-        }
+        ID: 201, title: "Sturmhöhe", author: "Emily Brontë",
+        currency: { name: "Pfund", descr: "Britische Pfund", code: "GBP", symbol: "£" }
       },
       {
-        ID: 207,
-        title: "Jane Eyre",
-        author: "Charlotte Brontë",
-        currency: {
-          name: "Pfund",
-          descr: "Britische Pfund",
-          code: "GBP",
-          symbol: "£"
-        }
+        ID: 207, title: "Jane Eyre", author: "Charlotte Brontë",
+        currency: { name: "Pfund", descr: "Britische Pfund", code: "GBP", symbol: "£" }
       },
       {
-        ID: 251,
-        title: "The Raven",
-        author: "Edgar Allen Poe",
-        currency: {
-          name: "US-Dollar",
-          descr: "United States Dollar",
-          code: "USD",
-          symbol: "$"
-        }
+        ID: 251, title: "The Raven", author: "Edgar Allen Poe",
+        currency: { name: "US-Dollar", descr: "United States Dollar", code: "USD", symbol: "$" }
       },
       {
-        ID: 252,
-        title: "Eleonora",
-        author: "Edgar Allen Poe",
-        currency: {
-          name: "US-Dollar",
-          descr: "United States Dollar",
-          code: "USD",
-          symbol: "$"
-        }
+        ID: 252, title: "Eleonora", author: "Edgar Allen Poe",
+        currency: { name: "US-Dollar", descr: "United States Dollar", code: "USD", symbol: "$" }
       },
       {
-        ID: 271,
-        title: "Catweazle",
-        author: "Richard Carpenter",
-        currency: {
-          name: "Euro",
-          descr: "European Euro",
-          code: "EUR",
-          symbol: "€"
-        }
+        ID: 271, title: "Catweazle", author: "Richard Carpenter",
+        currency: { name: "Euro", descr: "European Euro", code: "EUR", symbol: "€" }
       }
     ])
   })
