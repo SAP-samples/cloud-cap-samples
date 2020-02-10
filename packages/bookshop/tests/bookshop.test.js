@@ -1,17 +1,16 @@
 
-const cds = require('@sap/cds/lib/cds')
+const cds = require('@sap/cds')
 
 describe('Bookshop: OData Protocol Level Testing', () => {
   const app = require('express')()
   const request = require('supertest')(app)
 
-  it('should serve BooksShop', async () => {
+  it('should serve Bookshop', async () => {
     await cds.deploy(__dirname + '/../srv/cat-service').to('sqlite::memory:')
     await cds.serve('CatalogService').from(__dirname + '/../srv/cat-service').in(app)
   })
 
   it('Service $metadata document', async () => {
-    //const response = await request(cds.serve.app)
     const response = await request
       .get('/browse/$metadata')
       .expect('Content-Type', /^application\/xml/)
@@ -25,7 +24,6 @@ describe('Bookshop: OData Protocol Level Testing', () => {
 
 
   it('Get with select, expand and localized', async () => {
-    //const response = await request(cds.serve.app)
     const response = await request
       .get('/browse/Books?$select=title,author&$expand=currency&sap-language=de')
       .expect('Content-Type', /^application\/json/)
