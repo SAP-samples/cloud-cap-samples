@@ -5,7 +5,7 @@ describe('Bookshop: OData Protocol Level Testing', () => {
   const app = require('express')()
   const request = require('supertest')(app)
 
-  it('should serve Bookshop', async () => {
+  beforeAll(async () => {
     await cds.deploy(__dirname + '/../srv/cat-service').to('sqlite::memory:')
     await cds.serve('CatalogService').from(__dirname + '/../srv/cat-service').in(app)
   })
@@ -57,7 +57,7 @@ describe('Bookshop: OData Protocol Level Testing', () => {
 describe('Bookshop: CDS Service Level Testing', () => {
   let srv, Books
 
-  it('Should serve bookshop', async () => {
+  beforeAll(async () => {
     srv = await cds.serve('CatalogService').from(__dirname + '/../srv/cat-service')
     Books = srv.entities.Books
     expect(Books).toBeDefined()
