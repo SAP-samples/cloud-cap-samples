@@ -1,6 +1,6 @@
 namespace sap.capire.bookshop;
 using { Currency, managed, cuid } from '@sap/cds/common';
-using { sap.capire.bookshop.Products } from './products';
+using { sap.capire.products.Products } from '../../products';
 
 /*
 entity Books : managed {

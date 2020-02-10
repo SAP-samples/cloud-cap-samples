@@ -1,0 +1,15 @@
+{
+  "name": "@sap/products",
+  "version": "1.0.0",
+  "description": "A reuse package providing domain models and services to manage product catalogs.",
+  "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
+  "license": "SAP SAMPLE CODE LICENSE",
+  "dependencies": {
+    "@sap/cds": "latest",
+    "express": "*"
+  },
+  "files": [
+    "db",
+    "index.cds"
+  ]
+}
