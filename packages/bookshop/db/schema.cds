@@ -1,6 +1,8 @@
 namespace sap.capire.bookshop;
 using { Currency, managed, cuid } from '@sap/cds/common';
+using { sap.capire.bookshop.Products } from './products';
 
+/*
 entity Books : managed {
   key ID : Integer;
   title  : localized String(111);
@@ -9,6 +11,14 @@ entity Books : managed {
   stock  : Integer;
   price  : Decimal(9,2);
   currency : Currency;
+} */
+
+entity Books : Products {
+  author : Association to Authors;
+}
+
+entity Magazines : Products {
+  publisher : String;
 }
 
 entity Authors : managed {
