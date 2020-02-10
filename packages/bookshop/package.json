@@ -5,11 +5,13 @@
   "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
     "@sap/cds": "latest",
-    "express": "*",
-    "hdb": "^0.17.1"
+    "express": "*"
+  },
+  "devDependencies": {
+    "jest": "*"
   },
   "scripts": {
     "start": "npx cds run",
-    "test": "../../node_modules/.bin/jest"
+    "test": "jest"
   }
 }
