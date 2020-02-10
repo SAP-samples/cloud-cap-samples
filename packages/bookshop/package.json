@@ -5,7 +5,8 @@
   "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
     "@sap/cds": "latest",
-    "express": "*"
+    "express": "*",
+    "hdb": "^0.17.1"
   },
   "devDependencies": {
     "jest": "*"
