@@ -2,13 +2,24 @@ namespace sap.capire.bookshop;
 using { Currency, managed, cuid } from '@sap/cds/common';
 
 entity Books : managed {
-  key ID : Integer;
+  key ID : UUID;
   title  : localized String(111);
   descr  : localized String(1111);
   author : Association to Authors;
   stock  : Integer;
   price  : Decimal(9,2);
   currency : Currency;
+  texts: Composition of many Books_texts on texts.ID = ID;
+  localized: Association to Books_texts on localized.ID = $self.ID and localized.locale = $user.locale;
+}
+
+entity Books_texts {
+    key texts_id: UUID;
+    ID: UUID;
+    locale : String(5);
+    title : String(111);
+    descr : String(1111);
+    book : Association to Books on book.ID = ID;
 }
 
 entity Authors : managed {

@@ -96,6 +96,15 @@
                                         "route" : "AuthorsDetails"
                                     }
                                 }
+                            },
+                            "controlConfiguration": {
+                                "Authors/@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "creationMode": {
+                                            "name": "Inline"
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

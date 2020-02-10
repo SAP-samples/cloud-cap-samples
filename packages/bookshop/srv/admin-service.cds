@@ -8,7 +8,7 @@ service AdminService @(requires:'admin') {
 
 // Enable Fiori Draft for Orders
 annotate AdminService.Orders with @odata.draft.enabled;
-// annotate AdminService.Books with @odata.draft.enabled;
+annotate AdminService.Books with @odata.draft.enabled;
 
 // Temporary workaround -> https://github.wdf.sap.corp/cap/issues/issues/3121
 extend service AdminService with {
