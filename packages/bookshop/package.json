@@ -5,6 +5,7 @@
   "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
     "@sap/cds": "latest",
+    "@sap/xb-msg-amqp-v100": "^0.9.35",
     "express": "*"
   },
   "devDependencies": {
