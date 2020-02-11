@@ -21,8 +21,8 @@ async function _reduceStock (req) {
       .set ('stock -=', item.amount)
       .where ('ID =', item.book_ID) .and ('stock >=', item.amount)
   )).then (all => all.forEach ((affectedRows,i) => {
-    if (affectedRows === 0)  req.error (409,
-      `${orderItems[i].amount} exceeds stock for book #${orderItems[i].book_ID}`
-    )
+    if (affectedRows === 0) {
+      req.error (409, `${orderItems[i].amount} exceeds stock for book #${orderItems[i].book_ID}`)
+    }
   }))
 }
