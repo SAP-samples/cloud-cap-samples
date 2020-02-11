@@ -29,6 +29,23 @@ cds  #> test-run it
 ```
 Got issues?  Check out the [documentation](https://cap.cloud.sap/docs/get-started/).
 
+#### Install `passport` for the usage of XSUAA
+cds compile srv/ --to xsuaa > xs-security.json
+```sh
+npm i -g lerna  
+lerna clean -y
+rm -rf ../../node_modules
+lerna bootstrap --hoist
+```
+
+#### Create `xs-security.json`
+```sh
+cds compile srv/ --to xsuaa > xs-security.json
+```
+
+#### Deploy to Cloud Foundry
+Please see the description of branch week3-unit4
+
 #### Clone and build the application
 `git clone https://github.com/SAP-samples/cloud-cap-samples samples && cd samples && npm i`
 
