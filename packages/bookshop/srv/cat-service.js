@@ -16,10 +16,10 @@ function _addDiscount2 (each,discount) {
 async function _reduceStock (req) {
   const { Items: orderItems } = req.data
 
-  return cds.transaction(req) .run (()=> orderItems.map (order =>
+  return cds.transaction(req) .run (()=> orderItems.map (item =>
     UPDATE (Books)
-      .set ('stock -=', order.amount)
-      .where ('ID =', order.book_ID) .and ('stock >=', order.amount)
+      .set ('stock -=', item.amount)
+      .where ('ID =', item.book_ID) .and ('stock >=', item.amount)
   )).then (all => all.forEach ((affectedRows,i) => {
     if (affectedRows === 0)  req.error (409,
       `${orderItems[i].amount} exceeds stock for book #${orderItems[i].book_ID}`
