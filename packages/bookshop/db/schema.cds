@@ -22,6 +22,12 @@ entity Books_texts {
     book : Association to Books on book.ID = ID;
 }
 
+entity localized.Books as select from Books as L {
+    *,
+    COALESCE(L.localized.descr, L.descr) as descr,
+    COALESCE(L.localized.title, L.title) as title
+};
+
 entity Authors : managed {
   key ID : Integer;
   name   : String(111);
