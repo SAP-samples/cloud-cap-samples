@@ -30,7 +30,6 @@ cds  #> test-run it
 Got issues?  Check out the [documentation](https://cap.cloud.sap/docs/get-started/).
 
 #### Install `passport` for the usage of XSUAA
-cds compile srv/ --to xsuaa > xs-security.json
 ```sh
 npm i -g lerna  
 lerna clean -y
