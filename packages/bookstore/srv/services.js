@@ -22,7 +22,7 @@ module.exports['sap.capire.bookstore.CatalogService'] = cds.service.impl (async 
     ReviewsService.on ('reviewed', (msg) => {
         console.debug ('> received message:', msg.event, msg.data)
         const {subject,rating} = msg.data
-        const tx = cds // cds.transaction(msg)  // TODO: how to add multi-tenancy?
+        const tx = cds.transaction(msg)
         return tx.run (UPDATE(Books).set({rating}) .where ({ID:subject})) //.then (console.log)
     })
 
