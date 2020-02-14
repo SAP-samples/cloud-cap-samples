@@ -79,6 +79,7 @@
 				<version>${cds4j.version}</version>
 				<configuration>
 					<outputDirectory>${project.basedir}/src/gen</outputDirectory>
+					<basePackage>cds.gen</basePackage>
 				</configuration>
 				<executions>
 					<execution>

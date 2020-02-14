@@ -10,11 +10,11 @@
     "deploy": "cds deploy"
   },
   "dependencies": {
-    "@sap/cds": "3.17.4",
+    "@sap/cds": "3.21.2",
     "@sap/capire-products": "file:sap-capire-products-1.0.0.tgz"
   },
   "devDependencies": {
-    "sqlite3": "^4.1.0"
+    "sqlite3": "^4.1.1"
   },
   "cds": {
     "build": {
