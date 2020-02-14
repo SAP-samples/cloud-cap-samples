@@ -19,11 +19,11 @@ import com.sap.cds.services.handler.annotations.Before;
 import com.sap.cds.services.handler.annotations.ServiceName;
 import com.sap.cds.services.persistence.PersistenceService;
 
-import ordersservice.OrderItems;
-import ordersservice.Orders;
-import sap.capire.bookstore.Books;
-import sap.capire.bookstore.Books_;
-import sap.capire.bookstore.OrderItems_;
+import cds.gen.ordersservice.OrderItems;
+import cds.gen.ordersservice.Orders;
+import cds.gen.sap.capire.bookstore.Books;
+import cds.gen.sap.capire.bookstore.Books_;
+import cds.gen.sap.capire.bookstore.OrderItems_;
 
 @Component
 @ServiceName("OrdersService")
@@ -58,7 +58,9 @@ public class OrdersService implements EventHandler {
     @Before(event = CdsService.EVENT_CREATE, entity = "OrdersService.Orders")
     public void validateBookAndDecreaseStockViaOrders(List<Orders> orders) {
         for(Orders order : orders) {
-            validateBookAndDecreaseStock(order.getItems());
+            if(order.getItems() != null) {
+                validateBookAndDecreaseStock(order.getItems());
+            }
         }
     }
 
@@ -80,7 +82,9 @@ public class OrdersService implements EventHandler {
     public void calculateTotal(List<Orders> orders) {
         for (Orders order : orders) {
             // calculate net amount for expanded items
-            calculateNetAmount(order.getItems());
+            if(order.getItems() != null) {
+                calculateNetAmount(order.getItems());
+            }
 
             // get all items of the order
             CqnSelect selItems = Select.from(OrderItems_.class).where(i -> i.parent().ID().eq(order.getId()));

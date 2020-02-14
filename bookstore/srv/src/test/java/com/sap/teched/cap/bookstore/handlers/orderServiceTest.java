@@ -26,7 +26,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import sap.capire.bookstore.OrderItems;
+import cds.gen.sap.capire.bookstore.OrderItems;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

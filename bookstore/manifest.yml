@@ -1,7 +1,7 @@
 ---
 applications:
-- name: bookstore-<XXX>
+- name: bookstore
   path: srv/target/bookstore-1.0-SNAPSHOT.jar
   random-route: true
   services:
-  - bookstore-hana-<XXX>
+  - bookstore-hana
