@@ -16,9 +16,9 @@
 
 		<!-- DEPENDENCIES VERSION -->
 		<jdk.version>1.8</jdk.version>
-		<cds.services.version>1.0.1</cds.services.version>
-		<cds4j.version>1.2.1</cds4j.version>
-		<spring.boot.version>2.1.7.RELEASE</spring.boot.version>
+		<cds.services.version>1.2.0</cds.services.version>
+		<cds4j.version>1.6.0</cds4j.version>
+		<spring.boot.version>2.2.3.RELEASE</spring.boot.version>
 
 		<node.version>v10.4.1</node.version>
 		<node.url>https://nodejs.org/dist/</node.url>
@@ -128,6 +128,7 @@
 				<version>${spring.boot.version}</version>
 				<configuration>
 					<skip>true</skip>
+					<fork>false</fork>
 				</configuration>
 			</plugin>
 		</plugins>
