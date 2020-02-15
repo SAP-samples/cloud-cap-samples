@@ -5,8 +5,3 @@ service AdminService @(_requires:'authenticated-user') {
   entity Authors as projection on my.Authors;
   entity Orders as select from my.Orders;
 }
-
-// Temporary workaround -> cap/issues#3121
-extend service AdminService with {
-  entity OrderItems as select from my.OrderItems;
-}
