@@ -8,6 +8,7 @@ GET http://localhost:4004/browse/$metadata
 GET http://localhost:4004/browse/Books?
 # &$select=title,author
 # &$expand=currency
+# &$expand=texts
 # &sap-language=de
 
 ### Browsing Authors
