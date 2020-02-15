@@ -21,6 +21,7 @@ annotate AdminService.OrderItems with {
 }
 
 
+@odata.draft.enabled
 annotate AdminService.Orders with @(
 	UI: {
 		////////////////////////////////////////////////////////////////////////////
