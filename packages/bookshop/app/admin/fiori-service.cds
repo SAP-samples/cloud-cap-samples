@@ -56,7 +56,7 @@ context sap.capire.bookshop.texts {
 
   // _texts entity as generated today
   entity Books_texts {
-    // key ID: Integer;
+    // key ID: UUID;
     // key locale : String(5);
     title : String(111);
     descr : String(1111);
@@ -66,14 +66,8 @@ context sap.capire.bookshop.texts {
   @assert.unique.TextsKey: [ ID, locale ]
   extend Books_texts with {
     key texts_id: UUID;
-    /* key */ ID: Integer;
+    /* key */ ID: UUID;
     /* key */ locale : String(5);
-  }
-
-
-  // Workaround for glitch in cds runtimes
-  extend Books_texts with {
-    // book : Association to Books on book.ID = ID;
   }
 
 }
