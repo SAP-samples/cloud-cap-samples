@@ -65,7 +65,7 @@ context sap.capire.bookshop.texts {
   // Enhancements required for Fiori Draft
   @assert.unique.TextsKey: [ ID, locale ]
   extend Books_texts with {
-    key texts_id: UUID;
+    key ID_texts: UUID;
     /* key */ ID: UUID;
     /* key */ locale : String(5);
   }
