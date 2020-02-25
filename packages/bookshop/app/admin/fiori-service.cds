@@ -4,6 +4,9 @@ using AdminService from '../../srv/admin-service';
 //
 //	Books Object Page
 //
+
+annotate sap.capire.bookshop.Books with @odata.draft.enabled;
+
 @odata.draft.enabled
 annotate AdminService.Books with @(
 	UI: {
@@ -45,32 +48,32 @@ annotate AdminService.Books with @(
 //  Draft for Localized Data
 //
 
-using sap.capire.bookshop.Books as Books;
+// using sap.capire.bookshop.Books as Books;
 
-context sap.capire.bookshop.texts {
+// context sap.capire.bookshop.texts {
 
-  extend Books with {
-    localized: Association to Books_texts on localized.ID = $self.ID and localized.locale = $user.locale;
-    texts: Composition of many Books_texts on texts.ID = ID;
-  }
+//   extend Books with {
+//     localized: Association to Books_texts on localized.ID = $self.ID and localized.locale = $user.locale;
+//     texts: Composition of many Books_texts on texts.ID = ID;
+//   }
 
-  // _texts entity as generated today
-  entity Books_texts {
-    // key ID: UUID;
-    // key locale : String(5);
-    title : String(111);
-    descr : String(1111);
-  }
+//   // _texts entity as generated today
+//   entity Books_texts {
+//     // key ID: UUID;
+//     // key locale : String(5);
+//     title : String(111);
+//     descr : String(1111);
+//   }
 
-  // Enhancements required for Fiori Draft
-  @assert.unique.TextsKey: [ ID, locale ]
-  extend Books_texts with {
-    key ID_texts: UUID;
-    /* key */ ID: UUID;
-    /* key */ locale : String(5);
-  }
+//   // Enhancements required for Fiori Draft
+//   @assert.unique.locales: [ ID, locale ]
+//   extend Books_texts with {
+//     key ID_texts: UUID;
+//     /* key */ ID: UUID;
+//     /* key */ locale : String(5);
+//   }
 
-}
+// }
 
 // BUG in compiler? -> neither of which works
 // entity ![localized].sap.capire.bookshop.Books as select from Books { *,
