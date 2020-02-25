@@ -78,10 +78,10 @@ annotate AdminService.Books with @(
 // BUG in compiler? -> neither of which works
 // entity ![localized].sap.capire.bookshop.Books as select from Books { *,
 // entity _localized.sap.capire.bookshop.Books as select from Books { *,
-entity localized.sap.capire.bookshop.Books as select from Books { *,
-  coalesce(localized.title, title) as title,
-  coalesce(localized.descr, descr) as descr,
-};
+// entity localized.sap.capire.bookshop.Books as select from Books { *,
+//   coalesce(localized.title, title) as title,
+//   coalesce(localized.descr, descr) as descr,
+// };
 
 
 annotate AdminService.Books_texts with @(
