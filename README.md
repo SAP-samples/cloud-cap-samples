@@ -42,6 +42,8 @@ lerna bootstrap --hoist
 cds compile srv/ --to xsuaa > xs-security.json
 ```
 
+There is a known encoding issue when using Windows Powershell, please have a look at the [CAP documentation](https://cap.cloud.sap/docs/advanced/troubleshooting#pws-encoding).
+
 #### Deploy to Cloud Foundry
 Please see the description of branch week3-unit4
 
