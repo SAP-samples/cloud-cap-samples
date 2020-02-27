@@ -5,7 +5,7 @@ using AdminService from '../../srv/admin-service';
 //	Books Object Page
 //
 
-annotate sap.capire.bookshop.Books with @odata.draft.enabled;
+annotate sap.capire.bookshop.Books with @fiori.draft.enabled;
 
 @odata.draft.enabled
 annotate AdminService.Books with @(
