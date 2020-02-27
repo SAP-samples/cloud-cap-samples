@@ -1,0 +1,19 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "cds run",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/.vscode/cds",
+      "args": [ "run", "--with-mocks", "--in-memory?" ],
+      "skipFiles": [ "<node_internals>/**" ],
+      "internalConsoleOptions": "openOnSessionStart",
+      "console": "internalConsole",
+      "autoAttachChildProcesses": true
+    }
+  ]
+}

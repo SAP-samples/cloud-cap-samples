@@ -1,0 +1,155 @@
+{
+    "_version": "1.15.0",
+    "sap.app": {
+        "id": "supplier.suppliers",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "ach": "CA-UI5-FE",
+        "dataSources": {
+            "mainService": {
+                "uri": "/catalog/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "offline": false,
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "ui5template.fiorielements.v4.lrop",
+            "version": "1.0.0"
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "resources": {
+            "js": [],
+            "css": []
+        },
+        "dependencies": {
+            "minUI5Version": "1.71.0",
+            "libs": {
+                "sap.fe": {}
+            }
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "": {
+                "dataSource": "mainService",
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            }
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "SuppliersList",
+                    "target": "SuppliersList"
+                },
+                {
+                    "pattern": "Suppliers({key})",
+                    "name": "SuppliersObjectPage",
+                    "target": "SuppliersObjectPage"
+                },
+                    {
+                        "pattern": "Suppliers({key})/texts({key2})",
+                        "name": "Currencies_textsObjectPage",
+                        "target": "Currencies_textsObjectPage"
+                    }
+            ],
+            "targets": {
+                "SuppliersList": {
+                    "type": "Component",
+                    "id": "SuppliersList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "Suppliers",
+                            "variantManagement": "Page",
+                            "navigation": {
+                                "Suppliers": {
+                                    "detail": {
+                                        "route": "SuppliersObjectPage"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "SuppliersObjectPage": {
+                    "type": "Component",
+                    "id": "SuppliersObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "entitySet": "Suppliers",
+                                "navigation": {
+                                    "texts": {
+                                        "detail": {
+                                            "route": "Currencies_textsObjectPage"
+                                        }
+                                    }
+                                }
+                        }
+                    }
+                },
+                    "Currencies_textsObjectPage": {
+                        "type": "Component",
+                        "id": "Currencies_textsObjectPage",
+                        "name": "sap.fe.templates.ObjectPage",
+                        "options": {
+                            "settings": {
+                                "entitySet": "Currencies_texts"
+                            }
+                        }
+                    }
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        }
+    },
+    "sap.platform.abap": {
+        "_version": "1.1.0",
+        "uri": ""
+    },
+    "sap.platform.hcp": {
+        "_version": "1.1.0",
+        "uri": ""
+    },
+    "sap.fiori": {
+        "_version": "1.1.0",
+        "registrationIds": [],
+        "archeType": "transactional"
+    }
+}

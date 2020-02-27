@@ -1,0 +1,33 @@
+{
+	"name": "suppliers",
+	"version": "0.0.1",
+	"private": true,
+	"sapux": true,
+	"description": "This is a my new Fiori elements app",
+	"keywords": [
+		"ui5",
+		"openui5",
+		"sapui5"
+	],
+	"main": "webapp/index.html",
+	"scripts": {
+		"start": "npm run start-app-router",
+		"start-app-router": "npm run build && run-script-os",
+		"start-app-router:default": "destinations='[{\"name\":\"odata\",\"url\":\"http://localhost:4004\",\"strictSSL\":false}]' node node_modules/@sap/approuter/approuter.js",
+		"start-app-router:windows": "set destinations=[{\"name\":\"odata\",\"url\":\"http://localhost:4004\",\"strictSSL\":false}] && node node_modules/@sap/approuter/approuter.js",
+		"build": "rimraf dist && ui5 build -a --include-task=generateManifestBundle generateCachebusterInfo"
+	},
+	"remarkConfig": {
+		"plugins": [
+			"remark-preset-lint-consistent"
+		]
+	},
+	"dependencies": {
+		"@sap/approuter": "6.5.1",
+		"@ui5/cli": "1.8.0"
+	},
+	"devDependencies": {
+		"run-script-os": "1.0.7",
+		"rimraf": "3.0.0"
+	}
+}
