@@ -2,7 +2,7 @@
   Common Annotations shared by all apps
 */
 
-using { sap.capire.bookshop as my } from '../db/schema';
+using { sap.capire.bookshop as my } from '@sap/capire-bookshop/db/schema';
 
 
 ////////////////////////////////////////////////////////////////////////////
