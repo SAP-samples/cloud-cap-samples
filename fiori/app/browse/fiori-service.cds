@@ -1,4 +1,4 @@
-using CatalogService from '@sap/capire-bookshop/srv/cat-service';
+using CatalogService from '@capire/bookshop/srv/cat-service';
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -40,6 +40,7 @@ annotate CatalogService.Books with @(
 		LineItem: [
 			{Value: title},
 			{Value: author, Label:'{i18n>Author}'},
+			{Value: genre.name},
 			{Value: price},
 			{Value: currency.symbol, Label:' '},
 		]

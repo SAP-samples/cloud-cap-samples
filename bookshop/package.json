@@ -1,16 +1,17 @@
 {
-  "name": "@sap/capire-bookshop",
+  "name": "@capire/bookshop",
   "version": "1.0.0",
   "description": "A simple bookshop application, build in a self-contained all-in-one fashion, i.e. w/o reusing other packages.",
   "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
-    "@sap/capire-common": "*",
+    "@capire/common": "*",
     "@sap/cds": "*",
     "express": "*"
   },
   "scripts": {
     "start": "cds run --in-memory?",
-    "watch": "cds watch"
+    "watch": "cds watch",
+    "test:genres": "cds serve test/genres --in-memory"
   },
   "cds": {
     "requires": {

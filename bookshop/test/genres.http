@@ -1,0 +1,38 @@
+#################################################
+#
+#   Genres
+#
+
+GET http://localhost:4004/test/Genres?
+###
+
+GET http://localhost:4004/test/Genres?
+&$filter=parent_ID eq null&$select=name
+&$expand=children($select=name)
+###
+
+POST http://localhost:4004/test/Genres?
+Content-Type: application/json
+
+{ "ID":100, "name":"Some Sample Genres...", "children":[
+    { "ID":101, "name":"Cat", "children":[
+        { "ID":102, "name":"Kitty", "children":[
+            { "ID":103, "name":"Kitty Cat", "children":[
+                { "ID":104, "name":"Aristocat" } ]},
+            { "ID":105, "name":"Kitty Bat" } ]},
+        { "ID":106, "name":"Catwoman", "children":[
+            { "ID":107, "name":"Catalina" } ]} ]},
+    { "ID":108, "name":"Catweazle" }
+]}
+###
+
+GET http://localhost:4004/test/Genres(100)?
+# &$expand=children
+# &$expand=children($expand=children($expand=children($expand=children)))
+###
+
+DELETE http://localhost:4004/test/Genres(103)
+###
+
+DELETE http://localhost:4004/test/Genres(100)
+###

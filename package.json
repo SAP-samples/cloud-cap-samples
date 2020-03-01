@@ -1,5 +1,5 @@
 {
-  "name": "@sap/capire-samples",
+  "name": "@capire/samples",
   "description": "The umbrella project for all samples to easily setup for local development and tests.",
   "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
@@ -8,8 +8,9 @@
     "bookshop": "cds watch bookshop"
   },
   "dependencies": {
-    "@sap/capire-bookshop": "./bookshop",
-    "@sap/capire-common": "./common"
+    "@capire/bookshop": "./bookshop",
+    "@capire/genres": "./genres",
+    "@capire/common": "./common"
   },
   "--add-these-to-devDependencies-for-tests": {
     "@types/jest": "*",

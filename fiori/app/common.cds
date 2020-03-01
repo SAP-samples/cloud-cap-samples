@@ -2,7 +2,7 @@
   Common Annotations shared by all apps
 */
 
-using { sap.capire.bookshop as my } from '@sap/capire-bookshop/db/schema';
+using { sap.capire.bookshop as my } from '@capire/bookshop/db/schema';
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -17,6 +17,7 @@ annotate my.Books with @(
 			{Value: ID},
 			{Value: title},
 			{Value: author.name, Label:'{i18n>Author}'},
+			{Value: genre.name},
 			{Value: stock},
 			{Value: price},
 			{Value: currency.symbol, Label:' '},
@@ -57,12 +58,16 @@ annotate my.Books with @(
 annotate my.Books with {
 	ID @title:'{i18n>ID}' @UI.HiddenFilter;
 	title @title:'{i18n>Title}';
+  genre @title:'{i18n>Genre}';
 	author @title:'{i18n>AuthorID}';
 	price @title:'{i18n>Price}';
 	stock @title:'{i18n>Stock}';
 	descr @UI.MultiLineText;
 }
 
+annotate my.Genres with {
+  name  @title: '{i18n>Genre}';
+}
 
 ////////////////////////////////////////////////////////////////////////////
 //
