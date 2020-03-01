@@ -1,6 +1,5 @@
-using { sap.capire.contacts.PostalAddress } from './schema';
 using { sap } from '@sap/cds/common';
-namespace sap.capire.contacts;
+namespace sap.common;
 
 /**
  * The Code Lists below are designed as optional extensions to
@@ -9,7 +8,6 @@ namespace sap.capire.contacts;
  * annotate sap.common.Countries with @cds.persistence.skip:false;
  */
 
-entity Countries as select from sap.common.Countries;
 extend sap.common.Countries {
   regions   : Composition of many Regions on regions._parent = $self.code;
 }
@@ -27,11 +25,4 @@ entity Cities : sap.common.CodeList {
 entity Districts : sap.common.CodeList {
   key code  : String(11);
   city      : Association to Cities;
-}
-
-annotate PostalAddress with {
-  district @ref: sap.capire.contacts.Districts;
-  city @ref: sap.capire.contacts.Cities;
-  region @ref: sap.capire.contacts.Regions;
-  country @ref: sap.capire.contacts.Countries;
 }

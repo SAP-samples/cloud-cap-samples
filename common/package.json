@@ -1,0 +1,7 @@
+{
+  "name": "@sap/capire-common",
+  "version": "1.0.0",
+  "description": "A reuse package providing common domain models and services for common data.",
+  "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
+  "license": "SAP SAMPLE CODE LICENSE"
+}

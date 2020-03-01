@@ -1,4 +1,4 @@
-using AdminService from '../../srv/admin-service';
+using AdminService from '@sap/capire-bookshop/srv/admin-service';
 
 ////////////////////////////////////////////////////////////////////////////
 //

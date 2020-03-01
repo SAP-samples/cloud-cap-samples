@@ -5,22 +5,11 @@
   "author": "daniel.hutzel@sap.com",
   "private": true,
   "scripts": {
-    "lerna": "npx --no-install lerna -v > /dev/null || npm i lerna --no-save",
-    "install": "(npm -s run lerna) && lerna bootstrap --hoist",
-    "cleanup": "lerna clean -y && rm -fr node_modules",
-    "bookshop": "cds watch packages/bookshop",
-    "bookshop-enhanced": "cds watch packages/bookshop-enhanced",
-    "reviews-service": "cds watch packages/reviews-service",
-
-    "bookstore": "cds watch packages/bookstore",
-    "media-server": "cds watch packages/media-server"
+    "bookshop": "cds watch bookshop"
   },
   "dependencies": {
-    "@sap/cds": "latest",
-    "express": "*"
-  },
-  "devDependencies": {
-    "sqlite3": "*"
+    "@sap/capire-bookshop": "./bookshop",
+    "@sap/capire-common": "./common"
   },
   "--add-these-to-devDependencies-for-tests": {
     "@types/jest": "*",
