@@ -1,4 +1,4 @@
-using AdminService from '@sap/capire-bookshop/srv/admin-service';
+using AdminService from '@capire/bookshop/srv/admin-service';
 
 annotate AdminService.Books with {
 	price @Common.FieldControl: #ReadOnly;
