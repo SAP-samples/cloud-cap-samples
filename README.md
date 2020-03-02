@@ -4,7 +4,7 @@ Find here code samples for the [SAP Cloud Application Programming Model](https:/
 
 ## Preliminaries
 
-- [Install @sap/cds-dk](https://cap.cloud.sap/docs/get-started/) as documented in capire
+- [Install @sap/cds-dk](https://cap.cloud.sap/docs/get-started/) as documented in [capire](https://cap.cloud.sap)
 
 
 ## Download
