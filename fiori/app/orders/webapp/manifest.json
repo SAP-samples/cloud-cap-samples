@@ -3,12 +3,12 @@
 	"sap.app": {
 		"id": "orders",
 		"type": "application",
-		"title": "Manage Orders",
+		"title": "Order Books",
 		"description": "Sample Application",
 		"i18n": "i18n/i18n.properties",
 		"dataSources": {
-			"AdminService": {
-				"uri": "/admin/",
+			"OrdersService": {
+				"uri": "/orders/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "4.0"
@@ -33,7 +33,7 @@
 				"uri": "i18n/i18n.properties"
 			},
 			"": {
-				"dataSource": "AdminService",
+				"dataSource": "OrdersService",
 				"settings": {
                     "synchronizationMode": "None",
                     "operationMode": "Server",
@@ -140,7 +140,7 @@
                                 }
                             }
                         }
-                    }                    
+                    }
                 },
                 "AuthorsDetails": {
                     "type": "Component",

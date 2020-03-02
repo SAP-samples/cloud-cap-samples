@@ -1,5 +1,6 @@
 namespace sap.capire.bookshop;
-using { Currency, managed, cuid, sap } from '@sap/cds/common';
+// using { Currency, managed, sap } from '@sap/cds/common';
+using { Currency, managed, sap } from '@capire/common';
 
 entity Books : managed {
   key ID : Integer;
@@ -26,17 +27,4 @@ entity Genres : sap.common.CodeList {
   key ID   : Integer;
   parent   : Association to Genres;
   children : Composition of many Genres on children.parent = $self;
-}
-
-entity Orders : cuid, managed {
-  OrderNo  : String @title:'Order Number'; //> readable key
-  Items    : Composition of many OrderItems on Items.parent = $self;
-  total    : Decimal(9,2) @readonly;
-  currency : Currency;
-}
-entity OrderItems : cuid {
-  parent    : Association to Orders;
-  book      : Association to Books;
-  amount    : Integer;
-  netAmount : Decimal(9,2);
 }
