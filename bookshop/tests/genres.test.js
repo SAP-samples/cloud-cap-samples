@@ -1,5 +1,5 @@
 const cds = require ('@sap/cds')
-const { expect } = require('chai').use (require('chai-deep-match'))
+const { expect } = require('chai') .use (require('chai-subset'))
 
 describe('reading/writing hierarchies', ()=>{
 
@@ -35,7 +35,7 @@ describe('reading/writing hierarchies', ()=>{
                 })
             }) .where ({name:'Cat'})
 
-        ) .to.deep.match (
+        ) .to.containSubset (
 
             { ID:101, parent:'Cat', children:[
                 { child:'Kitty' },
@@ -53,7 +53,7 @@ describe('reading/writing hierarchies', ()=>{
                 c.ID, c.name, c.children (c=>{ c.name },{levels:3})
             }) .where ({name:'Cat'})
 
-        ) .to.deep.match (
+        ) .to.containSubset (
 
             { ID:101, name:'Cat', children:[
                 { name:'Kitty', children:[

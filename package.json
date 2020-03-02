@@ -1,26 +1,22 @@
 {
   "name": "@capire/samples",
   "description": "The umbrella project for all samples to easily setup for local development and tests.",
-  "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
+  "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
-  "private": true,
   "scripts": {
-    "bookshop-fiori": "cds watch fiori",
-    "bookshop": "cds watch bookshop"
+    "bookshop": "cds watch fiori"
   },
   "dependencies": {
     "@capire/bookshop": "file:bookshop",
     "@capire/common": "file:common",
     "@capire/fiori": "file:fiori",
+    "@capire/orders": "file:orders",
     "@capire/reviews": "file:reviews"
   },
-  "add-these-to-devDependencies-for-tests": {
-    "@types/jest": "*",
-    "jest": "*"
-  },
-  "license": "SAP SAMPLE CODE LICENSE",
   "devDependencies": {
     "chai": "^4.2.0",
-    "chai-deep-match": "^1.2.1"
-  }
+    "chai-subset": "^1.6.0"
+  },
+  "license": "SAP SAMPLE CODE LICENSE",
+  "private": true
 }

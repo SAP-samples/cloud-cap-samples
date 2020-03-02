@@ -2,20 +2,14 @@
   "name": "@capire/fiori",
   "version": "1.0.0",
   "description": "A simple bookshop application, build in a self-contained all-in-one fashion, i.e. w/o reusing other packages.",
-  "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
     "@capire/bookshop": "*",
+    "@capire/orders": "*",
     "@capire/common": "*"
   },
   "scripts": {
     "start": "cds run --in-memory?",
     "watch": "cds watch"
   },
-  "cds": {
-    "requires": {
-      "db": {
-        "kind": "sql"
-      }
-    }
-  }
+  "license": "SAP SAMPLE CODE LICENSE"
 }

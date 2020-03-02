@@ -5,6 +5,9 @@
     "@capire/bookshop": "*",
     "@capire/reviews": "*"
   },
+  "scripts": {
+    "watch": "cds watch"
+  },
   "cds": {
     "requires": {
       "db": {

@@ -13,7 +13,7 @@ Clone this repo as shown below, if you have [git](https://git-scm.com/downloads)
 otherwise [download as zip file](archive/master.zip).
 
 ```sh
-git clone https://github.com/sap-samples/cap samples
+git clone https://github.com/sap-samples/cloud-cap-samples samples
 cd samples
 ```
 
@@ -29,7 +29,7 @@ npm install
 With that you're ready to run the samples, for example:
 ```sh
 npm run bookshop # or...
-npm run bookshop-fiori
+cd bookshop; cds watch
 ```
 
 After that open this link in your browser: <http://localhost:4004>
