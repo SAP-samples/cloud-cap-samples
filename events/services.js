@@ -2,15 +2,17 @@ const cds = require ('@sap/cds')
 
 module.exports = cds.service.impl (async()=>{
 
+    // connect to requires services
     const ReviewsService = await cds.connect.to ('sap.capire.reviews.ReviewsService')
     const CatalogService = await cds.connect.to ('CatalogService')
     const db = await cds.connect.to ('db')
+
     // import model definitions from connected services to work with subsequently
     const { Books } = db.entities
     const { Reviews } = ReviewsService.entities
 
+    // delegate requests to read reviews to ReviewsService
     CatalogService.impl (srv => {
-        // delegate requests to read reviews to ReviewsService
         srv.on ('READ', 'Books/reviews', (req) => {
             const [ subject ] = req.params
             const tx = ReviewsService.transaction (req)
