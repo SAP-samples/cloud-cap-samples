@@ -4,14 +4,12 @@
   "description": "A simple bookshop application, build in a self-contained all-in-one fashion, i.e. w/o reusing other packages.",
   "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
-    "@capire/common": "*",
-    "@sap/cds": "*",
-    "express": "*"
+    "@capire/common": "*"
   },
   "scripts": {
     "start": "cds run --in-memory?",
     "watch": "cds watch",
-    "test:genres": "cds serve test/genres --in-memory"
+    "test:genres": "cds serve tests/genres.cds --in-memory"
   },
   "cds": {
     "requires": {
