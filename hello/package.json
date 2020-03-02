@@ -3,13 +3,8 @@
   "version": "1.0.0",
   "description": "A reuse service providing generic means to add reviews and ratings to target objects, e.g. products.",
   "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
-  "files": [
-    "db",
-    "srv",
-    "index.cds"
-  ],
   "scripts": {
-    "watch": "PORT=5005 cds watch"
+    "watch": "cds serve world.cds"
   },
   "cds": {
     "requires": {
