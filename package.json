@@ -4,17 +4,20 @@
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
   "dependencies": {
+    "@capire/bookshop-with-reviews": "file:reviewed",
     "@capire/bookshop": "file:bookshop",
     "@capire/common": "file:common",
     "@capire/fiori": "file:fiori",
     "@capire/media": "file:media",
     "@capire/orders": "file:orders",
     "@capire/reviews": "file:reviews",
-    "@capire/bookshop-with-reviews": "file:reviewed"
+    "@sap/cds": "^3.31.1",
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-subset": "^1.6.0"
   },
-  "license": "SAP SAMPLE CODE LICENSE"
+  "license": "SAP SAMPLE CODE LICENSE",
+  "private": true
 }
