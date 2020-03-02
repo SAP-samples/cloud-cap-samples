@@ -5,14 +5,15 @@
   "author": "daniel.hutzel@sap.com",
   "private": true,
   "scripts": {
-    "bookshop": "cds watch bookshop"
+    "bookshop": "cds watch bookshop",
+    "bookshop-fiori": "cds watch fiori"
   },
   "dependencies": {
-    "@capire/bookshop": "./bookshop",
-    "@capire/genres": "./genres",
-    "@capire/common": "./common"
+    "@capire/bookshop": "file:bookshop",
+    "@capire/common": "file:common",
+    "@capire/reviews": "file:reviews"
   },
-  "--add-these-to-devDependencies-for-tests": {
+  "add-these-to-devDependencies-for-tests": {
     "@types/jest": "*",
     "jest": "*"
   },
