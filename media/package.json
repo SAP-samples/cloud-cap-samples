@@ -1,9 +1,6 @@
 {
   "name": "@capire/media",
   "version": "1.0.0",
-  "description": "A generic platform service to manage and serve media content on behalf of other services and apps.",
-  "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
-  "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
     "lokijs": "^1.5.6"
   },
