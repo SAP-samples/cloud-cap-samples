@@ -1,20 +1,7 @@
 {
-  "name": "@capire/reviews",
+  "name": "@capire/hello-world",
   "version": "1.0.0",
-  "description": "A reuse service providing generic means to add reviews and ratings to target objects, e.g. products.",
-  "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
   "scripts": {
     "watch": "cds serve world.cds"
-  },
-  "cds": {
-    "requires": {
-      "db": {
-        "kind": "sql"
-      },
-      "messaging": {
-        "kind": "file-based-messaging"
-      }
-    }
-  },
-  "license": "SAP SAMPLE CODE LICENSE"
+  }
 }
