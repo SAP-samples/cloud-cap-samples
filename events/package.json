@@ -1,0 +1,21 @@
+{
+  "name": "@capire/bookshop-with-reviews",
+  "version": "1.0.0",
+  "dependencies": {
+    "@capire/bookshop": "*",
+    "@capire/reviews": "*"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sql"
+      },
+      "sap.capire.reviews.ReviewsService": {
+        "kind": "odata"
+      },
+      "messaging": {
+        "kind": "file-based-messaging"
+      }
+    }
+  }
+}

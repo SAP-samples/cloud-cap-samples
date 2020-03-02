@@ -1,16 +1,18 @@
 const cds = require ('@sap/cds')
+const { expect } = require('chai').use (require('chai-deep-match'))
 
 describe('reading/writing hierarchies', ()=>{
 
-    it ('should prepare to sqlite in-memory', async()=>{
+    it ('should bootstrap sqlite in-memory db', async()=>{
         await cds.deploy (__dirname+'/../db') .to ('sqlite::memory:')
-        expect (cds.model) .toBeDefined()
+        expect (cds.db) .to.exist
+        expect (cds.db.model) .to.exist
     })
 
-    it ('should insert hierarchy of categories', ()=>{
-        const { Categories } = cds.entities
-        return INSERT.into (Categories) .entries (
-            { ID:100, name:'Some Sample Categories...', children:[
+    it ('should insert hierarchy of genres', ()=>{
+        const { Genres } = cds.entities
+        return INSERT.into (Genres) .entries (
+            { ID:100, name:'Some Sample Genres...', children:[
                 { ID:101, name:'Cat', children:[
                     { ID:102, name:'Kitty', children:[
                         { ID:103, name:'Kitty Cat', children:[
@@ -23,17 +25,17 @@ describe('reading/writing hierarchies', ()=>{
         )
     })
 
-    it ('should read categories with children', async()=>{
-        const { Categories } = cds.entities
+    it ('should read genres with children', async()=>{
+        const { Genres } = cds.entities
         expect (await
 
-            SELECT.one.from (Categories, c=>{
+            SELECT.one.from (Genres, c=>{
                 c.ID, c.name.as('parent'), c.children (c=>{
                     c.name.as('child')
                 })
             }) .where ({name:'Cat'})
 
-        ) .toMatchObject (
+        ) .to.deep.match (
 
             { ID:101, parent:'Cat', children:[
                 { child:'Kitty' },
@@ -43,15 +45,15 @@ describe('reading/writing hierarchies', ()=>{
         )
     })
 
-    it ('should read hierarchy of categories', async()=>{
-        const { Categories } = cds.entities
+    it ('should read hierarchy of genres', async()=>{
+        const { Genres } = cds.entities
         expect (await
 
-            SELECT.one.from (Categories, c=>{
+            SELECT.one.from (Genres, c=>{
                 c.ID, c.name, c.children (c=>{ c.name },{levels:3})
             }) .where ({name:'Cat'})
 
-        ) .toMatchObject (
+        ) .to.deep.match (
 
             { ID:101, name:'Cat', children:[
                 { name:'Kitty', children:[

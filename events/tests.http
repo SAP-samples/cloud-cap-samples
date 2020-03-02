@@ -1,0 +1,40 @@
+#################################################
+#
+#   Reviews Service
+#
+
+
+### Request to CatalogService > delegated to ReviewsService
+GET http://localhost:4004/browse/Books(201)/reviews
+
+### Alternative OData URL
+GET http://localhost:4004/browse/Books/201/reviews
+
+###
+GET http://localhost:4004/browse/Books(201)?
+&$select=ID,title,rating
+&$expand=reviews
+# Note: the latter only works in case of ReviewsService in same process
+
+
+
+### ReviewsService mocked in same process
+GET http://localhost:4004/reviews/Reviews?
+
+###
+POST http://localhost:4004/reviews/Reviews
+Content-Type: application/json;IEEE754Compatible=true
+
+{"subject":"201", "rating":"5", "title":"boo"}
+
+
+
+
+### ReviewsService running as separate process
+GET http://localhost:5005/reviews/Reviews?
+
+###
+POST http://localhost:5005/reviews/Reviews
+Content-Type: application/json;IEEE754Compatible=true
+
+{"subject":"201", "rating":"5", "title":"boo"}

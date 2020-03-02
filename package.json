@@ -5,17 +5,22 @@
   "author": "daniel.hutzel@sap.com",
   "private": true,
   "scripts": {
-    "bookshop": "cds watch bookshop",
-    "bookshop-fiori": "cds watch fiori"
+    "bookshop-fiori": "cds watch fiori",
+    "bookshop": "cds watch bookshop"
   },
   "dependencies": {
     "@capire/bookshop": "file:bookshop",
     "@capire/common": "file:common",
+    "@capire/fiori": "file:fiori",
     "@capire/reviews": "file:reviews"
   },
   "add-these-to-devDependencies-for-tests": {
     "@types/jest": "*",
     "jest": "*"
   },
-  "license": "SAP SAMPLE CODE LICENSE"
+  "license": "SAP SAMPLE CODE LICENSE",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-deep-match": "^1.2.1"
+  }
 }
