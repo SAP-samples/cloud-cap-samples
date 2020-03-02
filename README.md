@@ -1,10 +1,12 @@
 # Welcome to cap/samples
 
-Find here code samples for the [SAP Cloud Application Programming Model](https://cap.cloud.sap) oganised in a simplistic monorepo.
+Find here a collection of samples for the [SAP Cloud Application Programming Model](https://cap.cloud.sap) oganised in a simplistic [monorepo setup](samples.md#all-in-one-monorepo). &rarr; See [**Overview** of contained samples](samples.md)
+
 
 ## Preliminaries
 
-- [Install @sap/cds-dk](https://cap.cloud.sap/docs/get-started/) as documented in [capire](https://cap.cloud.sap)
+1. [Install @sap/cds-dk](https://cap.cloud.sap/docs/get-started/) as documented in [capire](https://cap.cloud.sap)
+2. _Optional:_ [Use Visual Studio Code](https://cap.cloud.sap/docs/get-started/in-vscode)
 
 
 ## Download
