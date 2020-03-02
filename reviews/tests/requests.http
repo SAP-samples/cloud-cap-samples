@@ -10,7 +10,7 @@ POST http://localhost:5005/reviews/Reviews
 # POST http://localhost:4004/reviews/Reviews
 Content-Type: application/json;IEEE754Compatible=true
 
-{"subject":"201", "rating":"5", "title":"boo"}
+{"subject":"201", "rating":"4", "title":"boo"}
 
 ### Direct Request to ReviewsService
 # Note: use 5005 instead of 4004 in case of separate service
