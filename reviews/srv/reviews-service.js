@@ -5,9 +5,9 @@ module.exports = cds.service.impl (function(){
   // ( Note: we explicitly specify the namespace to support embedded reuse )
   const { Reviews, Likes } = this.entities ('sap.capire.reviews')
 
-  this.before (['CREATE','UPDATE','DELETE'], 'Reviews', req => {
-    if (!req.data.rating) req.data.rating = Math.round(Math.random()*4)+1
-  })
+  // this.before (['CREATE','UPDATE'], 'Reviews', req => {
+  //   if (!req.data.rating) req.data.rating = Math.round(Math.random()*4)+1
+  // })
 
   // Emit an event to inform subscribers about new avg ratings for reviewed subjects
   // ( Note: req.on.succeeded ensures we only do that if there's no error )
