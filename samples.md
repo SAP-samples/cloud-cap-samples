@@ -40,20 +40,14 @@ Each sub directory essentially is a individual npm package arranged in an [all-i
 ## [reviews](reviews)
 
 - Shows how to implement a modular service to manage product reviews, including...
+- Consuming other services synchronously and asynchronously
 - Serving requests synchronously
 - Emitting events asynchronously
-- As well as managed data, input validations and authorization
-
-
-## [reviewed](reviewed)
-
-- Enhances [bookshop](#bookshop) with [reviews](#reviews), thereby showcasing...
-- Consuming other services synchronously
-- As well as asynchronously, subscribing to events
 - Grow as you go, with...
 - Mocking app services
 - Running service meshes
 - Late-cut Micro Services
+- As well as managed data, input validations and authorization
 
 
 ## [fiori](fiori)
