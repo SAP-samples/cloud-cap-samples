@@ -20,7 +20,6 @@ cds.on('listening', async()=>{
         // return tx.update (Books, subject) .with ({rating})
     })
 
-    console.log (Reviews.name)
     // delegate requests to read reviews to ReviewsService
     CatalogService.impl (srv => {
         srv.on ('READ', 'Books/reviews', (req) => {
