@@ -1,5 +1,4 @@
 using { sap.capire.reviews as my } from '../db/schema';
-namespace sap.capire.reviews;
 
 service ReviewsService {
   // Sync API

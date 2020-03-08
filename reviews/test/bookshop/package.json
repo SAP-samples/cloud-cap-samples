@@ -3,17 +3,16 @@
   "version": "1.0.0",
   "dependencies": {
     "@capire/bookshop": "*",
-    "@capire/reviews": "*"
-  },
-  "scripts": {
-    "watch": "cds watch"
+    "@capire/reviews": "*",
+    "@sap/cds": "^3.31.1",
+    "express": "^4.17.1"
   },
   "cds": {
     "requires": {
       "db": {
         "kind": "sql"
       },
-      "sap.capire.reviews.ReviewsService": {
+      "ReviewsService": {
         "kind": "odata"
       },
       "messaging": {
