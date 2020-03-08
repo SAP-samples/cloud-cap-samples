@@ -4,7 +4,9 @@
   "dependencies": {
     "@capire/bookshop": "*",
     "@capire/orders": "*",
-    "@capire/common": "*"
+    "@capire/common": "*",
+    "@sap/cds": "^3.31.1",
+    "express": "^4.17.1"
   },
   "scripts": {
     "start": "cds run --in-memory?",

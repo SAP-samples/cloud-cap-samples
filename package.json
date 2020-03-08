@@ -10,9 +10,7 @@
     "@capire/fiori": "file:fiori",
     "@capire/media": "file:media",
     "@capire/orders": "file:orders",
-    "@capire/reviews": "file:reviews",
-    "@sap/cds": "^3.31.1",
-    "express": "^4.17.1"
+    "@capire/reviews": "file:reviews"
   },
   "devDependencies": {
     "chai": "^4.2.0",
