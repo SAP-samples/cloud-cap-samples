@@ -6,8 +6,13 @@
     "srv",
     "index.cds"
   ],
+  "dependencies": {
+    "@sap/cds": "^3.31.1",
+    "express": "^4.17.1"
+  },
   "scripts": {
-    "watch": "PORT=5005 cds watch"
+    "reviews-service": "PORT=5005 cds watch",
+    "bookshop": "cds watch test/bookshop"
   },
   "cds": {
     "requires": {
