@@ -1,4 +1,4 @@
-using CatalogService from '@capire/bookshop/srv/cat-service';
+using CatalogService from '@capire/bookshop';
 
 ////////////////////////////////////////////////////////////////////////////
 //

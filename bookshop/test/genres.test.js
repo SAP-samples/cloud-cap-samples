@@ -1,5 +1,5 @@
 const cds = require ('@sap/cds')
-const { expect } = require('chai') .use (require('chai-subset'))
+const {expect} = cds.require.chai
 
 describe('reading/writing hierarchies', ()=>{
 
