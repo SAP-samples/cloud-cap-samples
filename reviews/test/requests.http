@@ -5,10 +5,12 @@
 
 
 ### Request to CatalogService > delegated to ReviewsService
-GET http://localhost:4004/browse/Books(201)/reviews
+GET http://localhost:4004/browse/Books(201)/reviews?
+&$select=rating,date,reviewer,title
 
 ### Alternative OData URL
-GET http://localhost:4004/browse/Books/201/reviews
+GET http://localhost:4004/browse/Books/201/reviews?
+&$select=rating,date,reviewer,title
 
 ###
 GET http://localhost:4004/browse/Books(201)?
