@@ -29,3 +29,10 @@ entity Likes {
   key review : Association to Reviews;
   key user   : User;
 }
+
+// Auto-fill reviewers and review dates
+annotate Reviews with {
+  reviewer @cds.on.insert:$user;
+  date     @cds.on.insert:$now;
+  date     @cds.on.update:$now;
+}
