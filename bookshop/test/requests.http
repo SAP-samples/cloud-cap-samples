@@ -1,0 +1,40 @@
+GET http://localhost:4004/browse
+###
+
+GET http://localhost:4004/browse/$metadata
+###
+
+
+GET http://localhost:4004/browse/Books?
+&$select=title,stock
+&$expand=currency
+#> add @capire/common to see data for currencies
+# &sap-language=de
+###
+
+
+GET http://localhost:4004/admin/Authors?
+# &$select=name,dateOfBirth,placeOfBirth
+&$expand=books($select=title;$expand=currency)
+#> add @capire/common to see data for currencies
+# &$filter=ID eq 101
+&sap-language=de
+###
+
+
+POST http://localhost:4004/browse/order
+# Run that three times to get out-of-stock message
+Content-Type: application/json
+
+{ "book":201, "amount":5 }
+###
+
+
+
+GET http://localhost:4004/browse/Genres?
+###
+
+GET http://localhost:4004/browse/Genres?
+&$filter=parent_ID eq null&$select=name
+&$expand=children($select=name)
+###
