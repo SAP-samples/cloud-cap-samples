@@ -15,8 +15,7 @@ Clone this repo as shown below, if you have [git](https://git-scm.com/downloads)
 otherwise [download as zip file](archive/master.zip).
 
 ```sh
-# git clone https://github.com/sap-samples/cloud-cap-samples samples
-git clone https://github.com/SAP-samples/cloud-cap-samples -b cap-samples-reloaded samples
+git clone https://github.com/sap-samples/cloud-cap-samples samples
 cd samples
 ```
 
