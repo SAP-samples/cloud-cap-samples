@@ -1,0 +1,21 @@
+{
+  "name": "@capire/bookshop",
+  "version": "1.0.0",
+  "description": "A simple self-contained bookshop service.",
+  "dependencies": {
+    "@sap/cds": "^3.31.1",
+    "express": "^4.17.1"
+  },
+  "scripts": {
+    "genres": "cds serve test/genres.cds",
+    "start": "cds run",
+    "watch": "cds watch"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sql"
+      }
+    }
+  }
+}

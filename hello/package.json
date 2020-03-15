@@ -1,0 +1,7 @@
+{
+  "name": "@capire/hello-world",
+  "version": "1.0.0",
+  "scripts": {
+    "watch": "cds serve world.cds"
+  }
+}

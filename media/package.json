@@ -1,0 +1,19 @@
+{
+  "name": "@capire/media",
+  "version": "1.0.0",
+  "dependencies": {
+    "lokijs": "^1.5.6"
+  },
+  "files": [
+    "db",
+    "srv",
+    "index.cds"
+  ],
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sql"
+      }
+    }
+  }
+}

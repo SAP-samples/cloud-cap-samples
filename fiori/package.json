@@ -1,0 +1,15 @@
+{
+  "name": "@capire/fiori",
+  "version": "1.0.0",
+  "dependencies": {
+    "@capire/bookshop": "*",
+    "@capire/orders": "*",
+    "@capire/common": "*",
+    "@sap/cds": "^3.31.1",
+    "express": "^4.17.1"
+  },
+  "scripts": {
+    "start": "cds run --in-memory?",
+    "watch": "cds watch"
+  }
+}
