@@ -13,7 +13,7 @@
     "@capire/reviews": "file:reviews"
   },
   "devDependencies": {
-    "sqlite3": "4.0.7",
+    "sqlite3": "^4.0.7",
     "chai": "^4.2.0",
     "chai-subset": "^1.6.0"
   },
