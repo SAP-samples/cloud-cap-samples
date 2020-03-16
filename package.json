@@ -1,5 +1,6 @@
 {
   "name": "@capire/samples",
+  "version": "2.0.0",
   "description": "A monorepo with several samples for CAP.",
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
