@@ -13,7 +13,7 @@
         "kind": "sql"
       },
       "ReviewsService": {
-        "kind": "odata"
+        "kind": "odata", "model": "@capire/reviews"
       },
       "messaging": {
         "kind": "file-based-messaging"
