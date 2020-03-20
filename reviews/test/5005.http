@@ -1,0 +1,13 @@
+#################################################
+#
+#   To ReviewsService running as separate process
+#
+
+GET http://localhost:5005/reviews/Reviews?
+
+###
+
+POST http://localhost:5005/reviews/Reviews
+Content-Type: application/json;IEEE754Compatible=true
+
+{"subject":"201", "title":"boo"}

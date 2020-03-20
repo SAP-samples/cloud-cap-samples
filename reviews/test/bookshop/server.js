@@ -21,7 +21,7 @@ cds.on('listening', async()=>{
         const { Reviews } = ReviewsService.entities
         const [ subject ] = req.params
         const tx = ReviewsService.tx (req)
-        return tx.read (Reviews,{subject}) .columns (req.query.SELECT.columns)
+        return tx.read (Reviews) .where({subject}) .columns (req.query.SELECT.columns)
     }))
 
 })
