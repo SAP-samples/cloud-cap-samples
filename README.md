@@ -1,14 +1,14 @@
-# Welcome to cap/samples
+# Welcome to SAP Cloud Application Programming model samples
 
 Find here the samples for the openSAP course [Building Applications with the SAP Cloud Application Programming Model](https://open.sap.com/courses/cp7).
 
 ## Get Access to SAP Business Application Studio
-The recommended environment for the course is SAP Business Application Studio.  Watch unit 2 of week 1 for how to get access.
+The recommended environment for the course is SAP Business Application Studio.  Watch [unit 2 of week 1](https://open.sap.com/courses/cp7/items/51pzQUzbXHr2kdbOmVs6jI) for how to get access.
 
 ## Setup
 
 In SAP Business Application Studio, open a terminal.
-Then clone the repo and this branch:
+Then clone the repo with this specific branch:
 
 ```sh
 git clone https://github.com/sap-samples/cloud-cap-samples -b OpenSAP-week2-unit4567
@@ -22,7 +22,7 @@ npm install
 
 ## Run
 
-With that you're ready to run the samples, for example:
+Now you're ready to run the samples, for example:
 ```sh
 cd packages/bookshop
 cds watch
