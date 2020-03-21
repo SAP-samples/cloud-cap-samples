@@ -1,0 +1,25 @@
+### Service Document
+GET http://localhost:4004/admin/Authors
+
+### Create Author
+POST http://localhost:4004/admin/Authors HTTP/1.1
+content-Type: application/json
+
+{
+    "ID": 105, 
+    "name": "J.K. Rowling",
+    "dateOfBirth": null,
+    "dateOfDeath": null,
+    "placeOfBirth": "",
+    "placeOfDeath": ""
+} 
+### Update Author
+PATCH http://localhost:4004/admin/Authors/105 HTTP/1.1
+content-Type: application/json
+
+{
+    "placeOfBirth": "United Kingdom"
+} 
+
+### Delete Author
+DELETE http://localhost:4004/admin/Authors/105 HTTP/1.1
