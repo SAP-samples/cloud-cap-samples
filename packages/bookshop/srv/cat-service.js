@@ -1,26 +1,28 @@
-const cds = require('@sap/cds')
-const { Books } = cds.entities
+/**
+ * Implementation for CatalogService defined in ./cat-service.cds
+ */
+module.exports = (srv)=>{
 
-/** Service implementation for CatalogService */
-module.exports = cds.service.impl(function() {
-  this.after ('READ', 'Books', each => each.stock > 111 && _addDiscount2(each,11))
-  this.before ('CREATE', 'Orders', _reduceStock)
-})
+  // Use reflection to get the csn definition of Books
+  const {Books} = cds.entities
 
-/** Add some discount for overstocked books */
-function _addDiscount2 (each,discount) {
-  each.title += ` -- ${discount}% discount!`
-}
+  // Add some discount for overstocked books
+  srv.after ('READ','Books', (each)=>{
+    if (each.stock > 111) each.title += ' -- 11% discount!'
+  })
 
-/** Reduce stock of ordered books if available stock suffices */
-async function _reduceStock (req) {
-  const { Items: OrderItems } = req.data
-  return cds.transaction(req) .run (()=> OrderItems.map (order =>
-    UPDATE (Books) .set ('stock -=', order.amount)
-    .where ('ID =', order.book_ID) .and ('stock >=', order.amount)
-  )) .then (all => all.forEach ((affectedRows,i) => {
-    if (affectedRows === 0)  req.error (409,
-      `${OrderItems[i].amount} exceeds stock for book #${OrderItems[i].book_ID}`
-    )
-  }))
+  // Reduce stock of books upon incoming orders
+  srv.before ('CREATE','Orders', async (req)=>{
+    const tx = cds.transaction(req), order = req.data;
+    if (order.Items) {
+      const affectedRows = await tx.run(order.Items.map(item =>
+        UPDATE(Books) .where({ID:item.book_ID})
+          .and(`stock >=`, item.amount)
+          .set(`stock -=`, item.amount)
+        )
+      )
+      if (affectedRows.some(row => !row)) req.error(409, 'Sold out, sorry')
+    }
+  })
+
 }
