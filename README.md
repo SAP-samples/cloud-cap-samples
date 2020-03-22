@@ -30,8 +30,7 @@ npm install
 
 With that you're ready to run the samples, for example:
 ```sh
-cd bookshop
-cds watch
+cds watch bookshop
 ```
 
 After that open this link in your browser: <http://localhost:4004>
