@@ -11,7 +11,7 @@
     "express": "^4.17.1"
   },
   "scripts": {
-    "reviews-service": "PORT=5005 cds watch",
+    "reviews-service": "cds watch",
     "bookshop": "cds watch test/bookshop"
   },
   "cds": {
