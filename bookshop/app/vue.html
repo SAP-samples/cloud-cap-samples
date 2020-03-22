@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Capire Books </title>
+    <link rel="stylesheet" href="https://unpkg.com/primitive-ui/dist/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style> #books tr:hover { background: #f2f2f2; cursor: pointer; } </style>
+</head>
+
+<body class="small-container", style="margin-top: 70px;">
+<div id='app'>
+    <h1> Capire Books </h1>
+    <input type="text" placeholder="Search..." @input="search">
+    <table id='books'>
+        <thead>
+            <th> Book </th>
+            <th> Author </th>
+            <th> Genre </th>
+            <th> Price </th>
+        </thead>
+        <tr v-for="book in list" v-bind:id="book.ID" v-on:click="inspect">
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.genre.name }}</td>
+            <td>{{ book.currency.symbol }} {{ book.price }}</td>
+        </tr>
+    </table>
+    <p> {{ info }} </p>
+</div>
+</body>
+
+<script>
+    const GET = (url) => axios.get('/browse'+url)
+    const books = new Vue ({ el:'#app', data:{
+        list: [],
+        info: '( click on a row to see details... )',
+    }, methods:{
+        search: ({target:{value:v}}) => books.fetch (v && '$search='+v),
+        async fetch (_filter='') {
+            const columns = 'ID,title,author,price', details = 'genre,currency'
+            const {data} = await GET(`/Books?$select=${columns}&$expand=${details}&${_filter}`)
+            books.list = data.value
+        },
+        async inspect ({currentTarget:{id}}) {
+            const {data} = await GET(`/Books/${id}?$select=descr`)
+            books.info = data.descr
+        },
+    }})
+    books.fetch()
+</script>
+
+</html>
