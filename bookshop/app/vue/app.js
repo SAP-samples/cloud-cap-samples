@@ -28,5 +28,5 @@ const books = new Vue ({
     }
 })
 
-// initilly fill list of books
+// initially fill list of books
 books.fetch()
