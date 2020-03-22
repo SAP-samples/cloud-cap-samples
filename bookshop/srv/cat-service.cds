@@ -10,3 +10,6 @@ service CatalogService @(path:'/browse') {
   action order (book : Books.ID, amount: Integer);
 
 }
+
+// activate pre-build extensions from...
+using from '@capire/common';
