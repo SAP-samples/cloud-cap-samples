@@ -1,5 +1,5 @@
-namespace sap.capire.bookshop;
 using { Currency, managed, sap } from '@sap/cds/common';
+namespace sap.capire.bookshop;
 
 entity Books : managed {
   key ID : Integer;
@@ -22,6 +22,7 @@ entity Authors : managed {
   books  : Association to many Books on books.author = $self;
 }
 
+/** Hierarchically organized Code List for Genres */
 entity Genres : sap.common.CodeList {
   key ID   : Integer;
   parent   : Association to Genres;
