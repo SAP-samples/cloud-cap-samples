@@ -1,18 +1,15 @@
-
-### List Books with their current stocks
-GET http://localhost:4004/admin/Books?$select=ID,stock
-
-### List all Orders
+### List all Orders - deep read
 GET http://localhost:4004/admin/Orders?
 &$expand=Items
 
-### Submit Orders
+### Submit Orders - deep insert
 POST http://localhost:4004/browse/Orders
 Content-Type: application/json
 
-{ "OrderNo":"2019-09...", "Items":[
+{ "OrderNo":"1234", "Items":[
     { "book_ID":201, "amount":5 },
     { "book_ID":207, "amount":3 }
 ]}
 
-# Sending this three times should result in a 409: 5 exceeds stock for book #201
+### Try to get the Orders
+GET http://localhost:4004/browse/Orders

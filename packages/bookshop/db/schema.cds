@@ -11,6 +11,7 @@ entity Books : managed {
   currency : Currency;
 }
 
+@cds.autoexpose
 entity Authors : managed {
   key ID : Integer;
   name   : String(111);

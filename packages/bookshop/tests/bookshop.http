@@ -1,18 +1,14 @@
-### Service Document
-GET http://localhost:4004/browse
+### Browse Books
+GET http://localhost:4004/browse/Books
 
-### Service $metadata document
-GET http://localhost:4004/browse/$metadata
+### Browse Books with expanded Authors
+GET http://localhost:4004/browse/Books?$expand=author
 
-### Browsing Books
-GET http://localhost:4004/browse/Books?
-# &$select=title,author
-# &$expand=currency
-# &sap-language=de
+### Try to insert into Books
+POST http://localhost:4004/browse/Books
+Content-Type: application/json
 
-### Browsing Authors
-GET http://localhost:4004/admin/Authors?
-# &$select=name,dateOfBirth,placeOfBirth
-# &$expand=books($select=title;$expand=currency)
-# &$filter=ID eq 101
-# &sap-language=de
+{ 
+    "title": "Anna Karenina",
+    "stock": 10
+}
