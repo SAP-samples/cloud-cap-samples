@@ -1,71 +1,42 @@
-# cloud-cap-samples
+# Welcome to SAP Cloud Application Programming model samples
 
-This is a monorepository for sample projects on [SAP Cloud Application Programming Model](https://cap.cloud.sap).
+Find here the samples for the openSAP course [Building Applications with the SAP Cloud Application Programming Model](https://open.sap.com/courses/cp7).
 
-## Description
+## Get Access to SAP Business Application Studio
+The recommended environment for the course is SAP Business Application Studio.  Watch [unit 2 of week 1](https://open.sap.com/courses/cp7/items/51pzQUzbXHr2kdbOmVs6jI) for how to get access.
 
-This repository provides a list of samples and reusable packages created based on SAP Cloud Application Programming Model.
-The SAP Cloud Application Programming Model enables you to quickly create business applications by allowing you to focus on your domain logic. It offers a consistent end-to-end programming model that includes languages, libraries and APIs tailored for full-stack development on SAP Cloud Platform.
+## Setup
 
-The samples provided can be run in a local setup on SQLite Database.
+In SAP Business Application Studio, open a terminal.
+Then clone the repo with this specific branch:
 
-
-## Requirements
-* [Node.js](https://nodejs.org/en/) v8 or higher
-* [Git](https://git-scm.com)
-* [SQLite DB](https://www.sqlite.org/download.html) (Windows only; pre-installed on Mac/Linux)
-
-#### Optional (if you want to import the code into an editor)
-* [VS Code](https://code.visualstudio.com)
-* [Add CDS extension to VS](https://cap.cloud.sap/docs/get-started/in-vscode#add-cds-editor)
-
-## Download and Installation
-
-#### Install `cds` development kit
 ```sh
-# `@sap`-scoped packages are set via .npmrc
-npm install -g @sap/cds-dk
-cds  #> test-run it
+git clone https://github.com/sap-samples/cloud-cap-samples -b OpenSAP-week2-unit2
+cd cloud-cap-samples
 ```
-Got issues?  Check out the [documentation](https://cap.cloud.sap/docs/get-started/).
 
-#### Clone and build the application
-`git clone https://github.com/SAP-samples/cloud-cap-samples samples && cd samples && npm i`
+In the `cloud-cap-samples` folder run:
+```sh
+npm install
+```
 
-#### Run the samples
+## Run
 
-With that you're ready to run the samples, e.g. start the [_bookshop_](./packages/bookshop) sample as follows:
+Now you're ready to run the samples, for example:
+```sh
+cd packages/bookshop
+cds watch
+```
 
-`npm run bookshop`
-
-## Test
-
-For example, try these links in your browser:
-- <http://localhost:4004> to test with generic index page.
-- <http://localhost:4004/fiori.html> to test with Fiori sandbox.
-
-
-## Debug
-
-For example, in [VS Code](https://code.visualstudio.com) switch to _Debug_ view and launch one of the prepared _cds run_ launch configurations.
+After that, watch out for the little popup in the lower right corner of SAP Business Application Studio that asks you to open the application in your browser.
 
 
-## Limitations
+## Get Support
 
-None
+Check out the cap docs at https://cap.cloud.sap. <br>
+In case you find a bug or need support, please [open an issue in here](https://github.com/SAP-samples/cloud-cap-samples/issues/new).
 
-## Known Issues
-
-None
-
-## How to obtain support
-
-Check out the documentation on https://cap.cloud.sap.  In case you find a bug, or you need additional support, please open an issue [here](https://github.com/SAP-samples/cloud-cap-samples/issues/new) in GitHub.
-
-## To-Do (upcoming changes)
-
-None
 
 ## License
 
-Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under SAP Sample Code License Agreement, except as noted otherwise in the [LICENSE](/LICENSE) file.
+Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under SAP Sample Code License Agreement, except as noted otherwise in the [LICENSE](/LICENSE) file.
