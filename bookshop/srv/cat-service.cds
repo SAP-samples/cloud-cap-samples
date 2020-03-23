@@ -1,5 +1,4 @@
 using { sap.capire.bookshop as my } from '../db/schema';
-
 service CatalogService @(path:'/browse') {
 
   @readonly entity Books as SELECT from my.Books {*,
@@ -8,8 +7,4 @@ service CatalogService @(path:'/browse') {
 
   @requires_: 'authenticated-user'
   action order (book : Books.ID, amount: Integer);
-
 }
-
-// activate pre-build extensions from...
-using from '@capire/common';
