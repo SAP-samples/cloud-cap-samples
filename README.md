@@ -28,7 +28,7 @@ cd packages/bookshop
 cds watch
 ```
 
-After that open this link in your browser: <http://localhost:4004>
+After that, watch out for the little popup in the lower right corner of SAP Business Application Studio that asks you to open the application in your browser.
 
 
 ## Get Support
