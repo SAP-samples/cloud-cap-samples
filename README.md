@@ -11,7 +11,7 @@ In SAP Business Application Studio, open a terminal.
 Then clone the repo with this specific branch:
 
 ```sh
-git clone https://github.com/sap-samples/cloud-cap-samples -b OpenSAP-week2-unit4567
+git clone https://github.com/sap-samples/cloud-cap-samples -b OpenSAP-week3-unit2
 cd cloud-cap-samples
 ```
 
@@ -28,7 +28,7 @@ cd packages/bookshop
 cds watch
 ```
 
-After that open this link in your browser: <http://localhost:4004>
+After that, watch out for the little popup in the lower right corner of SAP Business Application Studio that asks you to open the application in your browser.
 
 
 ## Get Support
