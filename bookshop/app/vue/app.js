@@ -21,8 +21,8 @@ const books = new Vue ({
         },
 
         async inspect ({currentTarget:{id}}) {
-            const {data} = await GET(`/Books/${id}?$select=descr`)
-            books.info = data.descr
+            const {data} = await GET(`/Books/${id}/descr/$value`)
+            books.info = data
         },
 
     }
