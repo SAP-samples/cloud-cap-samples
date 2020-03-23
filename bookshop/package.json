@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A simple self-contained bookshop service.",
   "dependencies": {
-    "@capire/common": "^3.31.1",
     "@sap/cds": "^3.31.1",
     "express": "^4.17.1"
   },
