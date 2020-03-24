@@ -55,9 +55,9 @@ You can generate the MTA.yaml from CDS and do manual modifications or simply use
 
 
 
-### BEGIN OPTIONAL PART
+#### BEGIN OPTIONAL PART
 
-If you do not want to generate the MTA.YAML yourself please do the following:
+If you want to generate the MTA.YAML yourself please do the following:
 
 - Generate the mta.yaml with the HANA dependency
 ```sh
@@ -98,7 +98,7 @@ cds add mta
    parameters:
      service: hanatrial
 ```
-### END OPTIONAL PART
+#### END OPTIONAL PART
 
 Generate the .mtar file for the deployment and deploy to cloud foundry:
 ```sh
