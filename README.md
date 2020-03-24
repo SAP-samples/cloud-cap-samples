@@ -35,7 +35,7 @@ After that, watch out for the little popup in the lower right corner of SAP Busi
 - If your demo user logon window does not show up:  clear the browsers login data
 - If your port is still in use run in your terminal:
 ```
-> pkill node      //kill running node process
+> pkill node      //kill running node proceses
 ```
 
 ## Deploy to Cloud Foundry
