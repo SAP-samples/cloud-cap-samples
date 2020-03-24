@@ -2,7 +2,6 @@
 ####### appName = capire-bookshop
 ####### language=nodejs; multiTenant=
 ####### approuter=
-
 _schema-version: '3.1'
 ID: sap.capire-bookshop
 version: 1.0.0

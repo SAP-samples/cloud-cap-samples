@@ -40,6 +40,73 @@ After that, watch out for the little popup in the lower right corner of SAP Busi
 
 ## Deploy to Cloud Foundry
 
+Clean-up the CF space in your trial account if you already used it before. Make sure that there are no services or applications deployed.
+
+Generation of the xs-security.json
+```sh
+cds compile srv/ --to xsuaa > xs-security.json 
+```
+
+In this unit we use  [MTA](https://sap.github.io/cloud-mta-build-tool/) to do the deployment to CF
+```sh
+npm install -g mbt
+```
+You can generate the MTA.yaml from CDS and do manual modifications or simply use the already generated and adapted  mta.yaml in the branch and directly generate the .mtar file
+
+
+
+### BEGIN OPTIONAL PART
+
+If you do not want to generate the MTA.YAML yourself please do the following:
+
+- Generate the mta.yaml with the HANA dependency
+```sh
+cds add hana --force
+cds add mta
+```
+
+- Add the path to the generated xs-security.json in the MTA.YAML
+```
+    parameters:
+         path: ./xs-security.json
+         service:xsuaa
+         service-plan: application
+         ....
+```
+- Add the application block in the MTA.YAML
+```
+     ##############    APP   #########################
+     - name: capire-bookshop-app
+       type: nodejs
+       path: gen/app
+       parameters:
+          memory: 256M
+       build-parameters:
+         requires:
+           - name: capire-bookshop-srv
+       requires:
+        - name: capire-bookshop-uaa
+        - name: srv-binding
+          group: destinations
+          properties:
+             forwardAuthToken: true
+             name: srv-binding
+             url: ~{srv-url}
+```
+- Make sure to use service hanatrial instead of hana in the MTA.YAML
+```
+   parameters:
+     service: hanatrial
+```
+### END OPTIONAL PART
+
+Generate the .mtar file for the deployment and deploy to cloud foundry:
+```sh
+mbt build -t ./
+cf login -a https://api.cf.eu10.hana.ondemand.com
+cf deploy sap.capire-bookshop_1.0.0.mtar
+```
+
 ## Get Support
 
 Check out the cap docs at https://cap.cloud.sap. <br>

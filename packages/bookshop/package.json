@@ -16,11 +16,10 @@
     "cds": {
         "requires": {
             "db": {
-                "kind": "sqlite",
+                "kind": "hana",
                 "[production]": {
                     "kind": "hana"
-                },
-                "model": "srv"
+                }
             },
             "uaa": {
                 "kind": "xsuaa"

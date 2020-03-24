@@ -4,7 +4,7 @@
     "@sap/hdi-deploy": "^3.8.2"
   },
   "engines": {
-    "node": "^8"
+    "node": "^12"
   },
   "scripts": {
     "start": "node node_modules/@sap/hdi-deploy/deploy.js"
