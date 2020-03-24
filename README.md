@@ -25,11 +25,20 @@ npm install
 Now you're ready to run the samples, for example:
 ```sh
 cd packages/bookshop
+cds deploy
 cds watch
 ```
 
 After that, watch out for the little popup in the lower right corner of SAP Business Application Studio that asks you to open the application in your browser.
 
+## Hints
+- If your demo user logon window does not show up:  clear the browsers login data
+- If your port is still in use run in your terminal:
+```
+> pkill node      //kill running node process
+```
+
+## Deploy to Cloud Foundry
 
 ## Get Support
 
