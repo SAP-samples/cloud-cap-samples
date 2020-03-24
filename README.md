@@ -42,7 +42,7 @@ After that, watch out for the little popup in the lower right corner of SAP Busi
 
 Clean-up the CF space in your trial account if you already used it before. Make sure that there are no services or applications deployed.
 
-Generation of the xs-security.json
+Generation of the XSUAA service configuration file xs-security.json:
 ```sh
 cds compile srv/ --to xsuaa > xs-security.json 
 ```
