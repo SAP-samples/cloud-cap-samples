@@ -16,7 +16,7 @@
     "cds": {
         "requires": {
             "db": {
-                "kind": "hana",
+                "kind": "sql",
                 "[production]": {
                     "kind": "hana"
                 }
