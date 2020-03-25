@@ -8,7 +8,7 @@ service CatalogService {
   } excluding { createdBy, modifiedBy };
 
   @requires_: 'authenticated-user'
-  @insertonly entity Orders as projection on my.Orders;
+  entity Orders as projection on my.Orders;
 
 }
 // Example for an instance restriction
