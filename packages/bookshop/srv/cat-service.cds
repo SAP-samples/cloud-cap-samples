@@ -7,7 +7,7 @@ service CatalogService {
     author.name as author
   } excluding { createdBy, modifiedBy };
 
-  @requires: 'authenticated-user'
+  @requires_: 'authenticated-user'
   @insertonly entity Orders as projection on my.Orders;
 
 }
