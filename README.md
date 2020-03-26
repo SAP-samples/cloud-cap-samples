@@ -3,13 +3,13 @@
 Find here a collection of samples for the [SAP Cloud Application Programming Model](https://cap.cloud.sap) organised in a simplistic [monorepo setup](samples.md#all-in-one-monorepo). &rarr; See [**Overview** of contained samples](samples.md)
 
 
-## Preliminaries
+### Preliminaries
 
 1. [Install @sap/cds-dk](https://cap.cloud.sap/docs/get-started/) as documented in [capire](https://cap.cloud.sap)
 2. _Optional:_ [Use Visual Studio Code](https://cap.cloud.sap/docs/get-started/in-vscode)
 
 
-## Download
+### Download
 
 Clone this repo as shown below, if you have [git](https://git-scm.com/downloads) installed,
 otherwise [download as zip file](archive/master.zip).
@@ -19,14 +19,14 @@ git clone https://github.com/sap-samples/cloud-cap-samples samples
 cd samples
 ```
 
-## Setup
+### Setup
 
 In the samples folder run:
 ```sh
 npm install
 ```
 
-## Run
+### Run
 
 With that you're ready to run the samples, for example:
 ```sh
