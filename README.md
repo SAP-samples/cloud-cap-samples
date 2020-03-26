@@ -28,7 +28,7 @@ npm install
 
 ### Run
 
-With that you're ready to run the samples, for example:
+With that you're ready to run the samples, e.g.:
 ```sh
 cds watch bookshop
 ```
