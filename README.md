@@ -9,7 +9,7 @@ To add all pipeline specific file to your project, run the following command:
 cds add pipeline
 ```
 
-Details on how to start your Jenkins in your own environment can be found in the (Operations Guide)[https://github.com/SAP/devops-docker-cx-server/blob/master/docs/operations/cx-server-operations-guide.md].
+Details on how to start your Jenkins in your own environment can be found in the [Operations Guide](https://github.com/SAP/devops-docker-cx-server/blob/master/docs/operations/cx-server-operations-guide.md).
 
 Please note that other than shown in the video Jenkins now is secured by default with an admin user and password.
 After you have started Jenkins with the command `cx-server start`, you can get the initial password by running `./cx-server initial-credentials`. 
