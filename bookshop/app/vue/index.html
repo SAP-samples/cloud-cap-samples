@@ -6,13 +6,22 @@
     <link rel="stylesheet" href="https://unpkg.com/primitive-ui/dist/css/main.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <style> #books tr:hover { background: #f2f2f2; cursor: pointer; } </style>
+    <style>
+        #books tr:hover { background: #f2f2f2; cursor: pointer; }
+        form { float:right; display:flex; flex-direction: row-reverse }
+        form #amount { width: 5em }
+        .is-success { color: #0d920d }
+        .has-error { color: #df1010 }
+    </style>
 </head>
 
 <body class="small-container", style="margin-top: 70px;">
 <div id='app'>
+
     <h1> Capire Books </h1>
+
     <input type="text" placeholder="Search..." @input="search">
+
     <table id='books'>
         <thead>
             <th> Book </th>
@@ -27,7 +36,22 @@
             <td>{{ book.currency.symbol }} {{ book.price }}</td>
         </tr>
     </table>
-    <p> {{ info }} </p>
+
+    <div v-if="book.title">
+        <label style="text-align:right">
+            <span class="is-success"> {{ order.succeeded }} </span>
+            <span class="has-error"> {{ order.failed }} </span>
+            &nbsp;&nbsp; {{ book.stock }} in stock
+        </label>
+        <form @submit="submitOrder">
+            <input type="number" id="amount" v-model="order.amount" v-bind:class="{ 'has-error': order.failed }">
+            <input type="submit" value="Order:" class="muted-button">
+        </form>
+    </div>
+
+    <h4> {{ book.title }} </h4>
+    <p> {{ book.descr }} </p>
+
 </div>
 </body>
 

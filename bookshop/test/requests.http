@@ -22,7 +22,7 @@ GET http://localhost:4004/admin/Authors?
 ###
 
 
-POST http://localhost:4004/browse/order
+POST http://localhost:4004/browse/submitOrder
 # Run that three times to get out-of-stock message
 Content-Type: application/json
 
