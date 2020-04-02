@@ -15,8 +15,8 @@
     "media-server": "cds watch packages/media-server"
   },
   "dependencies": {
-    "@sap/cds": "latest",
-    "express": "*"
+    "@sap/cds": "^3",
+    "express": "^4"
   },
   "devDependencies": {
     "sqlite3": "*"
