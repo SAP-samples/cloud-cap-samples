@@ -16,8 +16,8 @@
     "reviews-service": "cds watch packages/reviews-service"
   },
   "dependencies": {
-    "@sap/cds": "latest",
-    "express": "*"
+    "@sap/cds": "^3",
+    "express": "^4"
   },
   "--add-these-to-devDependencies-for-tests": {
     "@types/jest": "*",
