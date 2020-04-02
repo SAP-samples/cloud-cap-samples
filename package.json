@@ -12,8 +12,8 @@
     "bookshop": "cds watch packages/bookshop"
   },
   "dependencies": {
-    "@sap/cds": "latest",
-    "express": "*"
+    "@sap/cds": "^3",
+    "express": "^4"
   },
   "devDependencies": {
     "@types/jest": "*",
