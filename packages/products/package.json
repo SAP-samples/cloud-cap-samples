@@ -5,8 +5,8 @@
   "repository": "https://github.com/SAP-samples/cloud-cap-samples.git",
   "license": "SAP SAMPLE CODE LICENSE",
   "dependencies": {
-    "@sap/cds": "latest",
-    "express": "*"
+    "@sap/cds": "^3",
+    "express": "^4"
   },
   "files": [
     "db",
