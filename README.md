@@ -12,7 +12,7 @@ cds add pipeline
 Details on how to start your Jenkins in your own environment can be found in the [Operations Guide](https://github.com/SAP/devops-docker-cx-server/blob/master/docs/operations/cx-server-operations-guide.md).
 
 Please note that other than shown in the video Jenkins now is secured by default with an admin user and password.
-After you have started Jenkins with the command `cx-server start`, you can get the initial password by running `./cx-server initial-credentials`. 
+After you have started Jenkins with the command `cx-server start`, you can get the initial password by running `./cx-server initial-credentials`.
 
 ## Get Access to SAP Business Application Studio
 The recommended environment for the course is SAP Business Application Studio.  Watch [unit 2 of week 1](https://open.sap.com/courses/cp7/items/51pzQUzbXHr2kdbOmVs6jI) for how to get access.
@@ -23,7 +23,7 @@ In SAP Business Application Studio, open a terminal.
 Then clone the repo with this specific branch:
 
 ```sh
-git clone https://github.com/sap-samples/cloud-cap-samples -b OpenSAP-week4-unit4
+git clone https://github.com/sap-samples/cloud-cap-samples -b openSAP-week4-unit4
 cd cloud-cap-samples
 ```
 
