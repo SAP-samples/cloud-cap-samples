@@ -11,7 +11,7 @@ In SAP Business Application Studio, open a terminal.
 Then clone the repo with this specific branch:
 
 ```sh
-git clone https://github.com/sap-samples/cloud-cap-samples -b OpenSAP-week3-unit5
+git clone https://github.com/sap-samples/cloud-cap-samples -b openSAP-week3-unit5
 cd cloud-cap-samples
 ```
 
@@ -44,7 +44,7 @@ Clean-up the CF space in your trial account if you already used it before. Make 
 
 Generation of the XSUAA service configuration file xs-security.json:
 ```sh
-cds compile srv/ --to xsuaa > xs-security.json 
+cds compile srv/ --to xsuaa > xs-security.json
 ```
 
 In this unit we use  [MTA](https://sap.github.io/cloud-mta-build-tool/) to do the deployment to CF
