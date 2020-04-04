@@ -1,0 +1,5 @@
+{
+  "name": "@capire/tests",
+  "version": "1.0.0",
+  "main": "lib/helpers.js"
+}

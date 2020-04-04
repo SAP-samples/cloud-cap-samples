@@ -1,10 +1,10 @@
+const {expect} = require('@capire/tests')
 const cds = require ('@sap/cds')
-const {expect} = cds.require.chai
 
-describe('reading/writing hierarchies', ()=>{
+describe('Hierarchical CodeLists', ()=>{
 
-    it ('should bootstrap sqlite in-memory db', async()=>{
-        await cds.deploy (__dirname+'/../db') .to ('sqlite::memory:')
+    it ('should bootstrap sqlite in-memory db...', async()=>{
+        await cds.deploy ('@capire/bookshop') .to ('sqlite::memory:')
         expect (cds.db) .to.exist
         expect (cds.db.model) .to.exist
     })
@@ -20,7 +20,7 @@ describe('reading/writing hierarchies', ()=>{
                         { ID:105, name:'Kitty Bat' } ]},
                     { ID:106, name:'Catwoman', children:[
                         { ID:107, name:'Catalina' } ]} ]},
-                { ID:108, name:'Catweazle' }
+                { ID:108, name:'Ca<tweazle' }
             ]}
         )
     })
@@ -45,7 +45,7 @@ describe('reading/writing hierarchies', ()=>{
         )
     })
 
-    it ('should read hierarchy of genres', async()=>{
+    it ('should read deep hierarchy of genres', async()=>{
         const { Genres } = cds.entities
         expect (await
 

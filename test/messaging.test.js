@@ -1,8 +1,9 @@
-const _model = __dirname+'/..'
+const {expect} = require('@capire/tests')
 const cds = require ('@sap/cds')
-const {expect} = cds.require.chai
+const _model = '@capire/reviews'
 
-describe('messaging tests', ()=>{
+
+describe('Messaging', ()=>{
 
     it ('should bootstrap sqlite in-memory db', async()=>{
         const db = await cds.deploy (_model) .to ('sqlite::memory:')
@@ -10,7 +11,7 @@ describe('messaging tests', ()=>{
     })
 
     let srv
-    it ('should serve reviews services', async()=>{
+    it ('should serve ReviewsService', async()=>{
         srv = await cds.serve('ReviewsService') .from (_model)
         expect (srv.name) .to.match (/ReviewsService/)
     })

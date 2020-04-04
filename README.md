@@ -37,6 +37,14 @@ cds watch bookshop
 
 After that open this link in your browser: [http://localhost:4004](http://localhost:4004)
 
+### Testing
+
+Run the provided tests with [_jest_](http://jestjs.io) or [_mocha_](http://mochajs.org), e.g.:
+```sh
+npx jest
+```
+> While mocha is a bit smaller and faster, jest runs tests in parallel and isolation which allows to run all tests.
+
 
 ## Get Support
 
