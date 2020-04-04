@@ -8,14 +8,19 @@
     "@capire/bookshop": "file:bookshop",
     "@capire/common": "file:common",
     "@capire/fiori": "file:fiori",
-    "@capire/media": "file:media",
     "@capire/orders": "file:orders",
-    "@capire/reviews": "file:reviews"
+    "@capire/reviews": "file:reviews",
+    "@capire/tests": "file:test"
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
     "sqlite3": "^4"
+  },
+  "scripts": {
+    "mocha": "npx mocha || echo",
+    "jest": "npx jest"
   },
   "license": "SAP SAMPLE CODE LICENSE",
   "private": true
