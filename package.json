@@ -20,7 +20,8 @@
   },
   "scripts": {
     "mocha": "npx mocha || echo",
-    "jest": "npx jest"
+    "jest": "npx jest",
+    "test": "npm run jest -s"
   },
   "license": "SAP SAMPLE CODE LICENSE",
   "private": true
