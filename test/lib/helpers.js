@@ -6,7 +6,9 @@ module.exports = exports = {
 }
 
 // harmonizing jest and mocha
-if (global.test) { // it's jest
+const is_mocha = !global.test
+const is_jest = !!global.test
+if (is_jest) { // it's jest
   global.before = global.beforeAll
   global.after = global.afterAll
 } else { // it's mocha
@@ -25,16 +27,7 @@ function _chai(){
 
 
 /** Launching and testing a cds server */
-exports.launch = (project, args=['--in-memory?']) => {
-
-  const cds = require('@sap/cds')
-
-  // Supporting .launch (<package name>)
-  if (!cds.utils.existsSync(project)) try {
-    project = require('path').dirname (require.resolve(project+'/package.json'))
-  } catch(e) {
-    throw cds.error (`Cannot resolve project folder for '${project}'`)
-  }
+exports.launch = (project, ...args) => {
 
   // Setting up test server
   const console = global.console, logs=[]
@@ -61,6 +54,19 @@ exports.launch = (project, args=['--in-memory?']) => {
   // launch cds server...
   before (done => {
 
+    const cds = require('@sap/cds')
+
+    let cmd = 'run'
+    if (project.startsWith('cds ')) [ cmd, project ] = [ project.slice(4), args.shift() ]
+    if (!args.length) args = ['--in-memory?']
+
+    // Supporting .launch (<package name>)
+    if (cmd === 'run' && !cds.utils.existsSync(project)) try {
+      project = require('path').dirname (require.resolve(project+'/package.json'))
+    } catch(e) {
+      throw cds.error (`Cannot resolve project folder for '${project}'`)
+    }
+
     if (!process.env.CDS_TEST_VERBOSE) global.console = { __proto__: global.console, logs,
       time: ()=>{}, timeEnd: (...args)=> logs.push(args),
       debug: (...args)=> logs.push(args),
@@ -70,9 +76,14 @@ exports.launch = (project, args=['--in-memory?']) => {
       dump(){ for (let each of logs) console.log (...each) },
     }
 
+    // return done (new Error(11))
     process.env.PORT = '0'
-    const p = cds.exec ('run', project, ...args) // TODO w/ @sap/cds@3.33.3: , '--port', '0')
-    if (p && 'catch' in p) p.catch (done)
+    const p = cds.exec (cmd, project, ...args) // TODO w/ @sap/cds@3.33.3: , '--port', '0')
+    if (p && 'catch' in p) p.catch (e => {
+      if (is_mocha) console.error(e)
+      done(e)
+  })
+    // return done(new Error('dfghjkl'))
 
     cds.once('listening', ({ server, url }) => {
       Object.assign (test,{server,url})
@@ -83,7 +94,7 @@ exports.launch = (project, args=['--in-memory?']) => {
   // shutdown cds server...
   after (done => {
     if (global.console !== console) global.console = console
-    test.server.close (done)
+    test.server ? test.server.close (done) : done()
   })
 
   function _error (e) {
