@@ -14,6 +14,7 @@ if (is_jest) { // it's jest
 } else { // it's mocha
   global.beforeAll = global.before
   global.afterAll = global.after
+  global.test = global.it
 }
 
 // lazy-loading chai
@@ -102,7 +103,7 @@ exports.launch = (project, ...args) => {
     if (!e.response.data)  throw e
     if (!e.response.data.error)  throw e
     const { code, message } = e.response.data.error
-    throw new Error (`${code} - ${message}`)
+    throw new Error (code && code !== 'null' ? `${code} - ${message}` : message)
   }
 
   return test
