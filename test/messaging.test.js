@@ -1,4 +1,4 @@
-const {expect} = require('@capire/tests')
+const {expect} = require('./capire')
 const cds = require ('@sap/cds')
 const _model = '@capire/reviews'
 
