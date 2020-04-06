@@ -21,7 +21,7 @@
 
 ### General project setup
 general:
-
+  productiveBranch: 'openSAP-week4-unit4'
 
 ### Step-specific configuration
 steps:
@@ -29,12 +29,6 @@ steps:
 
 ### Stage-specific configuration
 stages:
-
-  # This exclude is required for the example project to be successful in the pipeline
-  # Remove it when you have added your first test
-  s4SdkQualityChecks:
-    jacocoExcludes:
-      - '**/OrdersService.class'
 
 #  integrationTests:
 #    credentials:
@@ -45,11 +39,9 @@ stages:
 #    nonErpDestinations:
 #      - 'myCustomDestination'
 
-#  productionDeployment:
-#    cfTargets:
-#      - org: 'myOrg'
-#        space: 'mySpace'
-#        apiEndpoint: 'https://'
-#        appName: 'myAppName'
-#        manifest: 'manifest.yml'
-#        credentialsId: 'myDeploymentCredentialsId'
+#   productionDeployment:
+#     cfTargets:
+#       - org: 'myOrg'
+#         space: 'mySpace'
+#         apiEndpoint: 'https://api.cf.eu10.hana.ondemand.com'
+#         credentialsId: 'cf-deploy-sap'
