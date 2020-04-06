@@ -1,5 +1,5 @@
 describe('Localized Data', () => {
-  const { GET, expect } = require('./capire').launch('bookshop')
+  const { GET, expect } = require('./capire').launch('cds serve',__dirname+'/localized-data.cds')
 
   it('serves localized $metadata documents', async () => {
     const { data } = await GET`/browse/$metadata?sap-language=de`
@@ -66,9 +66,22 @@ describe('Localized Data', () => {
         name: 'Edgar Allen Poe',
         books: [
           { title: 'The Raven', currency: { name: 'US-Dollar', symbol: '$' } },
-          { title: 'Eleonora', currency: { name: 'US-Dollar', symbol: '$' } },
+          { title: 'Eleonora',  currency: { name: 'US-Dollar', symbol: '$' } },
         ],
       },
+    ])
+  })
+
+  it('supports @cds.localized:false', async ()=>{
+    const { data } = await GET(`/browse/BooksSans?&$select=title,localized_title&$expand=currency&$filter=locale eq 'de' or locale eq null`, {
+      headers: { 'Accept-Language': 'de' },
+    })
+    expect(data.value).to.containSubset([
+      { title: 'Wuthering Heights', localized_title: 'Sturmhöhe', currency: { name: 'British Pound' } },
+      { title: 'Jane Eyre', currency: { name: 'British Pound' } },
+      { title: 'The Raven', currency: { name: 'US Dollar' } },
+      { title: 'Eleonora',  currency: { name: 'US Dollar' } },
+      { title: 'Catweazle', currency: { name: 'Euro' } },
     ])
   })
 })
