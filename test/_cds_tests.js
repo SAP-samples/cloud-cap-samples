@@ -5,6 +5,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 const { resolve, dirname } = require('path')
+const cwd = process.cwd()
 
 // harmonizing jest and mocha
 const is_mocha = !global.test
@@ -120,6 +121,7 @@ class CDSTestKit {
     // shutdown cds server...
     after (done => {
       if (global.console !== console) global.console = console
+      if (cwd !== process.cwd())  process.chdir(cwd)
       test.server ? test.server.close (done) : done()
     })
 
