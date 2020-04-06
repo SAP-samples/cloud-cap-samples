@@ -14,6 +14,8 @@ Details on how to start your Jenkins in your own environment can be found in the
 Please note that other than shown in the video Jenkins now is secured by default with an admin user and password.
 After you have started Jenkins with the command `cx-server start`, you can get the initial password by running `./cx-server initial-credentials`.
 
+The pipeline documentation can be found [here](https://sap.github.io/jenkins-library/pipelines/cloud-sdk/introduction/).
+
 ## Get Access to SAP Business Application Studio
 The recommended environment for the course is SAP Business Application Studio.  Watch [unit 2 of week 1](https://open.sap.com/courses/cp7/items/51pzQUzbXHr2kdbOmVs6jI) for how to get access.
 
