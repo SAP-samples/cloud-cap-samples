@@ -1,6 +1,6 @@
 const {expect} = require('./capire')
-// global.cds = undefined
 const cds = require ('@sap/cds')
+const cwd = process.cwd(); process.chdir (__dirname) //> only for internal CI/CD@SAP
 
 const model = cds.parse(`
   entity Categories {
@@ -20,6 +20,8 @@ describe('Hierarchical Data', ()=>{
 		expect (cds.db) .to.exist
     expect (cds.db.model) .to.exist
 	})
+
+	after(()=> process.chdir(cwd))
 
 	it ('supports deeply nested inserts', ()=> INSERT.into (Cats,
     { ID:100, name:'Some Cats...', children:[
