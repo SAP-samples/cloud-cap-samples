@@ -34,16 +34,6 @@ In the `cloud-cap-samples` folder run:
 npm install
 ```
 
-## Run
-
-Now you're ready to run the samples, for example:
-```sh
-cds watch
-```
-
-After that, watch out for the little popup in the lower right corner of SAP Business Application Studio that asks you to open the application in your browser.
-
-
 ## Get Support
 
 Check out the cap docs at https://cap.cloud.sap. <br>
