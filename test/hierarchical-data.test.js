@@ -1,6 +1,6 @@
+const cwd = process.cwd(); process.chdir (__dirname) //> only for internal CI/CD@SAP
 const {expect} = require('./capire')
 const cds = require ('@sap/cds')
-const cwd = process.cwd(); process.chdir (__dirname) //> only for internal CI/CD@SAP
 
 const model = cds.parse(`
   entity Categories {
