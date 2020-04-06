@@ -1,4 +1,5 @@
 const {expect} = require('./capire')
+// global.cds = undefined
 const cds = require ('@sap/cds')
 
 const model = cds.parse(`
