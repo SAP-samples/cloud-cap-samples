@@ -1,3 +1,2 @@
 // Incorporate pre-build extensions from...
-using from '../../common'; //> work-around for mediocre cds-tests
-// using from '@capire/common';
+using from '@capire/common';
