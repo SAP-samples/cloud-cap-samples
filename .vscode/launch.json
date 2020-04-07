@@ -5,9 +5,24 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "cds run ...", "cwd": "${workspaceFolder}/${input:sample}",
-      "request": "launch", "type": "node", "runtimeExecutable": "npx", "runtimeArgs": [ "-n" ],
-      "args": [ "--", "cds", "run", "--with-mocks", "--in-memory?" ],
+      "name": "bookshop",
+      "cwd": "${workspaceFolder}/bookshop",
+      "request": "launch",
+      "type": "node",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["-n"],
+      "args": ["--", "cds", "run", "--with-mocks", "--in-memory?"],
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Fiori App",
+      "cwd": "${workspaceFolder}/fiori",
+      "request": "launch",
+      "type": "node",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["-n"],
+      "args": ["--", "cds", "run", "--with-mocks", "--in-memory?"],
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**"]
     }
@@ -17,12 +32,7 @@
       "type": "pickString",
       "id": "sample",
       "description": "Which sample do you want to start?",
-      "options": [
-        "bookshop",
-        "fiori",
-        "reviews",
-        "reviews/test/bookshop"
-      ],
+      "options": ["bookshop", "fiori", "reviews", "reviews/test/bookshop"],
       "default": "bookshop"
     }
   ]
