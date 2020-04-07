@@ -20,6 +20,16 @@ In the `cloud-cap-samples` folder run:
 npm install
 ```
 
+### Cloud Foundry Login
+This is required later in the demo.  In Studio's terminal, execute:
+```sh
+cf login
+```
+As input, provide
+- The Cloud Foundry API endpoint, which is usally `https://api.cf.eu10.hana.ondemand.com`.  It can be obtained from the Overview page of your Subaccount in Cloud Cockpit.
+- Your user's email address and password
+- The name of your trial organization and space
+
 ## Run
 
 Now you're ready to run the samples, for example:
