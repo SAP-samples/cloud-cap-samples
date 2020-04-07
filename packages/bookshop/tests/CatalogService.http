@@ -1,0 +1,8 @@
+# Get all books
+GET http://localhost:4004/catalog/Books
+
+# Get books description from the HANA function
+GET http://localhost:4004/catalog/BooksDescr
+
+# Get books with rating  4 via the HANA view
+GET http://localhost:4004/catalog/BooksInfo(RATING=4)/Set

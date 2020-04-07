@@ -1,0 +1,10 @@
+FUNCTION SAP_CAPIRE_BOOKSHOP_BOOKSDESCR
+  RETURNS TABLE (ID integer, BOOK_DESCR nvarchar(2000))
+  LANGUAGE SQLSCRIPT
+  AS
+BEGIN
+  RETURN SELECT 
+           100 + ID AS ID,
+           'From my HANA function: A summary for the book ' || TITLE  || ': ' || DESCR AS BOOK_DESCR
+         FROM SAP_CAPIRE_BOOKSHOP_BOOKS;
+END
