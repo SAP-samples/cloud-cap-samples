@@ -11,7 +11,7 @@ In SAP Business Application Studio, open a terminal.
 Then clone the repo with this specific branch:
 
 ```sh
-git clone https://github.com/sap-samples/cloud-cap-samples -b projects/openSAP-week2-unit4567
+git clone https://github.com/sap-samples/cloud-cap-samples projects/cloud-cap-samples -b openSAP-week2-unit4567
 cd projects/cloud-cap-samples
 ```
 
