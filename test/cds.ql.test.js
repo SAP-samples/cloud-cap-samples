@@ -14,7 +14,7 @@ if (!is_cds_333) {
 // while jest has 'test' as alias to 'it', mocha doesn't
 if (!global.test) global.test = it
 
-describe('cds.ql', () => {
+describe('cds.ql → cqn', () => {
   //
 
   describe(`BUGS + GAPS...`, () => {
