@@ -29,7 +29,7 @@ describe('Messaging', ()=>{
         const review = { subject: "201", title: "Captivating", rating: ++N }
         const response = await srv.create ('Reviews') .entries (review)
         expect (response) .to.containSubset (review)
-    },100)
+    })
 
     it ('should add more reviews', ()=> Promise.all ([
         // REVISIT: mass operation should trigger one message per entry
@@ -51,7 +51,7 @@ describe('Messaging', ()=>{
         srv.create ('Reviews') .entries (
             { ID: 111 + (++N),  subject: "201", title: "Captivating", rating: N }
         ),
-    ]) ,100)
+    ]))
 
     it ('should have received all messages', async()=> {
         await new Promise((done)=>setImmediate(done))
