@@ -35,15 +35,15 @@ cds.once('served', async()=>{
 // Other bootstrapping events you could hook in to...
 /* eslint-disable no-unused-vars */
 cds.on('loaded', (model) => {/* ... */})
-cds.on('serving', (srv) => {/* ... */})
 cds.on('connect', (srv) => {/* ... */})
+cds.on('serving', (srv) => {/* ... */})
 cds.once('listening', ({server,url}) => {/* ... */})
 
 
 // Delegate bootstrapping to built-in server.js
 module.exports = cds.server
 
-// Monkey patching older releases
+// Monkey-patching older releases
 if (cds.version < '3.33.4') cds.once('listening', ()=> cds.emit('served'))
 
 // Launch server if started directly from command-line
