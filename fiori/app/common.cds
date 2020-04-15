@@ -10,7 +10,7 @@ using { sap.capire.bookshop as my } from '@capire/bookshop';
 //	Books Lists
 //
 annotate my.Books with @(
-	Common.SemanticKey: [ID, title],
+	Common.SemanticKey: [title],
 	UI: {
 		Identification: [{Value:title}],
 	  SelectionFields: [ ID, author_ID, price, currency_code ],
