@@ -6,7 +6,6 @@ using AdminService from '@capire/bookshop';
 //
 
 annotate AdminService.Books with @(
-	Common.SemanticKey: [ID, title],
 	UI: {
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>General}', Target: '@UI.FieldGroup#General'},
