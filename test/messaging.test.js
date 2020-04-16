@@ -1,9 +1,12 @@
+const cwd = process.cwd(); process.chdir (__dirname) //> only for internal CI/CD@SAP
 const {expect} = require('./capire')
 const cds = require ('@sap/cds')
 const _model = '@capire/reviews'
 
 
 describe('Messaging', ()=>{
+
+    after(()=> process.chdir(cwd))
 
     it ('should bootstrap sqlite in-memory db', async()=>{
         const db = await cds.deploy (_model) .to ('sqlite::memory:')
