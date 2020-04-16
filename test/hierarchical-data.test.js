@@ -2,7 +2,10 @@ const cwd = process.cwd(); process.chdir (__dirname) //> only for internal CI/CD
 const {expect} = require('./capire')
 const cds = require ('@sap/cds')
 
-const model = cds.parse(`
+// monkey patching older releases:
+if (!cds.compile.cdl) cds.compile.cdl = cds.parse
+
+const model = cds.compile.cdl (`
   entity Categories {
     key ID   : Integer;
     name     : String;
