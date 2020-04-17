@@ -25,7 +25,7 @@ npm run watch
 | [Defining Services](https://cap.cloud.sap/docs/guides/providing-services)                                 | [`./srv/*.cds`](./srv)               |
 | [Single-purposed Services](https://cap.cloud.sap/docs/guides/providing-services#single-purposed-services) | [`./srv/*.cds`](./srv)               |
 | [Generic Providers](https://cap.cloud.sap/docs/guides/generic-providers)                                  | http://localhost:4004                |
-| [Using Databases](https://cap.cloud.sap/docs/guides/databases)                                            | [`./db/data/*.csv`](./db/data)       |
+| Using Databases                                            | [`./db/data/*.csv`](./db/data)       |
 | [Adding Custom Logic](https://cap.cloud.sap/docs/guides/service-impl)                                     | [`./srv/*.js`](./srv)                |
-| [Adding Tests](https://cap.cloud.sap/docs/guides/testing)                                                 | [`./test`](./test)                   |
+| Adding Tests                                                 | [`./test`](./test)                   |
 | [Sharing for Reuse](https://cap.cloud.sap/docs/get-started/projects#sharing-and-reusing-content)          | [`./index.cds`](./index.cds)         |
