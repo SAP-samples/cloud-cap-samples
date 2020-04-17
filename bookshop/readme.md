@@ -24,7 +24,7 @@ npm run watch
 | [Defining Domain Models](https://cap.cloud.sap/docs/guides/domain-models)                                 | [`./db/schema.cds`](./db/schema.cds) |
 | [Defining Services](https://cap.cloud.sap/docs/guides/providing-services)                                 | [`./srv/*.cds`](./srv)               |
 | [Single-purposed Services](https://cap.cloud.sap/docs/guides/providing-services#single-purposed-services) | [`./srv/*.cds`](./srv)               |
-| [Generic Providers](https://cap.cloud.sap/docs/guides/generic-providers)                                  | http://localhost:4004                |
+| [Generic Providers](https://cap.cloud.sap/docs/guides/providing-providers)                                  | http://localhost:4004                |
 | Using Databases                                            | [`./db/data/*.csv`](./db/data)       |
 | [Adding Custom Logic](https://cap.cloud.sap/docs/guides/service-impl)                                     | [`./srv/*.js`](./srv)                |
 | Adding Tests                                                 | [`./test`](./test)                   |
