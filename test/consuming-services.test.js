@@ -12,6 +12,8 @@ describe('Consuming Services locally', () => {
     expect(Authors).not.to.be.undefined
   })
 
+  it('bootrapped the database successfully', ()=>{})
+
   it('supports targets as strings or reflected defs', async () => {
     const AdminService = cds.connect.to('AdminService')
     const { Authors } = AdminService.entities
