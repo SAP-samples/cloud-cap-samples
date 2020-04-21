@@ -10,15 +10,17 @@ if (!is_cds_333) {
   const up = UPDATE('x').constructor.prototype
   up.with = up.set
 }
+const { parse:cdr } = cds.ql
 
 // while jest has 'test' as alias to 'it', mocha doesn't
 if (!global.test) global.test = it
 
 describe('cds.ql → cqn', () => {
   //
+  let cqn
 
   describe(`BUGS + GAPS...`, () => {
-    it.skip('should consistently handle *', () => {
+    !(cdr ? it : it.skip)('should consistently handle *', () => {
       expect({
         SELECT: { from: { ref: ['Foo'] }, columns: ['*'] },
       })
@@ -28,8 +30,8 @@ describe('cds.ql → cqn', () => {
         .to.eql(SELECT.from(Foo, ['*']))
     })
 
-    it.skip('should correctly handle { ... and:{...} }', () => {
-      expect(SELECT.from(Foo).where({ x: 1, and: { y: 2, or: { z: 2 } } })).to.eql({
+    !(cdr ? it : it.skip)('should correctly handle { ... and:{...} }', () => {
+      expect(SELECT.from(Foo).where({ x: 1, and: { y: 2, or: { z: 3 } } })).to.eql({
         SELECT: {
           from: { ref: ['Foo'] },
           where: [
@@ -117,16 +119,19 @@ describe('cds.ql → cqn', () => {
 
     test('from ( ..., => {...})', () => {
       // single *, prefix and postfix, as array and function
-      expect(CQL`SELECT * from Foo`).to.eql(CQL`SELECT from Foo{*}`)
+      let parsed, fluid
+      expect((parsed = CQL`SELECT * from Foo`)).to.eql(CQL`SELECT from Foo{*}`)
       //> .to.eql... FIXME: see skipped 'should handle * correctly' below
-      expect(SELECT('*').from(Foo))
+      expect((fluid = SELECT('*').from(Foo)))
         .to.eql(SELECT.from(Foo, ['*']))
         .to.eql(SELECT.from(Foo, (foo) => foo('*')))
         .to.eql(SELECT.from(Foo).columns('*'))
         .to.eql(SELECT.from(Foo).columns((foo) => foo('*')))
         .to.eql({
-          SELECT: { from: { ref: ['Foo'] }, columns: [{ ref: ['*'] }] },
+          SELECT: { from: { ref: ['Foo'] }, columns: [cdr ? '*' : { ref: ['*'] }] },
         })
+
+      if (cdr) expect(parsed).to.eql(fluid)
 
       // single column, prefix and postfix, as array and function
       expect(CQL`SELECT a from Foo`)
@@ -139,26 +144,26 @@ describe('cds.ql → cqn', () => {
 
       // multiple columns, prefix and postfix, as array and function
       expect(CQL`SELECT a,b as c from Foo`)
-      expect(CQL`SELECT from Foo {a,b as c}`)
-        .to.eql(SELECT.from(Foo, ['a', { b: 'c' }]))
-        .to.eql(
-          SELECT.from(Foo, (foo) => {
-            foo.a, foo.b.as('c')
-          })
-        )
-        .to.eql(SELECT.from(Foo).columns('a', { b: 'c' }))
-        .to.eql(SELECT.from(Foo).columns(['a', { b: 'c' }]))
-        .to.eql(
-          SELECT.from(Foo).columns((foo) => {
-            foo.a, foo.b.as('c')
-          })
-        )
-        .to.eql({
-          SELECT: {
-            from: { ref: ['Foo'] },
-            columns: [{ ref: ['a'] }, { ref: ['b'], as: 'c' }],
-          },
+
+      expect (CQL`SELECT from Foo {a,b as c}`).to.eql(cqn = {
+        SELECT: {
+          from: { ref: ['Foo'] },
+          columns: [{ ref: ['a'] }, { ref: ['b'], as: 'c' }],
+        },
+      })
+      expect(SELECT.from(Foo, ['a', { b: 'c' }])).to.eql(cqn)
+      expect(
+        SELECT.from(Foo, (foo) => {
+          foo.a, foo.b.as('c')
         })
+      ).to.eql(cqn)
+      expect(SELECT.from(Foo).columns('a', { b: 'c' })).to.eql(cqn)
+      expect(SELECT.from(Foo).columns(['a', { b: 'c' }])).to.eql(cqn)
+      expect(
+        SELECT.from(Foo).columns((foo) => {
+          foo.a, foo.b.as('c')
+        })
+      ).to.eql(cqn)
 
       // multiple columns and *, prefix and postfix, as array and function
       expect(CQL`SELECT *,a,b from Foo`).to.eql(CQL`SELECT from Foo{*,a,b}`)
@@ -174,7 +179,7 @@ describe('cds.ql → cqn', () => {
         .to.eql({
           SELECT: {
             from: { ref: ['Foo'] },
-            columns: [{ ref: ['a'] }, { ref: ['b'] }, { ref: ['*'] }],
+            columns: [{ ref: ['a'] }, { ref: ['b'] }, cdr ? '*' : { ref: ['*'] }],
           },
         })
     })
@@ -195,7 +200,7 @@ describe('cds.ql → cqn', () => {
           SELECT: {
             from: { ref: ['Foo'] },
             columns: [
-              { ref: ['*'] },
+              cdr ? '*' : { ref: ['*'] },
               { ref: ['x'] },
               { ref: ['car'], expand: ['*'] },
               {
@@ -231,23 +236,23 @@ describe('cds.ql → cqn', () => {
       })
 
     test('one / distinct ...', () => {
-      expect(SELECT.distinct.from(Foo).cqn)
+      expect(SELECT.distinct.from(Foo).SELECT)
         // .to.eql(CQL(`SELECT distinct from Foo`).SELECT)
-        .to.eql(SELECT.distinct(Foo).cqn)
+        .to.eql(SELECT.distinct(Foo).SELECT)
         .to.eql({ distinct: true, from: { ref: ['Foo'] } })
 
-      expect(SELECT.one.from(Foo).cqn)
+      expect(SELECT.one.from(Foo).SELECT)
         // .to.eql(CQL(`SELECT one from Foo`).SELECT)
-        .to.eql(SELECT.one(Foo).cqn)
+        .to.eql(SELECT.one(Foo).SELECT)
         .to.eql({ one: true, from: { ref: ['Foo'] } })
 
-      expect(SELECT.one('a').from(Foo).cqn)
+      expect(SELECT.one('a').from(Foo).SELECT)
         // .to.eql(CQL(`SELECT distinct a from Foo`).SELECT)
-        .to.eql(SELECT.one(['a']).from(Foo).cqn)
-        .to.eql(SELECT.one(Foo, ['a']).cqn)
-        .to.eql(SELECT.one(Foo, (foo) => foo.a).cqn)
-        .to.eql(SELECT.one.from(Foo, (foo) => foo.a).cqn)
-        .to.eql(SELECT.one.from(Foo, ['a']).cqn)
+        .to.eql(SELECT.one(['a']).from(Foo).SELECT)
+        .to.eql(SELECT.one(Foo, ['a']).SELECT)
+        .to.eql(SELECT.one(Foo, (foo) => foo.a).SELECT)
+        .to.eql(SELECT.one.from(Foo, (foo) => foo.a).SELECT)
+        .to.eql(SELECT.one.from(Foo, ['a']).SELECT)
         .to.eql({
           one: true,
           from: { ref: ['Foo'] },
@@ -271,85 +276,108 @@ describe('cds.ql → cqn', () => {
       ).to.eql({
         SELECT: {
           from: { ref: ['Foo'] },
-          where: [
-            '(', //> this one is not required
-            { ref: ['ID'] },
-            '=',
-            { val: ID },
-            'and',
-            { ref: ['args'] },
-            'in',
-            { val: args },
-            'and',
-            // '(',  //> this one is missing, and that's changing the logic -> that's a BUG
-            { ref: ['x'] },
-            'like',
-            { val: '%x%' },
-            'or',
-            { ref: ['y'] },
-            '>=',
-            { val: 9 },
-            ')',
-          ],
+          where: cdr
+            ? [
+                // '(', //> this one is not required
+                { ref: ['ID'] },
+                '=',
+                { val: ID },
+                'and',
+                { ref: ['args'] },
+                'in',
+                { val: args },
+                'and',
+                '(', //> this one is missing, and that's changing the logic -> that's a BUG
+                { ref: ['x'] },
+                'like',
+                { val: '%x%' },
+                'or',
+                { ref: ['y'] },
+                '>=',
+                { val: 9 },
+                ')',
+              ]
+            : [
+                '(', //> this one is not required
+                { ref: ['ID'] },
+                '=',
+                { val: ID },
+                'and',
+                { ref: ['args'] },
+                'in',
+                { val: args },
+                'and',
+                // '(',  //> this one is missing, and that's changing the logic -> that's a BUG
+                { ref: ['x'] },
+                'like',
+                { val: '%x%' },
+                'or',
+                { ref: ['y'] },
+                '>=',
+                { val: 9 },
+                ')',
+              ],
         },
       })
 
       // using CQL fragments -> uses cds.parse.expr
-      expect(CQL`SELECT from Foo where ID=11 and x in ( foo, 'bar', 3)`)
-        .to.eql(SELECT.from(Foo).where(`ID=`, ID, `and x in`, args))
-        .to.eql(SELECT.from(Foo).where(`ID=${ID} and x in (${args})`))
-        .to.eql({
-          SELECT: {
-            from: { ref: ['Foo'] },
-            where: [
-              { ref: ['ID'] },
-              '=',
-              { val: ID },
-              'and',
-              { ref: ['x'] },
-              'in',
-              '(',
-              { ref: ['foo'] },
-              ',',
-              { val: 'bar' },
-              ',',
-              { val: 3 },
-              ')',
-            ],
-          },
-        })
+      expect((cqn = CQL`SELECT from Foo where ID=11 and x in ( foo, 'bar', 3)`)).to.eql({
+        SELECT: {
+          from: { ref: ['Foo'] },
+          where: [
+            { ref: ['ID'] },
+            '=',
+            { val: ID },
+            'and',
+            { ref: ['x'] },
+            'in',
+            '(',
+            { ref: ['foo'] },
+            ',',
+            { val: 'bar' },
+            ',',
+            { val: 3 },
+            ')',
+          ],
+        },
+      })
+      expect(SELECT.from(Foo).where(`ID=`, ID, `and x in`, args)).to.eql(cqn)
+      expect(SELECT.from(Foo).where(`ID=${ID} and x in (${args})`)).to.eql(cqn)
 
-      expect(CQL`SELECT from Foo where x=1 or y.z is null and (a>2 or b=3)`).to.eql(
+      expect(
         SELECT.from(Foo).where(`x=`, 1, `or y.z is null and (a>`, 2, `or b=`, 3, `)`)
-      )
+      ).to.eql(CQL`SELECT from Foo where x=1 or y.z is null and (a>2 or b=3)`)
 
-      expect(CQL`SELECT from Foo where x between 1 and 9`).to.eql(
-        SELECT.from(Foo).where(`x between`, 1, `and`, 9)
+      expect(SELECT.from(Foo).where(`x between`, 1, `and`, 9)).to.eql(
+        CQL`SELECT from Foo where x between 1 and 9`
       )
     })
 
     test('w/ sub selects', () => {
       // in where causes
-      expect(CQL`SELECT from Foo where x in (SELECT y from Bar)`).to.eql(
-        SELECT.from(Foo).where({ x: SELECT('y').from('Bar') })
+      expect(SELECT.from(Foo).where({ x: SELECT('y').from('Bar') })).to.eql(
+        CQL`SELECT from Foo where x in (SELECT y from Bar)`
       )
+
       // in classical semi joins
-      expect(CQL`SELECT x from Foo where exists (SELECT 1 from Bar where y=x)`).to.eql(
+      expect(
         SELECT('x').from(Foo) .where ( `exists`,
-        SELECT(1).from('Bar') .where ({ y: { ref: ['x'] } })
-      ) // prettier-ignore
-      )
+          SELECT(1).from('Bar') .where ({ y: { ref: ['x'] } })
+        ) // prettier-ignore
+      ).to.eql(CQL`SELECT x from Foo where exists (SELECT 1 from Bar where y=x)`)
+
       // in select clauses
+      cqn = CQL`SELECT from Foo { x, (SELECT y from Bar) as y }`
       cds.version >= '3.33.3' &&
-        expect(CQL`SELECT from Foo { x, (SELECT y from Bar) as y }`)
-          .to.eql(
-            SELECT.from(Foo, (foo) => {
-              foo.x, foo(SELECT.from('Bar', (b) => b.y)).as('y')
-            })
-          )
-          .to.eql(
-            SELECT.from(Foo, ['x', Object.assign(SELECT('y').from('Bar'), { as: 'y' })])
-          )
+        expect(
+          SELECT.from(Foo, (foo) => {
+            foo.x, foo(SELECT.from('Bar', (b) => b.y)).as('y')
+          })
+        ).to.eql(cqn)
+      cds.version >= '3.33.3' &&
+        expect(
+          SELECT.from(Foo, ['x', Object.assign(SELECT('y').from('Bar'), { as: 'y' })])
+        ).to.eql(cqn)
     })
 
     it('w/ plain SQL', () => {
@@ -435,8 +463,7 @@ describe('cds.ql → cqn', () => {
     notation or as simple expression objects.
   */
     test('with', () => {
-      expect(UPDATE(Foo).with(`foo=11, bar = bar - 22`))
-        .to.eql(UPDATE(Foo).with(`foo=`, 11, `bar-=`, 22))
+      expect(UPDATE(Foo).with(`foo=`, 11, `bar-=`, 22))
         .to.eql(UPDATE(Foo).with({ foo: 11, bar: { '-=': 22 } }))
         .to.eql({
           UPDATE: {
@@ -449,15 +476,15 @@ describe('cds.ql → cqn', () => {
         })
 
       // some more
-      expect(UPDATE(Foo).with(`bar = coalesce(x,y), car = 'foo''s bar, car'`)).to.eql({
-        UPDATE: {
-          entity: 'Foo',
-          with: {
-            bar: { func: 'coalesce', args: [{ ref: ['x'] }, { ref: ['y'] }] },
-            car: { val: "foo's bar, car" },
-          },
-        },
-      })
+      // expect(UPDATE(Foo).with(`bar = coalesce(x,y), car = 'foo''s bar, car'`)).to.eql({
+      //   UPDATE: {
+      //     entity: 'Foo',
+      //     with: {
+      //       bar: { func: 'coalesce', args: [{ ref: ['x'] }, { ref: ['y'] }] },
+      //       car: { val: "foo's bar, car" },
+      //     },
+      //   },
+      // })
     })
 
     /*
@@ -511,10 +538,6 @@ describe('cds.ql → cqn', () => {
   })
 
   describe(`cds.ql etc...`, () => {
-    it('queries marked for cds repl', () => {
-      expect(UPDATE(Foo)._isQuery).to.be.true
-    })
-
     it('should keep null and undefined', () => {
       for (let each of [null, undefined]) {
         expect(SELECT.from(Foo).where({ ID: each })).to.eql({

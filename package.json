@@ -23,6 +23,9 @@
     "jest": "npx jest --verbose",
     "test": "npm run jest -s"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "license": "SAP SAMPLE CODE LICENSE",
   "private": true
 }

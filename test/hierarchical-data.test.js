@@ -4,6 +4,7 @@ const cds = require ('@sap/cds')
 
 // monkey patching older releases:
 if (!cds.compile.cdl) cds.compile.cdl = cds.parse
+const { parse:cdr } = cds.ql
 
 const model = cds.compile.cdl (`
   entity Categories {
@@ -76,12 +77,14 @@ describe('Hierarchical Data', ()=>{
 	it ('supports cascaded deletes', async()=>{
     const affectedRows = await DELETE.from (Cats) .where ({ID:[102,106]})
     expect (affectedRows) .to.equal (5)
-    expect ( await SELECT.from(Cats) ).to.eql ([
+		const expected = [
       { ID:100, name:'Some Cats...' },
       { ID:101, name:'Cat' },
         { ID:104, name:'Aristocat' },  // REVISIT: Should be deleted as well?
       { ID:108, name:'Catweazle' }
-    ])
+		]
+		if (cdr) expect ( await SELECT.from(Cats) ).to.containSubset (expected)
+		else expect ( await SELECT.from(Cats) ).to.eql (expected)
 	})
 
 })
