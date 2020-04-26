@@ -15,7 +15,7 @@ describe('Consuming Services locally', () => {
   it('bootrapped the database successfully', ()=>{})
 
   it('supports targets as strings or reflected defs', async () => {
-    const AdminService = cds.connect.to('AdminService')
+    const AdminService = await cds.connect.to('AdminService')
     const { Authors } = AdminService.entities
     expect(await AdminService.read(Authors))
       .to.eql(await AdminService.read('Authors'))
@@ -28,7 +28,7 @@ describe('Consuming Services locally', () => {
   })
 
   it('allows reading from local services using cds.ql', async () => {
-    const AdminService = cds.connect.to('AdminService')
+    const AdminService = await cds.connect.to('AdminService')
     const query = SELECT.from('Authors', (a) => {
       a.name,
         a.books((b) => {
@@ -66,8 +66,8 @@ describe('Consuming Services locally', () => {
   it('provides CRUD-style convenience methods', async () => {})
 
   it('uses same methods for all kind of services, including dbs', async () => {
-    const srv = cds.connect.to('AdminService')
-    const db = cds.connect.to('db')
+    const srv = await cds.connect.to('AdminService')
+    const db = await cds.connect.to('db')
     const { Authors } = srv.entities
     const projection = (a) => {
       a.name,
