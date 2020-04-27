@@ -60,10 +60,11 @@ annotate my.Books with {
 	ID @title:'{i18n>ID}' @UI.HiddenFilter;
 	title @title:'{i18n>Title}';
   genre @title:'{i18n>Genre}';
-	author @title:'{i18n>AuthorID}';
+	author @title:'{i18n>Author}' @Common: { Text: author.name, TextArrangement: #TextOnly };
 	price @title:'{i18n>Price}';
 	stock @title:'{i18n>Stock}';
 	descr @UI.MultiLineText;
+	genre @Common: { Text: genre.name, TextArrangement: #TextOnly };
 }
 
 annotate my.Genres with {
