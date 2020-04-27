@@ -123,6 +123,7 @@ class CDSTestKit {
       if (global.console !== console) global.console = console
       if (cwd !== process.cwd())  process.chdir(cwd)
       test.server ? test.server.close (done) : done()
+      process.emit('shutdown')
     })
 
     function _error (e) {
