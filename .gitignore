@@ -13,3 +13,5 @@ target/
 connection.properties
 default-env.json
 packages/messageBox
+reviews/msg-box
+reviews/db/test.db

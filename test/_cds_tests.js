@@ -42,7 +42,6 @@ class CDSTestKit {
     const chai = require('chai')
     chai.use (require('chai-as-promised'))
     chai.use (require('chai-subset'))
-    chai.should()
     Object.defineProperty (CDSTestKit.prototype, 'chai', {value:chai})
     return chai
   }
