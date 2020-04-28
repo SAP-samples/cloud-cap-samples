@@ -4,7 +4,7 @@
   "description": "A simple self-contained bookshop service.",
   "dependencies": {
     "@capire/common": "../common",
-    "@sap/cds": "^3.33.1",
+    "@sap/cds": ">=3.33.1",
     "express": "^4.17.1"
   },
   "scripts": {
