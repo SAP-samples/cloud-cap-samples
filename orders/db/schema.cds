@@ -4,13 +4,10 @@ namespace sap.capire.bookshop;
 
 entity Orders : cuid, managed {
   OrderNo  : String @title:'Order Number'; //> readable key
-  Items    : Composition of many OrderItems on Items.parent = $self;
+  Items    : Composition of many {
+    key pos : Integer;
+    book    : Association to Books;
+    amount  : Integer;
+  };
   currency : Currency;
-}
-
-entity OrderItems : cuid {
-  parent    : Association to Orders;
-  book      : Association to Books;
-  amount    : Integer;
-  netAmount : Decimal(9,2);
 }
