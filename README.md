@@ -39,19 +39,19 @@ After that open this link in your browser: [http://localhost:4004](http://localh
 
 ### Testing
 
-Run the provided tests with [_jest_](http://jestjs.io) or [_mocha_](http://mochajs.org), e.g.:
+Run the provided tests with [_jest_](http://jestjs.io) or [_mocha_](http://mochajs.org), for example:
 ```sh
 npx jest
 ```
-> While mocha is a bit smaller and faster, jest runs tests in parallel and isolation which allows to run all tests.
+> While mocha is a bit smaller and faster, jest runs tests in parallel and isolation, which allows to run all tests.
 
 
 ## Get Support
 
-Check out the cap docs at [https://cap.cloud.sap](https://cap.cloud.sap). <br>
+Check out the documentation at [https://cap.cloud.sap](https://cap.cloud.sap). <br>
 In case you find a bug or need support, please [open an issue in here](https://github.com/SAP-samples/cloud-cap-samples/issues/new).
 
 
 ## License
 
-Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](/LICENSE) file.
+Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](/LICENSE) file.
