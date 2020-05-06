@@ -359,6 +359,11 @@ describe('cds.ql → cqn', () => {
         CQL`SELECT from Foo where x in (SELECT y from Bar)`
       )
 
+      // using query api
+      expect(SELECT.from('Books').where(
+        `author.name in`, SELECT('name').from('Authors'))).to.eql(CQL`SELECT from Books where author.name in (SELECT name from Authors)`
+      )
+
       // in classical semi joins
       expect(
         SELECT('x').from(Foo) .where ( `exists`,
