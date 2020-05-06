@@ -34,7 +34,7 @@ cds.once('served', async()=>{
 
 // Other bootstrapping events you could hook in to...
 /* eslint-disable no-unused-vars */
-cds.on('boostrap',(app) => {/* ... */})
+cds.on('bootstrap',(app) => {/* ... */})
 cds.on('loaded', (model) => {/* ... */})
 cds.on('connect', (srv) => {/* ... */})
 cds.on('serving', (srv) => {/* ... */})
