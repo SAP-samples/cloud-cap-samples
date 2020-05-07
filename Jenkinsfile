@@ -15,7 +15,7 @@
  * Set pipelineVersion to a fixed released version (e.g. "v15") when running in a productive environment.
  * To find out about available versions and release notes, visit: https://github.com/SAP/cloud-s4-sdk-pipeline/releases
  */
-String pipelineVersion = "master"
+String pipelineVersion = "v28"
 
 node {
     deleteDir()
