@@ -24,7 +24,7 @@ npm install
 
 Now you're ready to run the samples, for example:
 ```sh
-cd packages
+cd packages/officesupplies
 cds watch
 ```
 
