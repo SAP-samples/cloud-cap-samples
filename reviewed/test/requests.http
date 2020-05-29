@@ -1,13 +1,16 @@
 #################################################
 #
-#   To ReviewsService mocked in bookshop process
+#   To ReviewsService
 #
+# move the right down:
+@reviews-service = http://localhost:4004/reviews
+@reviews-service = http://localhost:5005/reviews
 
-GET http://localhost:4004/reviews/Reviews?
+### Get all reviews
+GET {{reviews-service}}/Reviews
 
-###
-
-POST http://localhost:4004/reviews/Reviews
+### Add a new review (with random rating)
+POST {{reviews-service}}/Reviews
 Content-Type: application/json;IEEE754Compatible=true
 
 {"subject":"201", "title":"boo"}
@@ -20,17 +23,18 @@ Content-Type: application/json;IEEE754Compatible=true
 #   (both in-process as well as separate one)
 #
 
+@bookshop = http://localhost:4004
 
 ### Request to CatalogService > delegated to ReviewsService
-GET http://localhost:4004/browse/Books(201)/reviews?
+GET {{bookshop}}/browse/Books(201)/reviews?
 &$select=rating,date,reviewer,title
 
 ### Alternative OData URL
-GET http://localhost:4004/browse/Books/201/reviews?
+GET {{bookshop}}/browse/Books/201/reviews?
 &$select=rating,date,reviewer,title
 
 ###
-GET http://localhost:4004/browse/Books(201)?
+GET {{bookshop}}/browse/Books(201)?
 &$select=ID,title,rating
 &$expand=reviews
 # Note: the $expand only works in case of ReviewsService in same process

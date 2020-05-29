@@ -12,7 +12,7 @@
   },
   "scripts": {
     "reviews-service": "cds watch",
-    "bookshop": "cds watch test/bookshop"
+    "books-reviewed": "cds watch ../reviewed"
   },
   "cds": {
     "requires": {
