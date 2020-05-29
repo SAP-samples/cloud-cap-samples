@@ -2,8 +2,8 @@
   "name": "@capire/bookshop-with-reviews",
   "version": "1.0.0",
   "dependencies": {
-    "@capire/bookshop": "../../../bookshop",
-    "@capire/reviews": "..",
+    "@capire/bookshop": "../bookshop",
+    "@capire/reviews": "../reviews",
     "@sap/cds": "^3.33.1",
     "express": "^4.17.1"
   },
