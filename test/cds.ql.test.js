@@ -261,7 +261,7 @@ describe('cds.ql → cqn', () => {
       // same for works distinct
     })
 
-    xtest('where ( ... cql  |  {x:y} )', () => {
+    test.skip('where ( ... cql  |  {x:y} )', () => {
       const args = [`foo`, "'bar'", 3]
       const ID = 11
 
