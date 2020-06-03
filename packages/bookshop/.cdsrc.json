@@ -21,7 +21,8 @@
                 "options": {
                     "model": [
                         "db",
-                        "srv"
+                        "srv",
+                        "app"
                     ]
                 }
             },
