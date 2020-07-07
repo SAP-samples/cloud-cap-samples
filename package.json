@@ -19,6 +19,8 @@
     "sqlite3": "^4"
   },
   "scripts": {
+    "bookshop": "cds watch bookshop",
+    "fiori": "cds watch fiori",
     "mocha": "npx mocha || echo",
     "jest": "npx jest --verbose",
     "test": "npm run jest -s"
