@@ -4,7 +4,7 @@
 
 	// List of extensions which should be recommended for users of this workspace.
 	"recommendations": [
-		// "CDS Editor !",
+		"SAPSE.vscode-cds",
 		"dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
 		"mechatroner.rainbow-csv",
