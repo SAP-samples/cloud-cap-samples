@@ -1,0 +1,4 @@
+ID;type;vendorID;cuisine;description;calories;image
+M1111;Vegetarian;Adigas;North Indian; North Indian Veg Meal;400.00; null
+M2222;Non-Vegetarian;Adigas;South Indian;Andhra Style Chicken;600.00; null
+M3333;Non-Vegetarian;Adigas;North Indian; Punjabi Chicken Tikka;1000.00; null

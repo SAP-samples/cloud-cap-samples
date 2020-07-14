@@ -28,3 +28,31 @@ entity Genres : sap.common.CodeList {
   parent   : Association to Genres;
   children : Composition of many Genres on children.parent = $self;
 }
+
+entity Employee {
+	key iNumber : String;
+	name  : String;
+	email  : String;
+	contact : String;
+	building : String;
+	labsCampus : String;
+}
+
+entity Cafeterias {
+	key ID : String;
+	name : String;
+	labsCampus	: String;
+	capacity : Integer;
+  meal : Association to Meal;
+}
+
+entity Meal {
+	key ID : String;
+	type : String;
+	vendorID : String;
+	cuisine : String;
+	description : String;
+	calories : Decimal(10,2);
+	image : LargeBinary;
+  cafes: Association to many Cafeterias on cafes.meal = $self;
+}

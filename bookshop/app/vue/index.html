@@ -53,6 +53,33 @@
     <p> {{ book.descr }} </p>
 
 </div>
+
+
+<div id='app2'>
+
+    <h1> SAP Cafes </h1>
+
+    <input type="text" placeholder="Search..." @input="search2">
+
+    <table id='cafes'>
+        <thead>
+            <th> CafeID </th>
+            <th> Name </th>
+            <th> Campus </th>
+            <th> Capacity </th>
+            <th> Popularity </th>
+        </thead>
+        <tr v-for="cafe in list" v-bind:id="cafe.ID">
+            <td>{{ cafe.ID }}</td>
+            <td>{{ cafe.name }}</td>
+            <td>{{ cafe.labsCampus }}</td>
+            <td>{{ cafe.capacity }}</td>
+            <td>{{ cafe.meal }}</td>
+        </tr>
+    </table>
+
+</div>
+
 </body>
 
 <script src="app.js"></script>

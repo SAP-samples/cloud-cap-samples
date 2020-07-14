@@ -7,4 +7,9 @@ service CatalogService @(path:'/browse') {
 
   @requires_: 'authenticated-user'
   action submitOrder (book : Books.ID, amount: Integer);
+
+
+  @readonly entity Cafeterias as SELECT from my.Cafeterias {*,
+    meal.description as meal
+    };
 }

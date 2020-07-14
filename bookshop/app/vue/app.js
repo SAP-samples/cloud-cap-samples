@@ -43,3 +43,30 @@ const books = new Vue ({
 
 // initially fill list of books
 books.fetch()
+
+const cafes = new Vue ({
+
+    el:'#app2',
+
+    data: {
+        list: [],
+        cafe: {}
+    },
+
+    methods: {
+
+        search2: ({target:{value:v}}) => cafes.fetch (v && '$search='+v),
+
+        async fetch (_filter='') {
+            const columns = 'ID,name,labsCampus,capacity,meal'
+            const {data} = await GET(`/Cafeterias?$select=${columns}&${_filter}`)
+            cafes.list = data.value
+        }
+
+     }
+})
+
+// initially fill list of cafes
+cafes.fetch()
+
+
