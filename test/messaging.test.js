@@ -21,7 +21,7 @@ describe('Messaging', ()=>{
 
     let N=0, received=[], M=0
     it ('should add messaging event handlers', ()=>{
-        srv.on('reviewed', (msg)=> received.push(msg))
+        srv.on('reviewed', (msg)=> {received.push(msg)})
     })
 
     it ('should add more messaging event handlers', ()=>{
