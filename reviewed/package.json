@@ -14,9 +14,6 @@
       },
       "ReviewsService": {
         "kind": "odata", "model": "@capire/reviews"
-      },
-      "messaging": {
-        "kind": "file-based-messaging"
       }
     }
   }
