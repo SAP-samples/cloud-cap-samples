@@ -1,3 +1,7 @@
+const cwd = process.cwd()
+before (()=> process.chdir(__dirname))
+after(()=> process.chdir(cwd))
+
 describe('Custom Handlers', () => {
   const { GET, POST, expect } = require('./capire').launch('bookshop')
 
