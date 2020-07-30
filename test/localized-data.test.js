@@ -72,7 +72,7 @@ describe('Localized Data', () => {
     ])
   })
 
-  xit('supports @cds.localized:false', async ()=>{
+  it('supports @cds.localized:false', async ()=>{
     const { data } = await GET(`/browse/BooksSans?&$select=title,localized_title&$expand=currency&$filter=locale eq 'de' or locale eq null`, {
       headers: { 'Accept-Language': 'de' },
     })

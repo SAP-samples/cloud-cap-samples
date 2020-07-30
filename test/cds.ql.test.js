@@ -261,7 +261,7 @@ describe('cds.ql → cqn', () => {
       // same for works distinct
     })
 
-    test.skip('where ( ... cql  |  {x:y} )', () => {
+    test('where ( ... cql  |  {x:y} )', () => {
       const args = [`foo`, "'bar'", 3]
       const ID = 11
 
@@ -278,7 +278,6 @@ describe('cds.ql → cqn', () => {
           from: { ref: ['Foo'] },
           where: cdr
             ? [
-                // '(', //> this one is not required
                 { ref: ['ID'] },
                 '=',
                 { val: ID },
@@ -287,7 +286,7 @@ describe('cds.ql → cqn', () => {
                 'in',
                 { val: args },
                 'and',
-                '(', //> this one is missing, and that's changing the logic -> that's a BUG
+                '(',
                 { ref: ['x'] },
                 'like',
                 { val: '%x%' },
@@ -298,7 +297,6 @@ describe('cds.ql → cqn', () => {
                 ')',
               ]
             : [
-                '(', //> this one is not required
                 { ref: ['ID'] },
                 '=',
                 { val: ID },
@@ -307,7 +305,7 @@ describe('cds.ql → cqn', () => {
                 'in',
                 { val: args },
                 'and',
-                // '(',  //> this one is missing, and that's changing the logic -> that's a BUG
+                '(',
                 { ref: ['x'] },
                 'like',
                 { val: '%x%' },
