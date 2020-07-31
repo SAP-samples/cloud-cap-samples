@@ -6,14 +6,14 @@ module.exports = cds.service.impl(function() {
 
   // Reduce stock of ordered books if available stock suffices
   this.before ('CREATE', 'Orders', (req) => {
-    const { Items: OrderItems } = req.data
-    return cds.transaction(req) .run (OrderItems.map (order =>
-      UPDATE (Books) .where ('ID =', order.book_ID)
-      .and ('stock >=', order.amount)
-      .set ('stock -=', order.amount)
+    const { Items: items } = req.data
+    return cds.transaction(req) .run (items.map (item =>
+      UPDATE (Books) .where ('ID =', item.book_ID)
+      .and ('stock >=', item.amount)
+      .set ('stock -=', item.amount)
     )) .then (all => all.forEach ((affectedRows,i) => {
       if (affectedRows === 0)  req.error (409,
-        `${OrderItems[i].amount} exceeds stock for book #${OrderItems[i].book_ID}`
+        `${items[i].amount} exceeds stock for book #${items[i].book_ID}`
       )
     }))
   })
