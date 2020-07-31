@@ -7,7 +7,7 @@ module.exports = cds.service.impl(function() {
   // Reduce stock of ordered books if available stock suffices
   this.before ('CREATE', 'Orders', (req) => {
     const { Items: OrderItems } = req.data
-    return cds.transaction(req) .run (()=> OrderItems.map (order =>
+    return cds.transaction(req) .run (OrderItems.map (order =>
       UPDATE (Books) .where ('ID =', order.book_ID)
       .and ('stock >=', order.amount)
       .set ('stock -=', order.amount)
