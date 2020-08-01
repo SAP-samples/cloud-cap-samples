@@ -14,7 +14,3 @@ entity OrderItems : cuid {
   amount    : Integer;
   netAmount : Decimal(9,2);
 }
-
-// Have IDs auto-computed.  TODO revisit w/ Fiori how long this is needed
-// see https://answers.sap.com/questions/13091274/sample-fiori-app-creating-a-new-order-shows-a-popu.html
-annotate cuid with { ID @Core.Computed; }
