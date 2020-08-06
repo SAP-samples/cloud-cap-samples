@@ -31,7 +31,8 @@ GET {{bookshop}}/browse/Books(201)/reviews?
 
 ### Alternative OData URL
 GET {{bookshop}}/browse/Books/201/reviews?
-&$select=rating,date,reviewer,title
+&$select=rating,date,title
+&$top=3
 
 ###
 GET {{bookshop}}/browse/Books(201)?
