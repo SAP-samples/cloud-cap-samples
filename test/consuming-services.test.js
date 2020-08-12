@@ -1,6 +1,10 @@
 const { expect } = require('./capire')
 const cds = require('@sap/cds')
 
+const cwd = process.cwd()
+before (()=> process.chdir(__dirname))
+after(()=> process.chdir(cwd))
+
 describe('Consuming Services locally', () => {
   //
   before('bootstrap db and services', async () => {

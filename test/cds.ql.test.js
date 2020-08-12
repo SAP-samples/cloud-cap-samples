@@ -464,47 +464,38 @@ describe('cds.ql → cqn', () => {
     UPDATE.with allows to pass in plain data payloads, e.g. as obtained from REST clients.
     In addition, UPDATE.with supports specifying expressions, either in CQL fragements
     notation or as simple expression objects.
-  */
-    test('with', () => {
-      expect(UPDATE(Foo).with(`foo=`, 11, `bar-=`, 22))
+
+    UPDATE.data allows to pass in plain data payloads, e.g. as obtained from REST clients.
+    The passed in object can be modified subsequently, e.g. by adding or modifying values
+    before the query is finally executed.
+    */
+    test('with + data', () => {
+      if (cds.version < '4.1.0') return
+      const o = {}
+      const q = UPDATE(Foo).data(o).with(`bar-=`, 22)
+      o.foo = 11
+      expect(q)
+        .to.eql(UPDATE(Foo).with(`foo=`, 11, `bar-=`, 22))
         .to.eql(UPDATE(Foo).with({ foo: 11, bar: { '-=': 22 } }))
         .to.eql({
           UPDATE: {
             entity: 'Foo',
+            data: { foo: 11 },
             with: {
-              foo: { val: 11 },
               bar: { xpr: [{ ref: ['bar'] }, '-', { val: 22 }] },
             },
           },
         })
 
       // some more
-      // expect(UPDATE(Foo).with(`bar = coalesce(x,y), car = 'foo''s bar, car'`)).to.eql({
-      //   UPDATE: {
-      //     entity: 'Foo',
-      //     with: {
-      //       bar: { func: 'coalesce', args: [{ ref: ['x'] }, { ref: ['y'] }] },
-      //       car: { val: "foo's bar, car" },
-      //     },
-      //   },
-      // })
-    })
-
-    /*
-    UPDATE.data allows to pass in plain data payloads, e.g. as obtained from REST clients.
-    The passed in object can be modified subsequently, e.g. by adding or modifying values
-    before the query is finally executed.
-  */
-    test('data', () => {
-      const o = {}
-      const q = UPDATE(Foo).data(o).with(`bar-=`, 22)
-      o.foo = 11
-      expect(q).to.eql({
+      expect(UPDATE(Foo).with(`bar = coalesce(x,y), car = 'foo''s bar, car'`)).to.eql({
         UPDATE: {
           entity: 'Foo',
-          data: { foo: 11 },
+          data: {
+            car: "foo's bar, car",
+          },
           with: {
-            bar: { xpr: [{ ref: ['bar'] }, '-', { val: 22 }] },
+            bar: { func: 'coalesce', args: [{ ref: ['x'] }, { ref: ['y'] }] },
           },
         },
       })
