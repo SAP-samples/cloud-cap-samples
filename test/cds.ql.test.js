@@ -335,11 +335,31 @@ describe('cds.ql → cqn', () => {
             { val: 'bar' },
             ',',
             { val: 3 },
-            ')',
-          ],
-        },
+            ')'
+          ]
+        }
       })
-      expect(SELECT.from(Foo).where(`ID=`, ID, `and x in`, args)).to.eql(cqn)
+
+      const cqnFluent = {
+        SELECT: {
+          from: { ref: ['Foo'] },
+          where: [
+            { ref: ['ID'] },
+            '=',
+            { val: ID },
+            'and',
+            { ref: ['x'] },
+            'in',
+            { list: [
+            { val: 'foo' },
+            { val: 'bar' },
+            { val: 3 }
+            ] }
+          ]
+        }
+      }
+
+      expect(SELECT.from(Foo).where(`ID=`, ID, `and x in`, args)).to.eql(cqnFluent)
       expect(SELECT.from(Foo).where(`ID=${ID} and x in (${args})`)).to.eql(cqn)
 
       expect(
