@@ -21,11 +21,11 @@ describe('Messaging', ()=>{
 
     let N=0, received=[], M=0
     it ('should add messaging event handlers', ()=>{
-        srv.on('reviewed', (msg)=> {received.push(msg)})
+        srv.on('reviewed', (msg,next)=> { received.push(msg); return next() })
     })
 
     it ('should add more messaging event handlers', ()=>{
-        srv.on('reviewed', ()=> ++M)
+        srv.on('reviewed', (_,next)=> { ++M; return next() })
     })
 
     it ('should add review', async ()=>{
