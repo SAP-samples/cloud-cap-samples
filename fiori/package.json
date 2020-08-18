@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "dependencies": {
     "@capire/bookshop": "../bookshop",
-    "@capire/orders": "../orders",
     "@capire/common": "../common",
+    "@capire/orders": "../orders",
     "@sap/cds": ">=3.33.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "hdb": "^0.18.1",
+    "sqlite3": "^5.0.0"
   },
   "scripts": {
     "start": "cds run --in-memory?",

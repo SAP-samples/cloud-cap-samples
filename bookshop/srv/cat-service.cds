@@ -7,4 +7,5 @@ service CatalogService @(path:'/browse') {
 
   @requires_: 'authenticated-user'
   action submitOrder (book : Books.ID, amount: Integer);
+  action getReferenceObject (selectedAttribute: String) returns array of String;
 }

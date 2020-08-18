@@ -1,4 +1,7 @@
 {
-  "name": "@capire/orders",
-  "version": "1.0.0"
+    "name": "@capire/orders",
+    "version": "1.0.0",
+    "dependencies": {
+        "@capire/bookshop": "../bookshop"
+    }
 }
