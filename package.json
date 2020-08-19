@@ -9,8 +9,7 @@
     "@capire/common": "file:common",
     "@capire/fiori": "file:fiori",
     "@capire/orders": "file:orders",
-    "@capire/reviews": "file:reviews",
-    "@capire/tests": "file:test"
+    "@capire/reviews": "file:reviews"
   },
   "devDependencies": {
     "chai": "^4.2.0",
