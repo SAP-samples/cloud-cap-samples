@@ -1,14 +1,11 @@
-const cwd = process.cwd()
+const { GET, POST, expect } = require('./cds').test('bookshop').in(__dirname,'..')
 const is_jest = !!global.test
 if (is_jest) { // it's jest
   global.before = (msg,fn) => global.beforeAll(fn||msg)
   global.after = (msg,fn) => global.afterAll(fn||msg)
 }
-before (()=> process.chdir(__dirname))
-after (()=> process.chdir(cwd))
 
 describe('Custom Handlers', () => {
-  const { GET, POST, expect } = require('./capire').launch('bookshop')
 
   it('should reject out-of-stock orders', async () => {
     await expect(
