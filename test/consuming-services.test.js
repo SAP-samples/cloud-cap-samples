@@ -1,22 +1,16 @@
-const { expect } = require('./capire')
-const cds = require('@sap/cds')
-
-const cwd = process.cwd()
-before (()=> process.chdir(__dirname))
-after(()=> process.chdir(cwd))
+const cds = require('./cds')
+const { expect } = cds.test (
+  'serve', 'AdminService', '--from', '@capire/bookshop,@capire/common', '--in-memory'
+).in(__dirname)
 
 describe('Consuming Services locally', () => {
   //
-  before('bootstrap db and services', async () => {
-    const model = await cds.load(['@capire/bookshop', '@capire/common'])
-    await cds.deploy(model).to('sqlite::memory:')
-    const { AdminService } = await cds.serve('AdminService').from(model)
+  it('bootrapped the database successfully', ()=>{
+    const { AdminService } = cds.services
     const { Authors } = AdminService.entities
     expect(AdminService).not.to.be.undefined
     expect(Authors).not.to.be.undefined
   })
-
-  it('bootrapped the database successfully', ()=>{})
 
   it('supports targets as strings or reflected defs', async () => {
     const AdminService = await cds.connect.to('AdminService')

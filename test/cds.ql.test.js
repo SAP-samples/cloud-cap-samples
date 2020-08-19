@@ -1,5 +1,4 @@
-const { expect } = require('./capire')
-const cds = require('@sap/cds')
+const cds = require('./cds'),{ expect } = cds.test
 const CQL = ([cql]) => cds.parse.cql(cql)
 const Foo = { name: 'Foo' }
 const Books = { name: 'capire.bookshop.Books' }
