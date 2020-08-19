@@ -150,5 +150,9 @@ if (!cds.test) { // monkey patching cds
    */
   Object.defineProperties (Test.run, Object.getOwnPropertyDescriptors (Test.prototype))
   Object.defineProperty (cds, 'test', {value:Test.run})
+  const cds_load = cds.load; cds.load = (models,o)=>{
+    if (typeof models === 'string')  models = models.split(',')
+    return cds_load.call(cds,models,o)
+  }
 
 }
