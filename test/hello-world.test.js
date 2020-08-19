@@ -1,6 +1,7 @@
+const cds = require ('./cds')
+const { GET, expect } = cds.test('serve','hello/world.cds').in(__dirname,'..')
 
 describe('Hello world!', () => {
-  const { GET, expect } = require('./capire').launch('cds serve', __dirname+'/../hello/world.cds', '')
 
   it('should say hello with class impl', async () => {
     const {data} = await GET `/say/hello(to='world')`

@@ -1,5 +1,7 @@
+const cds = require ('./cds')
+const { GET, expect } = cds.test ('serve', __dirname+'/localized-data.cds', '--in-memory')
+
 describe('Localized Data', () => {
-  const { GET, expect } = require('./capire').launch('cds serve',__dirname+'/localized-data.cds')
 
   it('serves localized $metadata documents', async () => {
     const { data } = await GET`/browse/$metadata?sap-language=de`
