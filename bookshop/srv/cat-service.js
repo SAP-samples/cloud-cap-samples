@@ -16,7 +16,7 @@ module.exports = async function() {
     this.on('getReferenceObject', async req => {
         r = req.data;
         ent = db.entities;
-        result = Object.keys(this.definition);
+        result = Object.keys(ent);
         //result = [];
         //result.push(this.model.toString());
 

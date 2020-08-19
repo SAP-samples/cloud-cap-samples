@@ -6,8 +6,8 @@
     "@capire/common": "../common",
     "@capire/orders": "../orders",
     "@sap/cds": ">=3.33.1",
+    "@sap/hana-client": "^2.5.105",
     "express": "^4.17.1",
-    "hdb": "^0.18.1",
     "sqlite3": "^5.0.0"
   },
   "scripts": {

@@ -15,3 +15,6 @@ default-env.json
 packages/messageBox
 reviews/msg-box
 reviews/db/test.db
+bookshop/package-lock.json
+bookshop/package-lock.json
+fiori/package-lock.json
