@@ -1,4 +1,6 @@
 const cds = require('@sap/cds')
+const tenantId = 'Hard coded tenant for PoC' // TODO
+
 module.exports = async function() {
 
     const db = await cds.connect.to('db') // connect to database service
@@ -14,13 +16,38 @@ module.exports = async function() {
     })
 
     this.on('getReferenceObject', async req => {
-        r = req.data;
-        ent = db.entities;
-        result = Object.keys(ent);
-        //result = [];
-        //result.push(this.model.toString());
+        const viewEntity = req.data.selectedAttribute
+        const dataEntity = req._model.definitions[viewEntity].query.SELECT.from.ref[0]
+        return [
+            {
+                ProjectionID: viewEntity,
+                ProjectionDescription: '',
+                BusinessContext: viewEntity,
+                BusinessContextDescription: ''
+            },
+            {
+                ProjectionID: dataEntity,
+                ProjectionDescription: '',
+                BusinessContext: dataEntity,
+                BusinessContextDescription: ''
+            }
+        ]
+    })
+    this.on('activateExtension', async req => {
+        const extensionContent = {
+            extensions: [
+                {
+                    extend: req.data.extend,
+                    elements: {}
+                }
+            ]
+        }
 
-        return result;
+        extensionContent.extensions[0].elements[req.data.name] = {
+            type: req.data.type
+        }
+
+        await cds.mtx.activate(tenantId, extensionContent, {});
     })
 
     // Add some discount for overstocked books

@@ -5,7 +5,12 @@
   "dependencies": {
     "@capire/common": "../common",
     "@sap/cds": ">=3.33.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "@sap/cds-mtx": "latest",
+    "@sap/hdi-deploy": "^3.11.4",
+    "@sap/instance-manager": "^2",
+    "@sap/xssec": "^2.1.16",
+    "got": "^9"
   },
   "scripts": {
     "genres": "cds serve test/genres.cds",
@@ -15,8 +20,21 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "sql"
+        "kind": "sql",
+        "multiTenant": true
       }
+    },
+    "mtx": {
+      "element-prefix": "Z_",
+      "namespace-blacklist": [
+        "com.sap.",
+        "sap."
+      ],
+      "entity-whitelist": [
+        "sap.capire.bookshop.Books",
+        "sap.capire.bookshop.Orders"
+      ],
+      "service-whitelist": []
     }
   }
 }

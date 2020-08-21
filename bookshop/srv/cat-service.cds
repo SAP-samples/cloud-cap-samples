@@ -7,5 +7,15 @@ service CatalogService @(path:'/browse') {
 
   @requires_: 'authenticated-user'
   action submitOrder (book : Books.ID, amount: Integer);
-  action getReferenceObject (selectedAttribute: String) returns array of String;
+
+  type BusinessContext: {
+     ProjectionID: String;
+     ProjectionDescription: String;
+     BusinessContext: String;
+     BusinessContextDescription: String;
+  }
+
+  function getReferenceObject (selectedAttribute: String) returns array of BusinessContext;
+
+  action activateExtension (extend : String, name : String, type : String);
 }
