@@ -8,6 +8,7 @@
     "@capire/bookshop": "file:bookshop",
     "@capire/common": "file:common",
     "@capire/fiori": "file:fiori",
+    "@capire/media": "file:media",
     "@capire/orders": "file:orders",
     "@capire/reviews": "file:reviews"
   },
@@ -20,6 +21,7 @@
   "scripts": {
     "bookshop": "cds watch bookshop",
     "fiori": "cds watch fiori",
+    "media": "cds watch media",
     "mocha": "npx mocha || echo",
     "jest": "npx jest --verbose",
     "test": "npm run jest -s"
