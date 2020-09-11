@@ -1,0 +1,35 @@
+### Requires REST Client for VS Code
+### https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+###
+@protocol = http
+@host = localhost
+@port = 4004
+### Read Pictures
+GET {{protocol}}://{{host}}:{{port}}/media-server/Media
+Authorization: Basic admin:
+
+### Create Picture with mediatype
+POST {{protocol}}://{{host}}:{{port}}/media-server/Media
+Authorization: Basic admin:
+Accept: application/json
+Content-Type: application/json
+
+{ 
+  "id": 1,
+  "mediaType": "image/png" 
+}
+
+### Upload Binary PNG
+PUT {{protocol}}://{{host}}:{{port}}/media-server/Media(1)/content
+Authorization: Basic admin:
+Content-Type: image/png
+
+< ./Test.png
+
+### Read Binary
+GET {{protocol}}://{{host}}:{{port}}/media-server/Media(1)/content
+Authorization: Basic admin:
+
+### Delete Image
+DELETE {{protocol}}://{{host}}:{{port}}/media-server/Media(1)
+Authorization: Basic admin:
