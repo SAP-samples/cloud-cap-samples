@@ -11,6 +11,7 @@ cds.once('served', async ({CatalogService}) => {
     // reflect entity definitions used below...
     const { Books } = cds.entities('sap.capire.bookshop')
     const { Reviews } = cds.entities('ReviewsService')
+    const messaging = await cds.connect.to('messaging')
 
     // prepend the following handler so it overrides the default handler
     CatalogService.prepend (srv => srv.on ('READ', 'Books/reviews', (req) => {
@@ -19,9 +20,7 @@ cds.once('served', async ({CatalogService}) => {
         return SELECT(columns).from(Reviews).limit(limit).where({subject:String(id)})
     }))
 
-    // subscribe to events emitted by ReviewsService
-    const ReviewsService = await cds.connect.to ('ReviewsService')
-    ReviewsService.on ('reviewed', (msg) => {
+    messaging.on ('reviewed', (msg) => {
         console.debug ('> received:', msg.event, msg.data)
         const { subject, rating } = msg.data
         return UPDATE(Books,subject).with({rating})
