@@ -20,7 +20,7 @@ cds.once('served', async ({CatalogService}) => {
         return SELECT(columns).from(Reviews).limit(limit).where({subject:String(id)})
     }))
 
-    messaging.on ('review/reviewed', (msg) => {
+    messaging.on ('reviewed', (msg) => {
         console.debug ('> received:', msg.event, msg.data)
         const { subject, rating } = msg.data
         return UPDATE(Books,subject).with({rating})

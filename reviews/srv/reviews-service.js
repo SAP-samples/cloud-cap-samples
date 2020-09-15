@@ -18,7 +18,7 @@ module.exports = cds.service.impl (async function(){
     )
     const msgTx = messaging.tx(req)
     global.it || console.log ('< emitting:', 'reviewed', { subject, rating })
-    msgTx.emit ('review/reviewed', { subject, rating })
+    msgTx.emit ('reviewed', { subject, rating })
   })
 
   // Increment counter for reviews considered helpful

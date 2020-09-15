@@ -24,11 +24,11 @@ describe('Messaging', ()=>{
 
     let N=0, received=[], M=0
     it ('should add messaging event handlers', ()=>{
-        messaging.on('review/reviewed', (msg,next)=> { received.push(msg); return next() })
+        messaging.on('reviewed', (msg,next)=> { received.push(msg); return next() })
     })
 
     it ('should add more messaging event handlers', ()=>{
-        messaging.on('review/reviewed', (_,next)=> { ++M; return next() })
+        messaging.on('reviewed', (_,next)=> { ++M; return next() })
     })
 
     it ('should add review', async ()=>{
