@@ -16,9 +16,8 @@ module.exports = cds.service.impl (async function(){
     const {rating} = await cds.transaction(req) .run (
       SELECT.one (['round(avg(rating),2) as rating']) .from (Reviews) .where ({subject})
     )
-    const msgTx = messaging.tx(req)
     global.it || console.log ('< emitting:', 'reviewed', { subject, rating })
-    msgTx.emit ('reviewed', { subject, rating })
+    messaging.tx(req).emit ('reviewed', { subject, rating })
   })
 
   // Increment counter for reviews considered helpful
