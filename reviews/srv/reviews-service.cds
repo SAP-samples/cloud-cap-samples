@@ -2,16 +2,9 @@ using { sap.capire.reviews as my } from '../db/schema';
 
 service ReviewsService {
 
-  // Sync API
   entity Reviews as projection on my.Reviews excluding { likes }
   action like (review: type of Reviews:ID);
   action unlike (review: type of Reviews:ID);
-
-  // Async API
-  event reviewed : {
-    subject: type of Reviews:subject;
-    rating: Decimal(2,1)
-  };
 
   // Input validation
   annotate Reviews with {

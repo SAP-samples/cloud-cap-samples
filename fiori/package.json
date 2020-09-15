@@ -5,7 +5,7 @@
     "@capire/bookshop": "../bookshop",
     "@capire/orders": "../orders",
     "@capire/common": "../common",
-    "@sap/cds": ">=3.33.1",
+    "@sap/cds": "^4",
     "express": "^4.17.1"
   },
   "scripts": {
