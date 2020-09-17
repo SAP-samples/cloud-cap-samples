@@ -38,6 +38,10 @@
     </table>
 
     <div v-if="book.title">
+        <img v-bind:src="book.imageSrc" alt=""/>
+    </div>
+
+    <div v-if="book.title">
         <label style="text-align:right">
             <span class="is-success"> {{ order.succeeded }} </span>
             <span class="has-error"> {{ order.failed }} </span>
