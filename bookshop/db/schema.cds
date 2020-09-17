@@ -10,6 +10,7 @@ entity Books : managed {
   stock  : Integer;
   price  : Decimal(9,2);
   currency : Currency;
+  image : LargeBinary @Core.MediaType : 'image/png';
 }
 
 entity Authors : managed {
