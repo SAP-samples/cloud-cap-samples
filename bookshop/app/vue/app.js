@@ -25,6 +25,11 @@ const books = new Vue ({
 
         async inspect () {
             const book = books.book = books.list [event.currentTarget.rowIndex-1]
+            book.descr || await GET(`/Books(${book.ID})/image`)
+              .then(({ data }) => {
+                book.imageSrc = data; 
+                console.log(book.imageSrc);
+              });
             book.descr || await GET(`/Books/${book.ID}/descr/$value`) .then (({data}) => book.descr = data)
             books.order = { amount:1 }
             setTimeout (()=> $('form > input').focus(), 111)
