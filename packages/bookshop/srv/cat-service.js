@@ -14,32 +14,20 @@ function _addDiscount2 (each,discount) {
 
 /** Reduce stock of ordered books if available stock suffices */
 async function _reduceStock (req) {
-  const { Items: OrderItems } = req.data
-  if (!Array.isArray(OrderItems)) { return; }
+  const { Items: orderItems } = req.data
+  if (!Array.isArray(orderItems))  return
 
-  let updatePromises = OrderItems.map (order => {
-      return cds.transaction(req) .run (
-          UPDATE (Books) .set ('stock -=', order.amount)
-            .where ('ID =', order.book_ID) .and ('stock >=', order.amount)
-      );
-  });
+  const all = await cds.transaction(req).run(orderItems.map(item =>
+    UPDATE(Books)
+      .set('stock -=', item.amount)
+      .where('ID =', item.book_ID).and('stock >=', item.amount)
+  ))
+  all.forEach((affectedRows, i) => {
+    if (affectedRows === 0) {
+      req.error(409, `${orderItems[i].amount} exceeds stock for book #${orderItems[i].book_ID}`)
+    }
+  })
 
-  return Promise.all(updatePromises).then(all => all.forEach ((affectedRows,i) => {
-    if (affectedRows === 0)  req.error (409,
-      `${OrderItems[i].amount} exceeds stock for book #${OrderItems[i].book_ID}`
-    )
-  }));
+ return all
 
-  /*orig:
-  return cds.transaction(req) .run (()=> OrderItems.map (order =>
-    UPDATE (Books) .set ('stock -=', order.amount)
-    .where ('ID =', order.book_ID) .and ('stock >=', order.amount)
-  )) .then (all => all.forEach ((affectedRows,i) => {
-    if (affectedRows === 0)  req.error (409,
-      `${OrderItems[i].amount} exceeds stock for book #${OrderItems[i].book_ID}`
-    )
-  }))*/
 }
-
-
-
