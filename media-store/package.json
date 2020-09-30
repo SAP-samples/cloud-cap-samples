@@ -13,7 +13,8 @@
     "sqlite3": "^5"
   },
   "scripts": {
-    "start": "npx cds run"
+    "start": "npx cds run",
+    "import:data": "node ./util/importData.js sqlite:chinook.db sqlite:mychinook.db ./db/schema.cds"
   },
   "cds": {
     "requires": {

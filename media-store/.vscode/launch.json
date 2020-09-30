@@ -5,11 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch Program",
+      "command": "npm run import:data",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node-terminal"
+    },
+    {
       "command": "cds run --with-mocks --in-memory?",
       "name": "cds run",
       "request": "launch",
       "type": "node-terminal",
-      "skipFiles": [ "<node_internals>/**" ]
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }
