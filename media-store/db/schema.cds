@@ -36,52 +36,52 @@ entity Albums {
         artist : Association to Artists;
 }
 
-// entity Employees : ContactInfoAspect {
-//     reportsTo : Association to Employees;
-//     title     : String(20);
-//     birthDate : DateTime;
-//     hireDate  : DateTime;
-// }
+entity Employees : ContactInfoAspect {
+    reportsTo : Association to Employees;
+    title     : String(20);
+    birthDate : DateTime;
+    hireDate  : DateTime;
+}
 
-// entity Customers : ContactInfoAspect {
-//     company    : String(80);
-//     supportRep : Association to Employees;
-// }
+entity Customers : ContactInfoAspect {
+    company    : String(80);
+    supportRep : Association to Employees;
+}
 
 // keep columns order for importing data
-entity Employees {
-    key ID         : Integer;
-        lastName   : String(20);
-        firstName  : String(40);
-        title      : String(20);
-        reportsTo  : Association to Employees;
-        birthDate  : DateTime;
-        hireDate   : DateTime;
-        adress     : String(70);
-        city       : String(40);
-        state      : String(40);
-        country    : String(40);
-        postalCode : String(10);
-        phone      : String(24);
-        fax        : String(24);
-        email      : String(60);
-}
+// entity Employees {
+//     key ID         : Integer;
+//         lastName   : String(20);
+//         firstName  : String(40);
+//         title      : String(20);
+//         reportsTo  : Association to Employees;
+//         birthDate  : DateTime;
+//         hireDate   : DateTime;
+//         adress     : String(70);
+//         city       : String(40);
+//         state      : String(40);
+//         country    : String(40);
+//         postalCode : String(10);
+//         phone      : String(24);
+//         fax        : String(24);
+//         email      : String(60);
+// }
 
-entity Customers {
-    key ID         : Integer;
-        firstName  : String(40);
-        lastName   : String(20);
-        company    : String(80);
-        adress     : String(70);
-        city       : String(40);
-        state      : String(40);
-        country    : String(40);
-        postalCode : String(10);
-        phone      : String(24);
-        fax        : String(24);
-        email      : String(60);
-        supportRep : Association to Employees;
-}
+// entity Customers {
+//     key ID         : Integer;
+//         firstName  : String(40);
+//         lastName   : String(20);
+//         company    : String(80);
+//         adress     : String(70);
+//         city       : String(40);
+//         state      : String(40);
+//         country    : String(40);
+//         postalCode : String(10);
+//         phone      : String(24);
+//         fax        : String(24);
+//         email      : String(60);
+//         supportRep : Association to Employees;
+// }
 
 entity Invoices {
     key ID                : Integer;
