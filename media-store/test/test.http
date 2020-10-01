@@ -1,0 +1,63 @@
+@media-store-service = http://localhost:4004/media
+
+### ------------------------------------------------------------------------
+# Get service 
+GET {{media-store-service}}
+
+### ------------------------------------------------------------------------
+# Get $metadata document
+GET {{media-store-service}}/$metadata
+
+### ------------------------------------------------------------------------
+# Get Artists
+GET {{media-store-service}}/Artists
+
+### ------------------------------------------------------------------------
+# Get Albums
+GET {{media-store-service}}/Albums
+?$expand=artist&$top=10
+
+### ------------------------------------------------------------------------
+# Get Customers
+GET {{media-store-service}}/Customers
+?$expand=supportRep&$top=10
+
+### ------------------------------------------------------------------------
+# Get Employees
+GET {{media-store-service}}/Employees
+?$expand=reportsTo&$top=10
+
+### ------------------------------------------------------------------------
+# Get Genres
+GET {{media-store-service}}/Genres
+?$top=10
+
+### ------------------------------------------------------------------------
+# Get InvoiceItems
+GET {{media-store-service}}/InvoiceItems
+?$expand=track,invoice&$top=10
+
+### ------------------------------------------------------------------------
+# Get Invoices
+GET {{media-store-service}}/Invoices
+?$top=10&$expand=customer
+
+### ------------------------------------------------------------------------
+# Get MediaTypes
+GET {{media-store-service}}/MediaTypes
+?$top=10
+
+### ------------------------------------------------------------------------
+# Get PlaylistTrack
+GET {{media-store-service}}/PlaylistTrack
+?$top=10&$expand=track,playlist
+
+### ------------------------------------------------------------------------
+# Get Playlists
+GET {{media-store-service}}/Playlists
+?$top=10
+
+### ------------------------------------------------------------------------
+# Get Playlists
+GET {{media-store-service}}/Tracks
+?$top=10&$expand=genre,mediaType,album
