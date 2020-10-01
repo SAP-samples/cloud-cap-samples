@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Program",
+      "name": "Launch import",
       "command": "npm run import:data",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
