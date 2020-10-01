@@ -14,6 +14,7 @@
   },
   "scripts": {
     "start": "npx cds run",
+    "deploy:mychinookdb": "cds deploy --to sqlite:mychinook.db",
     "import:data": "node ./util/importData.js sqlite:chinook.db sqlite:mychinook.db ./db/schema.cds"
   },
   "cds": {
