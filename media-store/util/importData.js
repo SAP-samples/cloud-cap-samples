@@ -22,11 +22,11 @@ const camelCaseToSnake = (str) =>
   );
 
 const omitID = (str) => {
-  return str.replace(/_ID/g, "");
+  return str.replace(/_ID$/g, "");
 };
 
 const omitId = (str) => {
-  return str.replace(/Id/g, "");
+  return str.replace(/Id$/g, "");
 };
 
 const chooseFromTargetColumns = (targetColumns) => {
