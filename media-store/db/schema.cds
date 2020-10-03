@@ -34,18 +34,24 @@ entity Albums {
     key ID     : Integer;
         title  : String(120);
         artist : Association to Artists;
+        tracks : Association to many Tracks
+                     on tracks.album = $self;
 }
 
 entity Employees : Persone {
-    reportsTo : Association to Employees;
-    title     : String(20);
-    birthDate : DateTime;
-    hireDate  : DateTime;
+    reportsTo    : Association to Employees;
+    title        : String(20);
+    birthDate    : DateTime;
+    hireDate     : DateTime;
+    subordinates : Association to many Employees
+                       on subordinates.reportsTo = $self;
 }
 
 entity Customers : Persone {
     company    : String(80);
     supportRep : Association to Employees;
+    invoices   : Association to many Invoices
+                     on invoices.customer = $self;
 }
 
 entity Invoices {
