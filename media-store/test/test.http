@@ -15,17 +15,19 @@ GET {{media-store-service}}/Artists
 ### ------------------------------------------------------------------------
 # Get Albums
 GET {{media-store-service}}/Albums
-?$expand=artist&$top=10
+?$filter=artist_ID eq 1
+&$expand=tracks,artist
+
 
 ### ------------------------------------------------------------------------
 # Get Customers
-GET {{media-store-service}}/Customers
-?$expand=supportRep&$top=10
+GET {{media-store-service}}/Customers(1)
+?$expand=supportRep
 
 ### ------------------------------------------------------------------------
 # Get Employees
-GET {{media-store-service}}/Employees
-?$expand=reportsTo&$top=10
+GET {{media-store-service}}/Employees(1)
+?$expand=subordinates,reportsTo
 
 ### ------------------------------------------------------------------------
 # Get Genres
@@ -49,8 +51,10 @@ GET {{media-store-service}}/MediaTypes
 
 ### ------------------------------------------------------------------------
 # Get PlaylistTrack
-GET {{media-store-service}}/PlaylistTrack
-?$top=10&$expand=track,playlist
+GET {{media-store-service}}/PlaylistTrack/$count
+?$filter=playlist_ID eq 8
+# ?$count=true
+# &$expand=track&$select=track
 
 ### ------------------------------------------------------------------------
 # Get Playlists
@@ -60,4 +64,4 @@ GET {{media-store-service}}/Playlists
 ### ------------------------------------------------------------------------
 # Get Playlists
 GET {{media-store-service}}/Tracks
-?$top=10&$expand=genre,mediaType,album
+# ?$top=10&$expand=genre,mediaType,album
