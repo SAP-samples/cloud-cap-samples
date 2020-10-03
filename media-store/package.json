@@ -16,7 +16,7 @@
     "start": "npx cds run",
     "deploy": "cds deploy --to sqlite:mychinook.db",
     "import": "node ./util/importData.js sqlite:chinook.db sqlite:mychinook.db ./db/schema.cds",
-    "test": "mocha test/media-service.test.js"
+    "test": "mocha test/media-service.test.js --verbose --timeout 10000"
   },
   "cds": {
     "requires": {
