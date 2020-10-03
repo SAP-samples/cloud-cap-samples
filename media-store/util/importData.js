@@ -86,14 +86,18 @@ const logProcessArgs = () => {
       const { name: targetEntityName, elements } = targetCSNEntities[index];
       console.log(`[LOG]:  Processing ${targetEntityName}`);
       const targetColumns = elementsToColumns(elements); // e.g. ['ID', ..., 'total', 'customer_ID']
-      const insertQuery = constructInsertQuery(targetEntityName, targetColumns); // e.g. { INSERT: ... }
+      const insertQuery = constructInsertQuery(targetEntityName, targetColumns);
 
-      const srcEntityName = camelCaseToSnake(targetEntityName.split(".").pop()); // e.g. playlist_track
+      const srcEntityName = camelCaseToSnake(targetEntityName.split(".").pop());
       const srcResultRows = await srcStorage.read(srcEntityName); // e.g. [ { AlbumId:1, ArtistId:1, Title:'some' }, ... ]
-
       if (!srcResultRows || srcResultRows.length < ZERO_VALUE) {
+        console.log(
+          `[LOG] Skipping ${targetEntityName}. 
+          There is no data provided in ${SRC_STORAGE_NAME}, ${srcEntityName}`
+        );
         continue;
       }
+
       const srcColumns = Object.keys(srcResultRows[FIRST_INDEX]);
       const columns = reorderTargetColumns(srcColumns, targetColumns);
       if (new Set(columns).size !== columns.length) {
