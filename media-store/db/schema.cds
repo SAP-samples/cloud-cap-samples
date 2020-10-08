@@ -20,7 +20,12 @@ aspect Persone {
 }
 
 entity MediaTypes : Named {}
-entity Genres : Named {}
+
+entity Genres : Named {
+    tracks : Association to many Tracks
+                 on tracks.genre = $self;
+}
+
 entity Playlists : Named {}
 
 entity PlaylistTrack {
@@ -84,4 +89,6 @@ entity Tracks {
         milliseconds : Integer;
         bytes        : Integer;
         unitPrice    : Decimal(10, 2);
+        invoices     : Association to many InvoiceItems
+                           on invoices.track.ID = $self.ID
 }

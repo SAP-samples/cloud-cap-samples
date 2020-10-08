@@ -1,4 +1,5 @@
 @media-store-service = http://localhost:4004/media
+@browse-tracks-service = http://localhost:4004/browse-tracks
 
 ### ------------------------------------------------------------------------
 # Get service 
@@ -65,3 +66,9 @@ GET {{media-store-service}}/Playlists
 # Get Playlists
 GET {{media-store-service}}/Tracks
 # ?$top=10&$expand=genre,mediaType,album
+
+
+### ------------------------------------------------------------------------
+# Get My tracks
+POST {{browse-tracks-service}}/getInvoicedTracks
+Content-Type: application/json

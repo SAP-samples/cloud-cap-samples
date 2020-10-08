@@ -6,7 +6,7 @@
   "configurations": [
     {
       "name": "Launch import",
-      "command": "npm run import:data",
+      "command": "npm run import",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
       "type": "node-terminal"

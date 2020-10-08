@@ -7,7 +7,8 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^4",
-    "express": "^4"
+    "express": "^4",
+    "passport": "^0.4.1"
   },
   "devDependencies": {
     "sqlite3": "^5"
@@ -16,6 +17,7 @@
     "start": "npx cds run",
     "deploy": "cds deploy --to sqlite:mychinook.db",
     "import": "node ./util/importData.js sqlite:chinook.db sqlite:mychinook.db ./db/schema.cds",
+    "deploy:import": "npm run deploy && npm run import",
     "test": "mocha test/media-service.test.js --verbose --timeout 10000"
   },
   "cds": {
@@ -24,6 +26,54 @@
         "kind": "sqlite",
         "credentials": {
           "database": "mychinook.db"
+        }
+      },
+      "auth": {
+        "strategy": "mock",
+        "users": {
+          "admin5": {
+            "roles": [
+              "admin",
+              "content-creator"
+            ],
+            "userAttributes": {
+              "level": 5
+            }
+          },
+          "admin2": {
+            "roles": [
+              "admin"
+            ],
+            "userAttributes": {
+              "level": 2
+            }
+          },
+          "content-creator1": {
+            "roles": [
+              "content-creator"
+            ],
+            "userAttributes": {
+              "level": 2
+            }
+          },
+          "user1": {
+            "roles": [
+              "user"
+            ],
+            "userAttributes": {
+              "level": 1
+            }
+          },
+          "user0": {
+            "roles": [
+              "user"
+            ],
+            "userAttributes": {
+              "level": 1,
+              "email": "hholy@gmail.com"
+            }
+          },
+          "*": true
         }
       }
     }
