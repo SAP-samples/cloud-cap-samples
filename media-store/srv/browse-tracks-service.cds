@@ -10,7 +10,7 @@ service BrowseTracks {
     entity Tracks as projection on my.Tracks;
 
     @(requires : ['authenticated-user'])
-    action getInvoicedTracks() returns array of {
+    function getInvoicedTracks() returns array of {
         ID         : Tracks.ID;
         trackName  : Tracks.name;
         genreName  : my.Genres.name;
