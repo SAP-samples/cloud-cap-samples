@@ -69,6 +69,8 @@ entity Invoices {
         billingCountry    : String(40);
         billingPostalCode : String(40);
         total             : Decimal(10, 2);
+        invoiceItems      : Association to many InvoiceItems
+                                on invoiceItems.invoice = $self;
 }
 
 entity InvoiceItems {
@@ -90,5 +92,5 @@ entity Tracks {
         bytes        : Integer;
         unitPrice    : Decimal(10, 2);
         invoices     : Association to many InvoiceItems
-                           on invoices.track.ID = $self.ID
+                           on invoices.track = $self
 }

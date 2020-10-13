@@ -37,7 +37,8 @@
               "content-creator"
             ],
             "userAttributes": {
-              "level": 5
+              "level": 5,
+              "ID": 8
             }
           },
           "admin2": {
@@ -45,7 +46,8 @@
               "admin"
             ],
             "userAttributes": {
-              "level": 2
+              "level": 2,
+              "ID": 7
             }
           },
           "content-creator1": {
@@ -53,7 +55,8 @@
               "content-creator"
             ],
             "userAttributes": {
-              "level": 2
+              "level": 2,
+              "ID": 5
             }
           },
           "user1": {
@@ -61,7 +64,8 @@
               "user"
             ],
             "userAttributes": {
-              "level": 1
+              "level": 1,
+              "ID": 2
             }
           },
           "user0": {
@@ -70,7 +74,7 @@
             ],
             "userAttributes": {
               "level": 1,
-              "email": "hholy@gmail.com"
+              "ID": 3
             }
           },
           "*": true
