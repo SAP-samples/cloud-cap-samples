@@ -1,9 +1,5 @@
 using {sap.capire.media.store as my} from '../db/schema';
 
-@cds.query.limit : {
-    default : 20,
-    max     : 100
-}
 service MediaService {
     entity Employees     as projection on my.Employees;
     entity Customers     as projection on my.Customers;
