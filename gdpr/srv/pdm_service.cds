@@ -1,5 +1,8 @@
+using from '@capire/bookshop';
+using { sap.capire.bookshop as db } from '../db/schema';
+
 @requires: 'system-user'
- service GDPRService {
+ service PDM_Service {
 
      entity Customers as projection on db.Customers;
 
@@ -13,4 +16,15 @@
                      Items.book.ID as Item_Book_ID,
                      Items.amount as Item_Amount,
                      Items.netAmount as Item_NetAmount};
+ };
+
+ annotate PDM_Service.Customers with @(
+ PersonalData.EntitySemantics: 'DataSubject'
+ )
+ {
+ ID    @PersonalData.FieldSemantics: 'DataSubjectID';
+ FirstName    @PersonalData.IsPotentiallyPersonal;
+ LastName     @PersonalData.IsPotentiallyPersonal;
+ CreditCardNo @PersonalData.IsPotentiallyPersonal;
+ dateOfBirth  @PersonalData.IsPotentiallyPersonal;
  };
