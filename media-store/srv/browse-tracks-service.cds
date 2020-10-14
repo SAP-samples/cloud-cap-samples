@@ -1,10 +1,17 @@
 using {sap.capire.media.store as my} from '../db/schema';
 
-@(requires : ['identified-user'])
 service BrowseTracks {
     @readonly
-    entity Tracks as projection on my.Tracks;
+    entity Tracks       as projection on my.Tracks excluding {
+        alreadyOrdered
+    };
+
+    @(requires : 'authenticated-user')
+    @readonly
+    entity MarkedTracks as projection on my.Tracks;
 
     @readonly
-    entity Genres as projection on my.Genres;
+    entity Genres       as projection on my.Genres {
+        * , tracks : redirected to Tracks
+    };
 }
