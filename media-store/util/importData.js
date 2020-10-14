@@ -89,7 +89,7 @@ const logProcessArgs = () => {
       const insertQuery = constructInsertQuery(targetEntityName, targetColumns);
 
       const srcEntityName = camelCaseToSnake(targetEntityName.split(".").pop());
-      const srcResultRows = await srcStorage.read(srcEntityName); // e.g. [ { AlbumId:1, ArtistId:1, Title:'some' }, ... ]
+      let srcResultRows = await srcStorage.read(srcEntityName); // e.g. [ { AlbumId:1, ArtistId:1, Title:'some' }, ... ]
       if (!srcResultRows || srcResultRows.length < ZERO_VALUE) {
         console.log(
           `[LOG] Skipping ${targetEntityName}. 
@@ -104,6 +104,15 @@ const logProcessArgs = () => {
         throw new Error(
           `Some ${targetEntityName} column name is mismatched in ${SRC_STORAGE_NAME} ${srcEntityName}`
         );
+      }
+
+      // for mock auth
+      if (srcEntityName === "Employees" || srcEntityName === "Customers") {
+        columns.push("password");
+        srcResultRows = srcResultRows.map((row) => ({
+          ...row,
+          password: "some",
+        }));
       }
 
       const transaction = await targetStorage.tx();

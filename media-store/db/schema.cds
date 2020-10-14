@@ -17,6 +17,7 @@ aspect Persone {
     phone      : String(24);
     fax        : String(24);
     email      : String(60);
+    password   : String(111);
 }
 
 entity MediaTypes : Named {}
@@ -82,15 +83,16 @@ entity InvoiceItems {
 }
 
 entity Tracks {
-    key ID           : Integer;
-        name         : String(200);
-        album        : Association to Albums;
-        mediaType    : Association to MediaTypes;
-        genre        : Association to Genres;
-        composer     : String(220);
-        milliseconds : Integer;
-        bytes        : Integer;
-        unitPrice    : Decimal(10, 2);
-        invoices     : Association to many InvoiceItems
-                           on invoices.track = $self
+    key ID                     : Integer;
+        name                   : String(200);
+        album                  : Association to Albums;
+        mediaType              : Association to MediaTypes;
+        genre                  : Association to Genres;
+        composer               : String(220);
+        milliseconds           : Integer;
+        bytes                  : Integer;
+        unitPrice              : Decimal(10, 2);
+        invoiceItems           : Association to many InvoiceItems
+                                     on invoiceItems.track = $self;
+        virtual alreadyOrdered : Boolean;
 }

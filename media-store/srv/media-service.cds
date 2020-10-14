@@ -11,10 +11,9 @@ service MediaService {
     entity MediaTypes    as projection on my.MediaTypes;
     entity PlaylistTrack as projection on my.PlaylistTrack;
     entity Playlists     as projection on my.Playlists;
-
-    @(restrict : [{
-        grant : '*',
-        where : '$user.level > 1'
-    }])
+    // @(restrict : [{
+    //     grant : '*',
+    //     where : '$user.level > 1'
+    // }])
     entity Tracks        as projection on my.Tracks;
 }

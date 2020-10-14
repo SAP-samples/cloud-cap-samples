@@ -1,5 +1,14 @@
 const cds = require("@sap/cds");
 
+// only for demo cds.run(string, args)
+const SELECT_INVOICES_BY_EMAIL = `
+    select invoice.ID 
+    from sap_capire_media_store_Invoices invoice
+      join sap_capire_media_store_Customers customer 
+        on customer.ID = invoice.customer_ID
+      where customer.email=?
+`;
+
 module.exports = async function () {
   const db = await cds.connect.to("db"); // connect to database service
   const { Invoices } = db.entities;
@@ -15,20 +24,21 @@ module.exports = async function () {
     );
   });
 
-  this.on("READ", "Tracks", async (req, next) => {
-    if (!!req._query && "my" in req._query) {
-      const myTrackEntries = await db.run(
+  this.on("READ", "MarkedTracks", async (req) => {
+    const myTrackIds = (
+      await db.run(
         SELECT.from(Invoices)
           .columns("ID")
           .where({ customer_ID: req.user.attr.ID })
-      );
-      const myTrackIdsSequence = myTrackEntries.map(({ ID }) => ID).join();
-      const condition = cds.parse.expr(`ID in (${myTrackIdsSequence})`);
-      const query = SELECT.from(req.query).where(condition);
-      const result = await db.run(query);
-      result.$count = result.length;
-      return result;
-    }
-    return next();
+      )
+    ).map(({ ID }) => ID);
+
+    const result = await db.run(req.query);
+    return result.map((columns) => {
+      return {
+        ...columns,
+        alreadyOrdered: myTrackIds.includes(columns.ID),
+      };
+    });
   });
 };
