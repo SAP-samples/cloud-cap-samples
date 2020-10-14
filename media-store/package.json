@@ -31,50 +31,24 @@
       "auth": {
         "strategy": "mock",
         "users": {
-          "admin5": {
+          "andrew@chinookcorp.com": {
+            "password": "some",
             "roles": [
-              "admin",
-              "content-creator"
-            ],
-            "userAttributes": {
-              "level": 5,
-              "ID": 8
-            }
-          },
-          "admin2": {
-            "roles": [
-              "admin"
-            ],
-            "userAttributes": {
-              "level": 2,
-              "ID": 7
-            }
-          },
-          "content-creator1": {
-            "roles": [
-              "content-creator"
-            ],
-            "userAttributes": {
-              "level": 2,
-              "ID": 5
-            }
-          },
-          "user1": {
-            "roles": [
-              "user"
+              "employee"
             ],
             "userAttributes": {
               "level": 1,
-              "ID": 2
+              "ID": 1
             }
           },
-          "user0": {
+          "luisg@embraer.com.br": {
+            "password": "some",
             "roles": [
-              "user"
+              "customer"
             ],
             "userAttributes": {
-              "level": 1,
-              "ID": 3
+              "level": 0,
+              "ID": 1
             }
           },
           "*": true
