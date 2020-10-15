@@ -12,9 +12,9 @@ extend Orders with {
 
 entity Customers : managed {
   key ID : UUID;
-  Email : String;
-  FirstName : String;
-  LastName : String;
-  CreditCardNo : String;
+  email : String;
+  firstName : String;
+  lastName : String;
+  creditCardNo : String;
   dateOfBirth  : Date;
 }
