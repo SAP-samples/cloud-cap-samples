@@ -1,15 +1,18 @@
-using from '@capire/bookshop';
-using { sap.capire.bookshop as db } from '../db/schema';
+//using from '@capire/orders';
+using { sap.capire.bookshop as db }          from '../db/schema';
+using { sap.capire.bookshop.Books }      from '@capire/bookshop';
+using { sap.capire.bookshop.Orders }     from '@capire/orders';
+using { sap.capire.bookshop.OrderItems } from '@capire/orders';
 
-@requires: 'system-user'
+//@requires: 'system-user'
  service PDM_Service {
 
      entity Customers as projection on db.Customers;
 
-     entity OrderItems as
-     SELECT from db.Orders
-                     { key ID,
-                     key Items.ID as Item_ID,
+     entity OrderItemView as
+     SELECT from Orders
+                   { //key ID,
+                     //key Items.ID as Item_ID,
                      OrderNo,
                      Customer.ID as Customer_ID,
                      Customer.Email as Customer_Email,
@@ -22,7 +25,7 @@ using { sap.capire.bookshop as db } from '../db/schema';
  PersonalData.EntitySemantics: 'DataSubject'
  )
  {
- ID    @PersonalData.FieldSemantics: 'DataSubjectID';
+ ID           @PersonalData.FieldSemantics: 'DataSubjectID';
  FirstName    @PersonalData.IsPotentiallyPersonal;
  LastName     @PersonalData.IsPotentiallyPersonal;
  CreditCardNo @PersonalData.IsPotentiallyPersonal;
