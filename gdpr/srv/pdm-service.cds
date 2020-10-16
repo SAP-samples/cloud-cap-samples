@@ -26,8 +26,8 @@ using { sap.capire.bookshop.OrderItems } from '@capire/orders';
  )
  {
  ID           @PersonalData.FieldSemantics: 'DataSubjectID';
- FirstName    @PersonalData.IsPotentiallyPersonal;
- LastName     @PersonalData.IsPotentiallyPersonal;
- CreditCardNo @PersonalData.IsPotentiallyPersonal;
+ firstName    @PersonalData.IsPotentiallyPersonal;
+ lastName     @PersonalData.IsPotentiallyPersonal;
+ creditCardNo @PersonalData.IsPotentiallySensitiv;
  dateOfBirth  @PersonalData.IsPotentiallyPersonal;
  };
