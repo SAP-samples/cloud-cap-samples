@@ -19,15 +19,19 @@ using { sap.capire.bookshop.OrderItems } from '@capire/orders';
                      Items.book.ID as Item_Book_ID,
                      Items.amount as Item_Amount,
                      Items.netAmount as Item_NetAmount};
- };
+  
+     annotate PDMService.Customers with @(PersonalData.EntitySemantics: 'DataSubject')
+           {
+              ID           @PersonalData.FieldSemantics: 'DataSubjectID';
+              firstName    @PersonalData.IsPotentiallyPersonal;
+              lastName     @PersonalData.IsPotentiallyPersonal;
+              creditCardNo @PersonalData.IsPotentiallySensitive;
+              dateOfBirth  @PersonalData.IsPotentiallyPersonal;
+           };
 
- annotate PDM_Service.Customers with @(
- PersonalData.EntitySemantics: 'DataSubject'
- )
- {
- ID           @PersonalData.FieldSemantics: 'DataSubjectID';
- firstName    @PersonalData.IsPotentiallyPersonal;
- lastName     @PersonalData.IsPotentiallyPersonal;
- creditCardNo @PersonalData.IsPotentiallySensitiv;
- dateOfBirth  @PersonalData.IsPotentiallyPersonal;
+     annotate PDMService.OrderItemView with @(PersonalData.EntitySemantics: 'ContractRelated')
+           {
+              Customer_ID  @PersonalData.FieldSemantics: 'DataSubjectID';
+           };
+
  };
