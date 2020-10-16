@@ -5,7 +5,7 @@ using { sap.capire.bookshop.Orders }     from '@capire/orders';
 using { sap.capire.bookshop.OrderItems } from '@capire/orders';
 
 //@requires: 'system-user'
- service PDM_Service {
+ service PDMService {
 
      entity Customers as projection on db.Customers;
 
