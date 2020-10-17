@@ -14,4 +14,12 @@ service BrowseTracks {
     entity Genres       as projection on my.Genres {
         * , tracks : redirected to Tracks
     };
+
+    @readonly
+    entity Albums       as projection on my.Albums {
+        * , tracks : redirected to Tracks
+    };
+
+    @readonly
+    entity Artists      as projection on my.Artists;
 }
