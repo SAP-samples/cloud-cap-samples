@@ -1,5 +1,7 @@
 const cds = require("@sap/cds");
 
+const USER_LEVELS = { customer: 1, employee: 2 };
+
 module.exports = async function () {
   const db = await cds.connect.to("db"); // connect to database service
   const { Employees, Customers } = db.entities;
@@ -12,6 +14,25 @@ module.exports = async function () {
       req.user.attr.level,
       "[ROLE]",
       req.user.is("user") ? "user" : "other"
+    );
+  });
+
+  this.on("getUser", async (req) => {
+    return await db.run(
+      SELECT.one(Customers)
+        .columns(
+          "lastName",
+          "firstName",
+          "city",
+          "state",
+          "address",
+          "country",
+          "postalCode",
+          "phone",
+          "fax",
+          "email"
+        )
+        .where({ email: req.user.id })
     );
   });
 
@@ -30,7 +51,7 @@ module.exports = async function () {
 
     return {
       mockedToken: Buffer.from(`${email}:${password}`).toString("base64"),
-      level: role === "customer" ? 1 : 2,
+      level: USER_LEVELS[role],
       email: userFromDb.email,
       ID: userFromDb.ID,
       roles: [role],
