@@ -1,17 +1,19 @@
 const cds = require("@sap/cds");
 
-// only for demo cds.run(string, args)
-const SELECT_INVOICES_BY_EMAIL = `
-    select invoice.ID 
-    from sap_capire_media_store_Invoices invoice
-      join sap_capire_media_store_Customers customer 
-        on customer.ID = invoice.customer_ID
-      where customer.email=?
+const selectTracksByEmail = (email) => `
+    select tracks.ID
+    from sap_capire_media_store_Tracks tracks
+      join sap_capire_media_store_Invoices invoices 
+        on tracks.ID = invoiceItems.track_ID 
+      join sap_capire_media_store_InvoiceItems invoiceItems 
+        on invoices.ID = invoiceItems.invoice_ID 
+      join sap_capire_media_store_Customers customers 
+        on customers.ID = invoices.customer_ID
+      where customers.email='${email}'
 `;
 
 module.exports = async function () {
   const db = await cds.connect.to("db"); // connect to database service
-  const { Invoices } = db.entities;
 
   this.before("*", (req) => {
     console.log(
@@ -26,11 +28,7 @@ module.exports = async function () {
 
   this.on("READ", "MarkedTracks", async (req) => {
     const myTrackIds = (
-      await db.run(
-        SELECT.from(Invoices)
-          .columns("ID")
-          .where({ customer_ID: req.user.attr.ID })
-      )
+      await db.run(cds.parse.cql(selectTracksByEmail(req.user.id)))
     ).map(({ ID }) => ID);
 
     const result = await db.run(req.query);

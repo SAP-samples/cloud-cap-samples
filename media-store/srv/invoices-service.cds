@@ -6,7 +6,7 @@ service InvoicesService {
     entity Invoices     as projection on my.Invoices;
 
     action invoice(tracks : array of {
-        track_ID  : Integer;
+        ID        : Integer;
         unitPrice : Decimal(10, 2);
     });
 
