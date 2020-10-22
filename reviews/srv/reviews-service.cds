@@ -10,7 +10,7 @@ service ReviewsService {
   annotate Reviews with {
     subject  @mandatory;
     title    @mandatory;
-    rating   @mandatory @assert.enum;
+    rating   @assert.enum;
   }
 
 }

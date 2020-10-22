@@ -8,10 +8,12 @@ const cds = require ('@sap/cds')
 // Connect CatalogService and ReviewsService when all are served...
 cds.once('served', async ({CatalogService}) => {
 
+    const ReviewsService = await cds.connect.to('ReviewsService')
+    const messaging = await cds.connect.to('messaging')
+
     // reflect entity definitions used below...
     const { Books } = cds.entities('sap.capire.bookshop')
-    const { Reviews } = cds.entities('ReviewsService')
-    const messaging = await cds.connect.to('messaging')
+    const { Reviews } = ReviewsService.entities
 
     // prepend the following handler so it overrides the default handler
     CatalogService.prepend (srv => srv.on ('READ', 'Books/reviews', (req) => {
@@ -27,16 +29,6 @@ cds.once('served', async ({CatalogService}) => {
     })
 
 })
-
-// Other bootstrapping events you could hook in to...
-/* eslint-disable no-unused-vars */
-cds.on('bootstrap',(app) => {/* ... */})
-cds.on('loaded', (model) => {/* ... */})
-cds.on('connect', (srv) => {/* ... */})
-cds.on('serving', (srv) => {/* ... */})
-cds.once('served', (all) => {/* ... */})
-cds.once('listening', ({server,url}) => {/* ... */})
-
 
 // Delegate bootstrapping to built-in server.js
 module.exports = cds.server
