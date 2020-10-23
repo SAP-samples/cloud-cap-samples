@@ -32,7 +32,7 @@ service Users {
         roles       : array of String(111);
         level       : Integer;
         mockedToken : String(500);
-        email       : my.Persone.email;
-        ID          : my.Persone.ID
+        email       : my.Person.email;
+        ID          : my.Person.ID
     };
 }
