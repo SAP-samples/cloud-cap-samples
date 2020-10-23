@@ -89,7 +89,13 @@ const logProcessArgs = () => {
       const insertQuery = constructInsertQuery(targetEntityName, targetColumns);
 
       const srcEntityName = camelCaseToSnake(targetEntityName.split(".").pop());
-      let srcResultRows = await srcStorage.read(srcEntityName); // e.g. [ { AlbumId:1, ArtistId:1, Title:'some' }, ... ]
+      let srcResultRows;
+      try {
+        srcResultRows = await srcStorage.read(srcEntityName); // e.g. [ { AlbumId:1, ArtistId:1, Title:'some' }, ... ]
+      } catch (e) {
+        console.log("[ERROR]: while trying to read source table", e.message);
+        continue;
+      }
       if (!srcResultRows || srcResultRows.length < ZERO_VALUE) {
         console.log(
           `[LOG] Skipping ${targetEntityName}. 

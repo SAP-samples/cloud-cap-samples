@@ -1,7 +1,7 @@
 using {sap.capire.media.store as my} from '../db/schema';
 
 @(requires : 'authenticated-user')
-service InvoicesService {
+service Invoices {
     @readonly
     entity Invoices     as projection on my.Invoices;
 
