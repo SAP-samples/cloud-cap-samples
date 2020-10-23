@@ -5,7 +5,7 @@ aspect Named {
     name   : String(120);
 }
 
-aspect Persone {
+aspect Person {
     key ID     : Integer;
     lastName   : String(20);
     firstName  : String(40);
@@ -46,7 +46,7 @@ entity Albums {
                      on tracks.album = $self;
 }
 
-entity Employees : Persone {
+entity Employees : Person {
     reportsTo    : Association to Employees;
     title        : String(20);
     birthDate    : DateTime;
@@ -55,7 +55,7 @@ entity Employees : Persone {
                        on subordinates.reportsTo = $self;
 }
 
-entity Customers : Persone {
+entity Customers : Person {
     company    : String(80);
     supportRep : Association to Employees;
     invoices   : Association to many Invoices

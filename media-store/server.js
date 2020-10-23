@@ -10,7 +10,7 @@ cds.on("bootstrap", (app) => {
     );
     res.header(
       "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization, Accept-Language"
     );
 
     //intercepts OPTIONS method
