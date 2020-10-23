@@ -22,9 +22,11 @@ aspect Persone {
 
 entity MediaTypes : Named {}
 
-entity Genres : Named {
-    tracks : Association to many Tracks
-                 on tracks.genre = $self;
+entity Genres {
+    key ID     : Integer;
+        name   : localized String;
+        tracks : Association to many Tracks
+                     on tracks.genre = $self;
 }
 
 entity Playlists : Named {}

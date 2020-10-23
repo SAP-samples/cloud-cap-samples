@@ -3,8 +3,10 @@ const cds = require("@sap/cds");
 const USER_LEVELS = { customer: 1, employee: 2 };
 
 module.exports = async function () {
-  const db = await cds.connect.to("db"); // connect to database service
+  const db = await cds.connect.to("db");
   const { Employees, Customers } = db.entities;
+
+  const getUserEntity = (isCustomer) => (isCustomer ? Customers : Employees);
 
   this.before("*", (req) => {
     console.log(
@@ -17,9 +19,19 @@ module.exports = async function () {
     );
   });
 
-  this.on("getUser", async (req) => {
+  this.on("updatePerson", async (req) => {
+    await UPDATE(
+      getUserEntity(req.user && req.user._roles && req.user.is("customer"))
+    )
+      .set(req.data.person)
+      .where({ ID: req.user.attr.ID });
+  });
+
+  this.on("getPerson", async (req) => {
     return await db.run(
-      SELECT.one(Customers)
+      SELECT.one(
+        getUserEntity(req.user && req.user._roles && req.user.is("customer"))
+      )
         .columns(
           "lastName",
           "firstName",
