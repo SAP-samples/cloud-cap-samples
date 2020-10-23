@@ -1,15 +1,15 @@
 using {sap.capire.media.store as my} from '../db/schema';
 
-service UserService {
-
-    @restrict : [{
-        grant : '*',
+service Users {
+    entity Customers @(restrict : [{
+        grant : [
+            'READ',
+            'WRITE'
+        ],
         to    : 'employee'
-    }]
-    entity Customers as projection on my.Customers;
+    }, ]) as projection on my.Customers;
 
-    @(requires : 'authenticated-user')
-    function getUser() returns {
+    type Person {
         lastName   : String(20);
         firstName  : String(40);
         city       : String(40);
@@ -20,7 +20,13 @@ service UserService {
         phone      : String(24);
         fax        : String(24);
         email      : String(60);
-    };
+    }
+
+    @(requires : 'authenticated-user')
+    action updatePerson(person : Person);
+
+    @(requires : 'authenticated-user')
+    function getPerson() returns Person;
 
     function mockLogin(email : String(111), password : String(200)) returns {
         roles       : array of String(111);
@@ -28,5 +34,5 @@ service UserService {
         mockedToken : String(500);
         email       : my.Persone.email;
         ID          : my.Persone.ID
-    }
+    };
 }
