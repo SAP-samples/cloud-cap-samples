@@ -2,9 +2,9 @@
   "name": "@capire/fiori",
   "version": "1.0.0",
   "dependencies": {
-    "@capire/bookshop": "../bookshop",
-    "@capire/orders": "../orders",
-    "@capire/common": "../common",
+    "@capire/bookshop": "*",
+    "@capire/orders": "*",
+    "@capire/common": "*",
     "@sap/cds": "^4",
     "express": "^4.17.1"
   },
