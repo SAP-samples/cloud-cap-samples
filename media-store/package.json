@@ -7,8 +7,7 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^4",
-    "express": "^4",
-    "passport": "^0.4.1"
+    "express": "^4"
   },
   "devDependencies": {
     "sqlite3": "^5"

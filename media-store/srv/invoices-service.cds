@@ -3,7 +3,7 @@ using {sap.capire.media.store as my} from '../db/schema';
 @(requires : 'authenticated-user')
 service Invoices {
     @readonly
-    entity Invoices     as projection on my.Invoices;
+    entity MyInvoices   as projection on my.Invoices;
 
     action invoice(tracks : array of {
         ID        : Integer;

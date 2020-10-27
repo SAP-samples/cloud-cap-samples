@@ -74,6 +74,11 @@ entity Invoices {
         total             : Decimal(10, 2);
         invoiceItems      : Association to many InvoiceItems
                                 on invoiceItems.invoice = $self;
+        status            : Integer enum {
+            submitted = 1;
+            shipped   = 2;
+            canceled  = -1;
+        } default 1;
 }
 
 entity InvoiceItems {
@@ -81,7 +86,7 @@ entity InvoiceItems {
         invoice   : Association to Invoices;
         track     : Association to Tracks;
         unitPrice : Decimal(10, 2);
-        quantity  : Integer;
+        quantity  : Integer default 1;
 }
 
 entity Tracks {
