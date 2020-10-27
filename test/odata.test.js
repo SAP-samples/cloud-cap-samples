@@ -1,9 +1,10 @@
-const { GET, expect } = require('./cds').test('bookshop').in(__dirname,'..')
+const cds = require('@sap/cds/lib')
+const { GET, expect } = cds.test('bookshop').in(__dirname,'..')
 
 describe('OData Protocol', () => {
 
   it('serves $metadata documents in v4', async () => {
-    const { headers, status, data } = await GET`/browse/$metadata`
+    const { headers, status, data } = await GET `/browse/$metadata`
     expect(status).to.equal(200)
     expect(headers).to.contain({
       'content-type': 'application/xml',
