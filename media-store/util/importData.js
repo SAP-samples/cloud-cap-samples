@@ -12,6 +12,12 @@ const SRC_STORAGE_NAME = args[FIRST_INDEX];
 const TARGET_STORAGE_NAME = args[SECOND_INDEX];
 const TARGET_SCHEMA_PATH = args[THIRD_INDEX];
 
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 const camelCaseToSnake = (str) =>
   str.replace(
     /[a-z][A-Z]/g,
@@ -118,6 +124,14 @@ const logProcessArgs = () => {
         srcResultRows = srcResultRows.map((row) => ({
           ...row,
           password: "some",
+        }));
+      }
+      // for mock invoice data
+      if (srcEntityName === "Invoices") {
+        columns.push("status");
+        srcResultRows = srcResultRows.map((row) => ({
+          ...row,
+          status: getRandomInt(-1, 2),
         }));
       }
 
