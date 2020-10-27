@@ -1,5 +1,6 @@
 const cwd = process.cwd(); process.chdir (__dirname) //> only for internal CI/CD@SAP
-const cds = require ('./cds'), {expect} = cds.test
+const cds = require('@sap/cds/lib')
+const {expect} = cds.test
 
 // monkey patching older releases:
 if (!cds.compile.cdl) cds.compile.cdl = cds.parse

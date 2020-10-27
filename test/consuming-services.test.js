@@ -1,4 +1,4 @@
-const cds = require('./cds')
+const cds = require('@sap/cds/lib')
 const { expect } = cds.test (
   'serve', 'AdminService', '--from', '@capire/bookshop,@capire/common', '--in-memory'
 ).in(__dirname)
