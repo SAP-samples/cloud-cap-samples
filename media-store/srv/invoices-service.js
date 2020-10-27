@@ -15,7 +15,7 @@ module.exports = async function () {
     );
   });
 
-  this.on("READ", "Invoices", async (req) => {
+  this.on("READ", "MyInvoices", async (req) => {
     return await db.run(req.query.where({ customer_ID: req.user.attr.ID }));
   });
 
