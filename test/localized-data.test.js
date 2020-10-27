@@ -1,4 +1,4 @@
-const cds = require ('./cds')
+const cds = require('@sap/cds/lib')
 const { GET, expect } = cds.test ('serve', __dirname+'/localized-data.cds', '--in-memory')
 
 describe('Localized Data', () => {

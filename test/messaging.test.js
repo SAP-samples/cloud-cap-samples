@@ -1,5 +1,6 @@
+const cds = require('@sap/cds/lib')
 const cwd = process.cwd(); process.chdir (__dirname) //> only for internal CI/CD@SAP
-const cds = require ('./cds'), {expect} = cds.test
+const {expect} = cds.test
 const _model = '@capire/reviews'
 
 
