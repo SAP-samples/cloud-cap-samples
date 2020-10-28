@@ -9,7 +9,6 @@ const cds = require ('@sap/cds')
 cds.once('served', async ({CatalogService}) => {
 
     const ReviewsService = await cds.connect.to('ReviewsService')
-    const messaging = await cds.connect.to('messaging')
 
     // reflect entity definitions used below...
     const { Books } = cds.entities('sap.capire.bookshop')
@@ -22,7 +21,7 @@ cds.once('served', async ({CatalogService}) => {
         return SELECT(columns).from(Reviews).limit(limit).where({subject:String(id)})
     }))
 
-    messaging.on ('reviewed', (msg) => {
+    ReviewsService.on ('reviewed', (msg) => {
         console.debug ('> received:', msg.event, msg.data)
         const { subject, rating } = msg.data
         return UPDATE(Books,subject).with({rating})
