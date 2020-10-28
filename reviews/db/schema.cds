@@ -17,13 +17,7 @@ entity Reviews {
   liked    : Integer default 0; // counter for likes as helpful review (count of all _likes belonging to this review)
 }
 
-type Rating : Decimal(3,2) enum {
-  Best  = 5;
-  Good  = 4;
-  Avg   = 3;
-  Poor  = 2;
-  Worst = 1;
-}
+type Rating : Decimal(3,2) @assert.range: [ 1, 5 ];
 
 entity Likes {
   key review : Association to Reviews;
