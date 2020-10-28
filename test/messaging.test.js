@@ -1,14 +1,10 @@
 const cwd = process.cwd(); process.chdir (__dirname) //> only for internal CI/CD@SAP
 const cds = require ('./cds'), {expect} = cds.test
 const _model = '@capire/reviews'
-let messaging
 
 
 describe('Messaging', ()=>{
 
-    beforeAll(async () => {
-        messaging = await cds.connect.to('messaging')
-    })
     after(()=> process.chdir(cwd))
 
     it ('should bootstrap sqlite in-memory db', async()=>{
@@ -24,11 +20,11 @@ describe('Messaging', ()=>{
 
     let N=0, received=[], M=0
     it ('should add messaging event handlers', ()=>{
-        messaging.on('reviewed', (msg,next)=> { received.push(msg); return next() })
+        srv.on('reviewed', (msg,next)=> { received.push(msg); return next() })
     })
 
     it ('should add more messaging event handlers', ()=>{
-        messaging.on('reviewed', (_,next)=> { ++M; return next() })
+        srv.on('reviewed', (_,next)=> { ++M; return next() })
     })
 
     it ('should add review', async ()=>{
