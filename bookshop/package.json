@@ -10,7 +10,8 @@
   "scripts": {
     "genres": "cds serve test/genres.cds",
     "start": "cds run",
-    "watch": "cds watch"
+    "watch": "cds watch",
+    "to-openapi": "cds compile srv --to openapi -s CatalogService -o srv"
   },
   "cds": {
     "requires": {
