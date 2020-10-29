@@ -28,6 +28,9 @@
     "jest": "npx jest --verbose",
     "test": "npm run jest -s"
   },
+  "mocha": {
+    "parallel": true
+  },
   "jest": {
     "testEnvironment": "node"
   },
