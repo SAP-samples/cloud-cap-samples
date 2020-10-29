@@ -72,7 +72,7 @@ entity Invoices {
         billingCountry    : String(40);
         billingPostalCode : String(40);
         total             : Decimal(10, 2);
-        invoiceItems      : Association to many InvoiceItems
+        invoiceItems      : Composition of many InvoiceItems
                                 on invoiceItems.invoice = $self;
         status            : Integer enum {
             submitted = 1;

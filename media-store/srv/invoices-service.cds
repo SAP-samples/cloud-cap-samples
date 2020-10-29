@@ -1,15 +1,18 @@
 using {sap.capire.media.store as my} from '../db/schema';
 
 @(requires : 'authenticated-user')
-service Invoices {
+service BrowseInvoices {
+
     @readonly
-    entity MyInvoices   as projection on my.Invoices;
+    entity Invoices as projection on my.Invoices;
+
+    @readonly
+    entity Tracks   as projection on my.Tracks;
 
     action invoice(tracks : array of {
         ID        : Integer;
         unitPrice : Decimal(10, 2);
     });
 
-    @readonly
-    entity InvoiceItems as projection on my.InvoiceItems;
+    action cancelInvoice(ID : Integer);
 }
