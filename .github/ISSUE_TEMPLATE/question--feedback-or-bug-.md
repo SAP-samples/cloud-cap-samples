@@ -1,5 +1,5 @@
 ---
-name: Question, feedback or bug?
+name: This channel is CLOSED. 
 about: Use our community!
 title: ''
 labels: ''
