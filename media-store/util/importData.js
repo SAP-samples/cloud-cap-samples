@@ -126,14 +126,6 @@ const logProcessArgs = () => {
           password: "some",
         }));
       }
-      // for mock invoice data
-      if (srcEntityName === "Invoices") {
-        columns.push("status");
-        srcResultRows = srcResultRows.map((row) => ({
-          ...row,
-          status: getRandomInt(-1, 2),
-        }));
-      }
 
       const transaction = await targetStorage.tx();
       await transaction.run(
