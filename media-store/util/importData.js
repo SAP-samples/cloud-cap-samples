@@ -126,6 +126,13 @@ const logProcessArgs = () => {
           password: "some",
         }));
       }
+      if (srcEntityName === "Invoices") {
+        columns.push("status");
+        srcResultRows = srcResultRows.map((row) => ({
+          ...row,
+          status: 2,
+        }));
+      }
 
       const transaction = await targetStorage.tx();
       await transaction.run(

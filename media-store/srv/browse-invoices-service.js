@@ -1,7 +1,9 @@
 const cds = require("@sap/cds");
 const moment = require("moment");
+
 const DATE_TIME_PATTERN = "YYYY-MM-DD HH:MM:SS";
 const LEVERAGE_DURATION = 1; // in hours
+const CANCEL_STATUS = -1;
 
 module.exports = async function () {
   const db = await cds.connect.to("db"); // connect to database service
@@ -25,9 +27,7 @@ module.exports = async function () {
   this.on("invoice", async (req) => {
     const { tracks } = req.data;
     const customerId = req.user.attr.ID;
-    const invoiceDate = moment().utc().format(DATE_TIME_PATTERN);
-    console.log("invoiceDate", invoiceDate);
-    console.log(invoiceDate);
+    const invoiceDate = moment(new Date(), DATE_TIME_PATTERN);
     const total = tracks.reduce(
       (acc, { unitPrice }) => acc + Number(unitPrice),
       0
@@ -44,7 +44,7 @@ module.exports = async function () {
     await transaction.run(
       INSERT.into(Invoices)
         .columns("ID", "customer_ID", "total", "invoiceDate")
-        .values(lastInvoiceId + 1, customerId, total, invoiceDate)
+        .values(lastInvoiceId + 1, customerId, total, new Date(invoiceDate))
     );
     await transaction.run(
       INSERT.into(InvoiceItems)
@@ -64,10 +64,12 @@ module.exports = async function () {
   this.on("cancelInvoice", async (req) => {
     const { ID } = req.data;
     const currentInvoice = await db.run(
-      SELECT.one(Invoices).where({
-        ID,
-        customer_ID: req.user.attr.ID,
-      })
+      SELECT.one(Invoices)
+        .where({
+          ID,
+          customer_ID: req.user.attr.ID,
+        })
+        .columns("ID", "invoiceDate", "customer_ID")
     );
     if (!currentInvoice) {
       req.reject(
@@ -75,17 +77,23 @@ module.exports = async function () {
         "Seems like you are not owning this invoice or it is not exists"
       );
     }
+    console.log(currentInvoice);
     console.log(currentInvoice.invoiceDate);
 
     const x = moment().utc().format(DATE_TIME_PATTERN);
     const y = moment(currentInvoice.invoiceDate).format(DATE_TIME_PATTERN);
     const yy = moment(x).diff(y);
     const durationInHours = moment.duration(yy);
+    console.log(x);
+    console.log(y);
+    console.log(yy);
     console.log(durationInHours.asHours());
     if (durationInHours.asHours() > LEVERAGE_DURATION) {
       req.reject(400, "Leverage time was expired");
     }
 
-    return await db.run(DELETE.from(Invoices, ID));
+    return await db.run(
+      UPDATE(Invoices).set({ status: CANCEL_STATUS }).where({ ID })
+    );
   });
 };
