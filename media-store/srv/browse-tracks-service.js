@@ -6,7 +6,8 @@ const selectTracksByEmail = (email) => `
       join sap_capire_media_store_Invoices invoices 
         on tracks.ID = invoiceItems.track_ID 
       join sap_capire_media_store_InvoiceItems invoiceItems 
-        on invoices.ID = invoiceItems.invoice_ID 
+        on (invoices.ID = invoiceItems.invoice_ID and invoices.status='2') or 
+        (invoices.ID = invoiceItems.invoice_ID and invoices.status='1') 
       join sap_capire_media_store_Customers customers 
         on customers.ID = invoices.customer_ID
       where customers.email='${email}'
