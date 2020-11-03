@@ -28,16 +28,16 @@ module.exports = async function () {
   });
 
   this.on("READ", "MarkedTracks", async (req) => {
-    const myTrackIds = (
-      await db.run(cds.parse.cql(selectTracksByEmail(req.user.id)))
-    ).map(({ ID }) => ID);
-
-    const result = await db.run(req.query);
-    return result.map((columns) => {
-      return {
-        ...columns,
-        alreadyOrdered: myTrackIds.includes(columns.ID),
-      };
+    const myTrackIds = (await db.run(selectTracksByEmail(req.user.id))).map(
+      ({ ID }) => ID
+    );
+    const result = [];
+    await db.foreach(req.query, (track) => {
+      result.push({
+        ...track,
+        alreadyOrdered: myTrackIds.includes(track.ID),
+      });
     });
+    return result;
   });
 };
