@@ -3,20 +3,9 @@ const cds = require("@sap/cds");
 const FIRST_INDEX = 0;
 const ZERO_VALUE = 0;
 const SECOND_INDEX = 1;
-const SKIP_CLI_ARGS_NUMBER = 2;
-const THIRD_INDEX = 2;
 const ID_IF_NOT_FOUND = "ID";
 
-const args = process.argv.slice(SKIP_CLI_ARGS_NUMBER);
-const SRC_STORAGE_NAME = args[FIRST_INDEX];
-const TARGET_STORAGE_NAME = args[SECOND_INDEX];
-const TARGET_SCHEMA_PATH = args[THIRD_INDEX];
-
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+const SRC_STORAGE_NAME = "sqlite:chinook.db";
 
 const camelCaseToSnake = (str) =>
   str.replace(
@@ -65,12 +54,6 @@ const constructInsertQuery = (targetEntityName) => {
     INSERT.into(targetEntityName).columns(columns).rows(row);
 };
 
-const logProcessArgs = () => {
-  console.log(
-    `[LOG]: Import data from ${SRC_STORAGE_NAME} to ${TARGET_STORAGE_NAME}, schema path: ${TARGET_SCHEMA_PATH}`
-  );
-};
-
 /**
  * The MAIN ISSUE such import is that it depends on:
  * - snake case table names
@@ -78,38 +61,43 @@ const logProcessArgs = () => {
  * of chinook.db
  * There is 'Launch import' task in .vscode folder for debugging.
  */
-(async () => {
-  logProcessArgs();
+async function importData(targetDb) {
   try {
     const srcStorage = await cds.connect.to(SRC_STORAGE_NAME);
-    const targetStorage = await cds.connect.to(TARGET_STORAGE_NAME);
-    const targetCSNModel = await cds.load(TARGET_SCHEMA_PATH);
+    const targetCSNEntities = Object.values(targetDb.entities);
+    const targetCSNEntitiesNames = Object.keys(targetDb.entities);
 
-    const reflectedCSNModel = cds.reflect(targetCSNModel);
-    const targetCSNEntities = Object.values(reflectedCSNModel.entities);
+    const someEntry = await targetDb.run(
+      SELECT.one(targetCSNEntitiesNames[FIRST_INDEX])
+    );
+    if (!!someEntry) {
+      return;
+    }
 
     for (index in targetCSNEntities) {
-      const { name: targetEntityName, elements } = targetCSNEntities[index];
+      const targetEntityName = targetCSNEntitiesNames[index];
       console.log(`[LOG]:  Processing ${targetEntityName}`);
-      const targetColumns = elementsToColumns(elements); // e.g. ['ID', ..., 'total', 'customer_ID']
-      const insertQuery = constructInsertQuery(targetEntityName, targetColumns);
 
-      const srcEntityName = camelCaseToSnake(targetEntityName.split(".").pop());
+      const { elements } = targetCSNEntities[index];
+      const targetColumns = elementsToColumns(elements); // e.g. ['ID', ..., 'total', 'customer_ID']
+      const srcEntityName = camelCaseToSnake(targetEntityName);
+      const insertQuery = constructInsertQuery(targetEntityName);
       let srcResultRows;
       try {
-        srcResultRows = await srcStorage.read(srcEntityName); // e.g. [ { AlbumId:1, ArtistId:1, Title:'some' }, ... ]
+        srcResultRows = await srcStorage.run(`
+          SELECT * from ${srcEntityName} 
+        `); // e.g. [ { AlbumId:1, ArtistId:1, Title:'some' }, ... ]
       } catch (e) {
         console.log("[ERROR]: while trying to read source table", e.message);
         continue;
       }
       if (!srcResultRows || srcResultRows.length < ZERO_VALUE) {
         console.log(
-          `[LOG] Skipping ${targetEntityName}. 
+          `[LOG] Skipping ${targetEntityName}.
           There is no data provided in ${SRC_STORAGE_NAME}, ${srcEntityName}`
         );
         continue;
       }
-
       const srcColumns = Object.keys(srcResultRows[FIRST_INDEX]);
       const columns = reorderTargetColumns(srcColumns, targetColumns);
       if (new Set(columns).size !== columns.length) {
@@ -117,7 +105,6 @@ const logProcessArgs = () => {
           `Some ${targetEntityName} column name is mismatched in ${SRC_STORAGE_NAME} ${srcEntityName}`
         );
       }
-
       // for mock auth
       if (srcEntityName === "Employees" || srcEntityName === "Customers") {
         columns.push("password");
@@ -126,21 +113,17 @@ const logProcessArgs = () => {
           password: "some",
         }));
       }
-      if (srcEntityName === "Invoices") {
-        columns.push("status");
-        srcResultRows = srcResultRows.map((row) => ({
-          ...row,
-          status: 2,
-        }));
-      }
 
-      const transaction = await targetStorage.tx();
+      const transaction = await targetDb.tx();
       await transaction.run(
         srcResultRows.map((row) => insertQuery(Object.values(row), columns))
       );
       await transaction.commit();
     }
+    console.log("[LOG]: ", "Import completed");
   } catch (errors) {
     console.error(errors);
   }
-})();
+}
+
+module.exports = { importData };

@@ -1,4 +1,5 @@
 const cds = require("@sap/cds");
+const { importData } = require("./util/importData");
 // handle bootstrapping events...
 cds.on("bootstrap", (app) => {
   // dev only
@@ -24,7 +25,8 @@ cds.on("bootstrap", (app) => {
   });
   // add your own middleware before any by cds are added
 });
-cds.on("served", () => {
+cds.on("served", async ({ db }) => {
+  await importData(db);
   // add more middleware after all CDS servies
 });
 // delegate to default server.js:
