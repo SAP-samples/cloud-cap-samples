@@ -1,7 +1,7 @@
 namespace sap.capire.media.store;
 
 aspect Named {
-    key ID : Integer;
+    key ID : Integer default 1;
     name   : String(120);
 }
 
@@ -76,7 +76,6 @@ entity Invoices {
                                 on invoiceItems.invoice = $self;
         status            : Integer enum {
             submitted = 1;
-            shipped   = 2;
             canceled  = -1;
         } default 1;
 }
@@ -96,9 +95,9 @@ entity Tracks {
         mediaType              : Association to MediaTypes;
         genre                  : Association to Genres;
         composer               : String(220);
-        milliseconds           : Integer;
-        bytes                  : Integer;
-        unitPrice              : Decimal(10, 2);
+        milliseconds           : Integer default 230619;
+        bytes                  : Integer default 3990994;
+        unitPrice              : Decimal(10, 2) default 0.99;
         invoiceItems           : Association to many InvoiceItems
                                      on invoiceItems.track = $self;
         virtual alreadyOrdered : Boolean;
