@@ -25,9 +25,16 @@ cds.on("bootstrap", (app) => {
   });
   // add your own middleware before any by cds are added
 });
-cds.on("served", async ({ db }) => {
+cds.on("served", async ({ db, messaging, ...servedServices }) => {
+  // import data from chinook db if needed
   await importData(db);
-  // add more middleware after all CDS servies
+
+  // add logging current user before any request
+  for (let i in servedServices) {
+    servedServices[i].prepend((srv) =>
+      srv.before("*", (req) => console.log("[USER]:", req.user))
+    );
+  }
 });
-// delegate to default server.js:
+
 module.exports = cds.server;

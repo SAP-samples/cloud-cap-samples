@@ -1,3 +1,5 @@
+using {managed} from '@sap/cds/common';
+
 namespace sap.capire.media.store;
 
 aspect Named {
@@ -17,7 +19,7 @@ aspect Person {
     phone      : String(24);
     fax        : String(24);
     email      : String(60);
-    password   : String(111);
+    password   : String(500);
 }
 
 entity MediaTypes : Named {}
@@ -88,7 +90,7 @@ entity InvoiceItems {
         quantity  : Integer default 1;
 }
 
-entity Tracks {
+entity Tracks : managed {
     key ID                     : Integer;
         name                   : String(200);
         album                  : Association to Albums;
