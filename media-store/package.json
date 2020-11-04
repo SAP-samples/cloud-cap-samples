@@ -7,7 +7,9 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^4.2.8",
+    "bcrypt": "^5.0.0",
     "express": "^4",
+    "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "passport": "^0.4.1"
   },
@@ -17,10 +19,10 @@
   "scripts": {
     "start": "npx cds run",
     "deploy": "cds deploy --to sqlite:mychinook.db",
-    "rebuild": "npm run deploy && npm run start",
     "test": "mocha test/media-service.test.js --verbose --timeout 10000"
   },
   "cds": {
+    "ACCESS_TOKEN_SECRET": "secret",
     "requires": {
       "db": {
         "kind": "sqlite",
@@ -30,30 +32,7 @@
         }
       },
       "auth": {
-        "strategy": "mock",
-        "users": {
-          "andrew@chinookcorp.com": {
-            "password": "some",
-            "roles": [
-              "employee"
-            ],
-            "userAttributes": {
-              "level": 1,
-              "ID": 1
-            }
-          },
-          "luisg@embraer.com.br": {
-            "password": "some",
-            "roles": [
-              "customer"
-            ],
-            "userAttributes": {
-              "level": 0,
-              "ID": 1
-            }
-          },
-          "*": true
-        }
+        "impl": "srv/auth.js"
       }
     }
   }

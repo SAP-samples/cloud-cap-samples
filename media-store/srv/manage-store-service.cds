@@ -1,9 +1,13 @@
 using {sap.capire.media.store as my} from '../db/schema';
 
-@(requires : 'employee')
-service ManageStore {
-    entity Tracks as projection on my.Tracks;
-    action addTrack(name : String(25), albumTitle : String(255), genreName : String(255), composer : String(255));
-    entity Albums as projection on my.Albums;
-    entity Genres as projection on my.Genres;
+service ManageStore @(requires : 'employee') {
+    entity Tracks     as projection on my.Tracks;
+    entity Albums     as projection on my.Albums;
+    entity Artists    as projection on my.Artists;
+    /*
+    Below entities exposed
+    due to errors when creating Tracks/Albums/Artists
+    */
+    entity MediaTypes as projection on my.MediaTypes;
+    entity Genres     as projection on my.Genres;
 }
