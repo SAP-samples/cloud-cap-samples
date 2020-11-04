@@ -1,7 +1,12 @@
 const cds = require('@sap/cds/lib')
-const { GET, expect } = cds.test('serve','hello/world.cds').in(__dirname,'..')
+const { GET, expect, axios } = cds.test('serve','hello/world.cds').in(__dirname,'..')
 
 describe('Hello world!', () => {
+
+  it('should have axios', async () => {
+    expect(cds.version).to.equal('4.3.0')
+    expect(axios).to.be.a('function')
+  })
 
   it('should say hello with class impl', async () => {
     const {data} = await GET `/say/hello(to='world')`
