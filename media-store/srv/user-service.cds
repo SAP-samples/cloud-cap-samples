@@ -1,6 +1,9 @@
 using {sap.capire.media.store as my} from '../db/schema';
 
 service Users {
+    // redundant entity
+    // We need actions without exposing entity for now.
+    // But we forced to expose for make actions work.
     entity Customers @(restrict : [{
         grant : [
             'READ',
@@ -22,28 +25,10 @@ service Users {
         email      : String(60);
     }
 
-    @(restrict : [
-    {
-        grant : '*',
-        to    : 'customer'
-    },
-    {
-        grant : '*',
-        to    : 'employee'
-    },
-    ])
+    @(requires : 'authenticated-user')
     action updatePerson(person : Person);
 
-    @(restrict : [
-    {
-        grant : '*',
-        to    : 'customer'
-    },
-    {
-        grant : '*',
-        to    : 'employee'
-    },
-    ])
+    @(requires : 'authenticated-user')
     function getPerson() returns Person;
 
     action login(email : String(111), password : String(200)) returns {
