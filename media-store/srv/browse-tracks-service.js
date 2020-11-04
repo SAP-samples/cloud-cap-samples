@@ -16,12 +16,6 @@ const selectTracksByEmail = (email) => `
 module.exports = async function () {
   const db = await cds.connect.to("db"); // connect to database service
 
-  // this.before("READ", "MarkedTracks", (req) => {
-  //   if (!req.user.is("customer")) {
-  //     req.reject(403);
-  //   }
-  // });
-
   this.on("READ", "MarkedTracks", async (req) => {
     const myTrackIds = (await db.run(selectTracksByEmail(req.user.id))).map(
       ({ ID }) => ID

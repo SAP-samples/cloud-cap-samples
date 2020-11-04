@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const { ACCESS_TOKEN_SECRET } = cds.env;
 class MyUser extends cds.User {
   constructor(attr, roles, id) {
-    super({ attr, _roles: roles, id });
+    super({ attr, _roles: [...roles, "authenticated-user"], id });
   }
 }
 
@@ -23,6 +23,7 @@ module.exports = (req, res, next) => {
       decodedUser.email
     );
   } catch (error) {
+    req.user = new MyUser({}, ["anonymous"], "");
   } finally {
     next();
   }
