@@ -7,16 +7,10 @@ service BrowseTracks {
     };
 
     @readonly
-    entity MarkedTracks @(restrict : [
-    {
+    entity MarkedTracks @(restrict : [{
         grant : ['*', ],
         to    : 'customer'
-    },
-    {
-        grant : '*',
-        to    : 'employee'
-    },
-    ])             as projection on my.Tracks;
+    }])            as projection on my.Tracks;
 
     /*
     Below entities exposed
