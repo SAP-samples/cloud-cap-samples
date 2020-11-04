@@ -1,4 +1,7 @@
+const { resolve } = require("@sap/cds");
 const cds = require("@sap/cds");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 const FIRST_INDEX = 0;
 const ZERO_VALUE = 0;
@@ -74,6 +77,16 @@ async function importData(targetDb) {
       return;
     }
 
+    const hashedPassword = await new Promise((resolve, reject) =>
+      bcrypt.hash("some", saltRounds, (error, hash) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(hash);
+      })
+    );
+    console.log("hashedPassword", hashedPassword);
+
     for (index in targetCSNEntities) {
       const targetEntityName = targetCSNEntitiesNames[index];
       console.log(`[LOG]:  Processing ${targetEntityName}`);
@@ -110,7 +123,7 @@ async function importData(targetDb) {
         columns.push("password");
         srcResultRows = srcResultRows.map((row) => ({
           ...row,
-          password: "some",
+          password: hashedPassword,
         }));
       }
 

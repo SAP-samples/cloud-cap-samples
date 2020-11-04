@@ -16,16 +16,11 @@ module.exports = async function () {
   const db = await cds.connect.to("db"); // connect to database service
   const { Invoices, InvoiceItems } = db.entities;
 
-  this.before("*", (req) => {
-    console.log(
-      "[USER]:",
-      req.user.id,
-      " [LEVEL]: ",
-      req.user.attr.level,
-      "[ROLE]",
-      req.user.is("user") ? "user" : "other"
-    );
-  });
+  // this.before("*", (req) => {
+  //   if (!req.user.is("customer")) {
+  //     req.reject(403);
+  //   }
+  // });
 
   this.on("READ", "Invoices", async (req) => {
     return await db.run(req.query.where({ customer_ID: req.user.attr.ID }));

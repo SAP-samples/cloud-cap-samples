@@ -1,23 +1,15 @@
 const cds = require("@sap/cds");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
-const USER_LEVELS = { customer: 1, employee: 2 };
+const { ACCESS_TOKEN_SECRET } = cds.env;
+const ACCESS_TOKEN_EXP_IN = "10m";
 
 module.exports = async function () {
   const db = await cds.connect.to("db");
   const { Employees, Customers } = db.entities;
 
   const getUserEntity = (isCustomer) => (isCustomer ? Customers : Employees);
-
-  this.before("*", (req) => {
-    console.log(
-      "[USER]:",
-      req.user.id,
-      " [LEVEL]: ",
-      req.user.attr.level,
-      "[ROLE]",
-      req.user.is("user") ? "user" : "other"
-    );
-  });
 
   this.on("updatePerson", async (req) => {
     await UPDATE(
@@ -48,25 +40,37 @@ module.exports = async function () {
     );
   });
 
-  this.on("mockLogin", async (req) => {
+  this.on("login", async (req) => {
     const { email, password } = req.data;
 
     let userFromDb = await db.run(SELECT.one(Employees).where({ email }));
-    let role = "employee";
+    let roles = ["employee"];
     if (!userFromDb) {
       userFromDb = await db.run(SELECT.one(Customers).where({ email }));
-      role = "customer";
+      roles = ["customer"];
     }
-    if (!userFromDb || password !== userFromDb.password) {
+
+    const userEqualPassword = await bcrypt.compare(
+      password,
+      userFromDb.password
+    );
+    if (!userEqualPassword) {
       req.reject(401);
     }
 
+    const token = jwt.sign(
+      { email, ID: userFromDb.ID, roles },
+      ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: ACCESS_TOKEN_EXP_IN,
+      }
+    );
+
     return {
-      mockedToken: Buffer.from(`${email}:${password}`).toString("base64"),
-      level: USER_LEVELS[role],
+      token,
+      roles,
       email: userFromDb.email,
       ID: userFromDb.ID,
-      roles: [role],
     };
   });
 };

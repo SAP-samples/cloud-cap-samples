@@ -1,8 +1,8 @@
 using {sap.capire.media.store as my} from '../db/schema';
 using {BrowseTracks.Tracks} from './browse-tracks-service';
 
-@(requires : 'customer')
-service BrowseInvoices {
+
+service BrowseInvoices @(requires : 'customer') {
     @readonly
     entity Invoices as projection on my.Invoices;
 
@@ -13,6 +13,10 @@ service BrowseInvoices {
 
     action cancelInvoice(ID : Integer);
 
+    /*
+    Below entities exposed
+    due to 'navigation property errors' when expanding with odata
+    */
     @readonly
     entity Tracks   as projection on my.Tracks excluding {
         alreadyOrdered

@@ -22,17 +22,34 @@ service Users {
         email      : String(60);
     }
 
-    @(requires : 'authenticated-user')
+    @(restrict : [
+    {
+        grant : '*',
+        to    : 'customer'
+    },
+    {
+        grant : '*',
+        to    : 'employee'
+    },
+    ])
     action updatePerson(person : Person);
 
-    @(requires : 'authenticated-user')
+    @(restrict : [
+    {
+        grant : '*',
+        to    : 'customer'
+    },
+    {
+        grant : '*',
+        to    : 'employee'
+    },
+    ])
     function getPerson() returns Person;
 
-    function mockLogin(email : String(111), password : String(200)) returns {
-        roles       : array of String(111);
-        level       : Integer;
-        mockedToken : String(500);
-        email       : my.Person.email;
-        ID          : my.Person.ID
+    action login(email : String(111), password : String(200)) returns {
+        roles : array of String(111);
+        token : String(500);
+        email : String(500);
+        ID    : Integer;
     };
 }
