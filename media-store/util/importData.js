@@ -66,8 +66,6 @@ const constructInsertQuery = (targetEntityName) => {
  */
 async function importData(targetDb) {
   try {
-    const srcStorage = await cds.connect.to(SRC_STORAGE_NAME);
-    const targetCSNEntities = Object.values(targetDb.entities);
     const targetCSNEntitiesNames = Object.keys(targetDb.entities);
 
     const someEntry = await targetDb.run(
@@ -77,6 +75,8 @@ async function importData(targetDb) {
       return;
     }
 
+    const targetCSNEntities = Object.values(targetDb.entities);
+    const srcStorage = await cds.connect.to(SRC_STORAGE_NAME);
     const hashedPassword = await new Promise((resolve, reject) =>
       bcrypt.hash("some", saltRounds, (error, hash) => {
         if (error) {

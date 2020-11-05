@@ -8,14 +8,14 @@ service BrowseTracks {
 
     @readonly
     entity MarkedTracks @(restrict : [{
-        grant : ['*', ],
+        grant : ['*'],
         to    : 'customer'
     }])            as projection on my.Tracks;
 
-    /*
-    Below entities exposed
-    due to 'navigation property errors' when expanding with odata
-    */
+    /**
+     * Below entities exposed due to 'navigation property errors'
+     * when expanding with odata
+     */
     @readonly
     entity Genres  as projection on my.Genres {
         * , tracks : redirected to Tracks
