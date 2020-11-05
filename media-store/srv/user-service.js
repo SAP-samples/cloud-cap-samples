@@ -9,35 +9,12 @@ module.exports = async function () {
   const db = await cds.connect.to("db");
   const { Employees, Customers } = db.entities;
 
-  const getUserEntity = (isCustomer) => (isCustomer ? Customers : Employees);
-
-  this.on("updatePerson", async (req) => {
-    await UPDATE(
-      getUserEntity(req.user && req.user._roles && req.user.is("customer"))
-    )
-      .set(req.data.person)
-      .where({ ID: req.user.attr.ID });
+  this.before("UPDATE", "*", async (req) => {
+    req.query = req.query.where({ ID: req.user.attr.ID });
   });
 
-  this.on("getPerson", async (req) => {
-    return await db.run(
-      SELECT.one(
-        getUserEntity(req.user && req.user._roles && req.user.is("customer"))
-      )
-        .columns(
-          "lastName",
-          "firstName",
-          "city",
-          "state",
-          "address",
-          "country",
-          "postalCode",
-          "phone",
-          "fax",
-          "email"
-        )
-        .where({ email: req.user.id })
-    );
+  this.before("READ", "*", async (req) => {
+    req.query = req.query.where({ ID: req.user.attr.ID });
   });
 
   this.on("login", async (req) => {
@@ -49,7 +26,6 @@ module.exports = async function () {
       userFromDb = await db.run(SELECT.one(Customers).where({ email }));
       roles = ["customer"];
     }
-
     const userEqualPassword = await bcrypt.compare(
       password,
       userFromDb.password
