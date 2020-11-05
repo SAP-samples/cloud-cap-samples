@@ -3,6 +3,10 @@ using {BrowseTracks.Tracks} from './browse-tracks-service';
 
 
 service BrowseInvoices @(requires : 'customer') {
+    /**
+     * Invoices entity also restricted programmatically Only owned
+     * invoices youser can access
+     */
     @readonly
     entity Invoices as projection on my.Invoices;
 
@@ -13,10 +17,10 @@ service BrowseInvoices @(requires : 'customer') {
 
     action cancelInvoice(ID : Integer);
 
-    /*
-    Below entities exposed
-    due to 'navigation property errors' when expanding with odata
-    */
+    /**
+     * Below entities exposed due to 'navigation property errors'
+     * when expanding with odata
+     */
     @readonly
     entity Tracks   as projection on my.Tracks excluding {
         alreadyOrdered
