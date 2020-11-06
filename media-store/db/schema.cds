@@ -89,16 +89,21 @@ entity InvoiceItems {
 }
 
 entity Tracks {
-    key ID                     : Integer;
-        name                   : String(200);
-        album                  : Association to Albums;
-        mediaType              : Association to MediaTypes;
-        genre                  : Association to Genres;
-        composer               : String(220);
-        milliseconds           : Integer default 230619;
-        bytes                  : Integer default 3990994;
-        unitPrice              : Decimal(10, 2) default 0.99;
-        invoiceItems           : Association to many InvoiceItems
-                                     on invoiceItems.track = $self;
-        virtual alreadyOrdered : Boolean;
-}
+    key ID             : Integer;
+        name           : String(200);
+        album          : Association to Albums;
+        mediaType      : Association to MediaTypes;
+        genre          : Association to Genres;
+        composer       : String(220);
+        milliseconds   : Integer default 230619;
+        bytes          : Integer default 3990994;
+        unitPrice      : Decimal(10, 2) default 0.99;
+
+        // Two compositions below needed for cascade delete track
+        invoiceItems   : Composition of many InvoiceItems
+                             on invoiceItems.track = $self;
+        playlistTracks : Composition of many {
+                             key playlist : Association to Playlists;
+                             key track    : Association to Tracks;
+                         };
+};
