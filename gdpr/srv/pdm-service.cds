@@ -15,12 +15,12 @@ using { sap.capire.bookshop.OrderItems } from '@capire/orders';
      entity OrderItemView as
      SELECT from Orders
                    { key ID,
-                     key Items.ID as Item_ID,
+                     key Items.ID    as Item_ID,
                      OrderNo,
-                     Customer.ID as Customer_ID,
-                     Customer.email as Customer_Email,
-                     Items.book.ID as Item_Book_ID,
-                     Items.amount as Item_Amount,
+                     Customer.ID     as Customer_ID,
+                     Customer.email  as Customer_Email,
+                     Items.book.ID   as Item_Book_ID,
+                     Items.amount    as Item_Amount,
                      Items.netAmount as Item_NetAmount};
   
  //  annotate new view 

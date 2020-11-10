@@ -11,9 +11,9 @@ extend Orders with {
 }  
 
 entity Customers : cuid, managed {
-  email : String;
-  firstName : String;
-  lastName : String;
+  email        : String;
+  firstName    : String;
+  lastName     : String;
   creditCardNo : String;
   dateOfBirth  : Date;
 }
