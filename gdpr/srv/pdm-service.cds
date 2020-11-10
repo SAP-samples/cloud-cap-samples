@@ -1,5 +1,5 @@
 //using from '@capire/orders';
-using { sap.capire.bookshop as db }          from '../db/schema';
+using { sap.capire.bookshop as db }      from '../db/schema';
 using { sap.capire.bookshop.Books }      from '@capire/bookshop';
 using { sap.capire.bookshop.Orders }     from '@capire/orders';
 using { sap.capire.bookshop.OrderItems } from '@capire/orders';
