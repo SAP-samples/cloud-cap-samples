@@ -9,6 +9,8 @@ using { sap.capire.bookshop.OrderItems } from '@capire/orders';
 
      entity Customers as projection on db.Customers;
 
+     entity CustomerPostalAddress as projection on db.CustomerPostalAddress;
+
      entity OrderItemView as
      SELECT from Orders
                    { key ID,
@@ -20,18 +22,10 @@ using { sap.capire.bookshop.OrderItems } from '@capire/orders';
                      Items.amount as Item_Amount,
                      Items.netAmount as Item_NetAmount};
   
-     annotate PDMService.Customers with @(PersonalData.EntitySemantics: 'DataSubject')
-           {
-              ID           @PersonalData.FieldSemantics: 'DataSubjectID';
-              firstName    @PersonalData.IsPotentiallyPersonal;
-              lastName     @PersonalData.IsPotentiallyPersonal;
-              creditCardNo @PersonalData.IsPotentiallySensitive;
-              dateOfBirth  @PersonalData.IsPotentiallyPersonal;
-           };
-
      annotate PDMService.OrderItemView with @(PersonalData.EntitySemantics: 'ContractRelated')
            {
-              Customer_ID  @PersonalData.FieldSemantics: 'DataSubjectID';
+              Customer_ID    @PersonalData.FieldSemantics: 'DataSubjectID';
+              Customer_Email @PersonalData.IsPotentiallyPersonal;
            };
 
  };
