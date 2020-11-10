@@ -30,6 +30,6 @@ using { sap.capire.bookshop.OrderItems } from '@capire/orders';
               Customer_Email @PersonalData.IsPotentiallyPersonal;
            };
 
- // Data Privacy annotations on 'Customers' and 'CustomerPostalAddress' are derived from original entity definitions           
+ //  Data Privacy annotations on 'Customers' and 'CustomerPostalAddress' are derived from original entity definitions           
 
  };
