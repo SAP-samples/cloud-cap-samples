@@ -11,6 +11,7 @@ using { sap.capire.bookshop.OrderItems } from '@capire/orders';
 
      entity CustomerPostalAddress as projection on db.CustomerPostalAddress;
 
+//   create view on Orders and Items as flat projection
      entity OrderItemView as
      SELECT from Orders
                    { key ID,
@@ -22,10 +23,13 @@ using { sap.capire.bookshop.OrderItems } from '@capire/orders';
                      Items.amount as Item_Amount,
                      Items.netAmount as Item_NetAmount};
   
+ //  annotate new view 
      annotate PDMService.OrderItemView with @(PersonalData.EntitySemantics: 'ContractRelated')
            {
               Customer_ID    @PersonalData.FieldSemantics: 'DataSubjectID';
               Customer_Email @PersonalData.IsPotentiallyPersonal;
            };
+
+ // Data Privacy annotations on 'Customers' and 'CustomerPostalAddress' are derived from original entity definitions           
 
  };
