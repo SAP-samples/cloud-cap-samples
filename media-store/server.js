@@ -2,28 +2,28 @@ const cds = require("@sap/cds");
 
 // handle bootstrapping events...
 cds.on("bootstrap", (app) => {
-  // dev only
-  app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-      "Access-Control-Allow-Methods",
-      "GET, PUT, PATCH, POST, DELETE, OPTIONS"
-    );
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization, Accept-Language"
-    );
+  if (cds.env.env === "development") {
+    app.use((req, res, next) => {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header(
+        "Access-Control-Allow-Methods",
+        "GET, PUT, PATCH, POST, DELETE, OPTIONS"
+      );
+      res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization, Accept-Language"
+      );
 
-    //intercepts OPTIONS method
-    if ("OPTIONS" === req.method) {
-      //respond with 200
-      res.sendStatus(200);
-    } else {
-      //move on
-      next();
-    }
-  });
-  // add your own middleware before any by cds are added
+      //intercepts OPTIONS method
+      if ("OPTIONS" === req.method) {
+        //respond with 200
+        res.sendStatus(200);
+      } else {
+        //move on
+        next();
+      }
+    });
+  }
 });
 cds.on("served", async ({ db, messaging, ...servedServices }) => {
   // add logging current user before any request
