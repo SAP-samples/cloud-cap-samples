@@ -1,5 +1,5 @@
 const cds = require("@sap/cds");
-const { importData } = require("./util/importData");
+
 // handle bootstrapping events...
 cds.on("bootstrap", (app) => {
   // dev only
@@ -26,9 +26,6 @@ cds.on("bootstrap", (app) => {
   // add your own middleware before any by cds are added
 });
 cds.on("served", async ({ db, messaging, ...servedServices }) => {
-  // import data from chinook db if needed
-  await importData(db);
-
   // add logging current user before any request
   for (let i in servedServices) {
     servedServices[i].prepend((srv) =>
