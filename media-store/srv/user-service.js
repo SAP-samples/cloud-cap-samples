@@ -1,6 +1,6 @@
 const cds = require("@sap/cds");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const { ACCESS_TOKEN_SECRET } = cds.env;
 const ACCESS_TOKEN_EXP_IN = "10m";
@@ -26,9 +26,14 @@ module.exports = async function () {
       userFromDb = await db.run(SELECT.one(Customers).where({ email }));
       roles = ["customer"];
     }
-    const userEqualPassword = await bcrypt.compare(
-      password,
-      userFromDb.password
+    const userEqualPassword = await new Promise((resolve, reject) =>
+      bcrypt.compare(password, userFromDb.password, (err, res) => {
+        if (err) {
+          reject(err);
+        } else if (res) {
+          resolve(res);
+        }
+      })
     );
     if (!userEqualPassword) {
       req.reject(401);
