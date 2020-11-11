@@ -25,27 +25,3 @@ entity CustomerPostalAddress : cuid, managed {
   country        : Country;
   someOtherField : String(128);
 };
-
-// annotations for Data Privacy
-annotate Customers with @PersonalData.EntitySemantics: 'DataSubject' 
-  {
-    ID           @PersonalData.FieldSemantics: 'DataSubjectID';
-    emailAddress @PersonalData.IsPotentiallyPersonal;
-    firstName    @PersonalData.IsPotentiallyPersonal;
-    lastName     @PersonalData.IsPotentiallyPersonal;
-    creditCardNo @PersonalData.IsPotentiallySensitive;
-  }
-
-annotate CustomerPostalAddress with @PersonalData.EntitySemantics: 'DataSubjectDetails' 
-  {
-    Customer  @PersonalData.FieldSemantics: 'DataSubjectID';
-    street    @PersonalData.IsPotentiallyPersonal;
-    town      @PersonalData.IsPotentiallyPersonal;
-    country   @PersonalData.IsPotentiallyPersonal;
-  }
-
-
-// annotations for Audit Log
-annotate Customers with @AuditLog.Operation: {Read: true, Insert: true, Update: true, Delete: true};
-
-annotate CustomerPostalAddress with @AuditLog.Operation: {Read: true, Insert: true, Update: true, Delete: true};

@@ -1,0 +1,18 @@
+{
+  "fullyQualifiedApplicationName": "gdpr-bookshop",
+  "fullyQualifiedModuleName": "gdpr-srv",
+  "applicationTitle": "PDM Bookshop",
+  "applicationTitleKey": "PDM Bookshop",
+  "applicationURL": "https://gdpr-srv.cfapps.sap.hana.ondemand.com/",
+  "endPoints": [
+    {
+      "type": "odatav4",
+      "serviceName": "pdm-service",
+      "serviceTitle": "GDPR",
+      "serviceTitleKey": "GDPR",
+      "serviceURI": "gdpr",
+      "hasGdprV4Annotations": true,
+      "cacheControl": "no-cache"
+    }
+  ]
+}
