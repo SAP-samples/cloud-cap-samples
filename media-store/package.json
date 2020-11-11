@@ -27,9 +27,6 @@
   },
   "cds": {
     "ACCESS_TOKEN_SECRET": "secret",
-    "hana": {
-      "deploy-format": "hdbtable"
-    },
     "requires": {
       "db": {
         "kind": "sqlite",
