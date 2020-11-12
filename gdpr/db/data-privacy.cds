@@ -19,6 +19,16 @@ annotate bookshop.CustomerPostalAddress with @PersonalData.EntitySemantics: 'Dat
     country   @PersonalData.IsPotentiallyPersonal;
   }
 
+// annotations for Personal Data Manager - Search Fields
+annotate bookshop.Customers with @(Communication.Contact  : {
+    n : {
+        surname: lastName,
+        given:   firstName
+    },
+}); 
+
+annotate bookshop.Customers.emailAddress with @Communication.IsEmailAddress;
+
 
 // annotations for Audit Log
 annotate bookshop.Customers with @AuditLog.Operation: {Read: true, Insert: true, Update: true, Delete: true};

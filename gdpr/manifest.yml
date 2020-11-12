@@ -13,8 +13,8 @@ applications:
   buildpack: nodejs_buildpack
   services:
   - gdpr-db
-  - name: pdm
-    parameters: ./pdm-config.json 
+#  - name: pdm
+#    parameters: ./pdm-config.json 
 
 # -----------------------------------------------------------------------------------
 # HANA Database Content Deployer App
