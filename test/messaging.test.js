@@ -2,7 +2,7 @@ const cds = require('@sap/cds/lib')
 const cwd = process.cwd(); process.chdir (__dirname) //> only for internal CI/CD@SAP
 const {expect} = cds.test
 const _model = '@capire/reviews'
-
+cds.User = cds.User.Privileged // hard core monkey patch
 
 describe('Messaging', ()=>{
 

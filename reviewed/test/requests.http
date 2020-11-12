@@ -1,10 +1,16 @@
+
+@me = {{$processEnv USER}}:
+@bookshop = http://localhost:4004
+@reviews-service = {{bookshop}}/reviews
+# @reviews-service = http://localhost:5005/reviews
+
+
+
 #################################################
 #
 #   To ReviewsService
 #
 # move the right down:
-@reviews-service = http://localhost:4004/reviews
-@reviews-service = http://localhost:5005/reviews
 
 ### Get all reviews
 GET {{reviews-service}}/Reviews
@@ -12,6 +18,7 @@ GET {{reviews-service}}/Reviews
 ### Add a new review (with random rating)
 POST {{reviews-service}}/Reviews
 Content-Type: application/json;IEEE754Compatible=true
+Authorization: Basic {{me}}
 
 {"subject":"201", "title":"boo"}
 
@@ -22,8 +29,6 @@ Content-Type: application/json;IEEE754Compatible=true
 #   Bookshop Requests involving reviews
 #   (both in-process as well as separate one)
 #
-
-@bookshop = http://localhost:4004
 
 ### Request to CatalogService > delegated to ReviewsService
 GET {{bookshop}}/browse/Books(201)/reviews?

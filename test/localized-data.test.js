@@ -1,4 +1,4 @@
-const cds = require('@sap/cds/lib')
+const cds = require('@sap/cds/lib'); cds.User = cds.User.Privileged // skip auth
 const { GET, expect } = cds.test ('serve', __dirname+'/localized-data.cds', '--in-memory')
 
 describe('Localized Data', () => {
