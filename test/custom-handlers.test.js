@@ -1,4 +1,4 @@
-const cds = require('@sap/cds/lib')
+const cds = require('@sap/cds/lib'); cds.User = cds.User.Privileged // skip auth
 const { GET, POST, expect } = cds.test('bookshop').in(__dirname,'..')
 
 describe('Custom Handlers', () => {
