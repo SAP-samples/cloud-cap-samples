@@ -25,10 +25,8 @@ annotate bookshop.Customers with @(Communication.Contact  : {
         surname: lastName,
         given:   firstName
     },
+    email: emailAddress
 }); 
-
-annotate bookshop.Customers.emailAddress with @Communication.IsEmailAddress;
-
 
 // annotations for Audit Log
 annotate bookshop.Customers with @AuditLog.Operation: {Read: true, Insert: true, Update: true, Delete: true};
