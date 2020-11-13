@@ -2,6 +2,7 @@
 using { sap.capire.bookshop } from './schema';
 
 // annotations for Data Privacy
+annotate bookshop.Customers with @PersonalData.DataSubjectRole: 'Customer';
 annotate bookshop.Customers with @PersonalData.EntitySemantics: 'DataSubject' 
   {
     ID           @PersonalData.FieldSemantics: 'DataSubjectID';
@@ -12,6 +13,7 @@ annotate bookshop.Customers with @PersonalData.EntitySemantics: 'DataSubject'
     dateOfBirth  @PersonalData.IsPotentiallyPersonal;
   }
 
+annotate bookshop.CustomerPostalAddress with @PersonalData.DataSubjectRole: 'Customer';
 annotate bookshop.CustomerPostalAddress with @PersonalData.EntitySemantics: 'DataSubjectDetails' 
   {
     Customer  @PersonalData.FieldSemantics: 'DataSubjectID';
