@@ -13,6 +13,7 @@ applications:
   buildpack: nodejs_buildpack
   services:
   - gdpr-db
+  - uaa
 #  - name: pdm
 #    parameters: ./pdm-config.json 
 

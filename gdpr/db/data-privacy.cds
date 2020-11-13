@@ -9,6 +9,7 @@ annotate bookshop.Customers with @PersonalData.EntitySemantics: 'DataSubject'
     firstName    @PersonalData.IsPotentiallyPersonal;
     lastName     @PersonalData.IsPotentiallyPersonal;
     creditCardNo @PersonalData.IsPotentiallySensitive;
+    dateOfBirth  @PersonalData.IsPotentiallyPersonal;
   }
 
 annotate bookshop.CustomerPostalAddress with @PersonalData.EntitySemantics: 'DataSubjectDetails' 
@@ -20,11 +21,12 @@ annotate bookshop.CustomerPostalAddress with @PersonalData.EntitySemantics: 'Dat
   }
 
 // annotations for Personal Data Manager - Search Fields
-annotate bookshop.Customers with @(Communication.Contact  : {
+annotate bookshop.Customers with @(Communication.Contact  : {    
     n : {
         surname: lastName,
         given:   firstName
-    },
+    },    
+    bday:  dateOfBirth,
     email: emailAddress
 }); 
 
