@@ -29,7 +29,7 @@
     "ACCESS_TOKEN_SECRET": "secret",
     "requires": {
       "db": {
-        "kind": "hana"
+        "kind": "sql"
       },
       "auth": {
         "impl": "srv/auth.js"

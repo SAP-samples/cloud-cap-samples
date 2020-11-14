@@ -1,10 +1,14 @@
 import { isEmpty } from "lodash";
 import axios from "axios";
 
-const BROWSE_TRACKS_SERVICE = `api/browse-tracks`;
-const INVOICES_SERVICE = `api/browse-invoices`;
-const USER_SERVICE = `api/users`;
-const MANAGE_STORE = `api/manage-store`;
+// in dev mode using provided api
+// in prod mode using proxy
+const API = process.env.API || "api/";
+
+const BROWSE_TRACKS_SERVICE = `${API}browse-tracks`;
+const INVOICES_SERVICE = `${API}browse-invoices`;
+const USER_SERVICE = `${API}users`;
+const MANAGE_STORE = `${API}manage-store`;
 
 const constructGenresQuery = (genreIds) => {
   return !isEmpty(genreIds)
