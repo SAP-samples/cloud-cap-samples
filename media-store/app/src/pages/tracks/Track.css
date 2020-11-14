@@ -1,0 +1,7 @@
+span > span.anticon.anticon-delete:hover {
+  color: #ff4d4f;
+}
+
+.card-element {
+  transition: opacity 0.5s ease-in-out;
+}

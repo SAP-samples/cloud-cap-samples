@@ -1,0 +1,15 @@
+div.ant-select.ant-select-multiple.ant-select-show-search > div,
+div.ant-select-dropdown.ant-select-dropdown-placement-bottomLeft {
+  border-radius: 6px;
+}
+
+.ant-select > div.ant-select-selector {
+  padding: 5px;
+  min-width: 300px;
+}
+
+.ant-pagination-prev > .ant-pagination-item-link,
+.ant-pagination-next > .ant-pagination-item-link,
+.ant-pagination-item {
+  border-radius: 6px;
+}

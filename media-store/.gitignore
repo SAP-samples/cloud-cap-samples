@@ -6,6 +6,10 @@ default-*.json
 gen/
 node_modules/
 target/
+package-lock.json
+
+# html5Deployer
+html5Deployer/resources/app/
 
 # Web IDE, App Studio
 .che/
