@@ -29,11 +29,7 @@
     "ACCESS_TOKEN_SECRET": "secret",
     "requires": {
       "db": {
-        "kind": "sqlite",
-        "model": "*",
-        "credentials": {
-          "database": "mychinook.db"
-        }
+        "kind": "hana"
       },
       "auth": {
         "impl": "srv/auth.js"
