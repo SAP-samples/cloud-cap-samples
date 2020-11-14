@@ -30,7 +30,8 @@ async function toOpenApiDoc(service, host, cache) {
       DEBUG && DEBUG ('Compiling Open API spec for', service.name)
       cache[service.name] = cds.compile.to.openapi (service.model, {
         service: service.name,
-        'openapi:url': service.path
+        'openapi:url': service.path,
+        'openapi:diagram': true
       })
     }
   }
