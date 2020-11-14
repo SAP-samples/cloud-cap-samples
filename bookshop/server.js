@@ -16,12 +16,13 @@ cds
       req.swaggerDoc = await toOpenApiDoc(service, host, docCache)
       next()
     }, swaggerUi.serve, swaggerUi.setup())
+    addLink(service, apiPath)
   })
   .on ('listening', ({server})=> { host = 'localhost:'+server.address().port })
 
 async function toOpenApiDoc(service, host, cache) {
   if (!cache[service.name]) {
-    const spec = await openApiFromFile(service)
+    const spec = await openApiFromFile(service, host)
     if (spec) {
       cache[service.name] = spec
     }
@@ -29,7 +30,7 @@ async function toOpenApiDoc(service, host, cache) {
       DEBUG && DEBUG ('Compiling Open API spec for', service.name)
       cache[service.name] = cds.compile.to.openapi (service.model, {
         service: service.name,
-        scheme: 'http', host, basePath: service.path
+        'openapi:url': service.path
       })
     }
   }
@@ -43,6 +44,14 @@ async function openApiFromFile(service) {
     DEBUG && DEBUG ('Using Open API spec from file', fileName)
     return JSON.parse(file)
   }
+}
+
+function addLink(service, apiPath) {
+  const link = (entity) => {
+    if (entity)  return // don't want to provide link on entity level
+    return { href:apiPath, name:'Swagger UI', title:'Show in Swagger UI' }
+  }
+  service.$linkProviders ? service.$linkProviders.push(link) : service.$linkProviders = [link]
 }
 
 module.exports = cds.server
