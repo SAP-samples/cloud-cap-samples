@@ -5,6 +5,18 @@ const bcrypt = require("bcryptjs");
 const { ACCESS_TOKEN_SECRET } = cds.env;
 const ACCESS_TOKEN_EXP_IN = "10m";
 
+const comparePasswords = async (password, hashedPassword) => {
+  return new Promise((resolve, reject) =>
+    bcrypt.compare(password, hashedPassword, (err, res) => {
+      if (err || res === false) {
+        reject(err);
+      } else {
+        resolve(res);
+      }
+    })
+  );
+};
+
 module.exports = async function () {
   const db = await cds.connect.to("db");
   const { Employees, Customers } = db.entities;
@@ -26,16 +38,13 @@ module.exports = async function () {
       userFromDb = await db.run(SELECT.one(Customers).where({ email }));
       roles = ["customer"];
     }
-    const userEqualPassword = await new Promise((resolve, reject) =>
-      bcrypt.compare(password, userFromDb.password, (err, res) => {
-        if (err || res === false) {
-          reject(err);
-        } else {
-          resolve(res);
-        }
-      })
-    );
-    if (!userEqualPassword) {
+
+    if (!userFromDb) {
+      req.reject(401);
+    }
+    try {
+      await comparePasswords(password, userFromDb.password);
+    } catch (error) {
       req.reject(401);
     }
 
