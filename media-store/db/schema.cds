@@ -7,17 +7,17 @@ aspect Named {
 
 aspect Person {
     key ID     : Integer;
-    lastName   : String(20);
-    firstName  : String(40);
-    city       : String(40);
-    state      : String(40);
-    address    : String(70);
-    country    : String(40);
-    postalCode : String(10);
-    phone      : String(24);
-    fax        : String(24);
-    email      : String(60);
-    password   : String(500);
+    lastName   : String(20) default 'dummy';
+    firstName  : String(40) default 'dummy';
+    city       : String(40) default 'dummy';
+    state      : String(40) default 'dummy';
+    address    : String(70) default 'dummy';
+    country    : String(40) default 'dummy';
+    postalCode : String(10) default 123;
+    phone      : String(24) default 'dummy';
+    fax        : String(24) default 'dummy';
+    email      : String(60) default 'dummy@email.com';
+    password   : String(500) default 'dummy';
 }
 
 entity MediaTypes : Named {}
@@ -66,11 +66,11 @@ entity Invoices {
     key ID                : Integer;
         customer          : Association to Customers;
         invoiceDate       : DateTime;
-        billingAddress    : String(70);
-        billingCity       : String(40);
-        billingState      : String(40);
-        billingCountry    : String(40);
-        billingPostalCode : String(40);
+        billingAddress    : String(70) default 'dummy';
+        billingCity       : String(40) default 'dummy';
+        billingState      : String(40) default 'dummy';
+        billingCountry    : String(40) default 'dummy';
+        billingPostalCode : String(40) default 123;
         total             : Decimal(10, 2);
         invoiceItems      : Composition of many InvoiceItems
                                 on invoiceItems.invoice = $self;
