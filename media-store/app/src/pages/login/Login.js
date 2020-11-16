@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, message } from "antd";
 import { login } from "../../api-service";
 import { useHistory } from "react-router-dom";
 import { useGlobals } from "../../GlobalContext";
@@ -19,8 +19,10 @@ const tailLayout = {
     span: 8,
   },
 };
+const MESSAGE_TIMEOUT = 2;
 
 const Login = () => {
+  const [form] = Form.useForm();
   const history = useHistory();
   const { setLoading, setUser } = useGlobals();
   const { handleError } = useErrors();
@@ -30,7 +32,6 @@ const Login = () => {
     setLoading(true);
     login({ email: values.email, password: values.password })
       .then((response) => {
-        console.log(response.data);
         const { ID, email, level, token, roles } = response.data;
         setUser({
           ID,
@@ -39,10 +40,17 @@ const Login = () => {
           level,
           token,
         });
-        setLoading(false);
         history.push("/");
       })
-      .catch(handleError);
+      .catch((error) => {
+        if (error.response.status === 401) {
+          form.resetFields();
+          message.error("Invalid credentials!", MESSAGE_TIMEOUT);
+        } else {
+          handleError(error);
+        }
+      })
+      .then(() => setLoading(false));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -51,6 +59,7 @@ const Login = () => {
 
   return (
     <Form
+      form={form}
       {...layout}
       name="basic"
       initialValues={{
