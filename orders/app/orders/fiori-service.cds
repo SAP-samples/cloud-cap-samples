@@ -1,44 +1,27 @@
-using OrdersService from '@capire/orders/srv/orders-service';
-
-annotate OrdersService.Books with {
-	price @Common.FieldControl: #ReadOnly;
-}
 
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	Common
+//	Note: this is designed for the OrdersService being co-located with
+//	bookshop. It does not work if OrdersService is run as a separate
+// 	process, and is not intended to do so.
 //
-annotate OrdersService.OrderItems with {
-	book @(
-		Common: {
-			Text: book.title,
-			FieldControl: #Mandatory
-		},
-		ValueList.entity:'Books',
-	);
-	amount @(
-		Common.FieldControl: #Mandatory
-	);
-}
+////////////////////////////////////////////////////////////////////////////
+
+
+
+using { OrdersService, sap.capire.orders.OrderItems } from '../../srv/orders-service';
 
 
 @odata.draft.enabled
 annotate OrdersService.Orders with @(
 	UI: {
-		////////////////////////////////////////////////////////////////////////////
-		//
-		//	Lists of Orders
-		//
 		SelectionFields: [ createdAt, createdBy ],
 		LineItem: [
-			{Value: createdBy, Label:'Customer'},
+			{Value: OrderNo, Label:'OrderNo'},
+			{Value: buyer, Label:'Customer'},
 			{Value: createdAt, Label:'Date'}
 		],
-		////////////////////////////////////////////////////////////////////////////
-		//
-		//	Order Details
-		//
 		HeaderInfo: {
 			TypeName: 'Order', TypeNamePlural: 'Orders',
 			Title: {
@@ -62,7 +45,7 @@ annotate OrdersService.Orders with @(
 		],
 		FieldGroup#Details: {
 			Data: [
-				{Value: currency_code, Label:'Currency'}
+				{Value: currency.code, Label:'Currency'}
 			]
 		},
 		FieldGroup#Created: {
@@ -85,36 +68,25 @@ annotate OrdersService.Orders with @(
 
 
 
-//The enity types name is OrdersService.my_bookshop_OrderItems
-//The annotations below are not generated in edmx WHY?
-annotate OrdersService.OrderItems with @(
+annotate OrderItems with @(
 	UI: {
-		HeaderInfo: {
-			TypeName: 'Order Item', TypeNamePlural: '	',
-			Title: {
-				Value: book.title
-			},
-			Description: {Value: book.descr}
-		},
-		// There is no filterbar for items so the selctionfileds is not needed
-		SelectionFields: [ book_ID ],
-		////////////////////////////////////////////////////////////////////////////
-		//
-		//	Lists of OrderItems
-		//
 		LineItem: [
-			{Value: book_ID, Label:'Book'},
-			//The following entry is only used to have the assoication followed in the read event
-			{Value: book.price, Label:'Book Price'},
+			{Value: article, Label:'Article ID'},
+			{Value: title, Label:'Article Title'},
+			{Value: price, Label:'Unit Price'},
 			{Value: amount, Label:'Quantity'},
 		],
 		Identification: [ //Is the main field group
-			//{Value: ID, Label:'ID'}, //A guid shouldn't be on the UI
-			{Value: book_ID, Label:'Book'},
 			{Value: amount, Label:'Amount'},
+			{Value: title, Label:'Article'},
+			{Value: price, Label:'Unit Price'},
 		],
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>OrderItems}', Target: '@UI.Identification'},
 		],
 	},
-);
+) {
+	amount @(
+		Common.FieldControl: #Mandatory
+	);
+};

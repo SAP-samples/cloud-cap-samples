@@ -27,18 +27,20 @@
             <th> Book </th>
             <th> Author </th>
             <th> Genre </th>
+            <th> Rating </th>
             <th> Price </th>
         </thead>
         <tr v-for="book in list" v-bind:id="book.ID" v-on:click="inspect">
             <td>{{ book.title }}</td>
             <td>{{ book.author }}</td>
             <td>{{ book.genre.name }}</td>
+            <td style="color:teal">{{ ('★'.repeat(Math.round(book.rating))+'☆☆☆☆☆').slice(0,5) }}</td>
             <td>{{ book.currency.symbol }} {{ book.price }}</td>
         </tr>
     </table>
 
     <div v-if="book.title">
-        <img v-bind:src="book.imageSrc" alt=""/>
+        <img v-bind:src="book.image" alt=""/>
     </div>
 
     <div v-if="book.title">
@@ -47,7 +49,7 @@
             <span class="has-error"> {{ order.failed }} </span>
             &nbsp;&nbsp; {{ book.stock }} in stock
         </label>
-        <form @submit="submitOrder">
+        <form @submit.prevent="submitOrder">
             <input type="number" id="amount" v-model="order.amount" v-bind:class="{ 'has-error': order.failed }">
             <input type="submit" value="Order:" class="muted-button">
         </form>

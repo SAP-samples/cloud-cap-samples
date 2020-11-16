@@ -1,21 +1,37 @@
-const cds = require('@sap/cds')
+const cds = require ('@sap/cds')
+class OrdersService extends cds.ApplicationService {
 
-module.exports = cds.service.impl(function() {
+  /** register custom handlers */
+  init(){
+    const { OrderItems } = this.entities
 
-  const { Books } = cds.entities
+    this.before ('UPDATE', 'Orders', async function(req) {
+      const { ID, Items } = req.data
+      if (Items) for (let { article, amount } of Items) {
+        const { amount:before } = await cds.tx(req).run (
+          SELECT.one.from (OrderItems, oi => oi.amount) .where ({order_ID:ID, article})
+        )
+        if (amount != before) this.orderChanged (article, amount-before)
+      }
+    })
 
-  // Reduce stock of ordered books if available stock suffices
-  this.before ('CREATE', 'Orders', (req) => {
-    const { Items: items } = req.data
-    return cds.transaction(req) .run (items.map (item =>
-      UPDATE (Books) .where ('ID =', item.book_ID)
-      .and ('stock >=', item.amount)
-      .set ('stock -=', item.amount)
-    )) .then (all => all.forEach ((affectedRows,i) => {
-      if (affectedRows === 0)  req.error (409,
-        `${items[i].amount} exceeds stock for book #${items[i].book_ID}`
+    this.before ('DELETE', 'Orders', async function(req) {
+      const { ID } = req.data
+      const Items = await cds.tx(req).run (
+        SELECT.from (OrderItems, oi => { oi.article, oi.amount }) .where ({order_ID:ID})
       )
-    }))
-  })
+      if (Items) for (let it of Items) this.orderChanged (it.article, -it.amount)
+    })
 
-})
+    return super.init()
+  }
+
+  /** order changed -> broadcast event */
+  orderChanged (article, deltaAmount) {
+    // Emit events to inform subscribers about changes in orders
+    console.log ('> emitting:', 'OrderChanged', { article, deltaAmount })
+    return this.emit ('OrderChanged', { article, deltaAmount })
+  }
+
+}
+module.exports = OrdersService

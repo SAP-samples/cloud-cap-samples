@@ -1,16 +1,19 @@
-using { sap.capire.bookshop.Books } from '@capire/bookshop';
-using { Currency, managed, cuid } from '@sap/cds/common';
-namespace sap.capire.bookshop;
+using { Currency, User, managed, cuid } from '@sap/cds/common';
+using from '@capire/common';
+namespace sap.capire.orders;
 
 entity Orders : cuid, managed {
   OrderNo  : String @title:'Order Number'; //> readable key
-  Items    : Composition of many OrderItems on Items.parent = $self;
+  Items    : Composition of many OrderItems on Items.order = $self;
+  buyer    : User;
   currency : Currency;
 }
 
-entity OrderItems : cuid {
-  parent    : Association to Orders;
-  book      : Association to Books;
+entity OrderItems {
+  key ID    : UUID;
+  order     : Association to Orders;
   amount    : Integer;
-  netAmount : Decimal(9,2);
+  article   : String; //> to allow for arbitrary keys
+  title     : String;
+  price     : Double;
 }

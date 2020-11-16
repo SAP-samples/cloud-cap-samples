@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@capire/bookshop": "*",
+    "@capire/reviews": "*",
     "@capire/orders": "*",
     "@capire/common": "*",
     "@sap/cds": "^4",
@@ -15,6 +16,12 @@
   },
   "cds": {
     "requires": {
+      "ReviewsService": {
+        "kind": "odata", "model": "@capire/reviews"
+      },
+      "OrdersService": {
+        "kind": "odata", "model": "@capire/orders"
+      },
       "db": {
         "kind": "sql"
       }

@@ -8,7 +8,7 @@ entity Books : managed {
   author : Association to Authors;
   genre  : Association to Genres;
   stock  : Integer;
-  price  : Decimal(9,2);
+  price  : Decimal;
   currency : Currency;
   image : LargeBinary @Core.MediaType : 'image/png';
 }
