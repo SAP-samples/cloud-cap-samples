@@ -5,8 +5,6 @@ import { useHistory } from "react-router-dom";
 import { useGlobals } from "../../GlobalContext";
 import { useErrors } from "../../useErrors";
 
-const USER_SERVICE = "http://localhost:4004/users";
-
 const layout = {
   labelCol: {
     span: 8,

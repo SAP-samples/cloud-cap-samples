@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Form, Input, Select } from "antd";
-// import { useSearch } from "@umijs/hooks";
+import { useSearch } from "@umijs/hooks";
 import { useErrors } from "../../useErrors";
 import { fetchArtistsByName } from "../../api-service";
 
@@ -20,16 +20,16 @@ const getArtists = function (value) {
 
 const AddAlbumForm = () => {
   const { handleError } = useErrors();
-  // const {
-  //   data: artists,
-  //   loading: isArtistsLoading,
-  //   onChange: onChangeArtistInput,
-  //   cancel: onArtistCancel,
-  // } = useSearch(getArtists.bind({ handleError }));
+  const {
+    data: artists,
+    loading: isArtistsLoading,
+    onChange: onChangeArtistInput,
+    cancel: onArtistCancel,
+  } = useSearch(getArtists.bind({ handleError }));
 
-  // useEffect(() => {
-  //   onChangeArtistInput();
-  // }, []);
+  useEffect(() => {
+    onChangeArtistInput();
+  }, []);
 
   return (
     <>
@@ -38,7 +38,7 @@ const AddAlbumForm = () => {
         <Input />
       </Form.Item>
       <Form.Item label="Artist" name="artistID" rules={REQUIRED}>
-        {/* <Select
+        <Select
           showSearch
           placeholder="Select artist"
           filterOption={false}
@@ -53,7 +53,7 @@ const AddAlbumForm = () => {
                 {artist.name}
               </Select.Option>
             ))}
-        </Select> */}
+        </Select>
       </Form.Item>
     </>
   );
