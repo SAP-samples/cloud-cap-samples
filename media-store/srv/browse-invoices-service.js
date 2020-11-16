@@ -3,11 +3,12 @@ const moment = require("moment");
 
 const LEVERAGE_DURATION = 1; // in hours. should be the same in the frontend
 const CANCEL_STATUS = -1;
+const UTC_DATE_TIME_FORMAT = "YYYY-MM-DDThh:mm:ss";
 
 // the same function there is in the frontend
-const isLeverageTimeExpired = (invoiceDate) => {
+const isLeverageTimeExpired = (utcNowTimestamp, invoiceDate) => {
   const duration = moment.duration(
-    moment(moment().utc().format()).diff(invoiceDate)
+    moment(utcNowTimestamp).diff(moment(invoiceDate).valueOf())
   );
   return duration.asHours() > LEVERAGE_DURATION;
 };
@@ -23,33 +24,27 @@ module.exports = async function () {
   this.on("invoice", async (req) => {
     const { tracks } = req.data;
     const customerId = req.user.attr.ID;
-    const invoiceDate = moment().utc().valueOf();
     const total = tracks.reduce(
       (acc, { unitPrice }) => acc + Number(unitPrice),
       0
     );
-
-    const { ID: lastInvoiceItemId } = await db.run(
-      SELECT.one(InvoiceItems).columns("ID").orderBy({ ID: "desc" })
-    );
-    const { ID: lastInvoiceId } = await db.run(
-      SELECT.one(Invoices).columns("ID").orderBy({ ID: "desc" })
-    );
+    const utcNowDateTime = moment().utc().format(UTC_DATE_TIME_FORMAT);
 
     const transaction = await db.tx(req);
-    await transaction.run(
+    const {
+      results: [{ lastID: invoiceID }],
+    } = await transaction.run(
       INSERT.into(Invoices)
-        .columns("ID", "customer_ID", "total", "invoiceDate")
-        .values(lastInvoiceId + 1, customerId, total, invoiceDate)
+        .columns("customer_ID", "total", "invoiceDate")
+        .values(customerId, total, utcNowDateTime)
     );
     await transaction.run(
       INSERT.into(InvoiceItems)
-        .columns("ID", "invoice_ID", "track_ID", "unitPrice")
+        .columns("invoice_ID", "track_ID", "unitPrice")
         .rows(
-          tracks.map(({ ID, unitPrice }, index) => [
-            lastInvoiceItemId + (index + 1),
-            lastInvoiceId + 1,
-            ID,
+          tracks.map(({ ID: trackID, unitPrice }) => [
+            invoiceID,
+            trackID,
             unitPrice,
           ])
         )
@@ -59,6 +54,7 @@ module.exports = async function () {
 
   this.on("cancelInvoice", async (req) => {
     const { ID } = req.data;
+
     const currentInvoice = await db.run(
       SELECT.one(Invoices)
         .where({
@@ -74,7 +70,10 @@ module.exports = async function () {
       );
     }
 
-    if (isLeverageTimeExpired(currentInvoice.invoiceDate)) {
+    const utcNowTimestamp = moment(
+      moment().utc().format(UTC_DATE_TIME_FORMAT)
+    ).valueOf();
+    if (isLeverageTimeExpired(utcNowTimestamp, currentInvoice.invoiceDate)) {
       req.reject(400, "Leverage time was expired");
     }
 

@@ -24,6 +24,7 @@ const INVOICE_STATUS = {
 };
 const CANCELLED_STATUS = -1;
 const DATE_TIME_FORMAT_PATTERN = "LLLL";
+const UTC_DATE_TIME_FORMAT = "YYYY-MM-DDThh:mm:ss";
 const INVOICE_ITEMS_COLUMNS = [
   {
     title: "Track name",
@@ -45,16 +46,16 @@ const INVOICE_ITEMS_COLUMNS = [
 const LEVERAGE_DURATION = 1; // in hours
 const STATUSES = { submitted: 1, shipped: 2, canceled: -1 };
 
-const isLeverageTimeExpired = (invoiceDate) => {
+const isLeverageTimeExpired = (utcNowTimestamp, invoiceDate) => {
   const duration = moment.duration(
-    moment(moment().utc().format()).diff(invoiceDate)
+    moment(utcNowTimestamp).diff(moment(invoiceDate).valueOf())
   );
   return duration.asHours() > LEVERAGE_DURATION;
 };
 
-const chooseStatus = (invoiceDate, statusFromDb) => {
+const chooseStatus = (utcNowTimestamp, invoiceDate, statusFromDb) => {
   if (
-    isLeverageTimeExpired(invoiceDate) &&
+    isLeverageTimeExpired(utcNowTimestamp, invoiceDate) &&
     statusFromDb !== STATUSES.canceled
   ) {
     return INVOICE_STATUS[STATUSES.shipped];
@@ -67,7 +68,13 @@ const ExtraHeader = ({ ID, invoiceDate, status: initialStatus }) => {
   const { handleError } = useErrors();
   const [loadingHeaderId, setLoadingHeaderId] = useState();
   const [status, setStatus] = useState(initialStatus);
-  const statusConfig = chooseStatus(invoiceDate, status);
+
+  const statusConfig = useMemo(() => {
+    const utcNowTimestamp = moment(
+      moment().utc().format(UTC_DATE_TIME_FORMAT)
+    ).valueOf();
+    return chooseStatus(utcNowTimestamp, invoiceDate, status);
+  }, [status]);
 
   const onCancelInvoice = (event, ID) => {
     event.stopPropagation();
