@@ -4,11 +4,15 @@ const readFile = promisify(require('fs').readFile)
 const swaggerUi = require ('swagger-ui-express')
 const cds = require ('@sap/cds')
 const trace = cds.debug('openapi')
+const cors = require('cors')
 
 let app, host, docCache={}
 
 cds
-  .on ('bootstrap', _app => { app = _app })
+  .on ('bootstrap', _app => {
+    app = _app
+    app.use(cors())  // allow to be called from e.g. editor.swagger.io
+  })
   .on ('serving', service => {
     const apiPath = '/api-docs'+service.path
     console.log (`[Open API] - serving ${service.name} at ${apiPath}`)
