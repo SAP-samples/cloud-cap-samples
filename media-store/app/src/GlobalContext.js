@@ -1,5 +1,6 @@
 import React, { useMemo, createContext, useContext, useState } from "react";
 import axios from "axios";
+import { isEmpty, isArray } from "lodash";
 
 const globalContext = {
   error: {},
@@ -8,7 +9,6 @@ const globalContext = {
     ID: undefined,
     roles: [],
     email: undefined,
-    level: undefined,
     token: undefined,
   },
   locale: undefined,
@@ -19,46 +19,57 @@ const GlobalContext = createContext(globalContext);
 const useGlobals = () => useContext(GlobalContext);
 const AVAILABLE_LOCALES = ["en", "fr", "de"];
 
+const isValidUser = (user) => {
+  return (
+    !isEmpty(user) &&
+    user.ID &&
+    user.roles &&
+    user.email &&
+    user.token &&
+    isArray(user.roles)
+  );
+};
+
+const resetAxiosParams = () => {
+  delete axios.defaults.headers.common["Authorization"];
+  delete axios.defaults.userEntity;
+  axios.defaults.tracksEntity = "Tracks";
+};
+
+const setAxiosParams = (user) => {
+  axios.defaults.headers.common["Authorization"] = `Basic ${user.token}`;
+  axios.defaults.userID = user.ID;
+  if (user.roles.includes("customer")) {
+    axios.defaults.userEntity = `Customers/${user.ID}`;
+    axios.defaults.tracksEntity = "MarkedTracks";
+  } else {
+    axios.defaults.userEntity = `Employees/${user.ID}`;
+    axios.defaults.tracksEntity = "Tracks";
+  }
+};
+
 const useUserData = () => {
   const getUserDataFromLS = () => {
     let userFromLS;
     try {
       userFromLS = JSON.parse(localStorage.getItem("user"));
     } catch (e) {}
-    if (userFromLS) {
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Basic ${userFromLS.token}`;
-      axios.defaults.userID = userFromLS.ID;
-      axios.defaults.userEntity =
-        !!userFromLS && userFromLS.roles.includes("customer")
-          ? `Customers/${userFromLS.ID}`
-          : `Employees/${userFromLS.ID}`;
+    if (isValidUser(userFromLS)) {
+      setAxiosParams(userFromLS);
+      return userFromLS;
+    } else {
+      localStorage.removeItem("user");
+      resetAxiosParams();
     }
-    axios.defaults.tracksEntity =
-      !!userFromLS && userFromLS.roles.includes("customer")
-        ? "MarkedTracks"
-        : "Tracks";
-    return userFromLS;
   };
 
   const setUserDataToLS = (value) => {
-    if (!!value) {
+    if (isValidUser(value)) {
       localStorage.setItem("user", JSON.stringify(value));
-      axios.defaults.headers.common["Authorization"] = `Basic ${value.token}`;
-      axios.defaults.tracksEntity = value.roles.includes("customer")
-        ? "MarkedTracks"
-        : "Tracks";
-      axios.defaults.userEntity =
-        !!value && value.roles.includes("customer")
-          ? `Customers/${value.ID}`
-          : `Employees/${value.ID}`;
+      setAxiosParams(value);
     } else {
       localStorage.removeItem("user");
-      delete axios.defaults.headers.common["Authorization"];
-      delete axios.defaults.userEntity;
-      axios.defaults.tracksEntity =
-        !!value && value.roles.includes("customer") ? "MarkedTracks" : "Tracks";
+      resetAxiosParams();
     }
   };
 
