@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Card, Button } from "antd";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import { useGlobals } from "../../GlobalContext";

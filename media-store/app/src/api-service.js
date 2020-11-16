@@ -3,7 +3,8 @@ import axios from "axios";
 
 // in dev mode using provided api
 // in prod mode using proxy
-const API = process.env.API || "api/";
+const API =
+  process.env.NODE_ENV === "development" ? "http://localhost:4004/" : "api/";
 
 const BROWSE_TRACKS_SERVICE = `${API}browse-tracks`;
 const INVOICES_SERVICE = `${API}browse-invoices`;

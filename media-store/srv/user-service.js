@@ -28,9 +28,9 @@ module.exports = async function () {
     }
     const userEqualPassword = await new Promise((resolve, reject) =>
       bcrypt.compare(password, userFromDb.password, (err, res) => {
-        if (err) {
+        if (err || res === false) {
           reject(err);
-        } else if (res) {
+        } else {
           resolve(res);
         }
       })
