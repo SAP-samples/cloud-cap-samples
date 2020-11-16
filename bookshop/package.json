@@ -11,7 +11,7 @@
     "genres": "cds serve test/genres.cds",
     "start": "cds run",
     "watch": "cds watch",
-    "to-openapi": "cds compile srv --to openapi -s CatalogService -o srv --openapi:diagram && mv srv/srv.openapi3.json srv/CatalogService.openapi3.json"
+    "to-openapi": "cds compile srv --to openapi -s all -o srv --openapi:diagram"
   },
   "cds": {
     "requires": {
