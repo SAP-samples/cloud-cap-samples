@@ -17,7 +17,7 @@ entity Reviews {
   liked    : Integer default 0; // counter for likes as helpful review (count of all _likes belonging to this review)
 }
 
-type Rating : Decimal(3,2) enum {
+type Rating : Integer enum {
   Best  = 5;
   Good  = 4;
   Avg   = 3;

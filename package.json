@@ -11,7 +11,6 @@
     "@capire/hello": "./hello",
     "@capire/media": "./media",
     "@capire/orders": "./orders",
-    "@capire/reviewed": "./reviewed",
     "@capire/reviews": "./reviews"
   },
   "devDependencies": {

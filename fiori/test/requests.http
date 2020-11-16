@@ -2,6 +2,8 @@
 @me = {{$processEnv USER}}:
 @bookshop = http://localhost:4004
 @reviews-service = {{bookshop}}/reviews
+
+# Uncomment this when running separate reviews service
 # @reviews-service = http://localhost:5005/reviews
 
 
@@ -20,7 +22,7 @@ POST {{reviews-service}}/Reviews
 Content-Type: application/json;IEEE754Compatible=true
 Authorization: Basic {{me}}
 
-{"subject":"201", "title":"boo"}
+{"subject":"201", "title":"boo" }
 
 
 
@@ -44,3 +46,9 @@ GET {{bookshop}}/browse/Books(201)?
 &$select=ID,title,rating
 &$expand=reviews
 # Note: the $expand only works in case of ReviewsService in same process
+
+
+
+###
+
+GET {{bookshop}}/orders/Orders
