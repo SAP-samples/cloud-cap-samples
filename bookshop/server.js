@@ -6,7 +6,7 @@ const cds = require ('@sap/cds')
 const trace = cds.debug('openapi')
 const cors = require('cors')
 
-let app, host, docCache={}
+let app, docCache={}
 
 cds
   .on ('bootstrap', _app => {
@@ -17,16 +17,15 @@ cds
     const apiPath = '/api-docs'+service.path
     console.log (`[Open API] - serving ${service.name} at ${apiPath}`)
     app.use(apiPath, async (req, _, next) => {
-      req.swaggerDoc = await toOpenApiDoc(service, host, docCache)
+      req.swaggerDoc = await toOpenApiDoc(service, docCache)
       next()
     }, swaggerUi.serve, swaggerUi.setup())
     addLinkToIndexHtml(service, apiPath)
   })
-  .on ('listening', ({server})=> { host = 'localhost:'+server.address().port })
 
-async function toOpenApiDoc(service, host, cache) {
+async function toOpenApiDoc(service, cache) {
   if (!cache[service.name]) {
-    const spec = await openApiFromFile(service, host)
+    const spec = await openApiFromFile(service)
     if (spec) {  // pre-compiled spec file available?
       cache[service.name] = spec
     }
