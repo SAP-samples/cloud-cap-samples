@@ -20,6 +20,7 @@
     "sqlite3": "^5"
   },
   "scripts": {
+    "registry": "cd .registry && node server.js",
     "bookshop": "cds watch bookshop",
     "fiori": "cds watch fiori",
     "media": "cds watch media",

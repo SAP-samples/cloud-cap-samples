@@ -48,6 +48,22 @@ npx jest
 > While mocha is a bit smaller and faster, jest runs tests in parallel and isolation, which allows to run all tests.
 
 
+### Serve `npm` 
+
+We've simple npm registry mock included which allows you to do an `npm install @capire/<package>` anywhere locally. Use it as follows:
+
+1. Start the @capire registry:
+```sh
+npm run registry
+```
+> While running this will have `@capire:registry=http://localhost:4444` set with npmrc. 
+
+2. Install one of the @capire packages wherever you like, e.g.:
+```sh
+npm add @capire/common @capire/bookshop
+```
+
+
 ## Get Support
 
 Check out the documentation at [https://cap.cloud.sap](https://cap.cloud.sap). <br>
