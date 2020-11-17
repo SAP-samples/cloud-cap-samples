@@ -28,8 +28,7 @@ annotate bookshop.Customers with @(Communication.Contact  : {
         surname: lastName,
         given:   firstName
     },    
-    bday:  dateOfBirth,
-    email: emailAddress
+    bday:  dateOfBirth
 }); 
 
 // annotations for Audit Log

@@ -24,16 +24,13 @@ using { sap.capire.bookshop.OrderItems } from '@capire/orders';
                      Items.netAmount as Item_NetAmount};
   
  //  annotate new view 
-     annotate PDMService.OrderItemView with @(PersonalData.EntitySemantics: 'LegalGround')
+     annotate PDMService.OrderItemView with @(PersonalData.EntitySemantics: 'ContractRelated')
            {  
               Item_ID        @PersonalData.FieldSemantics: 'LegalGroundID';
               Customer_ID    @PersonalData.FieldSemantics: 'DataSubjectID';
               Customer_Email @PersonalData.IsPotentiallyPersonal;
            };
 
-     annotate Customers                with @PersonalData.DataSubjectRole: 'Customer';
-     annotate CustomerPostalAddress    with @PersonalData.DataSubjectRole: 'Customer';
-     annotate PDMService.OrderItemView with @PersonalData.DataSubjectRole: 'Customer';
  //  Data Privacy annotations on 'Customers' and 'CustomerPostalAddress' are derived from original entity definitions           
 
  };
