@@ -1,15 +1,14 @@
 const express = require ('express')
 const cds = require ('@sap/cds')
 
-const _imported = (path,file) => express.static(
-  require.resolve(`${path}/${file}`).slice(0,-1-file.length)
-)
-
 cds.once('bootstrap',(app)=>{
+  const {dirname} = require ('path')
   // serving the orders app imported from @capire/orders
-  app.use ('/orders/webapp', _imported('@capire/orders/app/orders/webapp','manifest.json'))
+  const orders_app = dirname (require.resolve('@capire/orders/app/orders/webapp/manifest.json'))
+  app.use ('/orders/webapp', express.static(orders_app))
   // serving the vue.js app imported from @capire/bookshop
-  app.use ('/vue', _imported('@capire/bookshop/app/vue','index.html'))
+  const vue_app = dirname (require.resolve('@capire/bookshop/app/vue/index.html'))
+  app.use ('/vue', express.static(vue_app))
 })
 
 cds.once('served', require('./srv/mashup'))
