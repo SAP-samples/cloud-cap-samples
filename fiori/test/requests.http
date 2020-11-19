@@ -1,54 +1,48 @@
 
-@me = {{$processEnv USER}}:
 @bookshop = http://localhost:4004
 @reviews-service = {{bookshop}}/reviews
-
-# Uncomment this when running separate reviews service
-# @reviews-service = http://localhost:5005/reviews
+# Uncomment this when running a separate reviews service
+@reviews-service = http://localhost:4005/reviews
 
 
 
 #################################################
 #
-#   To ReviewsService
+#   Reviews Service
 #
-# move the right down:
 
-### Get all reviews
 GET {{reviews-service}}/Reviews
 
-### Add a new review (with random rating)
-POST {{reviews-service}}/Reviews
-Content-Type: application/json;IEEE754Compatible=true
-Authorization: Basic {{me}}
+###
 
-{"subject":"201", "title":"boo" }
+POST {{reviews-service}}/Reviews
+Authorization: Basic {{$processEnv USER}}:
+Content-Type: application/json
+
+{"subject":"201", "title":"boo", "rating":3 }
 
 
 
 #################################################
 #
-#   Bookshop Requests involving reviews
-#   (both in-process as well as separate one)
+#   Bookshop Services
 #
 
-### Request to CatalogService > delegated to ReviewsService
-GET {{bookshop}}/browse/Books(201)/reviews?
-&$select=rating,date,reviewer,title
-
-### Alternative OData URL
 GET {{bookshop}}/browse/Books/201/reviews?
 &$select=rating,date,title
 &$top=3
 
 ###
+
 GET {{bookshop}}/browse/Books(201)?
 &$select=ID,title,rating
 &$expand=reviews
-# Note: the $expand only works in case of ReviewsService in same process
 
 
 
-###
+#################################################
+#
+#   Bookshop Services
+#
 
 GET {{bookshop}}/orders/Orders

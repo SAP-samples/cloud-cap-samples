@@ -10,6 +10,7 @@ describe('Messaging', ()=>{
 
     it ('should bootstrap sqlite in-memory db', async()=>{
         const db = await cds.deploy (_model) .to ('sqlite::memory:')
+        await db.delete('Reviews')
         expect (db.model) .not.undefined
     })
 
