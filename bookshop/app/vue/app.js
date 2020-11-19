@@ -9,7 +9,7 @@ const books = new Vue ({
 
     data: {
         list: [],
-        book: { descr:'( click on a row to see details... )' },
+        book: undefined,
         order: { amount:1, succeeded:'', failed:'' }
     },
 
@@ -31,7 +31,7 @@ const books = new Vue ({
         },
 
         async submitOrder () {
-            const {book,order} = books, amount = parseInt (order.amount) || 1
+            const {book,order} = books, amount = parseInt (order.amount) || 1 // REVISIT: Okra should be less strict
             try {
                 const res = await POST(`/submitOrder`, { amount, book: book.ID })
                 book.stock = res.data.stock
