@@ -4,5 +4,10 @@
   "dependencies": {
     "@capire/common": "*",
     "@sap/cds": "^4.3.0"
+  },
+  "cds": {
+    "odata": {
+      "containment": true
+    }
   }
 }
