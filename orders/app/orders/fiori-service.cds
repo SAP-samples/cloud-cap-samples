@@ -71,14 +71,14 @@ annotate OrdersService.Orders with @(
 annotate OrderItems with @(
 	UI: {
 		LineItem: [
-			{Value: article, Label:'Article ID'},
-			{Value: title, Label:'Article Title'},
+			{Value: product_ID, Label:'Product ID'},
+			{Value: title, Label:'Product Title'},
 			{Value: price, Label:'Unit Price'},
 			{Value: amount, Label:'Quantity'},
 		],
 		Identification: [ //Is the main field group
 			{Value: amount, Label:'Amount'},
-			{Value: title, Label:'Article'},
+			{Value: title, Label:'Product'},
 			{Value: price, Label:'Unit Price'},
 		],
 		Facets: [
