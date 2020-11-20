@@ -42,7 +42,7 @@ GET {{bookshop}}/browse/Books(201)?
 
 #################################################
 #
-#   Bookshop Services
+#   Orders Service
 #
 
 GET {{bookshop}}/orders/Orders
