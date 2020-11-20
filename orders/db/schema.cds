@@ -4,19 +4,16 @@ namespace sap.capire.orders;
 
 entity Orders : cuid, managed {
   OrderNo  : String @title:'Order Number'; //> readable key
-  Items    : Composition of many OrderItems on Items.order = $self;
+  Items    : Composition of many {
+    key ID    : UUID;
+    @assert.integrity:false // REVISIT: this is a temporary workaround for a glitch in cds-runtime
+    product   : Association to Products;
+    amount    : Integer;
+    title     : String;
+    price     : Double;
+  };
   buyer    : User;
   currency : Currency;
-}
-
-entity OrderItems {
-  key ID    : UUID;
-  order     : Association to Orders;
-  @assert.integrity:false // REVISIT: this is a temporary workaround for a glitch in cds-runtime
-  product   : Association to Products;
-  amount    : Integer;
-  title     : String;
-  price     : Double;
 }
 
 /** This is a stand-in for arbitrary ordered Products */

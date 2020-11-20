@@ -10,7 +10,7 @@
 
 
 
-using { OrdersService, sap.capire.orders.OrderItems } from '../../srv/orders-service';
+using { OrdersService } from '../../srv/orders-service';
 
 
 @odata.draft.enabled
@@ -68,7 +68,7 @@ annotate OrdersService.Orders with @(
 
 
 
-annotate OrderItems with @(
+annotate OrdersService.Orders_Items with @(
 	UI: {
 		LineItem: [
 			{Value: product_ID, Label:'Product ID'},
