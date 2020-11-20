@@ -12,8 +12,15 @@ entity Orders : cuid, managed {
 entity OrderItems {
   key ID    : UUID;
   order     : Association to Orders;
+  @assert.integrity:false // REVISIT: this is a temporary workaround for a glitch in cds-runtime
+  product   : Association to Products;
   amount    : Integer;
-  article   : String; //> to allow for arbitrary keys
   title     : String;
   price     : Double;
+}
+
+/** This is a stand-in for arbitrary ordered Products */
+@cds.persistence.skip:'always'
+entity Products {
+  key ID : String;
 }
