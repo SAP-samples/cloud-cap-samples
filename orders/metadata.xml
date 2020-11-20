@@ -18,13 +18,13 @@
         </EntitySet>
         <EntitySet Name="Currencies_texts" EntityType="OrdersService.Currencies_texts"/>
         <EntitySet Name="Orders" EntityType="OrdersService.Orders">
-          <NavigationPropertyBinding Path="Items" Target="OrderItems"/>
+          <NavigationPropertyBinding Path="Items" Target="Orders_Items"/>
           <NavigationPropertyBinding Path="currency" Target="Currencies"/>
           <NavigationPropertyBinding Path="SiblingEntity" Target="Orders"/>
         </EntitySet>
-        <EntitySet Name="OrderItems" EntityType="OrdersService.OrderItems">
-          <NavigationPropertyBinding Path="order" Target="Orders"/>
-          <NavigationPropertyBinding Path="SiblingEntity" Target="OrderItems"/>
+        <EntitySet Name="Orders_Items" EntityType="OrdersService.Orders_Items">
+          <NavigationPropertyBinding Path="up_" Target="Orders"/>
+          <NavigationPropertyBinding Path="SiblingEntity" Target="Orders_Items"/>
         </EntitySet>
       </EntityContainer>
       <EntityType Name="Currencies">
@@ -79,7 +79,7 @@
         <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
         <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
         <Property Name="OrderNo" Type="Edm.String"/>
-        <NavigationProperty Name="Items" Type="Collection(OrdersService.OrderItems)" Partner="order">
+        <NavigationProperty Name="Items" Type="Collection(OrdersService.Orders_Items)" Partner="up_">
           <OnDelete Action="Cascade"/>
         </NavigationProperty>
         <Property Name="buyer" Type="Edm.String" MaxLength="255"/>
@@ -93,14 +93,14 @@
         <NavigationProperty Name="DraftAdministrativeData" Type="OrdersService.DraftAdministrativeData" ContainsTarget="true"/>
         <NavigationProperty Name="SiblingEntity" Type="OrdersService.Orders"/>
       </EntityType>
-      <EntityType Name="OrderItems">
+      <EntityType Name="Orders_Items">
         <Key>
           <PropertyRef Name="ID"/>
           <PropertyRef Name="IsActiveEntity"/>
         </Key>
-        <Property Name="order_ID" Type="Edm.Guid"/>
-        <NavigationProperty Name="order" Type="OrdersService.Orders" Partner="Items">
-          <ReferentialConstraint Property="order_ID" ReferencedProperty="ID"/>
+        <Property Name="up__ID" Type="Edm.Guid"/>
+        <NavigationProperty Name="up_" Type="OrdersService.Orders" Partner="Items">
+          <ReferentialConstraint Property="up__ID" ReferencedProperty="ID"/>
         </NavigationProperty>
         <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
         <Property Name="amount" Type="Edm.Int32"/>
@@ -111,17 +111,17 @@
         <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false"/>
         <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false"/>
         <NavigationProperty Name="DraftAdministrativeData" Type="OrdersService.DraftAdministrativeData" ContainsTarget="true"/>
-        <NavigationProperty Name="SiblingEntity" Type="OrdersService.OrderItems"/>
+        <NavigationProperty Name="SiblingEntity" Type="OrdersService.Orders_Items"/>
       </EntityType>
-      <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
-        <Parameter Name="in" Type="OrdersService.OrderItems"/>
-        <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
-        <ReturnType Type="OrdersService.OrderItems"/>
-      </Action>
       <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
         <Parameter Name="in" Type="OrdersService.Orders"/>
         <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
         <ReturnType Type="OrdersService.Orders"/>
+      </Action>
+      <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="OrdersService.Orders_Items"/>
+        <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+        <ReturnType Type="OrdersService.Orders_Items"/>
       </Action>
       <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
         <Parameter Name="in" Type="OrdersService.Orders"/>
@@ -391,7 +391,7 @@
       <Annotations Target="OrdersService.Orders/DraftAdministrativeData">
         <Annotation Term="UI.Hidden" Bool="true"/>
       </Annotations>
-      <Annotations Target="OrdersService.OrderItems">
+      <Annotations Target="OrdersService.Orders_Items">
         <Annotation Term="UI.Facets">
           <Collection>
             <Record Type="UI.ReferenceFacet">
@@ -437,26 +437,26 @@
           </Collection>
         </Annotation>
       </Annotations>
-      <Annotations Target="OrdersService.EntityContainer/OrderItems">
+      <Annotations Target="OrdersService.EntityContainer/Orders_Items">
         <Annotation Term="Common.DraftNode">
           <Record Type="Common.DraftNodeType">
             <PropertyValue Property="PreparationAction" String="OrdersService.draftPrepare"/>
           </Record>
         </Annotation>
       </Annotations>
-      <Annotations Target="OrdersService.OrderItems/amount">
+      <Annotations Target="OrdersService.Orders_Items/amount">
         <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
       </Annotations>
-      <Annotations Target="OrdersService.OrderItems/IsActiveEntity">
+      <Annotations Target="OrdersService.Orders_Items/IsActiveEntity">
         <Annotation Term="UI.Hidden" Bool="true"/>
       </Annotations>
-      <Annotations Target="OrdersService.OrderItems/HasActiveEntity">
+      <Annotations Target="OrdersService.Orders_Items/HasActiveEntity">
         <Annotation Term="UI.Hidden" Bool="true"/>
       </Annotations>
-      <Annotations Target="OrdersService.OrderItems/HasDraftEntity">
+      <Annotations Target="OrdersService.Orders_Items/HasDraftEntity">
         <Annotation Term="UI.Hidden" Bool="true"/>
       </Annotations>
-      <Annotations Target="OrdersService.OrderItems/DraftAdministrativeData">
+      <Annotations Target="OrdersService.Orders_Items/DraftAdministrativeData">
         <Annotation Term="UI.Hidden" Bool="true"/>
       </Annotations>
     </Schema>

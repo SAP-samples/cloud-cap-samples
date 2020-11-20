@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:DataServices>
+    <Schema Namespace="WithoutDraft" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="Boo" EntityType="WithoutDraft.Boo"/>
+      </EntityContainer>
+      <EntityType Name="Boo">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <NavigationProperty Name="bar" Type="Collection(WithoutDraft.Foo_bar)" Partner="up_" ContainsTarget="true"/>
+      </EntityType>
+      <EntityType Name="Foo_bar">
+        <Key>
+          <PropertyRef Name="pos"/>
+        </Key>
+        <NavigationProperty Name="up_" Type="WithoutDraft.Boo" Nullable="false" Partner="bar"/>
+        <Property Name="pos" Type="Edm.Int32" Nullable="false"/>
+      </EntityType>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
