@@ -31,7 +31,7 @@ module.exports = async()=>{ // called by server.js
     const { title, price } = await db.tx(msg).read (Books, book, b => { b.title, b.price })
     return OrdersService.tx(msg).create ('Orders').entries({
       OrderNo: 'Order at '+ (new Date).toLocaleString(),
-      Items: [{ article:`${book}`, title, price, amount }],
+      Items: [{ product:{ID:`${book}`}, title, price, amount }],
       buyer, createdBy: buyer
     })
   })
@@ -51,8 +51,8 @@ module.exports = async()=>{ // called by server.js
   //
   OrdersService.on ('OrderChanged', async (msg) => {
     console.debug ('> received:', msg.event, msg.data)
-    const { article, deltaAmount } = msg.data
-    return UPDATE (Books) .where ('ID =', article)
+    const { product, deltaAmount } = msg.data
+    return UPDATE (Books) .where ('ID =', product)
     .and ('stock >=', deltaAmount)
     .set ('stock -=', deltaAmount)
   })
