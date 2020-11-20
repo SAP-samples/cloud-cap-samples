@@ -12,10 +12,19 @@
   <edmx:DataServices>
     <Schema Namespace="OrdersService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
       <EntityContainer Name="EntityContainer">
-        <EntitySet Name="Currencies" EntityType="OrdersService.Currencies"/>
+        <EntitySet Name="Currencies" EntityType="OrdersService.Currencies">
+          <NavigationPropertyBinding Path="texts" Target="Currencies_texts"/>
+          <NavigationPropertyBinding Path="localized" Target="Currencies_texts"/>
+        </EntitySet>
+        <EntitySet Name="Currencies_texts" EntityType="OrdersService.Currencies_texts"/>
         <EntitySet Name="Orders" EntityType="OrdersService.Orders">
+          <NavigationPropertyBinding Path="Items" Target="Orders_Items"/>
           <NavigationPropertyBinding Path="currency" Target="Currencies"/>
           <NavigationPropertyBinding Path="SiblingEntity" Target="Orders"/>
+        </EntitySet>
+        <EntitySet Name="Orders_Items" EntityType="OrdersService.Orders_Items">
+          <NavigationPropertyBinding Path="up_" Target="Orders"/>
+          <NavigationPropertyBinding Path="SiblingEntity" Target="Orders_Items"/>
         </EntitySet>
       </EntityContainer>
       <EntityType Name="Currencies">
@@ -29,16 +38,22 @@
         <Property Name="numcode" Type="Edm.Int32"/>
         <Property Name="exponent" Type="Edm.Int32"/>
         <Property Name="minor" Type="Edm.String"/>
-        <NavigationProperty Name="texts" Type="Collection(OrdersService.Currencies_texts)" ContainsTarget="true"/>
-        <NavigationProperty Name="localized" Type="OrdersService.Currencies_texts"/>
+        <NavigationProperty Name="texts" Type="Collection(OrdersService.Currencies_texts)">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <NavigationProperty Name="localized" Type="OrdersService.Currencies_texts">
+          <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+        </NavigationProperty>
       </EntityType>
       <EntityType Name="Currencies_texts">
         <Key>
           <PropertyRef Name="locale"/>
+          <PropertyRef Name="code"/>
         </Key>
         <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
         <Property Name="name" Type="Edm.String" MaxLength="255"/>
         <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+        <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
       </EntityType>
       <EntityType Name="DraftAdministrativeData">
         <Key>
@@ -64,7 +79,9 @@
         <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
         <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
         <Property Name="OrderNo" Type="Edm.String"/>
-        <NavigationProperty Name="Items" Type="Collection(OrdersService.Orders_Items)" Partner="up_" ContainsTarget="true"/>
+        <NavigationProperty Name="Items" Type="Collection(OrdersService.Orders_Items)" Partner="up_">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
         <Property Name="buyer" Type="Edm.String" MaxLength="255"/>
         <NavigationProperty Name="currency" Type="OrdersService.Currencies">
           <ReferentialConstraint Property="currency_code" ReferencedProperty="code"/>
@@ -78,10 +95,14 @@
       </EntityType>
       <EntityType Name="Orders_Items">
         <Key>
+          <PropertyRef Name="up__ID"/>
           <PropertyRef Name="ID"/>
           <PropertyRef Name="IsActiveEntity"/>
         </Key>
-        <NavigationProperty Name="up_" Type="OrdersService.Orders" Nullable="false" Partner="Items"/>
+        <Property Name="up__ID" Type="Edm.Guid" Nullable="false"/>
+        <NavigationProperty Name="up_" Type="OrdersService.Orders" Nullable="false" Partner="Items">
+          <ReferentialConstraint Property="up__ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
         <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
         <Property Name="amount" Type="Edm.Int32"/>
         <Property Name="title" Type="Edm.String"/>
@@ -139,6 +160,10 @@
       </Annotations>
       <Annotations Target="OrdersService.Currencies_texts/descr">
         <Annotation Term="Common.Label" String="{i18n>Description}"/>
+      </Annotations>
+      <Annotations Target="OrdersService.Currencies_texts/code">
+        <Annotation Term="Common.Label" String="{i18n>CurrencyCode}"/>
+        <Annotation Term="Common.Text" Path="name"/>
       </Annotations>
       <Annotations Target="OrdersService.DraftAdministrativeData">
         <Annotation Term="Common.Label" String="{i18n>Draft_DraftAdministrativeData}"/>
@@ -411,6 +436,13 @@
               <PropertyValue Property="Label" String="Quantity"/>
             </Record>
           </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="OrdersService.EntityContainer/Orders_Items">
+        <Annotation Term="Common.DraftNode">
+          <Record Type="Common.DraftNodeType">
+            <PropertyValue Property="PreparationAction" String="OrdersService.draftPrepare"/>
+          </Record>
         </Annotation>
       </Annotations>
       <Annotations Target="OrdersService.Orders_Items/amount">

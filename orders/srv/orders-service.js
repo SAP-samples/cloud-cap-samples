@@ -3,13 +3,13 @@ class OrdersService extends cds.ApplicationService {
 
   /** register custom handlers */
   init(){
-    const { OrderItems } = this.entities
+    const { Orders_Items:OrderItems } = this.entities
 
     this.before ('UPDATE', 'Orders', async function(req) {
       const { ID, Items } = req.data
       if (Items) for (let { product_ID, amount } of Items) {
         const { amount:before } = await cds.tx(req).run (
-          SELECT.one.from (OrderItems, oi => oi.amount) .where ({order_ID:ID, product_ID})
+          SELECT.one.from (OrderItems, oi => oi.amount) .where ({up__ID:ID, product_ID})
         )
         if (amount != before) this.orderChanged (product_ID, amount-before)
       }
@@ -18,7 +18,7 @@ class OrdersService extends cds.ApplicationService {
     this.before ('DELETE', 'Orders', async function(req) {
       const { ID } = req.data
       const Items = await cds.tx(req).run (
-        SELECT.from (OrderItems, oi => { oi.product_ID, oi.amount }) .where ({order_ID:ID})
+        SELECT.from (OrderItems, oi => { oi.product_ID, oi.amount }) .where ({up__ID:ID})
       )
       if (Items) for (let it of Items) this.orderChanged (it.product_ID, -it.amount)
     })
