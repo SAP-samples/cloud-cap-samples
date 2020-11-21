@@ -1,26 +1,26 @@
 using { Currency, User, managed, cuid } from '@sap/cds/common';
-using from '@capire/common';
 namespace sap.capire.orders;
 
 entity Orders : cuid, managed {
   OrderNo  : String @title:'Order Number'; //> readable key
-  Items    : Composition of many OrderItems on Items.order = $self;
+  Items    : Composition of many Orders_Items on Items.up_ = $self;
   buyer    : User;
   currency : Currency;
 }
 
-entity OrderItems {
+entity Orders_Items {
   key ID    : UUID;
-  order     : Association to Orders;
-  @assert.integrity:false // REVISIT: this is a temporary workaround for a glitch in cds-runtime
-  product   : Association to Products;
+  up_       : Association to Orders;
+  product   : Association to Products @assert.integrity:false; // REVISIT: this is a temporary workaround for a glitch in cds-runtime
   amount    : Integer;
   title     : String;
   price     : Double;
 }
 
 /** This is a stand-in for arbitrary ordered Products */
-@cds.persistence.skip:'always'
-entity Products {
+entity Products @(cds.persistence.skip:'always') {
   key ID : String;
 }
+
+// Activate extension package
+using from '@capire/common';
