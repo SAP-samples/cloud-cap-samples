@@ -11,7 +11,7 @@ entity Orders : cuid, managed {
 entity Orders_Items {
   key ID    : UUID;
   up_       : Association to Orders;
-  product   : Association to Products @assert.integrity:false; // REVISIT: this is a temporary workaround for a glitch in cds-runtime
+  product   : Association to Products;
   amount    : Integer;
   title     : String;
   price     : Double;
