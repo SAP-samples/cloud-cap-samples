@@ -1,4 +1,4 @@
-ID;order_ID;amount;product_ID;title;price
+ID;up__ID;amount;product_ID;title;price
 58040e66-1dcd-4ffb-ab10-fdce32028b79;7e2f2640-6866-4dcf-8f4d-3027aa831cad;1;201;Wuthering Heights;11.11
 64e718c9-ff99-47f1-8ca3-950c850777d4;7e2f2640-6866-4dcf-8f4d-3027aa831cad;1;271;Catweazle;15
 e9641166-e050-4261-bfee-d1e797e6cb7f;64e718c9-ff99-47f1-8ca3-950c850777d4;2;252;Eleonora;28

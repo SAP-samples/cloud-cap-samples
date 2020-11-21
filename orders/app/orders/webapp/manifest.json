@@ -121,7 +121,7 @@
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings" : {
-                            "entitySet": "OrderItems"
+                            "entitySet": "Orders_Items"
                         }
                     }
                 },
