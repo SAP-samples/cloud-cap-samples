@@ -1,12 +1,9 @@
+const { expect } = require('../test')
 const cds = require('@sap/cds/lib')
-const cwd = process.cwd(); process.chdir (__dirname) //> only for internal CI/CD@SAP
-const {expect} = cds.test
 const _model = '@capire/reviews'
 cds.User = cds.User.Privileged // hard core monkey patch
 
 describe('Messaging', ()=>{
-
-    after(()=> process.chdir(cwd))
 
     it ('should bootstrap sqlite in-memory db', async()=>{
         const db = await cds.deploy (_model) .to ('sqlite::memory:')

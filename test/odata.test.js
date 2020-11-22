@@ -1,7 +1,8 @@
+const { GET, expect } = require('../test') .run ('bookshop')
 const cds = require('@sap/cds/lib'); cds.User = cds.User.Privileged // skip auth
-const { GET, expect } = cds.test('bookshop').in(__dirname,'..')
 
 describe('OData Protocol', () => {
+
 
   it('serves $metadata documents in v4', async () => {
     const { headers, status, data } = await GET `/browse/$metadata`

@@ -1,5 +1,4 @@
-const cds = require('@sap/cds/lib')
-const { GET, expect } = cds.test('serve','hello/world.cds').in(__dirname,'..')
+const { GET, expect } = require('../test') .run ('serve','hello/world.cds')
 
 describe('Hello world!', () => {
 
