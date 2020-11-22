@@ -1,6 +1,5 @@
-const cwd = process.cwd(); process.chdir (__dirname) //> only for internal CI/CD@SAP
+const {expect} = require('../test')
 const cds = require('@sap/cds/lib')
-const {expect} = cds.test
 
 // monkey patching older releases:
 if (!cds.compile.cdl) cds.compile.cdl = cds.parse
@@ -24,8 +23,6 @@ describe('Hierarchical Data', ()=>{
 		expect (cds.db) .to.exist
     expect (cds.db.model) .to.exist
 	})
-
-	after(()=> process.chdir(cwd))
 
 	it ('supports deeply nested inserts', ()=> INSERT.into (Cats,
     { ID:100, name:'Some Cats...', children:[
