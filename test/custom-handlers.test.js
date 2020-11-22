@@ -1,5 +1,5 @@
+const { GET, POST, expect } = require('../test') .run ('bookshop')
 const cds = require('@sap/cds/lib'); cds.User = cds.User.Privileged // skip auth
-const { GET, POST, expect } = cds.test('bookshop').in(__dirname,'..')
 
 describe('Custom Handlers', () => {
 
