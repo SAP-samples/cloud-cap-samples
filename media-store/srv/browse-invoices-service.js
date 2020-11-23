@@ -31,18 +31,29 @@ module.exports = async function () {
     const utcNowDateTime = moment().utc().format(UTC_DATE_TIME_FORMAT);
 
     const transaction = await db.tx(req);
+
+    let { ID: lastInvoiceId } = await transaction.run(
+      SELECT.one(Invoices).columns("ID").orderBy({ ID: "desc" })
+    );
+
+    let { ID: lastInvoiceItemId } = await transaction.run(
+      SELECT.one(InvoiceItems).columns("ID").orderBy({ ID: "desc" })
+    );
+
     const {
       results: [{ lastID: invoiceID }],
     } = await transaction.run(
       INSERT.into(Invoices)
-        .columns("customer_ID", "total", "invoiceDate")
-        .values(customerId, total, utcNowDateTime)
+        .columns("ID", "customer_ID", "total", "invoiceDate")
+        .values(++lastInvoiceId, customerId, total, utcNowDateTime)
     );
+
     await transaction.run(
       INSERT.into(InvoiceItems)
-        .columns("invoice_ID", "track_ID", "unitPrice")
+        .columns("ID", "invoice_ID", "track_ID", "unitPrice")
         .rows(
-          tracks.map(({ ID: trackID, unitPrice }) => [
+          tracks.map(({ ID: trackID, unitPrice }, index) => [
+            lastInvoiceItemId + index + 1,
             invoiceID,
             trackID,
             unitPrice,

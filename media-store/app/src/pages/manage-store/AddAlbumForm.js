@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Form, Input, Select } from "antd";
 import { useSearch } from "@umijs/hooks";
-import { useErrors } from "../../useErrors";
-import { fetchArtistsByName } from "../../api-service";
+import { useErrors } from "../../hooks/useErrors";
+import { fetchArtistsByName } from "../../api/calls";
 
 const REQUIRED = [
   {

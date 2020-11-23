@@ -3,9 +3,10 @@ import { Form, Radio, Button, message } from "antd";
 import { TrackForm } from "./TrackForm";
 import { AddArtistForm } from "./AddArtistForm";
 import { AddAlbumForm } from "./AddAlbumForm";
-import { useErrors } from "../../useErrors";
-import { useGlobals } from "../../GlobalContext";
-import { addTrack, addArtist, addAlbum } from "../../api-service";
+import { useErrors } from "../../hooks/useErrors";
+import { useAppState } from "../../hooks/useAppState";
+import { addTrack, addArtist, addAlbum } from "../../api/calls";
+import { MESSAGE_TIMEOUT } from "../../util/constants";
 import "./ManageStore.css";
 
 const FORM_TYPES = {
@@ -14,8 +15,6 @@ const FORM_TYPES = {
   album: "album",
   playlist: "",
 };
-const DEFAULT_MEDIA_TYPE_ID = 1;
-const MESSAGE_TIMEOUT = 2;
 
 const chooseForm = (type) => {
   return (
@@ -28,7 +27,7 @@ const chooseForm = (type) => {
 const ManageStore = () => {
   const [form] = Form.useForm();
   const { handleError } = useErrors();
-  const { setLoading } = useGlobals();
+  const { setLoading } = useAppState();
   const [formType, setFormType] = useState("track");
 
   useEffect(() => {
@@ -53,8 +52,8 @@ const ManageStore = () => {
           name: data.name,
           composer: data.composer,
           album: { ID: data.albumID },
-          mediaType: { ID: DEFAULT_MEDIA_TYPE_ID },
           genre: { ID: data.genreID },
+          unitPrice: data.unitPrice.toString(),
         });
         break;
       case FORM_TYPES.artist:
@@ -68,11 +67,11 @@ const ManageStore = () => {
 
     promise
       .then(() => {
-        setLoading(false);
         message.success("Entity successfully created", MESSAGE_TIMEOUT);
         form.resetFields();
       })
-      .catch(handleError);
+      .catch(handleError)
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -95,13 +94,9 @@ const ManageStore = () => {
     >
       <Form.Item label="Entity" name="type">
         <Radio.Group onChange={onChangeForm}>
-          <Radio.Button value="track" style={{ borderRadius: "6px 0 0 6px" }}>
-            Track
-          </Radio.Button>
+          <Radio.Button value="track">Track</Radio.Button>
           <Radio.Button value="album">Album</Radio.Button>
-          <Radio.Button value="artist" style={{ borderRadius: "0 6px 6px 0" }}>
-            Artist
-          </Radio.Button>
+          <Radio.Button value="artist">Artist</Radio.Button>
         </Radio.Group>
       </Form.Item>
       {formElement}
@@ -111,7 +106,6 @@ const ManageStore = () => {
           span: 14,
           offset: 4,
         }}
-        style={{ borderRadius: 6 }}
       >
         <Button onClick={() => form.submit()}>Create</Button>
       </Form.Item>

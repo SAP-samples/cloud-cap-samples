@@ -1,3 +1,22 @@
+@import "~antd/dist/antd.css";
+
+html {
+  overflow: hidden;
+}
+#root {
+  height: 100%;
+}
+section.ant-layout {
+  height: 100vh;
+  overflow: auto;
+}
+
+/* Layout
+*/
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
 .App {
   text-align: center;
 }
@@ -35,8 +54,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.ant-menu.ant-menu-sub.ant-menu-vertical {
-  border-radius: 6px !important;
 }

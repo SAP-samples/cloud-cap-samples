@@ -1,16 +1,15 @@
 import React, { useState, useRef } from "react";
 import { Card, Button } from "antd";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
-import { useGlobals } from "../../GlobalContext";
-import { withRestrictedSection } from "../../withRestrictions";
+import { useAppState } from "../../hooks/useAppState";
+import { withRestrictedSection } from "../../hocs/withRestrictions";
 import { EditAction } from "./EditAction";
 import { DeleteAction } from "./DeleteAction";
 import "./Track.css";
 
-const RestrictedButton = withRestrictedSection(
-  Button,
-  ({ user }) => !!user && user.roles.includes("customer")
-);
+const RestrictedButton = withRestrictedSection(Button, ({ user }) => {
+  return !!user && user.roles.includes("customer");
+});
 
 const RestrictedEditAction = withRestrictedSection(
   EditAction,
@@ -28,7 +27,7 @@ const Track = ({
   onDeleteTrack,
 }) => {
   const trackElement = useRef();
-  const { setInvoicedItems, invoicedItems } = useGlobals();
+  const { setInvoicedItems, invoicedItems } = useAppState();
   const [isInvoiced, setIsInvoiced] = useState(isInvoicedProp);
   const [track, setTrack] = useState(initialTrack);
 
@@ -70,10 +69,10 @@ const Track = ({
             composer={track.composer}
             album={track.album}
             genre={track.genre}
+            unitPrice={track.unitPrice}
             afterTrackUpdate={(value) => setTrack(value)}
           />,
         ]}
-        style={{ borderRadius: 6 }}
         title={track.name}
         bordered={false}
       >

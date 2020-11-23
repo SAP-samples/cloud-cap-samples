@@ -1,10 +1,10 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { useGlobals } from "./GlobalContext";
+import { useAppState } from "../hooks/useAppState";
 
 const withRestrictions = (Component, isUserMeetRestrictions) => {
   return (props) => {
-    const { user, invoicedItems } = useGlobals();
+    const { user, invoicedItems } = useAppState();
     return isUserMeetRestrictions({ user, invoicedItems }) ? (
       <Component {...props} />
     ) : (
@@ -15,7 +15,7 @@ const withRestrictions = (Component, isUserMeetRestrictions) => {
 
 const withRestrictedSection = (Component, isUserMeetRestrictions) => {
   return (props) => {
-    const { user, invoicedItems } = useGlobals();
+    const { user, invoicedItems } = useAppState();
     return (
       isUserMeetRestrictions({ user, invoicedItems }) && (
         <Component {...props} />

@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { Card, Button, message } from "antd";
 import { omit } from "lodash";
-import { fetchPerson, confirmPerson } from "../../api-service";
-import { useErrors } from "../../useErrors";
-import { useGlobals } from "../../GlobalContext";
-import { Editable } from "../../Editable";
+import { fetchPerson, confirmPerson } from "../../api/calls";
+import { useErrors } from "../../hooks/useErrors";
+import { useAppState } from "../../hooks/useAppState";
+import { Editable } from "../../components/Editable";
+import { MESSAGE_TIMEOUT } from "../../util/constants";
+import { useAbortableEffect } from "../../hooks/useAbortableEffect";
 
-const MESSAGE_TIMEOUT = 2;
 const PERSON_PROP = {
   address: "Address ",
   city: "City ",
@@ -22,7 +23,7 @@ const PERSON_PROP = {
 };
 
 const PersonPage = ({ myInvoicesSection }) => {
-  const { setLoading } = useGlobals();
+  const { setLoading } = useAppState();
   const { handleError } = useErrors();
   const [initialPerson, setInitialPerson] = useState({});
   const [person, setPerson] = useState({
@@ -39,30 +40,31 @@ const PersonPage = ({ myInvoicesSection }) => {
     company: "",
   });
 
-  useEffect(() => {
+  useAbortableEffect((status) => {
     setLoading(true);
 
     fetchPerson()
-      .then((response) => {
-        let { data: personData } = response;
+      .then(({ data: personData }) => {
         personData = omit(personData, "@odata.context", "ID");
         console.log("personData", personData);
-        setInitialPerson(personData);
-        setPerson(personData);
-        setLoading(false);
+        if (!status.aborted) {
+          setInitialPerson(personData);
+          setPerson(personData);
+        }
       })
-      .catch(handleError);
+      .catch(handleError)
+      .finally(() => setLoading(false));
   }, []);
 
   const onConfirmChanges = () => {
     setLoading(true);
     confirmPerson(person)
       .then(() => {
-        setLoading(false);
         setInitialPerson(person);
         message.success("Person successfully updated", MESSAGE_TIMEOUT);
       })
-      .catch(handleError);
+      .catch(handleError)
+      .finally(() => setLoading(false));
   };
   const isPersonChanged = useMemo(() => {
     const keysOne = Object.keys(initialPerson);
@@ -100,10 +102,7 @@ const PersonPage = ({ myInvoicesSection }) => {
 
   return (
     <>
-      <Card
-        style={{ borderRadius: 6 }}
-        title={`${person.lastName} ${person.firstName}`}
-      >
+      <Card title={`${person.lastName} ${person.firstName}`}>
         {personProperties}
         <div>
           Email: <span style={{ fontWeight: 600 }}>{person.email}</span>
@@ -111,7 +110,7 @@ const PersonPage = ({ myInvoicesSection }) => {
         {isPersonChanged && (
           <Button
             type="primary"
-            style={{ margin: 10, borderRadius: 6 }}
+            style={{ margin: 10 }}
             onClick={onConfirmChanges}
           >
             Confirm changes
