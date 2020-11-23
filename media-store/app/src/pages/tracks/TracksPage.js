@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { debounce } from "lodash";
 import { Input, Col, Row, Select, Pagination } from "antd";
 import { Track } from "./Track";
 import "./TracksPage.css";
-import { useGlobals } from "../../GlobalContext";
-import { useErrors } from "../../useErrors";
-import { fetchTacks, countTracks, fetchGenres } from "../../api-service";
+import { useAppState } from "../../hooks/useAppState";
+import { useErrors } from "../../hooks/useErrors";
+import { fetchTacks, countTracks, fetchGenres } from "../../api/calls";
+import { useAbortableEffect } from "../../hooks/useAbortableEffect";
+
+let counter = 0;
 
 const { Search } = Input;
 const { Option } = Select;
@@ -24,7 +27,7 @@ const renderGenres = (genres) =>
   ));
 
 const TracksContainer = () => {
-  const { setLoading, invoicedItems } = useGlobals();
+  const { setLoading, invoicedItems } = useAppState();
   const { handleError } = useErrors();
   const [state, setState] = useState({
     tracks: [],
@@ -40,16 +43,17 @@ const TracksContainer = () => {
     },
   });
 
-  useEffect(() => {
+  useAbortableEffect((status) => {
     setLoading(true);
 
     const countTracksReq = countTracks();
     const getTracksRequest = fetchTacks();
     const getGenresReq = fetchGenres();
 
+    console.log("calling requests", counter++);
     Promise.all([countTracksReq, getTracksRequest, getGenresReq])
-      .then((responses) => {
-        const [
+      .then(
+        ([
           { data: totalItems },
           {
             data: { value: tracks },
@@ -57,16 +61,19 @@ const TracksContainer = () => {
           {
             data: { value: genres },
           },
-        ] = responses;
-        setState({
-          ...state,
-          tracks,
-          genres,
-          pagination: { ...state.pagination, totalItems },
-        });
-        setLoading(false);
-      })
-      .catch(handleError);
+        ]) => {
+          if (!status.aborted) {
+            setState({
+              ...state,
+              tracks,
+              genres,
+              pagination: { ...state.pagination, totalItems },
+            });
+          }
+        }
+      )
+      .catch(handleError)
+      .finally(() => setLoading(false));
   }, []);
 
   const onSearch = debounce(
@@ -85,21 +92,15 @@ const TracksContainer = () => {
           genreIds: options.genreIds,
         }),
       ])
-        .then((responses) => {
-          const [
-            {
-              data: { value: tracks },
-            },
-            { data: totalItems },
-          ] = responses;
+        .then(([{ data: { value: tracks } }, { data: totalItems }]) =>
           setState({
             ...state,
             tracks,
             pagination: { ...state.pagination, totalItems },
-          });
-          setLoading(false);
-        })
-        .catch(handleError);
+          })
+        )
+        .catch(handleError)
+        .finally(() => setLoading(false));
     },
     DEBOUNCE_TIMER,
     DEBOUNCE_OPTIONS
@@ -132,15 +133,15 @@ const TracksContainer = () => {
       $skip: (pageNumber - 1) * state.pagination.pageSize,
     };
     fetchTacks(options)
-      .then((response) => {
+      .then((response) =>
         setState({
           ...state,
           tracks: response.data.value,
           pagination: { ...state.pagination, currentPage: pageNumber },
-        });
-        setLoading(false);
-      })
-      .catch(handleError);
+        })
+      )
+      .catch(handleError)
+      .finally(() => setLoading(false));
   };
   const deleteTrack = (ID) => {
     setState({

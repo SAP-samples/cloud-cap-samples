@@ -6,16 +6,19 @@ import {
   Redirect,
 } from "react-router-dom";
 import { isEmpty } from "lodash";
-import { TracksContainer } from "./pages/tracks/TracksPage";
+import { TracksContainer } from "../pages/tracks/TracksPage";
 import { CurrentPageHeader } from "./CurrentPageHeader";
-import { Header } from "./Header";
-import { PersonPage } from "./pages/person/PersonPage";
-import { ErrorPage } from "./pages/ErrorPage";
-import { Login } from "./pages/login/Login";
-import { withRestrictions, withRestrictedSection } from "./withRestrictions";
-import { InvoicePage } from "./pages/invoice/InvoicePage";
-import { ManageStore } from "./pages/manage-store/ManageStore";
-import { MyInvoices } from "./pages/person/MyInvoices";
+import { Header } from "../components/Header";
+import { PersonPage } from "../pages/person/PersonPage";
+import { ErrorPage } from "../pages/ErrorPage";
+import { Login } from "../pages/login/Login";
+import {
+  withRestrictions,
+  withRestrictedSection,
+} from "../hocs/withRestrictions";
+import { InvoicePage } from "../pages/invoice/InvoicePage";
+import { ManageStore } from "../pages/manage-store/ManageStore";
+import { MyInvoices } from "../pages/person/MyInvoices";
 
 const needCustomer = ({ user }) => !!user && user.roles.includes("customer");
 

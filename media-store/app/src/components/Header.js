@@ -7,7 +7,10 @@ import {
   LoginOutlined,
 } from "@ant-design/icons";
 import { useHistory, useLocation } from "react-router-dom";
-import { useGlobals } from "./GlobalContext";
+import { useAppState } from "../hooks/useAppState";
+import { setLocaleToLS } from "../util/localStorageService";
+import { changeLocaleDefaults } from "../api/axiosInstance";
+import { emitter } from "../util/EventEmitter";
 import "./Header.css";
 
 const { SubMenu } = Menu;
@@ -19,12 +22,14 @@ const RELOAD_LOCATION_NUMBER = 0;
 const Header = () => {
   const history = useHistory();
   const location = useLocation();
-  const { user, invoicedItems, setUser, locale, setLocale } = useGlobals();
+  const { user, invoicedItems, locale, setLocale } = useAppState();
   const currentKey = [keys.find((key) => key === location.pathname)];
   const haveInvoicedItems = !isEmpty(invoicedItems);
   const invoicedItemsLength = invoicedItems.length;
 
   const onChangeLocale = (value) => {
+    setLocaleToLS(value);
+    changeLocaleDefaults(value);
     setLocale(value);
     history.go(RELOAD_LOCATION_NUMBER);
   };
@@ -38,6 +43,12 @@ const Header = () => {
       {curLocale}
     </Menu.Item>
   ));
+
+  const onUserLogout = () => {
+    emitter.emit("UPDATE_USER", undefined);
+
+    history.push("/");
+  };
 
   return (
     <div
@@ -107,10 +118,7 @@ const Header = () => {
 
         {!!user ? (
           <Menu.Item
-            onClick={() => {
-              setUser(undefined);
-              history.push("/");
-            }}
+            onClick={onUserLogout}
             danger
             icon={<LogoutOutlined style={{ fontSize: 16 }} />}
           ></Menu.Item>

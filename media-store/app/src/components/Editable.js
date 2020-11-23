@@ -39,7 +39,6 @@ const Editable = ({ value, onChange, type }) => {
         fontWeight: 600,
         outline: "none",
         border: "none",
-        borderRadius: 6,
         backgroundColor: "white",
         padding: "0 2px",
       }}

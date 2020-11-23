@@ -9,6 +9,7 @@
     "@umijs/hooks": "^1.9.3",
     "antd": "^4.8.2",
     "axios": "^0.20.0",
+    "events": "^3.2.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "react": "^16.14.0",
@@ -18,9 +19,9 @@
     "react-scripts": "^4.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start --no-cache",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --no-cache",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
