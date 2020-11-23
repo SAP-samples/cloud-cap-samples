@@ -1,13 +1,20 @@
 import React from "react";
 import { Button, Modal, Form, message } from "antd";
 import { EditOutlined, LoadingOutlined } from "@ant-design/icons";
-import { useErrors } from "../../useErrors";
+import { useErrors } from "../../hooks/useErrors";
 import { TrackForm } from "../manage-store/TrackForm";
-import { updateTrack, getTrack } from "../../api-service";
+import { updateTrack, getTrack } from "../../api/calls";
+import { MESSAGE_TIMEOUT } from "../../util/constants";
 
-const MESSAGE_TIMEOUT = 2;
-
-const EditAction = ({ ID, name, composer, genre, album, afterTrackUpdate }) => {
+const EditAction = ({
+  ID,
+  name,
+  composer,
+  genre,
+  unitPrice,
+  album,
+  afterTrackUpdate,
+}) => {
   const [visible, setVisible] = React.useState(false);
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [updateLoading, setUpdateLoading] = React.useState(false);
@@ -26,6 +33,7 @@ const EditAction = ({ ID, name, composer, genre, album, afterTrackUpdate }) => {
       composer: value.composer,
       album: { ID: value.albumID },
       genre: { ID: value.genreID },
+      unitPrice: value.unitPrice.toString(),
     })
       .then(() => {
         message.success("Track successfully updated!", MESSAGE_TIMEOUT);
@@ -99,6 +107,7 @@ const EditAction = ({ ID, name, composer, genre, album, afterTrackUpdate }) => {
             composer: composer,
             genreID: genre.ID,
             albumID: album.ID,
+            unitPrice: unitPrice,
           }}
         >
           <TrackForm initialAlbumTitle={album.title} />

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Modal, message } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import { deleteTrack } from "../../api-service";
-import { useErrors } from "../../useErrors";
-
-const MESSAGE_TIMEOUT = 2;
+import { deleteTrack } from "../../api/calls";
+import { useErrors } from "../../hooks/useErrors";
+import { MESSAGE_TIMEOUT } from "../../util/constants";
 
 const DeleteAction = ({ ID, onDeleteTrack }) => {
   const [modalVisible, setModalVisible] = useState(false);

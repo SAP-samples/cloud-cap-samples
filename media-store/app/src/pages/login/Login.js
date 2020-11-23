@@ -1,9 +1,11 @@
 import React from "react";
 import { Form, Input, Button, Checkbox, message } from "antd";
-import { login } from "../../api-service";
+import { login } from "../../api/calls";
 import { useHistory } from "react-router-dom";
-import { useGlobals } from "../../GlobalContext";
-import { useErrors } from "../../useErrors";
+import { useAppState } from "../../hooks/useAppState";
+import { useErrors } from "../../hooks/useErrors";
+import { MESSAGE_TIMEOUT } from "../../util/constants";
+import { emitter } from "../../util/EventEmitter";
 
 const layout = {
   labelCol: {
@@ -19,12 +21,11 @@ const tailLayout = {
     span: 8,
   },
 };
-const MESSAGE_TIMEOUT = 2;
 
 const Login = () => {
   const [form] = Form.useForm();
   const history = useHistory();
-  const { setLoading, setUser } = useGlobals();
+  const { setLoading } = useAppState();
   const { handleError } = useErrors();
 
   const onFinish = (values) => {
@@ -32,25 +33,19 @@ const Login = () => {
     setLoading(true);
     login({ email: values.email, password: values.password })
       .then((response) => {
-        const { ID, email, level, token, roles } = response.data;
-        setUser({
-          ID,
-          roles,
-          email,
-          level,
-          token,
-        });
+        emitter.emit("UPDATE_USER", response.data);
         history.push("/");
       })
       .catch((error) => {
-        if (error.response.status === 401) {
+        console.log(error);
+        if (error.response && error.response.status === 401) {
           form.resetFields();
           message.error("Invalid credentials!", MESSAGE_TIMEOUT);
         } else {
           handleError(error);
         }
       })
-      .then(() => setLoading(false));
+      .finally(() => setLoading(false));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -78,7 +73,7 @@ const Login = () => {
           },
         ]}
       >
-        <Input style={{ borderRadius: 6 }} />
+        <Input />
       </Form.Item>
 
       <Form.Item
@@ -91,7 +86,7 @@ const Login = () => {
           },
         ]}
       >
-        <Input.Password style={{ borderRadius: 6 }} />
+        <Input.Password style={{}} />
       </Form.Item>
 
       <Form.Item {...tailLayout} name="remember" valuePropName="checked">

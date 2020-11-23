@@ -15,11 +15,22 @@ service Users {
         supportRep
     };
 
-    action login(email : String(111), password : String(200)) returns {
-        roles : array of String(111);
-        token : String(500);
-        email : String(500);
-        ID    : Integer;
+    type AuthData {
+        accessToken  : String(500);
+        refreshToken : String(500);
+        ID           : Integer;
+        email        : String(500);
+        roles        : array of String(111);
+    };
+
+    action login(email : String(111), password : String(200)) returns AuthData;
+
+    action refreshTokens(refreshToken : String(500)) returns {
+        accessToken  : String(500);
+        refreshToken : String(500);
+        ID           : Integer;
+        email        : String(500);
+        roles        : array of String(111);
     };
 }
 

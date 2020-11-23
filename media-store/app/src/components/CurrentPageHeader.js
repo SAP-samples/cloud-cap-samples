@@ -1,7 +1,7 @@
 import React from "react";
 import { Breadcrumb, Spin } from "antd";
 import { useLocation } from "react-router-dom";
-import { useGlobals } from "./GlobalContext";
+import { useAppState } from "../hooks/useAppState";
 
 const names = {
   "/": "Browse / Tracks",
@@ -13,7 +13,7 @@ const names = {
 
 const CurrentPageHeader = () => {
   const location = useLocation();
-  const { loading } = useGlobals();
+  const { loading } = useAppState();
 
   return (
     <Breadcrumb

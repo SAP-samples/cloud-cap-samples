@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Button, message, Divider, Tag, Collapse, Table, Spin } from "antd";
 import moment from "moment";
-import { useErrors } from "../../useErrors";
-import { useGlobals } from "../../GlobalContext";
-import { cancelInvoice, fetchInvoices } from "../../api-service";
+import { useErrors } from "../../hooks/useErrors";
+import { useAppState } from "../../hooks/useAppState";
+import { cancelInvoice, fetchInvoices } from "../../api/calls";
+import { MESSAGE_TIMEOUT } from "../../util/constants";
 
 const { Panel } = Collapse;
-const MESSAGE_TIMEOUT = 2;
 const INVOICE_STATUS = {
   2: {
     tagTitle: "Shipped",
@@ -64,7 +64,7 @@ const chooseStatus = (utcNowTimestamp, invoiceDate, statusFromDb) => {
 };
 
 const ExtraHeader = ({ ID, invoiceDate, status: initialStatus }) => {
-  const { loading, setLoading } = useGlobals();
+  const { loading, setLoading } = useAppState();
   const { handleError } = useErrors();
   const [loadingHeaderId, setLoadingHeaderId] = useState();
   const [status, setStatus] = useState(initialStatus);
@@ -83,11 +83,11 @@ const ExtraHeader = ({ ID, invoiceDate, status: initialStatus }) => {
     cancelInvoice(ID)
       .then(() => {
         message.success("Invoice successfully cancelled", MESSAGE_TIMEOUT);
-        setLoading(false);
         setLoadingHeaderId(undefined);
         setStatus(CANCELLED_STATUS);
       })
-      .catch(handleError);
+      .catch(handleError)
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -108,20 +108,15 @@ const ExtraHeader = ({ ID, invoiceDate, status: initialStatus }) => {
 
 const MyInvoices = () => {
   const { handleError } = useErrors();
-  const { setLoading } = useGlobals();
+  const { setLoading } = useAppState();
   const [invoices, setInvoices] = useState([]);
 
   useEffect(() => {
     setLoading(true);
     fetchInvoices()
-      .then((response) => {
-        const {
-          data: { value },
-        } = response;
-        setInvoices(value);
-        setLoading(false);
-      })
-      .catch(handleError);
+      .then(({ data: { value } }) => setInvoices(value))
+      .catch(handleError)
+      .finally(() => setLoading(false));
   }, []);
 
   const genExtra = useCallback(
@@ -183,9 +178,7 @@ const MyInvoices = () => {
       {invoiceElements && (
         <>
           <Divider orientation="left">My invoices</Divider>
-          <Collapse style={{ borderRadius: 6 }} expandIconPosition="left">
-            {invoiceElements}
-          </Collapse>
+          <Collapse expandIconPosition="left">{invoiceElements}</Collapse>
         </>
       )}
     </div>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Form, Input, Select } from "antd";
+import { Form, Input, Select, InputNumber } from "antd";
 import { head } from "lodash";
 import { useSearch } from "@umijs/hooks";
-import { useGlobals } from "../../GlobalContext";
-import { fetchAlbumsByName, fetchGenres } from "../../api-service";
-import { useErrors } from "../../useErrors";
+import { useAppState } from "../../hooks/useAppState";
+import { fetchAlbumsByName, fetchGenres } from "../../api/calls";
+import { useErrors } from "../../hooks/useErrors";
 
 const ALBUMS_LIMIT = 10;
 const REQUIRED = [
@@ -13,6 +13,10 @@ const REQUIRED = [
     message: "This filed is required!",
   },
 ];
+const PRICE_INPUT_RULE = {
+  pattern: /^(?:\d*\.\d\d)$/,
+  message: "Price should have precision 2 and dot separator!",
+};
 
 const getAlbums = function (value) {
   return fetchAlbumsByName(value, ALBUMS_LIMIT)
@@ -28,17 +32,15 @@ const TrackForm = ({ initialAlbumTitle }) => {
     onChange: onChangeAlbumInput,
     cancel: onAlbumCancel,
   } = useSearch(getAlbums.bind({ handleError }));
-  const { setLoading } = useGlobals();
+  const { setLoading } = useAppState();
   const [genres, setGenres] = useState([]);
 
   useEffect(() => {
     setLoading(true);
     Promise.all([fetchGenres(), onChangeAlbumInput(initialAlbumTitle)])
-      .then((responses) => {
-        setGenres(head(responses).data.value);
-        setLoading(false);
-      })
-      .catch(handleError);
+      .then((responses) => setGenres(head(responses).data.value))
+      .catch(handleError)
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -75,6 +77,18 @@ const TrackForm = ({ initialAlbumTitle }) => {
               </Select.Option>
             ))}
         </Select>
+      </Form.Item>
+      <Form.Item
+        label="Unit price"
+        name="unitPrice"
+        precision={2}
+        rules={REQUIRED}
+      >
+        <InputNumber
+          precision={2}
+          decimalSeparator="."
+          parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+        />
       </Form.Item>
     </div>
   );

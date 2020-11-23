@@ -1,9 +1,11 @@
 import React from "react";
 import { Table, Button, message } from "antd";
-import { useGlobals } from "../../GlobalContext";
+import { useAppState } from "../../hooks/useAppState";
 import { useHistory } from "react-router-dom";
-import { invoice } from "../../api-service";
-import { useErrors } from "../../useErrors";
+import { invoice } from "../../api/calls";
+import { useErrors } from "../../hooks/useErrors";
+import { MESSAGE_TIMEOUT } from "../../util/constants";
+
 import "./InvoicePage.css";
 
 const columns = [
@@ -24,12 +26,11 @@ const columns = [
     dataIndex: "unitPrice",
   },
 ];
-const MESSAGE_TIMEOUT = 2;
 
 const InvoicePage = () => {
   const history = useHistory();
   const { handleError } = useErrors();
-  const { invoicedItems, setInvoicedItems, setLoading } = useGlobals();
+  const { invoicedItems, setInvoicedItems, setLoading } = useAppState();
 
   const data = invoicedItems.map(({ ID: key, ...otherProps }) => ({
     key,
@@ -45,12 +46,12 @@ const InvoicePage = () => {
       }))
     )
       .then(() => {
-        setLoading(false);
         setInvoicedItems([]);
         message.success("Invoice successfully completed", MESSAGE_TIMEOUT);
         history.push("/person");
       })
-      .catch(handleError);
+      .catch(handleError)
+      .finally(() => setLoading(false));
   };
   const onCancel = () => {
     setInvoicedItems([]);
@@ -58,7 +59,7 @@ const InvoicePage = () => {
   };
 
   return (
-    <div style={{ borderRadius: 6, backgroundColor: "white", padding: 10 }}>
+    <div style={{ backgroundColor: "white", padding: 10 }}>
       <Table
         bordered={false}
         pagination={false}
@@ -73,17 +74,12 @@ const InvoicePage = () => {
               padding: 5,
             }}
           >
-            <Button
-              type="primary"
-              size="large"
-              style={{ borderRadius: 6 }}
-              onClick={onBuy}
-            >
+            <Button type="primary" size="large" onClick={onBuy}>
               Buy
             </Button>
             <Button
               size="large"
-              style={{ borderRadius: 6, marginLeft: 5 }}
+              style={{ marginLeft: 5 }}
               onClick={onCancel}
               danger
             >

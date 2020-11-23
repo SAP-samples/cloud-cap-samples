@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { isEmpty } from "lodash";
 import { Result, Button } from "antd";
-import { useGlobals } from "../GlobalContext";
+import { useAppState } from "../hooks/useAppState";
 
 const ErrorPage = () => {
-  const { error, setError } = useGlobals();
+  const { error, setError } = useAppState();
   const history = useHistory();
 
-  const onGoHome = () => {
+  useEffect(() => {
     setError({});
+    history.replace("/");
+  }, []);
+
+  const onGoHome = () => {
     history.push("/");
   };
 
