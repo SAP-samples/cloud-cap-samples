@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { isEmpty } from "lodash";
 import { TracksContainer } from "../pages/tracks/TracksPage";
 import { CurrentPageHeader } from "./CurrentPageHeader";
@@ -40,39 +35,32 @@ const RestrictedManageStore = withRestrictions(
 const MyRouter = () => {
   return (
     <Router>
-      <Switch>
-        <Route path="/error">
-          <ErrorPage />
-        </Route>
-        <Route>
-          <Header />
-          <div style={{ padding: "2em 20vh" }}>
-            <CurrentPageHeader />
-            <Switch>
-              <Route exact path={["/"]}>
-                <TracksContainer />
-              </Route>
-              <Route exact path="/person">
-                <RestrictedPersonPage
-                  myInvoicesSection={<RestrictedMyInvoicesSection />}
-                />
-              </Route>
-              <Route exact path="/login">
-                <RestrictedLogin />
-              </Route>
-              <Route exact path="/invoice">
-                <RestrictedInvoicePage />
-              </Route>
-              <Route exact path="/manage">
-                <RestrictedManageStore />
-              </Route>
-              <Route>
-                <Redirect to="/error" />
-              </Route>
-            </Switch>
-          </div>
-        </Route>
-      </Switch>
+      <Header />
+      <div style={{ padding: "2em 20vh" }}>
+        <CurrentPageHeader />
+        <Switch>
+          <Route exact path={["/", "/tracks"]}>
+            <TracksContainer />
+          </Route>
+          <Route exact path="/person">
+            <RestrictedPersonPage
+              myInvoicesSection={<RestrictedMyInvoicesSection />}
+            />
+          </Route>
+          <Route exact path="/login">
+            <RestrictedLogin />
+          </Route>
+          <Route exact path="/invoice">
+            <RestrictedInvoicePage />
+          </Route>
+          <Route exact path="/manage">
+            <RestrictedManageStore />
+          </Route>
+          <Route path="/">
+            <ErrorPage />
+          </Route>
+        </Switch>
+      </div>
     </Router>
   );
 };
