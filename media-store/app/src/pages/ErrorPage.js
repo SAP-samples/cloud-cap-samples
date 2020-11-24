@@ -40,11 +40,6 @@ const ErrorPage = () => {
           <Button onClick={onGoHome} type="primary">
             Back Home
           </Button>
-          {!user && (
-            <Button onClick={goLoginPage} type="primary">
-              Login
-            </Button>
-          )}
         </>
       }
     />

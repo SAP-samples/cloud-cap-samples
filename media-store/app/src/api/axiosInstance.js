@@ -16,6 +16,6 @@ const locale = getLocaleFromLS();
 changeUserDefaults(user);
 changeLocaleDefaults(locale);
 
-axiosInstance.interceptors.response.use(null, responseErrorInterceptor);
+// axiosInstance.interceptors.response.use(null, responseErrorInterceptor);
 
 export { axiosInstance, changeLocaleDefaults, changeUserDefaults };
