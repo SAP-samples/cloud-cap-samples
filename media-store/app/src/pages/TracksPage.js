@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { debounce } from "lodash";
 import { Input, Col, Row, Select, Pagination } from "antd";
-import { Track } from "./Track";
+import { Track } from "./tracks/Track";
+import { ManagedTrack } from "./tracks/ManagedTrack";
+import { useAppState } from "../hooks/useAppState";
+import { useErrors } from "../hooks/useErrors";
+import { fetchTacks, countTracks, fetchGenres } from "../api/calls";
+import { useAbortableEffect } from "../hooks/useAbortableEffect";
+import { requireEmployee } from "../util/constants";
 import "./TracksPage.css";
-import { useAppState } from "../../hooks/useAppState";
-import { useErrors } from "../../hooks/useErrors";
-import { fetchTacks, countTracks, fetchGenres } from "../../api/calls";
-import { useAbortableEffect } from "../../hooks/useAbortableEffect";
 
 let counter = 0;
 
@@ -27,7 +29,7 @@ const renderGenres = (genres) =>
   ));
 
 const TracksContainer = () => {
-  const { setLoading, invoicedItems } = useAppState();
+  const { setLoading, user } = useAppState();
   const { handleError } = useErrors();
   const [state, setState] = useState({
     tracks: [],
@@ -149,29 +151,25 @@ const TracksContainer = () => {
       tracks: state.tracks.filter(({ ID: curID }) => curID !== ID),
     });
   };
-  const renderTracks = (tracks, invoicedItems) =>
-    tracks.map(
-      ({ ID, name, composer, genre, unitPrice, alreadyOrdered, album }) => (
-        <Col key={ID} className="gutter-row" span={8}>
-          <Track
-            initialTrack={{
-              ID,
-              name,
-              genre,
-              album,
-              artist: album.artist.name,
-              composer,
-              unitPrice,
-            }}
-            isButtonVisible={!alreadyOrdered}
-            isInvoiced={invoicedItems.find(({ ID: curID }) => curID === ID)}
-            onDeleteTrack={(ID) => deleteTrack(ID)}
+  const renderTracks = (tracks) => {
+    const isEmployee = requireEmployee(user);
+    const TrackComponent = isEmployee ? ManagedTrack : Track;
+    return tracks.map((track) => {
+      const isAlreadyOrdered = !isEmployee && track.alreadyOrdered;
+      const onDeleteTrack = isEmployee && ((ID) => deleteTrack(ID));
+      return (
+        <Col key={track.ID} className="gutter-row" span={8}>
+          <TrackComponent
+            initialTrack={track}
+            onDeleteTrack={onDeleteTrack}
+            isAlreadyOrdered={isAlreadyOrdered}
           />
         </Col>
-      )
-    );
+      );
+    });
+  };
 
-  const trackElements = renderTracks(state.tracks, invoicedItems);
+  const trackElements = renderTracks(state.tracks);
   const genreElements = renderGenres(state.genres);
 
   return (

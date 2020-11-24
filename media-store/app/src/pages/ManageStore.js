@@ -1,13 +1,12 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { Form, Radio, Button, message } from "antd";
-import { TrackForm } from "./TrackForm";
-import { AddArtistForm } from "./AddArtistForm";
-import { AddAlbumForm } from "./AddAlbumForm";
-import { useErrors } from "../../hooks/useErrors";
-import { useAppState } from "../../hooks/useAppState";
-import { addTrack, addArtist, addAlbum } from "../../api/calls";
-import { MESSAGE_TIMEOUT } from "../../util/constants";
-import "./ManageStore.css";
+import { TrackForm } from "./manage-store/TrackForm";
+import { AddArtistForm } from "./manage-store/AddArtistForm";
+import { AddAlbumForm } from "./manage-store/AddAlbumForm";
+import { useErrors } from "../hooks/useErrors";
+import { useAppState } from "../hooks/useAppState";
+import { addTrack, addArtist, addAlbum } from "../api/calls";
+import { MESSAGE_TIMEOUT } from "../util/constants";
 
 const FORM_TYPES = {
   track: "track",

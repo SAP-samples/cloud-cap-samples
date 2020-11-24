@@ -1,10 +1,11 @@
 import React from "react";
-import { Menu, Badge } from "antd";
+import { Menu, Badge, Spin } from "antd";
 import { isEmpty } from "lodash";
 import {
   CreditCardOutlined,
   LogoutOutlined,
   LoginOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
 import { useHistory, useLocation } from "react-router-dom";
 import { useAppState } from "../hooks/useAppState";
@@ -12,17 +13,18 @@ import { setLocaleToLS } from "../util/localStorageService";
 import { changeLocaleDefaults } from "../api/axiosInstance";
 import { emitter } from "../util/EventEmitter";
 import "./Header.css";
+import { requireEmployee, requireCustomer } from "../util/constants";
 
 const { SubMenu } = Menu;
 
-const keys = ["/", "/person", "/login", "/manage", "/invoice"];
+const keys = ["/", "/person", "/login", "/manage", "/invoice", "/invoices"];
 const AVAILABLE_LOCALES = ["en", "fr", "de"];
 const RELOAD_LOCATION_NUMBER = 0;
 
 const Header = () => {
   const history = useHistory();
   const location = useLocation();
-  const { user, invoicedItems, locale, setLocale } = useAppState();
+  const { user, invoicedItems, locale, setLocale, loading } = useAppState();
   const currentKey = [keys.find((key) => key === location.pathname)];
   const haveInvoicedItems = !isEmpty(invoicedItems);
   const invoicedItemsLength = invoicedItems.length;
@@ -46,7 +48,6 @@ const Header = () => {
 
   const onUserLogout = () => {
     emitter.emit("UPDATE_USER", undefined);
-
     history.push("/");
   };
 
@@ -54,7 +55,8 @@ const Header = () => {
     <div
       style={{
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "baseline",
+        alignItems: "center",
         paddingLeft: "15vh",
         paddingRight: "15vh",
         background: "white",
@@ -75,11 +77,23 @@ const Header = () => {
             Profile
           </Menu.Item>
         )}
-        {!!user && user.roles.includes("employee") && (
+        {requireCustomer(user) && (
+          <Menu.Item key="/invoices" onClick={() => history.push("/invoices")}>
+            Invoices
+          </Menu.Item>
+        )}
+        {requireEmployee(user) && (
           <Menu.Item key="/manage" onClick={() => history.push("/manage")}>
             Manage
           </Menu.Item>
         )}
+        <span>
+          {loading && (
+            <Spin
+              indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}
+            />
+          )}
+        </span>
       </Menu>
 
       <Menu
@@ -88,7 +102,7 @@ const Header = () => {
         mode="horizontal"
         selectedKeys={currentKey}
       >
-        {haveInvoicedItems && !!user && user.roles.includes("customer") && (
+        {haveInvoicedItems && (
           <Menu.Item
             style={{
               width: 40,

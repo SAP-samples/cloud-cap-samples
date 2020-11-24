@@ -1,35 +1,25 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { isEmpty } from "lodash";
-import { TracksContainer } from "../pages/tracks/TracksPage";
-import { CurrentPageHeader } from "./CurrentPageHeader";
+import { TracksContainer } from "../pages/TracksPage";
 import { Header } from "../components/Header";
-import { PersonPage } from "../pages/person/PersonPage";
+import { PersonPage } from "../pages/PersonPage";
 import { ErrorPage } from "../pages/ErrorPage";
-import { Login } from "../pages/login/Login";
-import {
-  withRestrictions,
-  withRestrictedSection,
-} from "../hocs/withRestrictions";
-import { InvoicePage } from "../pages/invoice/InvoicePage";
-import { ManageStore } from "../pages/manage-store/ManageStore";
-import { MyInvoices } from "../pages/person/MyInvoices";
-
-const needCustomer = ({ user }) => !!user && user.roles.includes("customer");
+import { Login } from "../pages/Login";
+import { withRestrictions } from "../hocs/withRestrictions";
+import { InvoicePage } from "../pages/InvoicePage";
+import { ManageStore } from "../pages/ManageStore";
+import { MyInvoicesPage } from "../pages/MyInvoicesPage";
+import { requireEmployee } from "../util/constants";
 
 const RestrictedLogin = withRestrictions(Login, ({ user }) => !user);
 const RestrictedInvoicePage = withRestrictions(
   InvoicePage,
-  ({ user, invoicedItems }) => needCustomer({ user }) && !isEmpty(invoicedItems)
-);
-const RestrictedMyInvoicesSection = withRestrictedSection(
-  MyInvoices,
-  needCustomer
+  ({ user, invoicedItems }) => !requireEmployee(user) && !isEmpty(invoicedItems)
 );
 const RestrictedPersonPage = withRestrictions(PersonPage, ({ user }) => !!user);
-const RestrictedManageStore = withRestrictions(
-  ManageStore,
-  ({ user }) => !!user && user.roles.includes("employee")
+const RestrictedManageStore = withRestrictions(ManageStore, ({ user }) =>
+  requireEmployee(user)
 );
 
 const MyRouter = () => {
@@ -37,21 +27,21 @@ const MyRouter = () => {
     <Router>
       <Header />
       <div style={{ padding: "2em 20vh" }}>
-        <CurrentPageHeader />
         <Switch>
           <Route exact path={["/", "/tracks"]}>
             <TracksContainer />
           </Route>
           <Route exact path="/person">
-            <RestrictedPersonPage
-              myInvoicesSection={<RestrictedMyInvoicesSection />}
-            />
+            <RestrictedPersonPage />
           </Route>
           <Route exact path="/login">
             <RestrictedLogin />
           </Route>
           <Route exact path="/invoice">
             <RestrictedInvoicePage />
+          </Route>
+          <Route exact path="/invoices">
+            <MyInvoicesPage />
           </Route>
           <Route exact path="/manage">
             <RestrictedManageStore />
