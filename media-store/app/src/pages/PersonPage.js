@@ -1,12 +1,12 @@
 import React, { useState, useMemo } from "react";
 import { Card, Button, message } from "antd";
 import { omit } from "lodash";
-import { fetchPerson, confirmPerson } from "../../api/calls";
-import { useErrors } from "../../hooks/useErrors";
-import { useAppState } from "../../hooks/useAppState";
-import { Editable } from "../../components/Editable";
-import { MESSAGE_TIMEOUT } from "../../util/constants";
-import { useAbortableEffect } from "../../hooks/useAbortableEffect";
+import { fetchPerson, confirmPerson } from "../api/calls";
+import { useErrors } from "../hooks/useErrors";
+import { useAppState } from "../hooks/useAppState";
+import { Editable } from "../components/Editable";
+import { MESSAGE_TIMEOUT } from "../util/constants";
+import { useAbortableEffect } from "../hooks/useAbortableEffect";
 
 const PERSON_PROP = {
   address: "Address ",
@@ -22,7 +22,7 @@ const PERSON_PROP = {
   company: "Company: ",
 };
 
-const PersonPage = ({ myInvoicesSection }) => {
+const PersonPage = () => {
   const { setLoading } = useAppState();
   const { handleError } = useErrors();
   const [initialPerson, setInitialPerson] = useState({});
@@ -46,7 +46,6 @@ const PersonPage = ({ myInvoicesSection }) => {
     fetchPerson()
       .then(({ data: personData }) => {
         personData = omit(personData, "@odata.context", "ID");
-        console.log("personData", personData);
         if (!status.aborted) {
           setInitialPerson(personData);
           setPerson(personData);
@@ -117,7 +116,6 @@ const PersonPage = ({ myInvoicesSection }) => {
           </Button>
         )}
       </Card>
-      {myInvoicesSection}
     </>
   );
 };

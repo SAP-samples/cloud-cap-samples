@@ -8,8 +8,9 @@ let subscribers = [];
 
 function responseErrorInterceptor(error) {
   const originalRequest = error.config;
+  const user = getUserFromLS();
 
-  if (error.response && error.response.status === 401) {
+  if (error.response && error.response.status === 401 && !!user) {
     if (originalRequest.url === "users/login") {
       return Promise.reject(error);
     }
@@ -26,21 +27,18 @@ function responseErrorInterceptor(error) {
     if (!isRefreshing) {
       isRefreshing = true;
 
-      refreshTokens(getUserFromLS().refreshToken)
+      refreshTokens(user.refreshToken)
         .then((response) => {
           emitter.emit("UPDATE_USER", response.data);
           subscribers.forEach((request) =>
             request.resolve(response.data.accessToken)
           );
-        })
-        .catch(() => {
-          subscribers.forEach((request) => request.reject(error));
-        })
-        .finally(() => {
           subscribers = [];
           isRefreshing = false;
+        })
+        .catch(() => {
+          emitter.emit("UPDATE_USER", undefined);
         });
-      return;
     }
 
     // holding requests which should be sended after users/refreshTokens complete

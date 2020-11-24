@@ -1,12 +1,10 @@
 import React from "react";
 import { Table, Button, message } from "antd";
-import { useAppState } from "../../hooks/useAppState";
+import { useAppState } from "../hooks/useAppState";
 import { useHistory } from "react-router-dom";
-import { invoice } from "../../api/calls";
-import { useErrors } from "../../hooks/useErrors";
-import { MESSAGE_TIMEOUT } from "../../util/constants";
-
-import "./InvoicePage.css";
+import { invoice } from "../api/calls";
+import { useErrors } from "../hooks/useErrors";
+import { MESSAGE_TIMEOUT } from "../util/constants";
 
 const columns = [
   {
@@ -30,7 +28,7 @@ const columns = [
 const InvoicePage = () => {
   const history = useHistory();
   const { handleError } = useErrors();
-  const { invoicedItems, setInvoicedItems, setLoading } = useAppState();
+  const { user, invoicedItems, setInvoicedItems, setLoading } = useAppState();
 
   const data = invoicedItems.map(({ ID: key, ...otherProps }) => ({
     key,
@@ -48,7 +46,7 @@ const InvoicePage = () => {
       .then(() => {
         setInvoicedItems([]);
         message.success("Invoice successfully completed", MESSAGE_TIMEOUT);
-        history.push("/person");
+        history.push("/invoices");
       })
       .catch(handleError)
       .finally(() => setLoading(false));
@@ -56,6 +54,9 @@ const InvoicePage = () => {
   const onCancel = () => {
     setInvoicedItems([]);
     history.push("/");
+  };
+  const goLogin = () => {
+    history.push("/login");
   };
 
   return (
@@ -74,17 +75,28 @@ const InvoicePage = () => {
               padding: 5,
             }}
           >
-            <Button type="primary" size="large" onClick={onBuy}>
-              Buy
-            </Button>
-            <Button
-              size="large"
-              style={{ marginLeft: 5 }}
-              onClick={onCancel}
-              danger
-            >
-              Cancel
-            </Button>
+            {user ? (
+              <>
+                <Button type="primary" size="large" onClick={onBuy}>
+                  Buy
+                </Button>
+                <Button
+                  size="large"
+                  style={{ marginLeft: 5 }}
+                  onClick={onCancel}
+                  danger
+                >
+                  Cancel
+                </Button>
+              </>
+            ) : (
+              <section>
+                <Button type="primary" size="large" onClick={goLogin}>
+                  Login
+                </Button>
+                <span> to buy selected</span>
+              </section>
+            )}
           </div>
         )}
       />
