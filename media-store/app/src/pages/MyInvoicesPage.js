@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Button, message, Divider, Tag, Collapse, Table, Spin } from "antd";
 import moment from "moment";
-import { useErrors } from "../../hooks/useErrors";
-import { useAppState } from "../../hooks/useAppState";
-import { cancelInvoice, fetchInvoices } from "../../api/calls";
-import { MESSAGE_TIMEOUT } from "../../util/constants";
+import { useErrors } from "../hooks/useErrors";
+import { useAppState } from "../hooks/useAppState";
+import { cancelInvoice, fetchInvoices } from "../api/calls";
+import { MESSAGE_TIMEOUT } from "../util/constants";
 
 const { Panel } = Collapse;
 const INVOICE_STATUS = {
@@ -106,7 +106,7 @@ const ExtraHeader = ({ ID, invoiceDate, status: initialStatus }) => {
   );
 };
 
-const MyInvoices = () => {
+const MyInvoicesPage = () => {
   const { handleError } = useErrors();
   const { setLoading } = useAppState();
   const [invoices, setInvoices] = useState([]);
@@ -176,13 +176,11 @@ const MyInvoices = () => {
   return (
     <div>
       {invoiceElements && (
-        <>
-          <Divider orientation="left">My invoices</Divider>
-          <Collapse expandIconPosition="left">{invoiceElements}</Collapse>
-        </>
+        <Collapse expandIconPosition="left">{invoiceElements}</Collapse>
       )}
+      {"Pagination steel needed"}
     </div>
   );
 };
 
-export { MyInvoices };
+export { MyInvoicesPage };

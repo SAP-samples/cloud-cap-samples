@@ -1,11 +1,11 @@
 import React from "react";
 import { Form, Input, Button, Checkbox, message } from "antd";
-import { login } from "../../api/calls";
+import { login } from "../api/calls";
 import { useHistory } from "react-router-dom";
-import { useAppState } from "../../hooks/useAppState";
-import { useErrors } from "../../hooks/useErrors";
-import { MESSAGE_TIMEOUT } from "../../util/constants";
-import { emitter } from "../../util/EventEmitter";
+import { useAppState } from "../hooks/useAppState";
+import { useErrors } from "../hooks/useErrors";
+import { MESSAGE_TIMEOUT } from "../util/constants";
+import { emitter } from "../util/EventEmitter";
 
 const layout = {
   labelCol: {

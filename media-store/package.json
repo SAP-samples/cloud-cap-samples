@@ -30,7 +30,11 @@
     "REFRESH_TOKEN_SECRET": "refresh-secret",
     "requires": {
       "db": {
-        "kind": "hana"
+        "kind": "sqlite",
+        "model": "*",
+        "credentials": {
+          "database": "mychinook.db"
+        }
       },
       "auth": {
         "impl": "srv/auth.js"

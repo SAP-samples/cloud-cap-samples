@@ -13,15 +13,4 @@ const withRestrictions = (Component, isUserMeetRestrictions) => {
   };
 };
 
-const withRestrictedSection = (Component, isUserMeetRestrictions) => {
-  return (props) => {
-    const { user, invoicedItems } = useAppState();
-    return (
-      isUserMeetRestrictions({ user, invoicedItems }) && (
-        <Component {...props} />
-      )
-    );
-  };
-};
-
-export { withRestrictions, withRestrictedSection };
+export { withRestrictions };
