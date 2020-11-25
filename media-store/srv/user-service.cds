@@ -24,14 +24,7 @@ service Users {
     };
 
     action login(email : String(111), password : String(200)) returns AuthData;
-
-    action refreshTokens(refreshToken : String(500)) returns {
-        accessToken  : String(500);
-        refreshToken : String(500);
-        ID           : Integer;
-        email        : String(500);
-        roles        : array of String(111);
-    };
+    action refreshTokens(refreshToken : String(500)) returns AuthData;
 }
 
 annotate Users.Customers with @(restrict : [{
