@@ -23,7 +23,7 @@ module.exports = async function () {
 
   this.on("invoice", async (req) => {
     const { tracks } = req.data;
-    const trackIds = tracks.map(({ ID }) => ID);
+    const newInvoicedTracks = tracks.map(({ ID }) => ID);
     const customerId = req.user.attr.ID;
     const total = tracks.reduce(
       (acc, { unitPrice }) => acc + Number(unitPrice),
@@ -32,6 +32,27 @@ module.exports = async function () {
     const utcNowDateTime = moment().utc().format(UTC_DATE_TIME_FORMAT);
 
     const transaction = await db.tx(req);
+
+    // check if already exists
+    const invoicedTracks = await transaction.run(
+      SELECT.from(InvoiceItems)
+        .columns("track_ID")
+        .where(
+          "invoice_ID in",
+          SELECT("ID").from(Invoices).where({
+            customer_ID: req.user.attr.ID,
+            status: 1,
+          })
+        )
+    );
+    const isNewInvoiceHasInvoicedTracks = invoicedTracks.some(
+      ({ track_ID: curID }) => newInvoicedTracks.includes(curID)
+    );
+    if (isNewInvoiceHasInvoicedTracks) {
+      await transaction.rollback();
+      req.reject(400, "Invoice contains already owned values");
+      return;
+    }
 
     // getting last ids for new records
     let { ID: lastInvoiceId } = await transaction.run(

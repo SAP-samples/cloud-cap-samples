@@ -64,16 +64,12 @@ const PersonPage = () => {
   };
 
   const personProperties = map(Object.keys(person), (currentKey) => (
-    <Form.Item
-      key={currentKey}
-      label={PERSON_PROP[currentKey]}
-      name={currentKey}
-    >
-      <Input />
-    </Form.Item>
+    <div key={currentKey}>
+      <Form.Item label={PERSON_PROP[currentKey]} name={currentKey}>
+        <Input />
+      </Form.Item>
+    </div>
   ));
-
-  console.log(person, "person");
 
   return (
     <>

@@ -10,8 +10,6 @@ import { useAbortableEffect } from "../hooks/useAbortableEffect";
 import { requireEmployee } from "../util/constants";
 import "./TracksPage.css";
 
-let counter = 0;
-
 const { Search } = Input;
 const { Option } = Select;
 
@@ -52,7 +50,6 @@ const TracksContainer = () => {
     const getTracksRequest = fetchTacks();
     const getGenresReq = fetchGenres();
 
-    console.log("calling requests", counter++);
     Promise.all([countTracksReq, getTracksRequest, getGenresReq])
       .then(
         ([
