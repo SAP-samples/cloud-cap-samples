@@ -18,6 +18,7 @@ html5Deployer/resources/app/
 # MTA
 *_mta_build_tmp
 *.mtar
+*.mta
 mta_archives/
 
 # Other
