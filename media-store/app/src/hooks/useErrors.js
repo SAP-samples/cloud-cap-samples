@@ -19,7 +19,7 @@ const useErrors = () => {
       setError({
         status: "",
         statusText: "Error",
-        message: "Something went wrong",
+        message: "Something went wrong. Seems like request is too long",
       });
     }
 

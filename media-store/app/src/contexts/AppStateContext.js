@@ -40,7 +40,6 @@ const AppStateContextProvider = ({ children }) => {
       setUser(newUser);
     };
     emitter.on("UPDATE_USER", updateUser);
-    console.log("listener was registered");
     return () => {
       emitter.removeListener("UPDATE_USER", updateUser);
     };
