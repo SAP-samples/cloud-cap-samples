@@ -29,7 +29,6 @@ const Login = () => {
   const { handleError } = useErrors();
 
   const onFinish = (values) => {
-    console.log("Validation Success:", values);
     setLoading(true);
     login({ email: values.email, password: values.password })
       .then((response) => {

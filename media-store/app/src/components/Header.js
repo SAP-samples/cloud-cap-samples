@@ -24,7 +24,14 @@ const RELOAD_LOCATION_NUMBER = 0;
 const Header = () => {
   const history = useHistory();
   const location = useLocation();
-  const { user, invoicedItems, locale, setLocale, loading } = useAppState();
+  const {
+    user,
+    invoicedItems,
+    setInvoicedItems,
+    locale,
+    setLocale,
+    loading,
+  } = useAppState();
   const currentKey = [keys.find((key) => key === location.pathname)];
   const haveInvoicedItems = !isEmpty(invoicedItems);
   const invoicedItemsLength = invoicedItems.length;
@@ -48,7 +55,7 @@ const Header = () => {
 
   const onUserLogout = () => {
     emitter.emit("UPDATE_USER", undefined);
-    history.push("/");
+    history.go(0);
   };
 
   return (

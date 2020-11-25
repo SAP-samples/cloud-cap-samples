@@ -13,10 +13,6 @@ const REQUIRED = [
     message: "This filed is required!",
   },
 ];
-const PRICE_INPUT_RULE = {
-  pattern: /^(?:\d*\.\d\d)$/,
-  message: "Price should have precision 2 and dot separator!",
-};
 
 const getAlbums = function (value) {
   return fetchAlbumsByName(value, ALBUMS_LIMIT)

@@ -23,6 +23,7 @@ module.exports = async function () {
 
   this.on("invoice", async (req) => {
     const { tracks } = req.data;
+    const trackIds = tracks.map(({ ID }) => ID);
     const customerId = req.user.attr.ID;
     const total = tracks.reduce(
       (acc, { unitPrice }) => acc + Number(unitPrice),
@@ -32,14 +33,15 @@ module.exports = async function () {
 
     const transaction = await db.tx(req);
 
+    // getting last ids for new records
     let { ID: lastInvoiceId } = await transaction.run(
       SELECT.one(Invoices).columns("ID").orderBy({ ID: "desc" })
     );
-
     let { ID: lastInvoiceItemId } = await transaction.run(
       SELECT.one(InvoiceItems).columns("ID").orderBy({ ID: "desc" })
     );
 
+    // creating invoice
     const {
       results: [{ lastID: invoiceID }],
     } = await transaction.run(
@@ -48,6 +50,7 @@ module.exports = async function () {
         .values(++lastInvoiceId, customerId, total, utcNowDateTime)
     );
 
+    // creating invoice items
     await transaction.run(
       INSERT.into(InvoiceItems)
         .columns("ID", "invoice_ID", "track_ID", "unitPrice")
