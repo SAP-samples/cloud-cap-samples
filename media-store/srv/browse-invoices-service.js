@@ -3,6 +3,7 @@ const moment = require("moment");
 
 const LEVERAGE_DURATION = 1; // in hours. should be the same in the frontend
 const CANCEL_STATUS = -1;
+const SHIPPED_STATUS = 1;
 const UTC_DATE_TIME_FORMAT = "YYYY-MM-DDThh:mm:ss";
 
 // the same function there is in the frontend
@@ -41,7 +42,7 @@ module.exports = async function () {
           "invoice_ID in",
           SELECT("ID").from(Invoices).where({
             customer_ID: req.user.attr.ID,
-            status: 1,
+            status: SHIPPED_STATUS,
           })
         )
     );
@@ -51,7 +52,6 @@ module.exports = async function () {
     if (isNewInvoiceHasInvoicedTracks) {
       await transaction.rollback();
       req.reject(400, "Invoice contains already owned values");
-      return;
     }
 
     // getting last ids for new records
@@ -62,6 +62,9 @@ module.exports = async function () {
       SELECT.one(InvoiceItems).columns("ID").orderBy({ ID: "desc" })
     );
 
+    console.log("lastInvoiceId", lastInvoiceId);
+    console.log("lastInvoiceId", lastInvoiceId);
+
     // creating invoice
     const {
       results: [{ lastID: invoiceID }],
@@ -71,8 +74,10 @@ module.exports = async function () {
         .values(++lastInvoiceId, customerId, total, utcNowDateTime)
     );
 
+    console.log("invoiceID", invoiceID);
+
     // creating invoice items
-    await transaction.run(
+    const result = await transaction.run(
       INSERT.into(InvoiceItems)
         .columns("ID", "invoice_ID", "track_ID", "unitPrice")
         .rows(
@@ -84,6 +89,7 @@ module.exports = async function () {
           ])
         )
     );
+    console.log("insert result", result);
     await transaction.commit();
   });
 
