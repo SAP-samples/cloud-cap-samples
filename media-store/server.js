@@ -29,7 +29,11 @@ cds.on("served", async ({ db, messaging, ...servedServices }) => {
   // add logging current user before any request
   for (let i in servedServices) {
     servedServices[i].prepend((srv) =>
-      srv.before("*", (req) => console.log("[USER]:", req.user))
+      srv.before("*", (req) => {
+        if (req.user) {
+          console.log("[USER]:", req.user.id, req.user.attr, req.user._roles);
+        }
+      })
     );
   }
 });
