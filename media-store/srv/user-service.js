@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 
 const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = cds.env;
 const ACCESS_TOKEN_EXP_IN = "10s";
-const REFRESH_TOKEN_EXPIRES_IN = "16s";
+const REFRESH_TOKEN_EXPIRES_IN = "30s";
 
 const comparePasswords = async (password, hashedPassword) => {
   return new Promise((resolve, reject) =>

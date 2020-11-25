@@ -1,10 +1,9 @@
-import React, { useState, useMemo } from "react";
-import { Card, Button, message } from "antd";
-import { omit } from "lodash";
+import React, { useState } from "react";
+import { Form, Button, message, Input } from "antd";
+import { omit, map } from "lodash";
 import { fetchPerson, confirmPerson } from "../api/calls";
 import { useErrors } from "../hooks/useErrors";
 import { useAppState } from "../hooks/useAppState";
-import { Editable } from "../components/Editable";
 import { MESSAGE_TIMEOUT } from "../util/constants";
 import { useAbortableEffect } from "../hooks/useAbortableEffect";
 
@@ -25,7 +24,7 @@ const PERSON_PROP = {
 const PersonPage = () => {
   const { setLoading } = useAppState();
   const { handleError } = useErrors();
-  const [initialPerson, setInitialPerson] = useState({});
+  const [form] = Form.useForm();
   const [person, setPerson] = useState({
     lastName: "",
     firstName: "",
@@ -47,7 +46,6 @@ const PersonPage = () => {
       .then(({ data: personData }) => {
         personData = omit(personData, "@odata.context", "ID");
         if (!status.aborted) {
-          setInitialPerson(personData);
           setPerson(personData);
         }
       })
@@ -55,67 +53,58 @@ const PersonPage = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  const onConfirmChanges = () => {
+  const onConfirmChanges = (newPerson) => {
     setLoading(true);
-    confirmPerson(person)
+    confirmPerson(newPerson)
       .then(() => {
-        setInitialPerson(person);
         message.success("Person successfully updated", MESSAGE_TIMEOUT);
       })
       .catch(handleError)
       .finally(() => setLoading(false));
   };
-  const isPersonChanged = useMemo(() => {
-    const keysOne = Object.keys(initialPerson);
-    const keysTwo = Object.keys(person);
-    if (keysOne.length !== keysTwo.length) {
-      return true;
-    }
 
-    for (let key of keysOne) {
-      if (initialPerson[key] !== person[key]) {
-        return true;
-      }
-    }
+  const personProperties = map(Object.keys(person), (currentKey) => (
+    <Form.Item
+      key={currentKey}
+      label={PERSON_PROP[currentKey]}
+      name={currentKey}
+    >
+      <Input />
+    </Form.Item>
+  ));
 
-    return false;
-  }, [person, initialPerson]);
-
-  const personProperties = Object.keys(person).reduce((acc, currentKey) => {
-    if (currentKey === "email") {
-      return acc;
-    }
-    return acc.concat([
-      <div key={currentKey}>
-        {PERSON_PROP[currentKey]}
-        <Editable
-          type="text"
-          value={person[currentKey]}
-          onChange={(value) =>
-            setPerson({ ...person, [`${currentKey}`]: value })
-          }
-        />
-      </div>,
-    ]);
-  }, []);
+  console.log(person, "person");
 
   return (
     <>
-      <Card title={`${person.lastName} ${person.firstName}`}>
-        {personProperties}
-        <div>
-          Email: <span style={{ fontWeight: 600 }}>{person.email}</span>
-        </div>
-        {isPersonChanged && (
-          <Button
+      {person.lastName !== "" && (
+        <Form
+          form={form}
+          labelCol={{
+            span: 4,
+          }}
+          wrapperCol={{
+            span: 14,
+          }}
+          layout="horizontal"
+          onFinish={onConfirmChanges}
+          onFinishFailed={() => console.log("Not valid params provided")}
+          initialValues={{
+            ...person,
+          }}
+        >
+          {personProperties}
+          <Form.Item
             type="primary"
-            style={{ margin: 10 }}
-            onClick={onConfirmChanges}
+            wrapperCol={{
+              span: 14,
+              offset: 4,
+            }}
           >
-            Confirm changes
-          </Button>
-        )}
-      </Card>
+            <Button onClick={() => form.submit()}>Confirm changes</Button>
+          </Form.Item>
+        </Form>
+      )}
     </>
   );
 };
