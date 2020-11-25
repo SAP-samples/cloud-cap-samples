@@ -26,14 +26,13 @@ module.exports = async function () {
     const { tracks } = req.data;
     const newInvoicedTracks = tracks.map(({ ID }) => ID);
     const customerId = req.user.attr.ID;
+    const utcNowDateTime = moment().utc().format(UTC_DATE_TIME_FORMAT);
     const total = tracks.reduce(
       (acc, { unitPrice }) => acc + Number(unitPrice),
       0
     );
-    const utcNowDateTime = moment().utc().format(UTC_DATE_TIME_FORMAT);
 
     const transaction = await db.tx(req);
-
     // check if already exists
     const invoicedTracks = await transaction.run(
       SELECT.from(InvoiceItems)
@@ -62,34 +61,27 @@ module.exports = async function () {
       SELECT.one(InvoiceItems).columns("ID").orderBy({ ID: "desc" })
     );
 
-    console.log("lastInvoiceId", lastInvoiceId);
-    console.log("lastInvoiceId", lastInvoiceId);
-
     // creating invoice
-    const {
-      results: [{ lastID: invoiceID }],
-    } = await transaction.run(
+    const newInvoiceId = ++lastInvoiceId;
+    await transaction.run(
       INSERT.into(Invoices)
         .columns("ID", "customer_ID", "total", "invoiceDate")
-        .values(++lastInvoiceId, customerId, total, utcNowDateTime)
+        .values(newInvoiceId, customerId, total, utcNowDateTime)
     );
 
-    console.log("invoiceID", invoiceID);
-
     // creating invoice items
-    const result = await transaction.run(
+    await transaction.run(
       INSERT.into(InvoiceItems)
         .columns("ID", "invoice_ID", "track_ID", "unitPrice")
         .rows(
           tracks.map(({ ID: trackID, unitPrice }, index) => [
             lastInvoiceItemId + index + 1,
-            invoiceID,
+            newInvoiceId,
             trackID,
             unitPrice,
           ])
         )
     );
-    console.log("insert result", result);
     await transaction.commit();
   });
 
