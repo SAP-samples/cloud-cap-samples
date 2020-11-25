@@ -30,8 +30,8 @@ const InvoicePage = () => {
   const { handleError } = useErrors();
   const { user, invoicedItems, setInvoicedItems, setLoading } = useAppState();
 
-  const data = invoicedItems.map(({ ID: key, ...otherProps }) => ({
-    key,
+  const data = invoicedItems.map(({ ID, ...otherProps }) => ({
+    key: `invoiceItem${ID}`,
     ...otherProps,
   }));
 
