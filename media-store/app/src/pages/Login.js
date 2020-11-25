@@ -25,14 +25,17 @@ const tailLayout = {
 const Login = () => {
   const [form] = Form.useForm();
   const history = useHistory();
-  const { setLoading } = useAppState();
+  const { setLoading, setInvoicedItems } = useAppState();
   const { handleError } = useErrors();
 
   const onFinish = (values) => {
     setLoading(true);
     login({ email: values.email, password: values.password })
-      .then((response) => {
-        emitter.emit("UPDATE_USER", response.data);
+      .then(({ data: user }) => {
+        emitter.emit("UPDATE_USER", user);
+        if (user.roles.includes("employee")) {
+          setInvoicedItems([]);
+        }
         history.push("/");
       })
       .catch((error) => {

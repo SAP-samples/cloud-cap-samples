@@ -9,7 +9,7 @@ import { responseErrorInterceptor } from "./responseErrorInterceptor";
 
 const axiosInstance = axios.create({
   baseURL: API,
-  timeout: 1000,
+  timeout: 2000,
 });
 const user = getUserFromLS();
 const locale = getLocaleFromLS();

@@ -178,7 +178,6 @@ const MyInvoicesPage = () => {
       {invoiceElements && (
         <Collapse expandIconPosition="left">{invoiceElements}</Collapse>
       )}
-      {"Pagination steel needed"}
     </div>
   );
 };
