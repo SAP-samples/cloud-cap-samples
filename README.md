@@ -26,7 +26,10 @@ cd samples
 In the samples folder run:
 
 ```sh
+# Download and install dependencies into node_modules folder
 npm install
+# install cds binaries globally
+npm i -g @sap/cds-dk
 ```
 
 ### Run
