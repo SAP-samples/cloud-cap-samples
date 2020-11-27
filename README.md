@@ -8,12 +8,11 @@ Find here a collection of samples for the [SAP Cloud Application Programming Mod
 ### Preliminaries
 
 1. [Install @sap/cds-dk](https://cap.cloud.sap/docs/get-started/) as documented in [capire](https://cap.cloud.sap)
+   ```sh
+   # install cds tools globally
+   npm i -g @sap/cds-dk
+   ```
 2. _Optional:_ [Use Visual Studio Code](https://cap.cloud.sap/docs/get-started/in-vscode)
-
-```sh
-# install cds binaries globally
-npm i -g @sap/cds-dk
-```
 
 ### Download
 
