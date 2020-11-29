@@ -121,7 +121,7 @@ resources:
   - name: media-store-xsuaa
     # ------------------------------------------------------------
     parameters:
-      path: ./xs-security.json
+      path: deployers/xs-security.json
       service-plan: application
       service: xsuaa
     type: org.cloudfoundry.managed-service
