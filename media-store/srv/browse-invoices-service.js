@@ -49,7 +49,6 @@ module.exports = async function () {
       ({ track_ID: curID }) => newInvoicedTracks.includes(curID)
     );
     if (isNewInvoiceHasInvoicedTracks) {
-      await transaction.rollback();
       req.reject(400, "Invoice contains already owned values");
     }
 

@@ -1,5 +1,7 @@
 const cds = require("@sap/cds");
 
+const SHIPPED_STATUS = 1;
+
 module.exports = async function () {
   const db = await cds.connect.to("db"); // connect to database service
 
@@ -13,6 +15,7 @@ module.exports = async function () {
           "invoice_ID in",
           SELECT("ID").from(Invoices).where({
             customer_ID: req.user.attr.ID,
+            status: SHIPPED_STATUS,
           })
         )
     );
