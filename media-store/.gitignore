@@ -9,7 +9,10 @@ target/
 package-lock.json
 
 # html5Deployer
-html5Deployer/resources/app/
+deployers/html5Deployer/resources/app/
+
+# app
+app/
 
 # Web IDE, App Studio
 .che/
