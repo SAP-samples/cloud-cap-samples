@@ -16,6 +16,8 @@ build-parameters:
       commands:
         - npm install
         - npx @sap/cds-dk build
+        - npm --prefix ./app-src install ./app-src
+        - npm run build --prefix ./app-src #This line runs the build script
 
 modules:
   # --------------------- SERVER MODULE ------------------------
@@ -48,7 +50,7 @@ modules:
   - name: media-store-hmtl5-deployer
     # ------------------------------------------------------------
     type: com.sap.html5.application-content
-    path: html5Deployer
+    path: deployers/html5Deployer
     requires:
       - name: media-store-html5-host
     build-parameters:
@@ -65,13 +67,13 @@ modules:
     path: app
     build-parameters:
       supported-platforms: []
-      build-result: build
+      build-result: /
 
   # --------------------- APPROUTER MODULE ---------------------
   - name: media-store-approuter
     # ------------------------------------------------------------
     type: approuter.nodejs
-    path: approuter
+    path: deployers/approuter
     requires:
       - name: media-store-html5-runtime
       - name: media-store-xsuaa
