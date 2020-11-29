@@ -4,8 +4,7 @@ module.exports = async function () {
   const db = await cds.connect.to("db"); // connect to database service
 
   this.on("CREATE", "*", async (req) => {
-    const selectLastQuery = SELECT.one(req.entity)
-    .orderBy({ ID: "desc" });
+    const selectLastQuery = SELECT.one(req.entity).orderBy({ ID: "desc" });
 
     const transaction = await db.tx(req);
 
