@@ -16,8 +16,6 @@ build-parameters:
       commands:
         - npm install
         - npx @sap/cds-dk build
-        - npm --prefix ./app-src install ./app-src
-        - npm run build --prefix ./app-src #This line runs the build script
 
 modules:
   # --------------------- SERVER MODULE ------------------------
