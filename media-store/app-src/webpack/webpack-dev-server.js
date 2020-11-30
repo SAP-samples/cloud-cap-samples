@@ -10,12 +10,6 @@ module.exports = {
   devtool: 'inline-source-map',
   entry: {
     index: './src/index.jsx',
-    react: ['react', 'react-dom'],
-    lodash: ['lodash'],
-    moment: ['moment'],
-    events: ['events'],
-    axios: ['axios'],
-    antd: ['antd'],
   },
   devServer: {
     contentBase: './dist',
@@ -43,7 +37,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.SERVICE_URL': JSON.stringify('http://localhost:4004/'),
     }),
-    new webpack.HotModuleReplacementPlugin(), // for hot module replacement option of devServer
+    // new webpack.HotModuleReplacementPlugin(), // for hot module replacement option of devServer
   ],
   output: {
     filename: '[name].[fullhash].js',
