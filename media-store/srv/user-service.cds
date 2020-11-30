@@ -10,9 +10,12 @@ service Users {
         supportRep
     };
 
-    entity Employees as projection on my.Customers excluding {
+    entity Employees as projection on my.Employees excluding {
         password,
-        supportRep
+        reportsTo,
+        title,
+        birthDate,
+        hireDate
     };
 
     type AuthData {
