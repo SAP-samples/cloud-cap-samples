@@ -11,11 +11,11 @@ It contains these folders and files, following our recommended project layout:
 | `deployers/`   | contains deployment staff            |
 | `db/`          | your domain models and data go here  |
 | `srv/`         | your service models and code go here |
-| `test/`        | your service tests                   |
+| `test/`        | your services tests                  |
 | `package.json` | project metadata and configuration   |
 | `mta.yaml`     | deployment config                    |
 | `readme.md`    | this getting started guide           |
-| `server.js`    | initial servers set up               |
+| `server.js`    | initial server set up                |
 
 ## Start development steps
 
