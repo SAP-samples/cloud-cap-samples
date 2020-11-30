@@ -6,11 +6,16 @@ It contains these folders and files, following our recommended project layout:
 
 | File or Folder | Purpose                              |
 | -------------- | ------------------------------------ |
-| `app/`         | Contains frontend app on react       |
+| `app/`         | Will contain compiled front bundles  |
+| `app-src/`     | Contains frontend app on react       |
+| `deployers/`   | Contains deployment staff            |
 | `db/`          | your domain models and data go here  |
 | `srv/`         | your service models and code go here |
+| `test/`        | your service tests                   |
 | `package.json` | project metadata and configuration   |
+| `mta.yaml`     | deployment config                    |
 | `readme.md`    | this getting started guide           |
+| `server.js`    | initial servers set up               |
 
 ## Start development steps
 
@@ -18,7 +23,7 @@ It contains these folders and files, following our recommended project layout:
 - Run `cds watch`. This will start cds service on 4004 port in watch mode
 - Open `app-src` folder and run `npm install` and `npm run watch`. This will install dependencies and run frontend src files watcher. When you will change src files your bundles in app folder will re-compiled. Now you can enjoy development
 
-### Best dev experience
+#### Better dev experience
 
 - You can use webpack-dev-server to rapid frontend development. Instead of running watcher in `app-src` do `npm run start`. This will start frontend dev server on 3000 port. Now your bundles will be hot reloaded, this means you do not need reload the page to see changes
 
