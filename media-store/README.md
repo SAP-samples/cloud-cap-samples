@@ -6,9 +6,9 @@ It contains these folders and files, following our recommended project layout:
 
 | File or Folder | Purpose                              |
 | -------------- | ------------------------------------ |
-| `app/`         | Will contain compiled front bundles  |
-| `app-src/`     | Contains frontend app on react       |
-| `deployers/`   | Contains deployment staff            |
+| `app/`         | will contain compiled front bundles  |
+| `app-src/`     | contains frontend app on react       |
+| `deployers/`   | contains deployment staff            |
 | `db/`          | your domain models and data go here  |
 | `srv/`         | your service models and code go here |
 | `test/`        | your service tests                   |
