@@ -42,12 +42,10 @@ entity Albums {
 }
 
 entity Employees : Person {
-    reportsTo    : Association to Employees;
-    title        : String(20);
-    birthDate    : DateTime;
-    hireDate     : DateTime;
-    subordinates : Association to many Employees
-                       on subordinates.reportsTo = $self;
+    reportsTo : Association to Employees;
+    title     : String(20);
+    birthDate : DateTime;
+    hireDate  : DateTime;
 }
 
 entity Customers : Person {

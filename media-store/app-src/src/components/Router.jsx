@@ -12,15 +12,6 @@ import Login from './Login';
 import { withRestrictions } from '../hocs/withRestrictions';
 import { requireEmployee } from '../util/constants';
 
-// const TracksContainer = React.lazy(() => import('./TracksPage'));
-// const Header = React.lazy(() => import('./Header'));
-// const PersonPage = React.lazy(() => import('./PersonPage'));
-// const ErrorPage = React.lazy(() => import('./ErrorPage'));
-// const InvoicePage = React.lazy(() => import('./InvoicePage'));
-// const ManageStore = React.lazy(() => import('./ManageStore'));
-// const MyInvoicesPage = React.lazy(() => import('./MyInvoicesPage'));
-// const Login = React.lazy(() => import('./Login'));
-
 const RestrictedLogin = withRestrictions(Login, ({ user }) => !user);
 const RestrictedInvoicePage = withRestrictions(
   InvoicePage,
@@ -36,7 +27,7 @@ const MyRouter = () => {
       <div style={{ padding: '2em 20vh' }}>
         <React.Suspense fallback={<div>Loading...</div>}>
           <Switch>
-            <Route exact path={['/', '/tracks']}>
+            <Route exact path={['/index.html', '/tracks', '/']}>
               <TracksContainer />
             </Route>
             <Route exact path="/person">
