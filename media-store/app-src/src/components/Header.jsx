@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Badge, Spin } from 'antd';
+import { Menu, Badge, Spin, message } from 'antd';
 import { isEmpty } from 'lodash';
 import {
   CreditCardOutlined,
@@ -13,7 +13,7 @@ import { setLocaleToLS } from '../util/localStorageService';
 import { changeLocaleDefaults } from '../api/axiosInstance';
 import { emitter } from '../util/EventEmitter';
 import './Header.css';
-import { requireEmployee, requireCustomer } from '../util/constants';
+import { requireEmployee, requireCustomer, MESSAGE_TIMEOUT } from '../util/constants';
 
 const { SubMenu } = Menu;
 
@@ -24,7 +24,7 @@ const RELOAD_LOCATION_NUMBER = 0;
 const Header = () => {
   const history = useHistory();
   const location = useLocation();
-  const { user, invoicedItems, setInvoicedItems, locale, setLocale, loading } = useAppState();
+  const { user, invoicedItems, locale, setLocale, loading } = useAppState();
   const currentKey = [keys.find((key) => key === location.pathname)];
   const haveInvoicedItems = !isEmpty(invoicedItems);
   const invoicedItemsLength = invoicedItems.length;
@@ -45,7 +45,11 @@ const Header = () => {
 
   const onUserLogout = () => {
     emitter.emit('UPDATE_USER', undefined);
-    history.go(0);
+    message.warn(
+      'Now you are not authenticated. Log in to use full functionality',
+      MESSAGE_TIMEOUT
+    );
+    history.push('/');
   };
 
   return (

@@ -5,7 +5,8 @@
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --config ./webpack/webpack-dev-server.js",
     "watch": "./node_modules/.bin/webpack -w --config ./webpack/webpack.dev.js",
-    "build": "./node_modules/.bin/webpack --config ./webpack/webpack.prod.js",
+    "build:dev": "./node_modules/.bin/webpack --config ./webpack/webpack.dev.js",
+    "build:prod": "./node_modules/.bin/webpack --config ./webpack/webpack.prod.js",
     "lint": "./node_modules/.bin/eslint"
   },
   "dependencies": {

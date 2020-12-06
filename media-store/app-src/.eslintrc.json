@@ -36,6 +36,8 @@
       }
     ],
     "react/jsx-props-no-spreading": "off", // props spreading,
-    "no-console": "off"
+    "no-console": "off",
+    "consistent-return": "off",
+    "prefer-destructuring": "off"
   }
 }
