@@ -10,9 +10,9 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^4.2.8",
-    "@sap/hana-client": "^2.6.61",
     "bcryptjs": "^2.4.3",
     "express": "^4",
+    "hdb": "^0.18.2",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "passport": "^0.4.1"
