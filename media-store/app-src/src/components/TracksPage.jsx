@@ -80,7 +80,7 @@ const TracksContainer = () => {
       setLoading(true);
       const options = {
         $top: state.pagination.pageSize,
-        substr: state.searchOptions.substr,
+        substr: state.searchOptions.substr.replace(`'`, `''`),
         genreIds: state.searchOptions.genreIds,
       };
 
