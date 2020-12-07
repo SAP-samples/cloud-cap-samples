@@ -3,7 +3,7 @@ import { getUserFromLS, getLocaleFromLS } from '../util/localStorageService';
 import { emitter } from '../util/EventEmitter';
 
 const TIMEOUT = 2000;
-const RETRY_COUNT = 1;
+const RETRY_COUNT = 2;
 
 /**
  * This is axios instance

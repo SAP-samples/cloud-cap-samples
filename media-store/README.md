@@ -69,6 +69,8 @@ npm install
 npm run build
 ```
 
+- Clean up deployers/html5Deployer/resources folder from the previous frontend build
+
 - From root directory run:
 
 ```json
