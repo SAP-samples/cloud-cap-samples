@@ -1,5 +1,7 @@
 const { GET, expect } = require('../test') .run ('bookshop')
-const cds = require('@sap/cds/lib'); cds.User = cds.User.Privileged // skip auth
+const cds = require('@sap/cds/lib')
+if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
+else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
 
 describe('OData Protocol', () => {
 
