@@ -53,8 +53,11 @@ const Track = ({ initialTrack, isAlreadyOrdered }) => {
 };
 
 Track.propTypes = {
-  initialTrack: PropTypes.object,
+  initialTrack: PropTypes.object.isRequired,
   isAlreadyOrdered: PropTypes.bool,
+};
+Track.defaultProps = {
+  isAlreadyOrdered: undefined,
 };
 
 export { Track };

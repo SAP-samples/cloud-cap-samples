@@ -1,74 +1,92 @@
-@media-store-service = http://localhost:4004/media
 @browse-tracks-service = http://localhost:4004/browse-tracks
+@browse-invoices-service = http://localhost:4004/browse-invoices
+@manage-store-service = http://localhost:4004/manage-store
+@user-service = http://localhost:4004/users
+
 
 ### ------------------------------------------------------------------------
-# Get service 
-GET {{media-store-service}}
+## Browse Tracks service
+### ------------------------------------------------------------------------
 
 ### ------------------------------------------------------------------------
-# Get $metadata document
-GET {{media-store-service}}/$metadata
+# Get browse-tracks-service 
+GET {{browse-tracks-service}}
 
 ### ------------------------------------------------------------------------
-# Get Artists
-GET {{media-store-service}}/Artists
+# Get $metadata document of browse-tracks-service
+GET {{browse-tracks-service}}/$metadata
 
 ### ------------------------------------------------------------------------
-# Get Albums
-GET {{media-store-service}}/Albums
+# Get Trakcs
+GET {{browse-tracks-service}}/Tracks
+
+### ------------------------------------------------------------------------
+# Get Albums by artist ID axpanding tracks and artist
+GET {{browse-tracks-service}}/Albums
 ?$filter=artist_ID eq 1
 &$expand=tracks,artist
 
 
 ### ------------------------------------------------------------------------
-# Get Customers
-GET {{media-store-service}}/Customers(1)
-?$expand=supportRep
+## Users service
+### ------------------------------------------------------------------------
 
 ### ------------------------------------------------------------------------
-# Get Employees
-GET {{media-store-service}}/Employees(1)
-?$expand=subordinates,reportsTo
-
-### ------------------------------------------------------------------------
-# Get Genres
-GET {{media-store-service}}/Genres
-?$top=10
-
-### ------------------------------------------------------------------------
-# Get InvoiceItems
-GET {{media-store-service}}/InvoiceItems
-?$expand=track,invoice&$top=10
-
-### ------------------------------------------------------------------------
-# Get Invoices
-GET {{media-store-service}}/Invoices
-?$top=10&$expand=customer
-
-### ------------------------------------------------------------------------
-# Get MediaTypes
-GET {{media-store-service}}/MediaTypes
-?$top=10
-
-### ------------------------------------------------------------------------
-# Get PlaylistTrack
-GET {{media-store-service}}/PlaylistTrack/$count
-?$filter=playlist_ID eq 8
-# ?$count=true
-# &$expand=track&$select=track
-
-### ------------------------------------------------------------------------
-# Get Playlists
-GET {{media-store-service}}/Playlists
-?$top=10
-
-### ------------------------------------------------------------------------
-# Get Playlists
-GET {{media-store-service}}/Tracks
-# ?$top=10&$expand=genre,mediaType,album
-
-
-### ------------------------------------------------------------------------
-# Get My tracks
-POST {{browse-tracks-service}}/getInvoicedTracks
+# Login user (customer/employee)
+POST {{user-service}}/login
 Content-Type: application/json
+
+{
+    "email": "leonekohler@surfeu.de",
+    "password": "some"
+}
+
+# employee data
+# {
+#     "email": "andrew@chinookcorp.com",
+#     "password": "some"
+# }
+
+### ------------------------------------------------------------------------
+# Refresh tokens
+POST {{user-service}}/refreshTokens
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxlb25la29obGVyQHN1cmZldS5kZSIsIklEIjoyLCJyb2xlcyI6WyJjdXN0b21lciJdLCJpYXQiOjE2MDc0MzE2MzYsImV4cCI6MTYwNzQzMjgzNn0.5MPlOr05Qr1fYbE0dutnUu3n8JMOiuLLUnsnM0RSeA8"
+}
+
+### ------------------------------------------------------------------------
+# Get current customer data
+GET {{user-service}}/Customers(2)
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxlb25la29obGVyQHN1cmZldS5kZSIsIklEIjoyLCJyb2xlcyI6WyJjdXN0b21lciJdLCJpYXQiOjE2MDc0MzE5NTgsImV4cCI6MTYwNzQzMjU1OH0.2sP3epaEo8tpBJZ-PuJInuC36TOyMgL2W6QjNFGyhSs
+
+### ------------------------------------------------------------------------
+# Get current employee data
+GET {{user-service}}/Employees(1)
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZHJld0BjaGlub29rY29ycC5jb20iLCJJRCI6MSwicm9sZXMiOlsiZW1wbG95ZWUiXSwiaWF0IjoxNjA3NDMyMTY0LCJleHAiOjE2MDc0MzI3NjR9.HVwadUbUq3K0_5NIo9pYX9rK9awmzZ3hIqauF3yusdI
+
+
+### ------------------------------------------------------------------------
+## Invocies service
+### ------------------------------------------------------------------------
+
+### ------------------------------------------------------------------------
+# Get all current customer invoices
+GET {{browse-invoices-service}}/Invoices
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxlb25la29obGVyQHN1cmZldS5kZSIsIklEIjoyLCJyb2xlcyI6WyJjdXN0b21lciJdLCJpYXQiOjE2MDc0MzE5NTgsImV4cCI6MTYwNzQzMjU1OH0.2sP3epaEo8tpBJZ-PuJInuC36TOyMgL2W6QjNFGyhSs
+
+
+### ------------------------------------------------------------------------
+## Manage store service
+### ------------------------------------------------------------------------
+
+### ------------------------------------------------------------------------
+# Crete new Album
+POST {{manage-store-service}}/Artists
+Content-Type: application/json
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZHJld0BjaGlub29rY29ycC5jb20iLCJJRCI6MSwicm9sZXMiOlsiZW1wbG95ZWUiXSwiaWF0IjoxNjA3NDQxMzQwLCJleHAiOjE2MDc0NDE5NDB9._JQzhqUwbutccoSWWeCZ2R16gLzzMD7b21bZ5wxN1gU
+
+{
+    "name": "some"
+}

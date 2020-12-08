@@ -36,8 +36,8 @@ const Header = () => {
     history.go(RELOAD_LOCATION_NUMBER);
   };
   const localeElements = AVAILABLE_LOCALES.filter((localeName) => localeName !== locale).map(
-    (curLocale, index) => (
-      <Menu.Item key={`${index}${curLocale}`} onClick={() => onChangeLocale(curLocale)}>
+    (curLocale) => (
+      <Menu.Item key={curLocale} onClick={() => onChangeLocale(curLocale)}>
         {curLocale}
       </Menu.Item>
     )
@@ -83,9 +83,6 @@ const Header = () => {
             Manages
           </Menu.Item>
         )}
-        <span>
-          {loading && <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />}
-        </span>
       </Menu>
 
       <Menu
@@ -94,6 +91,9 @@ const Header = () => {
         mode="horizontal"
         selectedKeys={currentKey}
       >
+        <Menu.Item>
+          {loading && <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />}
+        </Menu.Item>
         {haveInvoicedItems && (
           <Menu.Item
             style={{
@@ -119,21 +119,19 @@ const Header = () => {
             </div>
           </Menu.Item>
         )}
-
         <SubMenu title={locale}>{localeElements}</SubMenu>
-
-        {!!user ? (
+        {user ? (
           <Menu.Item
             onClick={onUserLogout}
             danger
             icon={<LogoutOutlined style={{ fontSize: 16 }} />}
-          ></Menu.Item>
+          />
         ) : (
           <Menu.Item
             key="/login"
             onClick={() => history.push('/login')}
             icon={<LoginOutlined style={{ fontSize: 16 }} />}
-          ></Menu.Item>
+          />
         )}
       </Menu>
     </div>

@@ -38,9 +38,8 @@ const InvoicePage = () => {
   const onBuy = () => {
     setLoading(true);
     invoice(
-      invoicedItems.map(({ ID, unitPrice }) => ({
+      invoicedItems.map(({ ID }) => ({
         ID,
-        unitPrice,
       }))
     )
       .then(() => {

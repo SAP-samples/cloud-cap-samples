@@ -18,6 +18,16 @@ const EditAction = ({ ID, name, composer, genre, unitPrice, album, afterTrackUpd
     setVisible(true);
   };
 
+  const afterCloseModal = () => {
+    setUpdateLoading(true);
+    getTrack(ID)
+      .then((response) => {
+        afterTrackUpdate(response.data);
+        setUpdateLoading(false);
+      })
+      .catch(handleError);
+  };
+
   const onFinish = (value) => {
     setConfirmLoading(true);
     updateTrack({
@@ -43,16 +53,6 @@ const EditAction = ({ ID, name, composer, genre, unitPrice, album, afterTrackUpd
 
   const handleCancel = () => {
     setVisible(false);
-  };
-
-  const afterCloseModal = () => {
-    setUpdateLoading(true);
-    getTrack(ID)
-      .then((response) => {
-        afterTrackUpdate(response.data);
-        setUpdateLoading(false);
-      })
-      .catch(handleError);
   };
 
   return (
@@ -86,11 +86,11 @@ const EditAction = ({ ID, name, composer, genre, unitPrice, album, afterTrackUpd
           onFinish={onFinish}
           onFinishFailed={() => console.log('Not valid params provided')}
           initialValues={{
-            name: name,
-            composer: composer,
+            name,
+            composer,
             genreID: genre.ID,
             albumID: album.ID,
-            unitPrice: unitPrice,
+            unitPrice,
           }}
         >
           <TrackForm initialAlbumTitle={album.title} />

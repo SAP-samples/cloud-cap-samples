@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
-import { Card } from "antd";
-import { EditAction } from "./EditAction";
-import { DeleteAction } from "./DeleteAction";
-import { TrackCardBody } from "./TrackCardBody";
-import "./ManagedTrack.css";
+import React, { useState, useRef } from 'react';
+import { Card } from 'antd';
+import PropTypes from 'prop-types';
+import { EditAction } from './EditAction';
+import { DeleteAction } from './DeleteAction';
+import { TrackCardBody } from './TrackCardBody';
+import './ManagedTrack.css';
 
 const ManagedTrack = ({ initialTrack, onDeleteTrack }) => {
   const trackElement = useRef();
@@ -37,6 +38,11 @@ const ManagedTrack = ({ initialTrack, onDeleteTrack }) => {
       </Card>
     </div>
   );
+};
+
+ManagedTrack.propTypes = {
+  initialTrack: PropTypes.object.isRequired,
+  onDeleteTrack: PropTypes.func.isRequired,
 };
 
 export { ManagedTrack };

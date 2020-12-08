@@ -43,13 +43,10 @@ const invoice = (tracks) => {
   return axiosInstance.post(
     `${INVOICES_SERVICE}/invoice`,
     {
-      tracks: tracks.map(({ unitPrice, ID }) => ({
-        unitPrice: `${unitPrice}`,
-        ID,
-      })),
+      tracks,
     },
     {
-      headers: { 'content-type': 'application/json;IEEE754Compatible=true' },
+      headers: { 'content-type': 'application/json' },
     }
   );
 };
