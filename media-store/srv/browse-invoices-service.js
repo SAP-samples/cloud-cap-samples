@@ -6,6 +6,10 @@ const CANCEL_STATUS = -1;
 const SHIPPED_STATUS = 1;
 const UTC_DATE_TIME_FORMAT = "YYYY-MM-DDThh:mm:ss";
 
+function roundNumber(num) {
+  return Math.round((num + Number.EPSILON) * 100) / 100;
+}
+
 // the same function there is in the frontend
 const isLeverageTimeExpired = (utcNowTimestamp, invoiceDate) => {
   const duration = moment.duration(
@@ -16,7 +20,7 @@ const isLeverageTimeExpired = (utcNowTimestamp, invoiceDate) => {
 
 module.exports = async function () {
   const db = await cds.connect.to("db"); // connect to database service
-  const { Invoices, InvoiceItems } = db.entities;
+  const { Invoices, InvoiceItems, Tracks } = db.entities;
 
   this.on("READ", "Invoices", async (req) => {
     return await db.run(req.query.where({ customer_ID: req.user.attr.ID }));
@@ -24,13 +28,9 @@ module.exports = async function () {
 
   this.on("invoice", async (req) => {
     const { tracks } = req.data;
-    const newInvoicedTracks = tracks.map(({ ID }) => ID);
+    const newInvoicedTrackIds = tracks.map(({ ID }) => ID);
     const customerId = req.user.attr.ID;
     const utcNowDateTime = moment().utc().format(UTC_DATE_TIME_FORMAT);
-    const total = tracks.reduce(
-      (acc, { unitPrice }) => acc + Number(unitPrice),
-      0
-    );
 
     const transaction = await db.tx(req);
     // check if already exists
@@ -45,12 +45,20 @@ module.exports = async function () {
           })
         )
     );
-    const isNewInvoiceHasInvoicedTracks = invoicedTracks.some(
-      ({ track_ID: curID }) => newInvoicedTracks.includes(curID)
-    );
-    if (isNewInvoiceHasInvoicedTracks) {
+    const isInValidInvoice = invoicedTracks.some(({ track_ID: curID }) => {
+      return newInvoicedTrackIds.includes(curID);
+    });
+    if (isInValidInvoice) {
       req.reject(400, "Invoice contains already owned values");
     }
+
+    const newInvoicedTracks = await transaction.run(
+      SELECT("ID", "unitPrice").from(Tracks).where({ ID: newInvoicedTrackIds })
+    );
+    const total = newInvoicedTracks.reduce(
+      (acc, { unitPrice }) => acc + roundNumber(Number(unitPrice)),
+      0
+    );
 
     // getting last ids for new records
     let { ID: lastInvoiceId } = await transaction.run(

@@ -15,11 +15,11 @@ const REQUIRED = [
   },
 ];
 
-const getAlbums = function (value) {
+function getAlbums(value) {
   return fetchAlbumsByName(value, ALBUMS_LIMIT)
     .then((response) => response.data.value)
     .catch(this.handleError);
-};
+}
 
 const TrackForm = ({ initialAlbumTitle }) => {
   const { handleError } = useErrors();
@@ -88,6 +88,9 @@ const TrackForm = ({ initialAlbumTitle }) => {
 
 TrackForm.propTypes = {
   initialAlbumTitle: PropTypes.string,
+};
+TrackForm.defaultProps = {
+  initialAlbumTitle: undefined,
 };
 
 export { TrackForm };

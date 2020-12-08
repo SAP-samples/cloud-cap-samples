@@ -11,8 +11,7 @@ service BrowseInvoices @(requires : 'customer') {
     entity Invoices as projection on my.Invoices;
 
     action invoice(tracks : array of {
-        ID        : Integer;
-        unitPrice : Decimal(10, 2);
+        ID : Integer;
     });
 
     action cancelInvoice(ID : Integer);
