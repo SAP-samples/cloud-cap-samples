@@ -153,7 +153,7 @@ const TracksContainer = () => {
       const isAlreadyOrdered = !isEmployee && track.alreadyOrdered;
       const onDeleteTrack = isEmployee && ((ID) => deleteTrack(ID));
       return (
-        <Col key={track.ID} className="gutter-row" span={8}>
+        <Col key={`track-col${track.ID}`} className="gutter-row" span={8}>
           <TrackComponent
             initialTrack={track}
             onDeleteTrack={onDeleteTrack}
