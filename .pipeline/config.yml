@@ -1,8 +1,16 @@
-# Project configuration
+#Project Setup
 general:
+  productiveBranch: 'openSAP-week4-unit1-final'
 
 # Stage configuration
 stages:
+  productionDeployment:
+    cfTargets:
+    - org: 'c567cd0ftrial'
+      space: 'dev'
+      appName: 'Big Bookshop'
+      apiEndpoint: 'https://api.cf.us10.hana.ondemand.com'
+      credentialsId: 'c567cd0ftrial'
 
 # Step configuration
 steps:
