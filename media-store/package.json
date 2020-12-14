@@ -23,7 +23,7 @@
   "scripts": {
     "start": "npx cds run",
     "deploy": "cds deploy --to sqlite:mychinook.db",
-    "test": "mocha test/media-store.test.js --verbose --timeout 10000"
+    "test": "npm run deploy && cd ../ && npm run jest"
   },
   "cds": {
     "ACCESS_TOKEN_SECRET": "secret",
