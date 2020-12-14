@@ -5,29 +5,6 @@
 
 
 ### ------------------------------------------------------------------------
-## Browse Tracks service
-### ------------------------------------------------------------------------
-
-### ------------------------------------------------------------------------
-# Get browse-tracks-service 
-GET {{browse-tracks-service}}
-
-### ------------------------------------------------------------------------
-# Get $metadata document of browse-tracks-service
-GET {{browse-tracks-service}}/$metadata
-
-### ------------------------------------------------------------------------
-# Get Trakcs
-GET {{browse-tracks-service}}/Tracks
-
-### ------------------------------------------------------------------------
-# Get Albums by artist ID axpanding tracks and artist
-GET {{browse-tracks-service}}/Albums
-?$filter=artist_ID eq 1
-&$expand=tracks,artist
-
-
-### ------------------------------------------------------------------------
 ## Users service
 ### ------------------------------------------------------------------------
 
@@ -58,8 +35,8 @@ Content-Type: application/json
 
 ### ------------------------------------------------------------------------
 # Get current customer data
-GET {{user-service}}/Customers(2)
-Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxlb25la29obGVyQHN1cmZldS5kZSIsIklEIjoyLCJyb2xlcyI6WyJjdXN0b21lciJdLCJpYXQiOjE2MDc0MzE5NTgsImV4cCI6MTYwNzQzMjU1OH0.2sP3epaEo8tpBJZ-PuJInuC36TOyMgL2W6QjNFGyhSs
+GET {{user-service}}/Customers(1)
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxlb25la29obGVyQHN1cmZldS5kZSIsIklEIjoyLCJyb2xlcyI6WyJjdXN0b21lciJdLCJpYXQiOjE2MDc5NTE2NDgsImV4cCI6MTYwNzk1MjI0OH0.4YqMxfY0KjOEA0iPvrZU5vfnsLcbFimxcamxgVxY4Ug 
 
 ### ------------------------------------------------------------------------
 # Get current employee data
@@ -74,8 +51,7 @@ Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZHJld0
 ### ------------------------------------------------------------------------
 # Get all current customer invoices
 GET {{browse-invoices-service}}/Invoices
-Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxlb25la29obGVyQHN1cmZldS5kZSIsIklEIjoyLCJyb2xlcyI6WyJjdXN0b21lciJdLCJpYXQiOjE2MDc0MzE5NTgsImV4cCI6MTYwNzQzMjU1OH0.2sP3epaEo8tpBJZ-PuJInuC36TOyMgL2W6QjNFGyhSs
-
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxlb25la29obGVyQHN1cmZldS5kZSIsIklEIjoyLCJyb2xlcyI6WyJjdXN0b21lciJdLCJpYXQiOjE2MDc5Njg5ODIsImV4cCI6MTYwNzk2OTU4Mn0.Mq78megbpHa8ZyxhBPj7mwNs8Ttag6TeVekBKFDGR3w
 
 ### ------------------------------------------------------------------------
 ## Manage store service
@@ -90,3 +66,31 @@ Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZHJld0
 {
     "name": "some"
 }
+
+
+### ------------------------------------------------------------------------
+## Browse Tracks service
+### ------------------------------------------------------------------------
+
+### ------------------------------------------------------------------------
+# Get browse-tracks-service 
+GET {{browse-tracks-service}}
+
+### ------------------------------------------------------------------------
+# Get $metadata document of browse-tracks-service
+GET {{browse-tracks-service}}/$metadata
+
+### ------------------------------------------------------------------------
+# Get Trakcs
+GET {{browse-tracks-service}}/Tracks
+
+### ------------------------------------------------------------------------
+# Get Albums by artist ID axpanding tracks and artist
+GET {{browse-tracks-service}}/Albums
+?$filter=artist_ID eq 1
+&$expand=tracks,artist
+
+### ------------------------------------------------------------------------
+# Get Marked Trakcs
+GET {{browse-tracks-service}}/MarkedTracks
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxlb25la29obGVyQHN1cmZldS5kZSIsIklEIjoyLCJyb2xlcyI6WyJjdXN0b21lciJdLCJpYXQiOjE2MDc5NjYxMTAsImV4cCI6MTYwNzk2NjcxMH0.VkxdhQth--kpxjb-X88N3H43kTtu5Uy0uVPsrQMx-ms

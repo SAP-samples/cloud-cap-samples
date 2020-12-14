@@ -43,10 +43,12 @@ module.exports = async function () {
     return Object.assign({}, userFromDb, { roles });
   }
 
+  /**
+   * User can only update and read his data
+   */
   this.before("UPDATE", "*", async (req) => {
     req.query = req.query.where({ ID: req.user.attr.ID });
   });
-
   this.before("READ", "*", async (req) => {
     req.query = req.query.where({ ID: req.user.attr.ID });
   });
