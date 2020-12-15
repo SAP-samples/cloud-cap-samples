@@ -2,17 +2,20 @@ const { GET, POST, expect } = require("../../test").run("media-store");
 const cds = require("@sap/cds/lib");
 const {
   FIRST_TRACK,
-  ALL_ALBUMS_WITH_TRACKS_BY_ARTIST,
   SECOND_CUSTOMER,
   FOURTH_MARKED_TRACK_FOR_SECOND_CUSTOMER,
   SECOND_CUSTOMER_INVOICES,
 } = require("./data/media-store.mock");
 
-const fs = require("fs");
-
-const DEFAULT_CONFIG = {
+const DEFAULT_AXIOS_CONFIG = {
   headers: { "content-type": "application/json" },
 };
+
+async function resetStore() {
+  const targetCSNModel = await cds.load(["db", "srv"]);
+  const model = cds.reflect(targetCSNModel);
+  await cds.deploy(model).to("sqlite:mychinook.db");
+}
 
 describe("Media Store services", () => {
   const CURRENT_CUSTOMER_DATA = {
@@ -30,6 +33,10 @@ describe("Media Store services", () => {
   let customerAccessToken;
   let employeeAccessToken;
 
+  beforeEach("reset store per each test", async () => {
+    await resetStore();
+  });
+
   before("login user", async () => {
     customerLoginResponse = await POST(
       "/users/login",
@@ -37,7 +44,7 @@ describe("Media Store services", () => {
         email: CURRENT_CUSTOMER_DATA.email,
         password: CURRENT_CUSTOMER_DATA.password,
       },
-      DEFAULT_CONFIG
+      DEFAULT_AXIOS_CONFIG
     );
     customerAccessToken = customerLoginResponse.data.accessToken;
 
@@ -47,7 +54,7 @@ describe("Media Store services", () => {
         email: CURRENT_EMPLOYEE_DATA.email,
         password: CURRENT_EMPLOYEE_DATA.password,
       },
-      DEFAULT_CONFIG
+      DEFAULT_AXIOS_CONFIG
     );
     employeeAccessToken = employeeLoginResponse.data.accessToken;
   });
@@ -97,7 +104,7 @@ describe("Media Store services", () => {
             email: CURRENT_CUSTOMER_DATA.email,
             password: "some-invalid-password",
           },
-          DEFAULT_CONFIG
+          DEFAULT_AXIOS_CONFIG
         );
       } catch (error) {
         expect(error.message).to.equal("401 - Unauthorized");
@@ -113,7 +120,7 @@ describe("Media Store services", () => {
         {
           refreshToken,
         },
-        DEFAULT_CONFIG
+        DEFAULT_AXIOS_CONFIG
       );
 
       compareAuthData(actualRefreshTokensData);
@@ -126,7 +133,7 @@ describe("Media Store services", () => {
           {
             refreshToken: "some-invalid-refresh-token",
           },
-          DEFAULT_CONFIG
+          DEFAULT_AXIOS_CONFIG
         );
       } catch (error) {
         expect(error.message).to.equal("401 - Unauthorized");
@@ -138,7 +145,6 @@ describe("Media Store services", () => {
         `/users/Customers(${CURRENT_CUSTOMER_DATA.ID})`,
         {
           headers: {
-            ...DEFAULT_CONFIG.headers,
             authorization: "Basic " + customerAccessToken,
           },
         }
@@ -153,7 +159,6 @@ describe("Media Store services", () => {
       try {
         await GET(`/users/Customers(${someCustomerID})`, {
           headers: {
-            ...DEFAULT_CONFIG.headers,
             authorization: "Basic " + employeeAccessToken,
           },
         });
@@ -164,7 +169,7 @@ describe("Media Store services", () => {
 
     it("current customer shouldn't retrieve his data without provided access token", async () => {
       try {
-        await GET(`/users/Customers(11)`, DEFAULT_CONFIG);
+        await GET(`/users/Customers(11)`, DEFAULT_AXIOS_CONFIG);
       } catch (error) {
         expect(error.message).to.equal("401 - Unauthorized");
       }
@@ -174,7 +179,6 @@ describe("Media Store services", () => {
       try {
         await GET(`/users/Customers(11)`, {
           headers: {
-            ...DEFAULT_CONFIG.headers,
             authorization: "Basic " + customerAccessToken,
           },
         });
@@ -195,7 +199,6 @@ describe("Media Store services", () => {
     it("should return track with ID eq 4 for second customer", async () => {
       const { data } = await GET("/browse-tracks/MarkedTracks(4)", {
         headers: {
-          ...DEFAULT_CONFIG.headers,
           authorization: "Basic " + customerAccessToken,
         },
       });
@@ -205,14 +208,29 @@ describe("Media Store services", () => {
   });
 
   describe("BrowseInvoices", () => {
+    const NEW_INVOICE_ID = 413;
+    const CANCELLED_STATUS = -1;
+
     async function getAllCustomerInvoices() {
       const { data } = await GET("/browse-invoices/Invoices", {
         headers: {
-          ...DEFAULT_CONFIG.headers,
           authorization: "Basic " + customerAccessToken,
         },
       });
       return data;
+    }
+
+    async function createInvoice(tracks) {
+      await POST(
+        "/browse-invoices/invoice",
+        { tracks },
+        {
+          headers: {
+            ...DEFAULT_AXIOS_CONFIG.headers,
+            authorization: "Basic " + customerAccessToken,
+          },
+        }
+      );
     }
 
     it("should return all invoices only for current customer", async () => {
@@ -227,21 +245,198 @@ describe("Media Store services", () => {
         SECOND_CUSTOMER_INVOICES.value.length
       );
 
+      await createInvoice([{ ID: 3 }]);
+
+      const afterData = await getAllCustomerInvoices();
+      expect(afterData.value.length).to.equal(
+        SECOND_CUSTOMER_INVOICES.value.length + 1
+      );
+    });
+
+    it("should not create invoice due to current customer already owns some of provided tracks", async () => {
+      const ALREADY_OWNED_TRACK_ID = 4;
+
+      try {
+        await createInvoice([{ ID: ALREADY_OWNED_TRACK_ID }]);
+      } catch (error) {
+        expect(error.message).to.equal(
+          "400 - Invoice contains already owned values"
+        );
+      }
+    });
+
+    it("should cancel invoice for current customer", async () => {
+      await createInvoice([{ ID: 3 }]);
+
+      const beforeData = await getAllCustomerInvoices();
+      expect(beforeData.value.length).to.equal(
+        SECOND_CUSTOMER_INVOICES.value.length + 1
+      );
+
       await POST(
-        "/browse-invoices/invoice",
-        { tracks: [{ ID: 3 }] },
+        "/browse-invoices/cancelInvoice",
+        { ID: NEW_INVOICE_ID },
         {
           headers: {
-            ...DEFAULT_CONFIG.headers,
+            ...DEFAULT_AXIOS_CONFIG.headers,
             authorization: "Basic " + customerAccessToken,
           },
         }
       );
 
       const afterData = await getAllCustomerInvoices();
-      expect(afterData.value.length).to.equal(
-        SECOND_CUSTOMER_INVOICES.value.length + 1
+      expect(afterData.value[afterData.value.length - 1].status).to.equal(
+        CANCELLED_STATUS
       );
+    });
+
+    it("should not cancel invoice due to leverage time has expired", async () => {
+      const beforeData = await getAllCustomerInvoices();
+      expect(beforeData.value.length).to.equal(
+        SECOND_CUSTOMER_INVOICES.value.length
+      );
+
+      try {
+        await POST(
+          "/browse-invoices/cancelInvoice",
+          { ID: 12 },
+          {
+            headers: {
+              ...DEFAULT_AXIOS_CONFIG.headers,
+              authorization: "Basic " + customerAccessToken,
+            },
+          }
+        );
+      } catch (error) {
+        expect(error.message).to.equal("400 - Leverage time was expired");
+      }
+    });
+
+    it("should not cancel invoice due to invoice with such ID si not belongs to current customer", async () => {
+      const NOT_OWNED_INVOICE_ID = 146;
+
+      try {
+        await POST(
+          "/browse-invoices/cancelInvoice",
+          { ID: NOT_OWNED_INVOICE_ID },
+          {
+            headers: {
+              ...DEFAULT_AXIOS_CONFIG.headers,
+              authorization: "Basic " + customerAccessToken,
+            },
+          }
+        );
+      } catch (error) {
+        expect(error.message).to.equal(
+          "404 - Seems like you are not owning this invoice or it is not exists"
+        );
+      }
+    });
+  });
+
+  describe("ManageStore", () => {
+    const NEW_TRACK_ID = 3504;
+    const newTrack = {
+      name: "Some track",
+      composer: "Some composer",
+      album: { ID: 14 },
+      genre: { ID: 15 },
+      unitPrice: "18.33",
+    };
+
+    async function createTrack(newTrack) {
+      await POST("/manage-store/Tracks", newTrack, {
+        headers: {
+          authorization: "Basic " + employeeAccessToken,
+          "content-type": "application/json;IEEE754Compatible=true",
+        },
+      });
+    }
+
+    async function getTrack(ID) {
+      return await GET(`/browse-tracks/Tracks(${ID})`);
+    }
+
+    it("should create new track", async () => {
+      await createTrack(newTrack);
+      const { data: createdTrack } = await getTrack(NEW_TRACK_ID);
+
+      expect(createdTrack).to.deep.equal({
+        "@odata.context": "$metadata#Tracks/$entity",
+        ID: NEW_TRACK_ID,
+        name: "Some track",
+        composer: "Some composer",
+        unitPrice: 18.33,
+        album_ID: 14,
+        genre_ID: 15,
+      });
+    });
+
+    it("customer should can create track", async () => {
+      try {
+        await POST("/manage-store/Tracks", newTrack, {
+          headers: {
+            authorization: "Basic " + customerAccessToken,
+            "content-type": "application/json;IEEE754Compatible=true",
+          },
+        });
+      } catch (error) {
+        expect(error.message).to.equal("403 - Forbidden");
+      }
+    });
+
+    it("should create new artist", async () => {
+      const NEW_ARTIST_ID = 276;
+
+      await POST(
+        "/manage-store/Artists",
+        { name: "some" },
+        {
+          headers: {
+            authorization: "Basic " + employeeAccessToken,
+            ...DEFAULT_AXIOS_CONFIG.headers,
+          },
+        }
+      );
+
+      const { data } = await GET(`/manage-store/Artists(${NEW_ARTIST_ID})`, {
+        headers: {
+          authorization: "Basic " + employeeAccessToken,
+        },
+      });
+
+      expect({
+        ID: NEW_ARTIST_ID,
+        name: "some",
+        "@odata.context": "$metadata#Artists/$entity",
+      }).to.deep.equal(data);
+    });
+
+    it("should create new artist", async () => {
+      const NEW_ALBUM_ID = 349;
+
+      await POST(
+        "/manage-store/Albums",
+        { title: "some", artist: { ID: 235 } },
+        {
+          headers: {
+            authorization: "Basic " + employeeAccessToken,
+            ...DEFAULT_AXIOS_CONFIG.headers,
+          },
+        }
+      );
+
+      const { data } = await GET(`/manage-store/Albums(${NEW_ALBUM_ID})`, {
+        headers: {
+          authorization: "Basic " + employeeAccessToken,
+        },
+      });
+      expect({
+        ID: NEW_ALBUM_ID,
+        title: "some",
+        artist_ID: 235,
+        "@odata.context": "$metadata#Albums/$entity",
+      }).to.deep.equal(data);
     });
   });
 });

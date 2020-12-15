@@ -81,7 +81,7 @@ module.exports = async function () {
       INSERT.into(InvoiceItems)
         .columns("ID", "invoice_ID", "track_ID", "unitPrice")
         .rows(
-          tracks.map(({ ID: trackID, unitPrice }, index) => [
+          newInvoicedTracks.map(({ ID: trackID, unitPrice }, index) => [
             lastInvoiceItemId + index + 1,
             newInvoiceId,
             trackID,
