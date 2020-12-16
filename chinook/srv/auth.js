@@ -1,7 +1,7 @@
 const cds = require("@sap/cds");
 const jwt = require("jsonwebtoken");
 
-const { ACCESS_TOKEN_SECRET } = cds.env;
+const { ACCESS_TOKEN_SECRET } = process.env;
 
 class MyUser extends cds.User {
   constructor(attr, roles, id) {
