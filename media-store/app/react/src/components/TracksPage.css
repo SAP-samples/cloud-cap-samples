@@ -1,0 +1,4 @@
+.ant-select > div.ant-select-selector {
+  padding: 5px;
+  min-width: 300px;
+}
