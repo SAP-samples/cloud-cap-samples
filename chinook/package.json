@@ -26,8 +26,6 @@
     "test": "mocha test/media-store.test.js --verbose --timeout 10000"
   },
   "cds": {
-    "ACCESS_TOKEN_SECRET": "secret",
-    "REFRESH_TOKEN_SECRET": "refresh-secret",
     "requires": {
       "db": {
         "kind": "sqlite",

@@ -2,7 +2,7 @@ const cds = require("@sap/cds");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = cds.env;
+const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
 const ACCESS_TOKEN_EXP_IN = "10m";
 const REFRESH_TOKEN_EXPIRES_IN = "20m";
