@@ -42,7 +42,24 @@ GET {{bookshop}}/browse/Books(201)?
 
 #################################################
 #
-#   Orders Service
+#   Orders Service, incl. draft choreography
 #
+@newOrderID = e939604c-ab83-4d4f-bdb6-95fe30b3773e
 
 GET {{bookshop}}/orders/Orders
+
+### Create order, still inactive
+POST {{bookshop}}/orders/Orders
+Content-Type: application/json
+
+{"ID": "{{newOrderID}}"}
+
+### Get inactive order.  We have to specify `IsActiveEntity`.
+GET {{bookshop}}/orders/Orders(ID={{newOrderID}},IsActiveEntity=false)
+
+### Activate order using `.../<servicename>.draftActivate`
+POST {{bookshop}}/orders/Orders(ID={{newOrderID}},IsActiveEntity=false)/OrdersService.draftActivate
+Content-Type: application/json
+
+### Get active order
+GET {{bookshop}}/orders/Orders(ID={{newOrderID}},IsActiveEntity=true)
