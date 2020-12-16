@@ -48,7 +48,7 @@ modules:
   - name: media-store-hmtl5-deployer
     # ------------------------------------------------------------
     type: com.sap.html5.application-content
-    path: deployers/html5Deployer
+    path: app/deployers/html5Deployer
     requires:
       - name: media-store-html5-host
     build-parameters:
@@ -71,7 +71,7 @@ modules:
   - name: media-store-approuter
     # ------------------------------------------------------------
     type: approuter.nodejs
-    path: deployers/approuter
+    path: app/deployers/approuter
     requires:
       - name: media-store-html5-runtime
       - name: media-store-xsuaa
@@ -119,7 +119,7 @@ resources:
   - name: media-store-xsuaa
     # ------------------------------------------------------------
     parameters:
-      path: deployers/xs-security.json
+      path: app/deployers/xs-security.json
       service-plan: application
       service: xsuaa
     type: org.cloudfoundry.managed-service
