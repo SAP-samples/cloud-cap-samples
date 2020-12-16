@@ -4,18 +4,18 @@ Welcome to your new project.
 
 It contains these folders and files, following our recommended project layout:
 
-| File or Folder | Purpose                              |
-| -------------- | ------------------------------------ |
-| `app/`         | will contain compiled front bundles  |
-| `app-src/`     | contains frontend app on react       |
-| `deployers/`   | contains deployment staff            |
-| `db/`          | your domain models and data go here  |
-| `srv/`         | your service models and code go here |
-| `test/`        | your services tests                  |
-| `package.json` | project metadata and configuration   |
-| `mta.yaml`     | deployment config                    |
-| `readme.md`    | this getting started guide           |
-| `server.js`    | initial server set up                |
+| File or Folder   | Purpose                              |
+|------------------|--------------------------------------|
+| `app/`           | will contain compiled front bundles  |
+| `app/react/`     | contains frontend app on react       |
+| `app/deployers/` | contains deployment staff            |
+| `db/`            | your domain models and data go here  |
+| `srv/`           | your service models and code go here |
+| `test/`          | your services tests                  |
+| `package.json`   | project metadata and configuration   |
+| `mta.yaml`       | deployment config                    |
+| `readme.md`      | this getting started guide           |
+| `server.js`      | initial server set up                |
 
 ## Development
 
@@ -31,7 +31,7 @@ npm run deploy
 cds watch
 ```
 
-- Open `app-src` folder and run next commands. This will install dependencies and run frontend src files watcher. When you will change src files your bundles in app directory will re-compiled. Now you can enjoy development:
+- Open `app/react` folder and run next commands. This will install dependencies and run frontend src files watcher. When you will change src files your bundles in app directory will re-compiled. Now you can enjoy development:
 
 ```json
 npm install
@@ -62,14 +62,14 @@ npm run watch
 cf login
 ```
 
-- Open `app-src` folder and run the following commands. This will create frontend production bundles in app subfolder:
+- Open `app/react` folder and run the following commands. This will create frontend production bundles in app subfolder:
 
 ```json
 npm install
 npm run build
 ```
 
-- Clean up deployers/html5Deployer/resources folder from the previous frontend build
+- Clean up app/deployers/html5Deployer/resources folder from the previous frontend build
 
 - From root directory run:
 
