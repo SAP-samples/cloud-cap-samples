@@ -31,6 +31,9 @@
   "mocha": {
     "parallel": true
   },
+  "engines": {
+    "node": ">= 12.18"
+  },
   "jest": {
     "testEnvironment": "node"
   },

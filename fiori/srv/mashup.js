@@ -20,7 +20,7 @@ module.exports = async()=>{ // called by server.js
   CatalogService.prepend (srv => srv.on ('READ', 'Books/reviews', (req) => {
     console.debug ('> delegating request to ReviewsService')
     const [id] = req.params, { columns, limit } = req.query.SELECT
-    return ReviewsService.tx(req).read ('Reviews',columns).limit(limit).where({subject:String(id)})
+    return ReviewsService.read ('Reviews',columns).limit(limit).where({subject:String(id)})
   }))
 
   //
@@ -28,8 +28,8 @@ module.exports = async()=>{ // called by server.js
   //
   CatalogService.on ('OrderedBook', async (msg) => {
     const { book, amount, buyer } = msg.data
-    const { title, price } = await db.tx(msg).read (Books, book, b => { b.title, b.price })
-    return OrdersService.tx(msg).create ('Orders').entries({
+    const { title, price } = await SELECT.from (Books, book, b => { b.title, b.price })
+    return OrdersService.create ('Orders').entries({
       OrderNo: 'Order at '+ (new Date).toLocaleString(),
       Items: [{ product:{ID:`${book}`}, title, price, amount }],
       buyer, createdBy: buyer
@@ -43,7 +43,6 @@ module.exports = async()=>{ // called by server.js
     console.debug ('> received:', msg.event, msg.data)
     const { subject, rating } = msg.data
     return UPDATE(Books,subject).with({rating})
-    // ^ Note: the framework will execute this and take care for db.tx
   })
 
   //
