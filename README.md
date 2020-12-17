@@ -29,7 +29,6 @@ cd samples
 In the samples folder run:
 
 ```sh
-# Download and install dependencies into node_modules folder
 npm install
 ```
 
