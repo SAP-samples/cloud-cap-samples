@@ -37,7 +37,7 @@ const reviews = new Vue ({
             reviews.message = {}
         },
 
-        async newReview () {
+        newReview () {
             reviews.review = {}
             reviews.message = {}
             setTimeout (()=> $('form > input').focus(), 111)

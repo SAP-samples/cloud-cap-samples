@@ -49,7 +49,7 @@ module.exports = async()=>{ // called by server.js
   //
   // Reduce stock of ordered books for orders are created from Orders admin UI
   //
-  OrdersService.on ('OrderChanged', async (msg) => {
+  OrdersService.on ('OrderChanged', (msg) => {
     console.debug ('> received:', msg.event, msg.data)
     const { product, deltaAmount } = msg.data
     return UPDATE (Books) .where ('ID =', product)
