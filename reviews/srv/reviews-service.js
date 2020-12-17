@@ -1,5 +1,5 @@
 const cds = require ('@sap/cds')
-module.exports = cds.service.impl (async function(){
+module.exports = cds.service.impl (function(){
 
   // Get the CSN definition for Reviews from the db schema for sub-sequent queries
   // ( Note: we explicitly specify the namespace to support embedded reuse )
@@ -16,7 +16,7 @@ module.exports = cds.service.impl (async function(){
       SELECT.one (['round(avg(rating),2) as rating']) .from (Reviews) .where ({subject})
     )
     global.it || console.log ('< emitting:', 'reviewed', { subject, rating })
-    this.emit ('reviewed', { subject, rating })
+    await this.emit ('reviewed', { subject, rating })
   })
 
   // Increment counter for reviews considered helpful

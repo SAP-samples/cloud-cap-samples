@@ -11,7 +11,7 @@ class OrdersService extends cds.ApplicationService {
         const { amount:before } = await cds.tx(req).run (
           SELECT.one.from (OrderItems, oi => oi.amount) .where ({up__ID:ID, product_ID})
         )
-        if (amount != before) this.orderChanged (product_ID, amount-before)
+        if (amount != before) await this.orderChanged (product_ID, amount-before)
       }
     })
 
@@ -20,7 +20,7 @@ class OrdersService extends cds.ApplicationService {
       const Items = await cds.tx(req).run (
         SELECT.from (OrderItems, oi => { oi.product_ID, oi.amount }) .where ({up__ID:ID})
       )
-      if (Items) for (let it of Items) this.orderChanged (it.product_ID, -it.amount)
+      if (Items) await Promise.all (Items.map(it => this.orderChanged (it.product_ID, -it.amount)))
     })
 
     return super.init()
