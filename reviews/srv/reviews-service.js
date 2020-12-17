@@ -14,7 +14,7 @@ module.exports = cds.service.impl (function(){
     const {subject} = req.data
     const {rating} = await SELECT.one (['round(avg(rating),2) as rating']) .from (Reviews) .where ({subject})
     global.it || console.log ('< emitting:', 'reviewed', { subject, rating })
-    this.emit ('reviewed', { subject, rating })
+    await this.emit ('reviewed', { subject, rating })
   })
 
   // Increment counter for reviews considered helpful
