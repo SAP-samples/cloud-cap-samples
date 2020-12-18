@@ -5,11 +5,14 @@ Find here a collection of samples for the [SAP Cloud Application Programming Mod
 ![](https://github.com/SAP-samples/cloud-cap-samples/workflows/CI/badge.svg)
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/cloud-cap-samples)](https://api.reuse.software/info/github.com/SAP-samples/cloud-cap-samples)
 
+
 ### Preliminaries
 
-1. [Install @sap/cds-dk](https://cap.cloud.sap/docs/get-started/) as documented in [capire](https://cap.cloud.sap)
+1. [Install @sap/cds-dk](https://cap.cloud.sap/docs/get-started/) globally as documented in [capire](https://cap.cloud.sap)
+   ```sh
+   npm i -g @sap/cds-dk
+   ```
 2. _Optional:_ [Use Visual Studio Code](https://cap.cloud.sap/docs/get-started/in-vscode)
-
 
 ### Download
 
