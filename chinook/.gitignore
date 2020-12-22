@@ -7,9 +7,10 @@ gen/
 node_modules/
 target/
 package-lock.json
+app/build
 
 # html5Deployer
-deployers/html5Deployer/resources/app/
+app/deployers/html5Deployer/resources/
 
 # Web IDE, App Studio
 .che/

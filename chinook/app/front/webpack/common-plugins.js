@@ -7,10 +7,10 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 
 module.exports = {
   plugins: [
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({ dangerouslyAllowCleanPatternsOutsideProject: true }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, '../public/index.html'),
-      filename: path.join(__dirname, '../../app/index.html'),
+      filename: path.join(__dirname, '../../build/index.html'),
       publicPath: '/static/', // for js bundles path
     }),
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
@@ -20,7 +20,7 @@ module.exports = {
       patterns: [
         {
           from: path.join(__dirname, '../public'),
-          to: path.join(__dirname, '../../app'),
+          to: path.join(__dirname, '../../build'),
           globOptions: {
             dot: true,
             ignore: ['**/index.html'],

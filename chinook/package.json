@@ -23,9 +23,13 @@
   "scripts": {
     "start": "npx cds run",
     "deploy": "cds deploy --to sqlite:mychinook.db",
-    "test": "mocha test/media-store.test.js --verbose --timeout 10000"
+    "test": "mocha ../test/chinook.test.js --verbose --timeout 10000",
+    "import": "cds deploy --to sqlite:sample.db && node ./util/importData.js"
   },
   "cds": {
+    "folders": {
+      "app": "app/build"
+    },
     "requires": {
       "db": {
         "kind": "sqlite",
