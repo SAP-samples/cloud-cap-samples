@@ -103,11 +103,15 @@ const EditAction = ({ ID, name, composer, genre, unitPrice, album, afterTrackUpd
 EditAction.propTypes = {
   ID: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  composer: PropTypes.string.isRequired,
+  composer: PropTypes.string,
   genre: PropTypes.object.isRequired,
   unitPrice: PropTypes.number.isRequired,
   album: PropTypes.object.isRequired,
   afterTrackUpdate: PropTypes.func.isRequired,
+};
+
+EditAction.defaultProps = {
+  composer: undefined,
 };
 
 export { EditAction };

@@ -25,6 +25,9 @@ modules:
     path: gen/srv
     properties:
       EXIT: 1 # required by deploy.js task to terminate
+      # REVISIT: This is not a good practice -> don't do it that way, we just did it to save some time :)
+      ACCESS_TOKEN_SECRET: secret
+      REFRESH_TOKEN_SECRET: refresh-secret
     requires:
       # Resources extracted from CAP configuration
       - name: media-store-hdi
@@ -62,7 +65,7 @@ modules:
   - name: media-store-html5-app
     # ------------------------------------------------------------
     type: html5
-    path: app
+    path: app/build
     build-parameters:
       supported-platforms: []
       build-result: /

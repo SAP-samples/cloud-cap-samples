@@ -5,9 +5,9 @@ Welcome to your new project.
 It contains these folders and files, following our recommended project layout:
 
 | File or Folder   | Purpose                              |
-|------------------|--------------------------------------|
+| ---------------- | ------------------------------------ |
 | `app/`           | will contain compiled front bundles  |
-| `app/react/`     | contains frontend app on react       |
+| `app/front/`     | contains frontend app on react       |
 | `app/deployers/` | contains deployment staff            |
 | `db/`            | your domain models and data go here  |
 | `srv/`           | your service models and code go here |
@@ -31,7 +31,7 @@ npm run deploy
 cds watch
 ```
 
-- Open `app/react` folder and run next commands. This will install dependencies and run frontend src files watcher. When you will change src files your bundles in app directory will re-compiled. Now you can enjoy development:
+- Open `app/front` folder and run next commands. This will install dependencies and run frontend src files watcher. When you will change src files your bundles in app directory will re-compiled. Now you can enjoy development:
 
 ```json
 npm install
@@ -43,6 +43,22 @@ npm run watch
 > ```json
 > npm run start
 > ```
+
+## Test
+
+- Change package.json db section
+
+```json
+  "db": {
+    "kind": "sql"
+  }
+```
+
+- Run tests
+
+```json
+npm run test
+```
 
 ## Deployment
 
@@ -56,17 +72,17 @@ npm run watch
   }
 ```
 
-- Authenticate in the Cloud Foundry:
+- Authenticate to the Cloud Foundry:
 
 ```json
 cf login
 ```
 
-- Open `app/react` folder and run the following commands. This will create frontend production bundles in app subfolder:
+- Open `app/front` folder and run the following commands. This will create frontend production bundles in app subfolder:
 
 ```json
 npm install
-npm run build
+npm run build:prod
 ```
 
 - Clean up app/deployers/html5Deployer/resources folder from the previous frontend build
