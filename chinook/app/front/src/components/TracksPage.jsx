@@ -19,6 +19,10 @@ const DEBOUNCE_OPTIONS = {
   trailing: false,
 };
 
+const isEven = (value) => {
+  return value % 2 === 0;
+};
+
 const renderGenres = (genres) =>
   genres.map(({ ID, name }) => (
     <Option key={ID} value={ID.toString()}>
@@ -80,7 +84,9 @@ const TracksContainer = () => {
       setLoading(true);
       const options = {
         $top: state.pagination.pageSize,
-        substr: state.searchOptions.substr.replace(`'`, `''`),
+        substr: state.searchOptions.substr.replace(/'*/g, (value) =>
+          isEven(value.length) ? value : `${value}'`
+        ),
         genreIds: state.searchOptions.genreIds,
       };
 

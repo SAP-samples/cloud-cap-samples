@@ -16,7 +16,7 @@ module.exports = {
     // from update when developing (doing changes in the files)
     filename: '[name].[fullhash].js',
     // in this folder path bundles will be placed
-    path: path.resolve(__dirname, '../../app/static'),
+    path: path.resolve(__dirname, '../../build/static'),
     // where you uploaded your bundled files. (Relative to server root)
     // needs for react-router-dom
     publicPath: '/static/',
