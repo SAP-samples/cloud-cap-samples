@@ -1,5 +1,5 @@
 {
-  "name": "media-store",
+  "name": "@capire/chinook",
   "engines": {
     "node": "12.18.3"
   },
