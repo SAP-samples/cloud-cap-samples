@@ -32,11 +32,7 @@
     },
     "requires": {
       "db": {
-        "kind": "sqlite",
-        "model": "*",
-        "credentials": {
-          "database": "mychinook.db"
-        }
+        "kind": "sql"
       },
       "auth": {
         "impl": "srv/auth.js"
