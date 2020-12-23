@@ -6,6 +6,7 @@
   "author": "daniel.hutzel@sap.com",
   "dependencies": {
     "@capire/bookshop": "./bookshop",
+    "@capire/chinook": "./chinook",
     "@capire/common": "./common",
     "@capire/fiori": "./fiori",
     "@capire/hello": "./hello",
@@ -32,7 +33,8 @@
     "parallel": true
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testTimeout": 10000
   },
   "license": "SAP SAMPLE CODE LICENSE",
   "private": true
