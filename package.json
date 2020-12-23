@@ -5,9 +5,9 @@
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
   "dependencies": {
-    "@capire/bookshop": "./bookshop",
+    "@capire/bookshop": "./books",
     "@capire/common": "./common",
-    "@capire/fiori": "./fiori",
+    "@capire/fiori": "./bookstore",
     "@capire/hello": "./hello",
     "@capire/media": "./media",
     "@capire/orders": "./orders",
