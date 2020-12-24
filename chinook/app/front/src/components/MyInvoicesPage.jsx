@@ -25,7 +25,7 @@ const INVOICE_STATUS = {
 };
 const CANCELLED_STATUS = -1;
 const DATE_TIME_FORMAT_PATTERN = 'LLLL';
-const UTC_DATE_TIME_FORMAT = 'YYYY-MM-DDThh:mm:ss';
+const UTC_DATE_TIME_FORMAT = 'YYYY-MM-DDThh:mm:ssZ';
 const INVOICE_ITEMS_COLUMNS = [
   {
     title: 'Track name',
