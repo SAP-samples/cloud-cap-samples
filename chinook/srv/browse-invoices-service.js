@@ -4,7 +4,7 @@ const moment = require("moment");
 const LEVERAGE_DURATION = 1; // in hours. should be the same in the frontend
 const CANCEL_STATUS = -1;
 const SHIPPED_STATUS = 1;
-const UTC_DATE_TIME_FORMAT = "YYYY-MM-DDThh:mm:ss";
+const UTC_DATE_TIME_FORMAT = "YYYY-MM-DDThh:mm:ssZ";
 
 function roundNumber(num) {
   return Math.round((num + Number.EPSILON) * 100) / 100;
