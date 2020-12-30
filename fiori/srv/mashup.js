@@ -5,13 +5,17 @@
 module.exports = async()=>{ // called by server.js
 
   const cds = require('@sap/cds')
+
+  // Connect to services to mashup
   const CatalogService = await cds.connect.to ('CatalogService')
   const ReviewsService = await cds.connect.to ('ReviewsService')
   const OrdersService = await cds.connect.to ('OrdersService')
   const db = await cds.connect.to ('db')
 
-  // reflect entity definitions used below...
+  // Reflect entity definitions used below...
   const { Books } = db.entities ('sap.capire.bookshop')
+  const { Orders } = OrdersService.entities
+  const { Reviews } = ReviewsService.entities
 
   //
   // Delegate requests to read reviews to the ReviewsService
@@ -20,7 +24,7 @@ module.exports = async()=>{ // called by server.js
   CatalogService.prepend (srv => srv.on ('READ', 'Books/reviews', (req) => {
     console.debug ('> delegating request to ReviewsService')
     const [id] = req.params, { columns, limit } = req.query.SELECT
-    return ReviewsService.read ('Reviews',columns).limit(limit).where({subject:String(id)})
+    return SELECT.from (Reviews,columns).limit(limit).where({subject:String(id)})
   }))
 
   //
@@ -29,7 +33,8 @@ module.exports = async()=>{ // called by server.js
   CatalogService.on ('OrderedBook', async (msg) => {
     const { book, amount, buyer } = msg.data
     const { title, price } = await SELECT.from (Books, book, b => { b.title, b.price })
-    return OrdersService.create ('Orders').entries({
+    // FIXME: Fails due to Draft glitches when OrdersService is remote
+    return INSERT.into (Orders).entries({
       OrderNo: 'Order at '+ (new Date).toLocaleString(),
       Items: [{ product:{ID:`${book}`}, title, price, amount }],
       buyer, createdBy: buyer
@@ -42,11 +47,11 @@ module.exports = async()=>{ // called by server.js
   ReviewsService.on ('reviewed', (msg) => {
     console.debug ('> received:', msg.event, msg.data)
     const { subject, rating } = msg.data
-    return UPDATE(Books,subject).with({rating})
+    return UPDATE (Books,subject) .with ({rating})
   })
 
   //
-  // Reduce stock of ordered books for orders are created from Orders admin UI
+  // Reduce stock of ordered books when orders are modified in admin UI
   //
   OrdersService.on ('OrderChanged', (msg) => {
     console.debug ('> received:', msg.event, msg.data)
@@ -55,4 +60,5 @@ module.exports = async()=>{ // called by server.js
     .and ('stock >=', deltaAmount)
     .set ('stock -=', deltaAmount)
   })
+
 }
