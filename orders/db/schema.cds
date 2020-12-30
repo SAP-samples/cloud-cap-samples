@@ -18,7 +18,7 @@ entity Orders_Items {
 }
 
 /** This is a stand-in for arbitrary ordered Products */
-entity Products @(cds.persistence.skip:'always') {
+entity Products @(cds.persistence.skip:'always',cds.autoexpose) {
   key ID : String;
 }
 
