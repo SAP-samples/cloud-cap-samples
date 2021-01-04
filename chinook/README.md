@@ -8,7 +8,7 @@ It contains these folders and files, following our recommended project layout:
 | ---------------- | ------------------------------------ |
 | `app/`           | will contain compiled front bundles  |
 | `app/front/`     | contains frontend app on react       |
-| `app/deployers/` | contains deployment staff            |
+| `app/deployers/` | contains deployment stuff            |
 | `db/`            | your domain models and data go here  |
 | `srv/`           | your service models and code go here |
 | `test/`          | your services tests                  |
@@ -19,13 +19,7 @@ It contains these folders and files, following our recommended project layout:
 
 ## Development
 
-- At first open a new terminal and run below command. It should create new sqlite source and fill initial data from `db/data`. You can browse database in any sqlite client
-
-```json
-npm run deploy
-```
-
-- Next, start cds service on 4004 port in watch mode:
+- Start cds service on 4004 port in watch mode:
 
 ```json
 cds watch
@@ -62,7 +56,7 @@ npm run test
 
 ## Deployment
 
-- Make sure you already have hanatrial instance in your cockpit dashboard (SAP Cloud Platform).
+- Make sure you already have hana trial instance in your cockpit dashboard (SAP Cloud Platform).
   Or if you are using hana instance - change it in mta.yaml config file from hanatrial to hana
 - Change package.json db section
 
