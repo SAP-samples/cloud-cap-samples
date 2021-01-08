@@ -53,7 +53,7 @@ npx jest
 
 ### Serve `npm` 
 
-We've simple npm registry mock included which allows you to do an `npm install @capire/<package>` anywhere locally. Use it as follows:
+We've included a simple npm registry mock which allows you to do an `npm install @capire/<package>` locally. Use it as follows:
 
 1. Start the @capire registry:
 ```sh
