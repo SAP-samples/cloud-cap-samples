@@ -325,7 +325,26 @@ describe('cds.ql → cqn', () => {
       })
 
       // using CQL fragments -> uses cds.parse.expr
-      expect((cqn = CQL`SELECT from Foo where ID=11 and x in ( foo, 'bar', 3)`)).to.eql({
+      const is_v2 = !!cds.parse.expr('(1,2)').list
+      if (is_v2) expect((cqn = CQL`SELECT from Foo where ID=11 and x in ( foo, 'bar', 3)`)).to.eql({
+        SELECT: {
+          from: { ref: ['Foo'] },
+          where: [
+            { ref: ['ID'] },
+            '=',
+            { val: ID },
+            'and',
+            { ref: ['x'] },
+            'in',
+            {list:[
+              { ref: ['foo'] },
+              { val: 'bar' },
+              { val: 3 },
+            ]}
+          ],
+        },
+      })
+      else expect((cqn = CQL`SELECT from Foo where ID=11 and x in ( foo, 'bar', 3)`)).to.eql({
         SELECT: {
           from: { ref: ['Foo'] },
           where: [
