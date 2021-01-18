@@ -42,6 +42,8 @@ cds watch bookshop
 
 After that open this link in your browser: [http://localhost:4004](http://localhost:4004)
 
+When asked to log in, type `alice` as user and leave the password field blank, which is the [default user](https://cap.cloud.sap/docs/node.js/authentication#mocked).
+
 ### Testing
 
 Run the provided tests with [_jest_](http://jestjs.io) or [_mocha_](http://mochajs.org), for example:
@@ -51,7 +53,7 @@ npx jest
 > While mocha is a bit smaller and faster, jest runs tests in parallel and isolation, which allows to run all tests.
 
 
-### Serve `npm` 
+### Serve `npm`
 
 We've included a simple npm registry mock which allows you to do an `npm install @capire/<package>` locally. Use it as follows:
 
@@ -59,7 +61,7 @@ We've included a simple npm registry mock which allows you to do an `npm install
 ```sh
 npm run registry
 ```
-> While running this will have `@capire:registry=http://localhost:4444` set with npmrc. 
+> While running this will have `@capire:registry=http://localhost:4444` set with npmrc.
 
 2. Install one of the @capire packages wherever you like, e.g.:
 ```sh
