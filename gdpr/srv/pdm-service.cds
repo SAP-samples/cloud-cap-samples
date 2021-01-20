@@ -24,7 +24,7 @@ using { sap.capire.bookshop.OrderItems } from '@capire/orders';
                      Items.netAmount as Item_NetAmount};
   
  //  annotate new view 
-     annotate PDMService.OrderItemView with @(PersonalData.EntitySemantics: 'ContractRelated')
+     annotate PDMService.OrderItemView with @(PersonalData.EntitySemantics: 'Other')
            {  
               Item_ID        @PersonalData.FieldSemantics: 'LegalGroundID';
               Customer_ID    @PersonalData.FieldSemantics: 'DataSubjectID';
