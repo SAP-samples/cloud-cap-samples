@@ -8,16 +8,17 @@ Find here a collection of samples for the [SAP Cloud Application Programming Mod
 
 ### Preliminaries
 
-1. [Install @sap/cds-dk](https://cap.cloud.sap/docs/get-started/) globally as documented in [capire](https://cap.cloud.sap)
+1. Install [**@sap/cds-dk**](https://cap.cloud.sap/docs/get-started/) globally:
+
    ```sh
    npm i -g @sap/cds-dk
    ```
-2. _Optional:_ [Use Visual Studio Code](https://cap.cloud.sap/docs/get-started/in-vscode)
+
+2. _Optional:_ [Use Visual Studio Code](https://cap.cloud.sap/docs/get-started/tools#vscode)
 
 ### Download
 
-Clone this repo as shown below, if you have [git](https://git-scm.com/downloads) installed,
-otherwise [download as zip file](archive/master.zip).
+If you have [Git](https://git-scm.com/downloads) installed, clone this repo as shown below, otherwise [download as ZIP file](archive/master.zip).
 
 ```sh
 git clone https://github.com/sap-samples/cloud-cap-samples samples
@@ -47,6 +48,7 @@ When asked to log in, type `alice` as user and leave the password field blank, w
 ### Testing
 
 Run the provided tests with [_jest_](http://jestjs.io) or [_mocha_](http://mochajs.org), for example:
+
 ```sh
 npx jest
 ```
@@ -55,7 +57,7 @@ npx jest
 
 ### Serve `npm`
 
-We've included a simple npm registry mock which allows you to do an `npm install @capire/<package>` locally. Use it as follows:
+We've included a simple npm registry mock, which allows you to do an `npm install @capire/<package>` locally. Use it as follows:
 
 1. Start the @capire registry:
 ```sh
@@ -63,7 +65,8 @@ npm run registry
 ```
 > While running this will have `@capire:registry=http://localhost:4444` set with npmrc.
 
-2. Install one of the @capire packages wherever you like, e.g.:
+2. Install one of the @capire packages wherever you like, for example:
+
 ```sh
 npm add @capire/common @capire/bookshop
 ```
@@ -77,4 +80,4 @@ In case you have a question, find a bug, or otherwise need support, please use o
 
 ## License
 
-Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSES/Apache-2.0.txt) file.
+Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSES/Apache-2.0.txt) file.
