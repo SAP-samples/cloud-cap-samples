@@ -24,7 +24,9 @@
   "sap.ui5": {
     "dependencies": {
       "libs": {
-        "sap.fe": {}
+        "sap.fe.core": {},
+        "sap.fe.macros": {},
+         "sap.fe.templates": {}
       }
     },
     "models": {
