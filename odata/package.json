@@ -1,0 +1,11 @@
+{
+  "name": "@sap/cds-odata",
+  "version": "1.0.0",
+  "dependencies": {
+    "@capire/bookshop": "*"
+  },
+  "devDependencies": {
+    "pegjs": "^0.10.0"
+  },
+  "private": true
+}
