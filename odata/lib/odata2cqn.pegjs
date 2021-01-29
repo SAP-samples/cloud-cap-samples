@@ -38,25 +38,6 @@
     	ge: '>=',
     }
 
-    function FilterExpr() {
-    	let parsedWhereClause = [];
-
-        function appendWhereClause(body) {
-    		if(!parsedWhereClause) {
-        		parsedWhereClause = body;
-        	} else {
-        		parsedWhereClause = [...parsedWhereClause, ...body];
-        	}
-    	}
-        function getParsedWhereClause() {
-        	return parsedWhereClause;
-        }
-
-        return {
-        	appendWhereClause,
-            getParsedWhereClause,
-        }
-    }
 }
 
 start = ODataRelativeURI
@@ -66,26 +47,23 @@ ODataRelativeURI // Note: case-sensitive!
     {return { SELECT }}
 
 QueryOptions = (
-	"$expand=" expand /
-	"$select=" select /
-	"$top="    top /
-	"$skip="   skip /
-    "$count="  count /
-    "$orderby=" orderby /
-    (beforeFilter FilterExprSequence aflterFilter)
+	"$expand="  expand /
+	"$select="  select /
+	"$top="     top /
+	"$skip="    skip /
+	"$count="   count /
+	"$filter="  filter /
+	"$orderby=" orderby
 )( o'&'o QueryOptions )?
+
+
+filter
+	= (o { SELECT.where = [] })
+		FilterExprSequence
 
 
 // ---------- Grouped $filter expression ----------
 // ----------
-beforeFilter = "$filter=" {
-    console.log('starting $filter');
-    filterExpr = new FilterExpr();
-}
-aflterFilter = "" {
-    console.log('end of $filter');
-    SELECT.where = filterExpr.getParsedWhereClause();
-}
 
 FilterExprSequence = (Expr (SP logicalOperator SP Expr)*)
 GroupedExpr = (startGroup FilterExprSequence closeGroup)
@@ -94,10 +72,10 @@ Expr = (
     ) / ( commonExp )
 startGroup
 	= OPEN
-    { filterExpr.appendWhereClause(['(']); }
+    { SELECT.where.push('(') }
 closeGroup
 	= CLOSE
-    { filterExpr.appendWhereClause([')']); }
+    { SELECT.where.push(')') }
 
 
 // ---------- Function expressions ----------
@@ -115,7 +93,7 @@ commonExp = val:(
 	)
  	{
       	const res = val.filter(cur => cur !== ' ');
-		filterExpr.appendWhereClause([...res]);
+		SELECT.where.push(...res)
 	}
 
 compStrExpr
@@ -179,27 +157,17 @@ boolFunc
 	= funcName:( "contains" / "endswith" / "startswith" )
 	  OPEN
 	  	fieldRef:strArg COMMA
-		containsStrArg:strArg
+		value:strArg
 	  CLOSE
 	  {
-		function getLikeArgs (value) {
-          	const funcArgs = {
+			const args = {
 			  contains: [ "'%'", value, "'%'" ],
 			  endswith: [ "'%'", value ],
 			  startswith: [ value, "'%'" ]
-		  	};
-          	return funcArgs[funcName];
-        };
-		filterExpr.appendWhereClause([
-			fieldRef,
-         	'like',
-    		{
-            	func: 'concat',
-               	args: getLikeArgs(containsStrArg)
-            },
-            'escape',
-    		"'^'"
-		]);
+			}[funcName]
+			SELECT.where.push(
+				fieldRef, 'like', {func:'concat', args }, 'escape', "'^'"
+			)
 	  }
 // ---------- "length" ----------
 lengthFunc
@@ -420,7 +388,7 @@ skip
 
 other "other query options"
 	= o:$([^=]+) "=" x:todo
-	{ SELECT[o.slice(1)] = x; console.log('another option was called') }
+	{ SELECT[o.slice(1)] = x }
 
 ref "a reference"
 	= p:$[^,?&()]+ {
@@ -503,7 +471,6 @@ number = val:$(
 			int32Value /
 			int16Value
 		) {
-        	console.log('number', val)
 			return { val: Number(val) };
 		}
 
@@ -564,10 +531,10 @@ numCompOperator
 	= operatorVal:("lt" / "gt" / "le" / "ge")
 	{ return compOperators[operatorVal]; }
 logicalOperator = operator:$("and" / "or")
-	{ filterExpr.appendWhereClause([operator]); }
+	{ SELECT.where.push(operator); }
 notOperator
-	= notOperator:$("not")
-    { filterExpr.appendWhereClause([notOperator]); }
+	= "not"
+	{ SELECT.where.push('not') }
 
 
 //
@@ -587,3 +554,4 @@ RWS = ( SP / HTAB )+  // "required" whitespace
 
 //-- Whitespaces
 o "optional whitespaces" = $[ \t\n]*
+_ "mandatory whitespaces" = $[ \t\n]+
