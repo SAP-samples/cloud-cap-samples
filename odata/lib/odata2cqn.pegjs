@@ -10,6 +10,7 @@
  * to improve error messages. For example a typo in a function name could be
  * reported specifically instead of throwing a generic parser error.
  *
+ * See also: https://docs.microsoft.com/en-us/odata/concepts/queryoptions-overview
  * Future test cases http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/abnf/odata-abnf-testcases.xml
  *
  * Limitations: Type, Geo functions are not supported,
