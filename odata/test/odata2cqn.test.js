@@ -8,7 +8,7 @@ describe("$filter", () => {
     const types = {
       strings: "'some string'",
       integers: 11,
-      // decimals: 0.99, //> REVISIT: wait for compiler v2.0.4 ?
+      decimals: 0.99,
       // ...
     }
     it.each(Object.keys(types))("should support expressions with %s", (t) => {

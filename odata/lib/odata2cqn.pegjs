@@ -133,7 +133,7 @@
 		}
 
 	operand "an operand"
-		= val:number {return {val}}
+		= val:number {return Number.isSafeInteger(val) ? {val} : { val:String(val), literal:'number' }}
 		/ val:string {return {val}}
 		/ function
 		/ ref
