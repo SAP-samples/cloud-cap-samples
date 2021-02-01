@@ -2,7 +2,11 @@
   "name": "@sap/cds-odata",
   "version": "1.0.0",
   "dependencies": {
-    "@capire/bookshop": "*"
+    "@sap/cds-compiler": "latest",
+    "@sap/cds": "^4.4.10"
+  },
+  "scripts": {
+    "postinstall": "rm -fr node_modules/@sap/cds/node_modules"
   },
   "devDependencies": {
     "pegjs": "^0.10.0"
