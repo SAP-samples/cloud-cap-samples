@@ -1,5 +1,15 @@
 /** ------------------------------------------
- * Odata Spec http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/abnf/odata-abnf-construction-rules.txt
+ * This is a peg.js adaptation of the https://github.com/oasis-tcs/odata-abnf/blob/master/abnf/odata-abnf-construction-rules.txt
+ * which directly constructs CQN out of parsed sources.
+ *
+ * NOTE:
+ * In contrast to the OData ABNF source, which uses very detailedsemantic rules,
+ * this adaptation uses rather generic syntactic rules only, e.g. not distinguishing
+ * betwenn Collection Navigation or not knowing individual function names.
+ * This is to be open to future enhancements of the OData standard, as well as
+ * to improve error messages. For example a typo in a function name could be
+ * reported specifically instead of throwing a generic parser error.
+ *
  * Future test cases http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/abnf/odata-abnf-testcases.xml
  *
  * Limitations: Type, Geo functions are not supported,
