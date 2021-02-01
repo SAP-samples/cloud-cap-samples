@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "dependencies": {
     "@sap/cds-compiler": "latest",
-    "@sap/cds": "^4.4.10"
+    "@sap/cds": "^4.4.10",
+    "pegjs": "0.10.0"
   },
   "scripts": {
     "postinstall": "rm -fr node_modules/@sap/cds/node_modules"
