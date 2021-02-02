@@ -3,10 +3,10 @@ using { sap.capire.bookshop } from './schema';
 
 // annotations for Data Privacy
 annotate bookshop.Customers with @PersonalData.DataSubjectRole: 'Customer';
-annotate bookshop.Customers with @PersonalData.EntitySemantics: 'DataSubject' 
+annotate bookshop.Customers with @PersonalData.EntitySemantics: 'DataSubject'
   {
     ID           @PersonalData.FieldSemantics: 'DataSubjectID';
-    emailAddress @PersonalData.IsPotentiallyPersonal;
+    email        @PersonalData.IsPotentiallyPersonal;
     firstName    @PersonalData.IsPotentiallyPersonal;
     lastName     @PersonalData.IsPotentiallyPersonal;
     creditCardNo @PersonalData.IsPotentiallySensitive;
@@ -14,7 +14,7 @@ annotate bookshop.Customers with @PersonalData.EntitySemantics: 'DataSubject'
   }
 
 annotate bookshop.CustomerPostalAddress with @PersonalData.DataSubjectRole: 'Customer';
-annotate bookshop.CustomerPostalAddress with @PersonalData.EntitySemantics: 'DataSubjectDetails' 
+annotate bookshop.CustomerPostalAddress with @PersonalData.EntitySemantics: 'DataSubjectDetails'
   {
     Customer  @PersonalData.FieldSemantics: 'DataSubjectID';
     street    @PersonalData.IsPotentiallyPersonal;
@@ -23,13 +23,13 @@ annotate bookshop.CustomerPostalAddress with @PersonalData.EntitySemantics: 'Dat
   }
 
 // annotations for Personal Data Manager - Search Fields
-annotate bookshop.Customers with @(Communication.Contact  : {    
+annotate bookshop.Customers with @(Communication.Contact  : {
     n : {
         surname: lastName,
         given:   firstName
-    },    
+    },
     bday:  dateOfBirth
-}); 
+});
 
 // annotations for Audit Log
 annotate bookshop.Customers with @AuditLog.Operation: {Read: true, Insert: true, Update: true, Delete: true};
