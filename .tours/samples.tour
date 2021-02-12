@@ -20,7 +20,7 @@
     },
     {
       "file": "hello/world.cds",
-      "description": "### Hello World!\n\nThis is a simplistic [Hello World](https://cap.cloud.sap/docs/get-started/hello-world) service using [CDS](https://cap.cloud.sap/docs/cds/) and [cds.services](https://cap.cloud.sap/docs/node.js/api#services-api)",
+      "description": "### Hello World!\n\nThis is a simplistic [Hello World](https://cap.cloud.sap/docs/get-started/hello-world) service using [CDS](https://cap.cloud.sap/docs/cds/) and [cds.services](https://cap.cloud.sap/docs/node.js/api#services-api).",
       "line": 2,
       "selection": {
         "start": {
@@ -36,7 +36,7 @@
     },
     {
       "file": "bookshop/db/schema.cds",
-      "description": "### A Bookshop!\n\nIntroduces\n- [Project Setup](https://cap.cloud.sap/docs/get-started/) and [Layouts](https://cap.cloud.sap/docs/get-started/projects)\n- [Domain Modeling](https://cap.cloud.sap/docs/guides/domain-models)\n- [Defining Services](https://cap.cloud.sap/docs/guides/providing-services)\n- [Generic Providers](https://cap.cloud.sap/docs/guides/generic-providers)\n- [Adding Custom Logic](https://cap.cloud.sap/docs/guides/service-impl)\n- [Using Databases](https://cap.cloud.sap/docs/guides/databases)\n",
+      "description": "### A Bookshop!\n\nIntroduces:\n- [Project Setup](https://cap.cloud.sap/docs/get-started/) and [Layouts](https://cap.cloud.sap/docs/get-started/projects)\n- [Domain Modeling](https://cap.cloud.sap/docs/guides/domain-models)\n- [Defining Services](https://cap.cloud.sap/docs/guides/providing-services)\n- [Generic Providers](https://cap.cloud.sap/docs/guides/generic-providers)\n- [Adding Custom Logic](https://cap.cloud.sap/docs/guides/service-impl)\n- [Using Databases](https://cap.cloud.sap/docs/guides/databases)\n",
       "line": 1,
       "selection": {
         "start": {
@@ -100,7 +100,7 @@
     },
     {
       "file": "fiori/app/index.cds",
-      "description": "### Annotations for SAP Fiori Elements\n\nA [composite app, reusing and combining](https://cap.cloud.sap/docs/guides/verticalize) these packages:\n  - [@capire/bookshop](bookshop)\n  - [@capire/reviews](reviews)\n  - [@capire/orders](orders)\n  - [@capire/common](common)\n\n[Adds a SAP Fiori elements application](https://cap.cloud.sap/docs/guides/fiori/) to bookshop, thereby introducing to:\n  - [OData Annotations](https://cap.cloud.sap/docs/guides/fiori#adding-odata-annotations) in `.cds` files\n  - Support for [Fiori Draft](https://cap.cloud.sap/docs/guides/fiori#draft)\n  - Support for [Value Helps](https://cap.cloud.sap/docs/guides/fiori#value-help)\n  - Serving SAP Fiori apps locally\n\n[The Vue.js app](bookshop/app/vue) imported from bookshop is served as well\n",
+      "description": "### Annotations for SAP Fiori Elements\n\nA [composite app, reusing and combining](https://cap.cloud.sap/docs/guides/verticalize) these packages:\n  - [@capire/bookshop](bookshop)\n  - [@capire/reviews](reviews)\n  - [@capire/orders](orders)\n  - [@capire/common](common)\n\n[Adds a SAP Fiori elements application](https://cap.cloud.sap/docs/guides/fiori/) to bookshop, thereby introducing to:\n  - [OData Annotations](https://cap.cloud.sap/docs/guides/fiori#adding-odata-annotations) in `.cds` files\n  - Support for [Fiori Draft](https://cap.cloud.sap/docs/guides/fiori#draft)\n  - Support for [Value Helps](https://cap.cloud.sap/docs/guides/fiori#value-help)\n  - Serving SAP Fiori apps locally\n\n[The Vue.js app](bookshop/app/vue) imported from bookshop is served as well.\n",
       "line": 1,
       "selection": {
         "start": {
