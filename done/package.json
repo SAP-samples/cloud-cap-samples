@@ -7,6 +7,9 @@
   "private": true,
   "dependencies": {
     "@capire/bookshop": "^1.0.0",
+    "@capire/common": "^1.0.0",
+    "@capire/orders": "^1.0.0",
+    "@capire/reviews": "^1.0.0",
     "@sap/cds": "^4",
     "express": "^4"
   },
