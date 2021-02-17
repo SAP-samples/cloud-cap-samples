@@ -4,10 +4,10 @@
 //
 module.exports = async()=>{ // called by server.js
 
-  if (!cds.services.AdminService) return //> mocking S4 service only
+  if (!cds.services.AdminService) return //> mocking SAP S4/HANA service only
 
   // Connect to services we want to mashup below...
-  const S4bupa = await cds.connect.to('API_BUSINESS_PARTNER')   //> external S4 service
+  const S4bupa = await cds.connect.to('API_BUSINESS_PARTNER')   //> external SAP S4/HANA service
   const admin = await cds.connect.to('AdminService')            //> local domain service
   const db = await cds.connect.to('db')                         //> our primary database
 
@@ -16,7 +16,7 @@ module.exports = async()=>{ // called by server.js
 
   admin.prepend (()=>{
 
-    // Delegate Value Help reads for Suppliers to S4 backend
+    // Delegate Value Help reads for Suppliers to SAP S4/HANA backend
     admin.on ('READ', 'Suppliers', async req => {
       console.log ('>> delegating to S4 service...')
       return await S4bupa.run(req.query)
@@ -35,7 +35,7 @@ module.exports = async()=>{ // called by server.js
 
   })
 
-  // Subscribe to changes in the S4 origin of Suppliers data
+  // Subscribe to changes in the SAP S4/HANA origin of Suppliers data
   S4bupa.on ('BusinessPartner/Changed', async msg => {
     let cached = await SELECT('ID').from (Suppliers)
       .where ('ID in', msg.businessPartner.KEYS)
