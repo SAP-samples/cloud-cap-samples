@@ -16,7 +16,7 @@ extend service S4 with {
   You can mashup entities from external services, or projections
   thereof, with your project's own entities
  */
-using { sap.capire.bookshop.Books } from '@capire/bookshop';
+using { sap.capire.bookshop.Books, CatalogService } from '@capire/bookshop';
 extend Books with {
   supplier : Association to S4.Suppliers;
 }
