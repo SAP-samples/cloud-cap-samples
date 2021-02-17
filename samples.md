@@ -51,8 +51,8 @@ Each sub directory essentially is an individual npm package arranged in an [all-
 
 ## [@capire/suppliers](suppliers)
 
-- Shows how to integrate remote services, in this case the BusinessPartner service from S/4.
-- Extending [@capire/bookshop](bookshop) with suppliers from S/4
+- Shows how to integrate remote services, in this case the BusinessPartner service from SAP S/4HANA.
+- Extending [@capire/bookshop](bookshop) with suppliers from SAP S/4HANA
 - Providing that as a pre-built integration & extension package
 - Used in [@capire/fiori](fiori)
 
