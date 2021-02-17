@@ -1,7 +1,7 @@
 {
   "name": "@capire/suppliers",
   "version": "1.0.0",
-  "description": "Shows integration with S/4, in turn provided as a reusable extension package to bookshop.",
+  "description": "Shows integration with SAP S/4HANA, in turn provided as a reusable extension package to bookshop.",
   "private": true,
   "dependencies": {
     "@capire/common": "*",
