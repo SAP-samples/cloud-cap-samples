@@ -20,7 +20,7 @@
     "sqlite3": "5.0.0"
   },
   "scripts": {
-    "registry": "cd .registry && node server.js",
+    "registry": "node .registry/server.js",
     "bookshop": "cds watch bookshop",
     "fiori": "cds watch fiori",
     "media": "cds watch media",
