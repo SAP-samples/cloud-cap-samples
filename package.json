@@ -11,23 +11,23 @@
     "@capire/hello": "./hello",
     "@capire/media": "./media",
     "@capire/orders": "./orders",
-    "@capire/reviewed": "./reviewed",
     "@capire/reviews": "./reviews"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
-    "sqlite3": "^5",
+    "sqlite3": "5.0.0",
     "swagger-ui-express": "^4.1.4"
   },
   "scripts": {
+    "registry": "cd .registry && node server.js",
     "bookshop": "cds watch bookshop",
     "fiori": "cds watch fiori",
     "media": "cds watch media",
     "mocha": "npx mocha || echo",
-    "jest": "npx jest --verbose",
-    "test": "npm run jest -s"
+    "jest": "npx jest",
+    "test": "npm run jest --silent"
   },
   "mocha": {
     "parallel": true

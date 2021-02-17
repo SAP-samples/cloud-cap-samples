@@ -24,14 +24,21 @@ service ReviewsService {
 
 
 // Access control restrictions
-annotate ReviewsService.Reviews with @restrict_:[
+annotate ReviewsService.Reviews with @restrict:[
   { grant:'READ',   to:'any' },                 // everybody can read reviews
   { grant:'CREATE', to:'authenticated-user' },  // users must login to add reviews
-  { grant:'UPDATE', to:'authenticated-user', where:'reviewer=$user' },
+  /////////////////////////////////////////////////
+  //
+  // Temporarily disabling this due to glitch in CAP Node.js runtime:
+  // { grant:'UPDATE', to:'authenticated-user', where:'reviewer=$user' },
+  // -> reenable it when the issue is fixed
+     { grant:'UPDATE', to:'authenticated-user' },
+  //
+  ////////////////////////////////////////////////////
   { grant:'DELETE', to:'admin' },
 ];
 
-annotate ReviewsService with @restrict_:[
+annotate ReviewsService with @restrict:[
   { grant:'like', to:'identified-user' },
   { grant:'unlike', to:'identified-user', where:'user=$user' },
 ];

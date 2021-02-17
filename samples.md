@@ -1,28 +1,28 @@
 # Overview of Samples
 
-The list below gives an overview of the samples provided in subdirectories.
-Each sub directory essentially is a individual npm package arranged in an [all-in-one monorepo](all-in-one-monorepo) umbrella setup.
+The following list gives an overview of the samples provided in subdirectories.
+Each sub directory essentially is an individual npm package arranged in an [all-in-one monorepo](all-in-one-monorepo) umbrella setup.
 
 
-## [hello](hello)
+## [@capire/hello-world](hello)
 
 - A simplistic [Hello World](https://cap.cloud.sap/docs/get-started/hello-world) service using [CDS](https://cap.cloud.sap/docs/cds/) and [cds.services](https://cap.cloud.sap/docs/node.js/api#services-api).
 
 
-## [bookshop](bookshop)
+## [@capire/bookshop](bookshop)
 
 - [Getting Started](https://cap.cloud.sap/docs/get-started/in-a-nutshell) with CAP, briefly introducing:
 - [Project Setup](https://cap.cloud.sap/docs/get-started/) and [Layouts](https://cap.cloud.sap/docs/get-started/projects)
-- [Domain Modelling](https://cap.cloud.sap/docs/guides/domain-models)
+- [Domain Modeling](https://cap.cloud.sap/docs/guides/domain-models)
 - [Defining Services](https://cap.cloud.sap/docs/guides/providing-services)
 - [Generic Providers](https://cap.cloud.sap/docs/guides/generic-providers)
 - [Adding Custom Logic](https://cap.cloud.sap/docs/guides/service-impl)
 - [Using Databases](https://cap.cloud.sap/docs/guides/databases)
 
 
-## [common](common)
+## [@capire/common](common)
 
-- Showcases how to extend [@sap/cds/common](https://cap.cloud.sap/docs/cds/common) thereby covering...
+- Showcases how to extend [@sap/cds/common](https://cap.cloud.sap/docs/cds/common) thereby covering:
 - Building [extension packages](https://cap.cloud.sap/docs/guides/domain-models#aspects-extensibility)
 - Providing [reuse packages](https://cap.cloud.sap/docs/get-started/projects#sharing-and-reusing-content)
 - [Verticalization](https://cap.cloud.sap/docs/cds/common#adapting-to-your-needs)
@@ -30,34 +30,39 @@ Each sub directory essentially is a individual npm package arranged in an [all-i
 - Used in the [fiori app sample](#fiori)
 
 
-## [orders](orders)
+## [@capire/orders](orders)
 
-- Adds orders to the [bookshop](#bookshop), thereby demonstrating...
+- A standalone orders management service, demonstrating:
 - Using [Compositions](https://cap.cloud.sap/docs/cds/cdl#compositions) in [Domain Models](https://cap.cloud.sap/docs/guides/domain-models), along with
 - [Serving deeply nested documents](https://cap.cloud.sap/docs/guides/generic-providers#serving-structured-data)
 
 
-## [reviews](reviews)
+## [@capire/reviews](reviews)
 
-- Shows how to implement a modular service to manage product reviews, including...
+- Shows how to implement a modular service to manage product reviews, including:
 - Consuming other services synchronously and asynchronously
 - Serving requests synchronously
 - Emitting events asynchronously
-- Grow as you go, with...
+- Grow as you go, with:
 - Mocking app services
 - Running service meshes
 - Late-cut Micro Services
-- As well as managed data, input validations and authorization
+- As well as managed data, input validations, and authorization
 
 
-## [fiori](fiori)
+## [@capire/fiori](fiori)
 
-- [Adds a Fiori elements application](https://cap.cloud.sap/docs/guides/fiori/), introducing to...
-- [OData Annotations](https://cap.cloud.sap/docs/guides/fiori#adding-odata-annotations) in `.cds` files
-- Support for [Fiori Draft](https://cap.cloud.sap/docs/guides/fiori#draft)
-- Support for [Value Helps](https://cap.cloud.sap/docs/guides/fiori#value-help)
-- Serving Fiori apps locally
-- Combining most of the other samples through [package reuse](https://cap.cloud.sap/docs/get-started/projects#sharing-and-reusing-content)
+- A [composite app, reusing and combining](https://cap.cloud.sap/docs/guides/verticalize) these packages:
+  - [@capire/bookshop](bookshop)
+  - [@capire/reviews](reviews)
+  - [@capire/orders](orders)
+  - [@capire/common](common)
+- [Adds a SAP Fiori elements application](https://cap.cloud.sap/docs/guides/fiori/) to bookshop, thereby introducing to:
+  - [OData Annotations](https://cap.cloud.sap/docs/guides/fiori#adding-odata-annotations) in `.cds` files
+  - Support for [Fiori Draft](https://cap.cloud.sap/docs/guides/fiori#draft)
+  - Support for [Value Helps](https://cap.cloud.sap/docs/guides/fiori#value-help)
+  - Serving SAP Fiori apps locally
+- [The Vue.js app](bookshop/app/vue) imported from bookshop is served as well
 
 
 <br>
