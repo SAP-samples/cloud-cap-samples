@@ -7,6 +7,7 @@ cds.once('bootstrap',(app)=>{
 })
 
 cds.once('served', require('./srv/mashup'))
+cds.once('served', require('@capire/suppliers/srv/mashup'))
 
 module.exports = cds.server
 

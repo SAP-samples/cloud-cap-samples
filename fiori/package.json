@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "dependencies": {
     "@capire/bookshop": "*",
-    "@capire/reviews": "*",
-    "@capire/orders": "*",
     "@capire/common": "*",
+    "@capire/orders": "*",
+    "@capire/reviews": "*",
+    "@capire/suppliers": "*",
     "@sap/cds": "^4",
     "express": "^4.17.1",
     "passport": "0.4.1"
@@ -16,6 +17,10 @@
   },
   "cds": {
     "requires": {
+      "API_BUSINESS_PARTNER": {
+        "kind": "odata",
+        "model": "@capire/suppliers"
+      },
       "ReviewsService": {
         "kind": "odata", "model": "@capire/reviews"
       },
