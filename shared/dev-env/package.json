@@ -5,7 +5,7 @@
     "@sap/cds": "^3.17.4"
   },
   "devDependencies": {
-    "sqlite3": "^4.0.7"
+    "sqlite3": "5.0.0"
   },
   "license": "ISC"
 }
