@@ -1,5 +1,7 @@
+const { GET, expect } = require('../test') .run ('serve', 'test/localized-data.cds', '--in-memory')
 const cds = require('@sap/cds/lib')
-const { GET, expect } = cds.test ('serve', __dirname+'/localized-data.cds', '--in-memory')
+if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
+else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
 
 describe('Localized Data', () => {
 

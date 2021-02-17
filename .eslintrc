@@ -21,6 +21,7 @@
     },
     "rules": {
         "no-console": "off",
-        "require-atomic-updates": "off"
+        "require-atomic-updates": "off",
+        "require-await":"warn"
     }
 }

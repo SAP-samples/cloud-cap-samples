@@ -1,7 +1,7 @@
-const cds = require('@sap/cds/lib')
-const { expect } = cds.test (
+const { expect } = require('../test') .run (
   'serve', 'AdminService', '--from', '@capire/bookshop,@capire/common', '--in-memory'
-).in(__dirname)
+)
+const cds = require('@sap/cds/lib')
 
 describe('Consuming Services locally', () => {
   //

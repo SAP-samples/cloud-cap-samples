@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Capire Reviews </title>
+    <link rel="stylesheet" href="https://unpkg.com/primitive-ui/dist/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        .hovering tr:hover td { color:cyan; background: #123; cursor: pointer; }
+        .rating-stars { color:teal }
+        .succeeded { color:teal }
+        .failed { color:red }
+        textarea { line-height: 1.4em;}
+    </style>
+</head>
+
+<body class="small-container", style="margin-top: 70px;">
+<div id='app'>
+
+    <h1> {{ document.title }} </h1>
+
+    <input type="text" placeholder="Search..." @input="search">
+
+    <table id='my-reviews' class="hovering">
+        <thead>
+            <th> Subject </th>
+            <th> Rating </th>
+            <th> Title </th>
+            <th> Date </th>
+        </thead>
+        <tr v-for="review in list" v-bind:id="review.ID" v-on:click="inspect">
+            <td>{{ review.subject }}</td>
+            <td class="rating-stars">{{ review.rating | stars }}</td>
+            <td>{{ review.title }}</td>
+            <td>{{ review.date | datetime }}</td>
+        </tr>
+    </table>
+
+    <button v-on:click="newReview()" class="round-button muted-button">Add Review...</button>
+
+    <form v-if="review" @submit.prevent="submitReview">
+        <input id="subject" type="text" v-model="review.subject" style="font-weight:bold; display:inline; width:20%">
+        <input type="text" v-model="review.title" style="font-weight:bold; display:inline; width:60%">
+        <select v-model="review.rating" style="font-weight:bold; display:inline; width:17%; float: right;">
+            <option v-for="option in Ratings" v-bind:value="option[0]"> {{ option[1] }} </option>
+        </select>
+        <textarea v-model="review.text" rows="9"></textarea>
+        <input type="submit" value="Submit" class="round-button muted-button">
+        <span class="succeeded"> {{ message.succeeded }} </span>
+        <span class="failed"> {{ message.failed }} </span>
+    </form>
+    <div v-else style="margin-top: 2em;">
+        ( click on a row to see details... )
+    </div>
+
+
+</div>
+</body>
+
+<script src="app.js"></script>
+</html>

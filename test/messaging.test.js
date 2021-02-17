@@ -1,15 +1,14 @@
+const { expect } = require('../test')
 const cds = require('@sap/cds/lib')
-const cwd = process.cwd(); process.chdir (__dirname) //> only for internal CI/CD@SAP
-const {expect} = cds.test
 const _model = '@capire/reviews'
-
+if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
+else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
 
 describe('Messaging', ()=>{
 
-    after(()=> process.chdir(cwd))
-
     it ('should bootstrap sqlite in-memory db', async()=>{
         const db = await cds.deploy (_model) .to ('sqlite::memory:')
+        await db.delete('Reviews')
         expect (db.model) .not.undefined
     })
 
@@ -43,16 +42,16 @@ describe('Messaging', ()=>{
         //     { ID: 111 + (++N),  subject: "201", title: "Captivating", rating: N },
         // ),
         srv.create ('Reviews') .entries (
-            { ID: 111 + (++N),  subject: "201", title: "Captivating", rating: N }
+            { ID: String(111 + (++N)),  subject: "201", title: "Captivating", rating: N }
         ),
         srv.create ('Reviews') .entries (
-            { ID: 111 + (++N),  subject: "201", title: "Captivating", rating: N }
+            { ID: String(111 + (++N)),  subject: "201", title: "Captivating", rating: N }
         ),
         srv.create ('Reviews') .entries (
-            { ID: 111 + (++N),  subject: "201", title: "Captivating", rating: N }
+            { ID: String(111 + (++N)),  subject: "201", title: "Captivating", rating: N }
         ),
         srv.create ('Reviews') .entries (
-            { ID: 111 + (++N),  subject: "201", title: "Captivating", rating: N }
+            { ID: String(111 + (++N)),  subject: "201", title: "Captivating", rating: N }
         ),
     ]))
 

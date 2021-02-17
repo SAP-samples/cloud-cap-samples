@@ -5,10 +5,10 @@ This stand-alone sample introduces the essential tasks in the development of CAP
 ## Hypothetical Use Cases
 
 1. Build a service that allows to browse _Books_ and _Authors_.
-2. Books have assigned _Genres_ which are organized hierarchically.
+2. Books have assigned _Genres_, which are organized hierarchically.
 3. All users may browse books without login.
 4. All entries are maintained by Administrators.
-5. End users may order books (the actual order mgmt being out of scope)
+5. End users may order books (the actual order mgmt being out of scope).
 
 ## Running the Sample
 
@@ -20,12 +20,12 @@ npm run watch
 
 | Links to capire                                                                                           | Sample files / folders               |
 | --------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| [Project Setup and Layouts](https://cap.cloud.sap/docs/get-started/projects#sharing-and-reusing-content)  | [`./`](./)                           |
-| [Defining Domain Models](https://cap.cloud.sap/docs/guides/domain-models)                                 | [`./db/schema.cds`](./db/schema.cds) |
-| [Defining Services](https://cap.cloud.sap/docs/guides/providing-services)                                 | [`./srv/*.cds`](./srv)               |
-| [Single-purposed Services](https://cap.cloud.sap/docs/guides/providing-services#single-purposed-services) | [`./srv/*.cds`](./srv)               |
-| [Generic Providers](https://cap.cloud.sap/docs/guides/providing-services)                                  | http://localhost:4004                |
-| Using Databases                                            | [`./db/data/*.csv`](./db/data)       |
+| [Project Setup & Layouts](https://cap.cloud.sap/docs/get-started/projects#sharing-and-reusing-content)    | [`./`](./)                           |
+| [Domain Modeling with CDS](https://cap.cloud.sap/docs/guides/domain-models)                               | [`./db/schema.cds`](./db/schema.cds) |
+| [Defining Services](https://cap.cloud.sap/docs/guides/services#defining-services)                         | [`./srv/*.cds`](./srv)               |
+| [Single-purposed Services](https://cap.cloud.sap/docs/guides/services#single-purposed-services)           | [`./srv/*.cds`](./srv)               |
+| [Providing & Consuming Providers](https://cap.cloud.sap/docs/guides/providing-services)                   | http://localhost:4004                |
+| [Using Databases](https://cap.cloud.sap/docs/guides/databases)                                            | [`./db/data/*.csv`](./db/data)       |
 | [Adding Custom Logic](https://cap.cloud.sap/docs/guides/service-impl)                                     | [`./srv/*.js`](./srv)                |
-| Adding Tests                                                 | [`./test`](./test)                   |
-| [Sharing for Reuse](https://cap.cloud.sap/docs/get-started/projects#sharing-and-reusing-content)          | [`./index.cds`](./index.cds)         |
+| Adding Tests                                                                                              | [`./test`](./test)                   |
+| [Sharing for Reuse](https://cap.cloud.sap/docs/guides/reuse-and-compose)                                  | [`./index.cds`](./index.cds)         |
