@@ -21,6 +21,3 @@ entity Orders_Items {
 entity Products @(cds.persistence.skip:'always') {
   key ID : String;
 }
-
-// Activate extension package
-using from '@capire/common';

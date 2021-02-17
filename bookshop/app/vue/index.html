@@ -36,7 +36,7 @@
             <td class="rating-stars">
                 {{ ('★'.repeat(Math.round(book.rating))+'☆☆☆☆☆').slice(0,5) }}
             </td>
-            <td>{{ book.currency.symbol }} {{ book.price }}</td>
+            <td>{{ book.currency && book.currency.symbol }} {{ book.price }}</td>
         </tr>
     </table>
 
