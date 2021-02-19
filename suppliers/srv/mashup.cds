@@ -8,6 +8,14 @@ extend service S4 with {
   entity Suppliers as projection on S4.A_BusinessPartner {
     key BusinessPartner as ID,
     BusinessPartnerFullName as name,
+    // REVISIT: following is not supported so far in cds compiler...
+    // to_BusinessPartnerAddress as city {
+    //    CityCode as code,
+    //    CityName as name
+    // }
+    // REVISIT: following is not supported so far in cqn2odata...
+    // to_BusinessPartnerAddress.CityCode as city,
+    // to_BusinessPartnerAddress.CityName as city_name,
   }
 }
 
