@@ -5,7 +5,7 @@ using {sap.capire.bookshop.Orders} from '@capire/orders';
 using {sap.capire.bookshop.OrderItems} from '@capire/orders';
 
 // @requires:'system-user' - todo - security check
-service PDMService{
+service PDMService {
 
   entity Customers             as projection on db.Customers;
   entity CustomerPostalAddress as projection on db.CustomerPostalAddress;
@@ -30,6 +30,15 @@ service PDMService{
     Customer_Email @PersonalData.IsPotentiallyPersonal;
   };
 
-//  Data Privacy annotations on 'Customers' and 'CustomerPostalAddress' are derived from original entity definitions
+  // annotations for Personal Data Manager - Search Fields
+  annotate Customers with @(Communication.Contact : {
+    n    : {
+      surname : lastName,
+      given   : firstName
+    },
+    bday : dateOfBirth
+  });
+
+  //  Data Privacy annotations on 'Customers' and 'CustomerPostalAddress' are derived from original entity definitions
 
 };
