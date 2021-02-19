@@ -26,15 +26,6 @@ annotate bookshop.CustomerPostalAddress with @PersonalData : {
   country  @PersonalData.IsPotentiallyPersonal;
 }
 
-// annotations for Personal Data Manager - Search Fields
-annotate bookshop.Customers with @(Communication.Contact : {
-  n    : {
-    surname : lastName,
-    given   : firstName
-  },
-  bday : dateOfBirth
-});
-
 // annotations for Audit Log
 annotate bookshop.Customers with @AuditLog.Operation : {
   Read   : true,
