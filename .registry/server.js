@@ -5,10 +5,9 @@ const app = express()
 
 const { PORT=4444 } = process.env
 const [,,port=PORT] = process.argv
-process.cwd(__dirname)
+process.chdir(__dirname)
 
 app.use('/-/:tarball', (req,res,next) => {
-  const url = decodeURIComponent(req.url)
   console.debug ('GET', req.params)
   try {
     const { tarball } = req.params
