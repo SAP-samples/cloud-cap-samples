@@ -3,6 +3,6 @@
   "description": "Provides a pre-built extension package for std @sap/cds/common",
   "version": "1.0.0",
   "dependencies": {
-    "@sap/cds": "latest"
+    "@sap/cds": "*"
   }
 }
