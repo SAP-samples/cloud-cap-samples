@@ -1,4 +1,4 @@
-using AdminService from '@capire/bookshop';
+using { sap.capire.bookshop, AdminService } from '@capire/bookshop';
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -36,6 +36,31 @@ annotate AdminService.Books with @(
 				{Value: modifiedAt}
 			]
 		}
+	}
+);
+
+// Give hints to tools that these elements exist. See srv/ on how they are populated
+// TODO find a better way to have 'default' fields that still can be overwritten.
+extend bookshop.Authors with {
+	virtual age: Integer;
+	virtual lifetime: String;
+}
+annotate AdminService.Authors with @(
+	UI: {
+		HeaderInfo: {
+			Description: {Value: lifetime}
+		},
+		Facets: [
+			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}', Target: '@UI.FieldGroup#Details'},
+			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Books}', Target: 'books/@UI.LineItem'},
+		],
+		FieldGroup#Details: {
+			Data: [
+				{Value: age, Label: '{i18n>Age}'},
+				{Value: placeOfBirth},
+				{Value: placeOfDeath},
+			]
+		},
 	}
 );
 

@@ -8,7 +8,7 @@
     "@capire/common": "*",
     "@sap/cds": "^4",
     "express": "^4.17.1",
-    "passport": "0.4.1"
+    "passport": "^0.4.1"
   },
   "scripts": {
     "start": "cds run --in-memory?",
@@ -23,7 +23,11 @@
         "kind": "odata", "model": "@capire/orders"
       },
       "db": {
-        "kind": "sql"
+        "kind": "sql",
+        "model": [ "srv", "srv/sqlite" ],
+        "[production]": {
+          "model": [ "srv", "srv/hana" ]
+        }
       }
     }
   }
