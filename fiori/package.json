@@ -24,9 +24,11 @@
       },
       "db": {
         "kind": "sql",
-        "model": [ "srv", "srv/sqlite" ],
+        "[development]": {
+          "model": "db/sqlite"
+        },
         "[production]": {
-          "model": [ "srv", "srv/hana" ]
+          "model": "db/hana"
         }
       }
     }

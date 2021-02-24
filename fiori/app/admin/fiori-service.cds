@@ -1,4 +1,4 @@
-using { sap.capire.bookshop, AdminService } from '@capire/bookshop';
+using { AdminService } from '../../db';
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -39,12 +39,6 @@ annotate AdminService.Books with @(
 	}
 );
 
-// Give hints to tools that these elements exist. See srv/ on how they are populated
-// TODO find a better way to have 'default' fields that still can be overwritten.
-extend bookshop.Authors with {
-	virtual age: Integer;
-	virtual lifetime: String;
-}
 annotate AdminService.Authors with @(
 	UI: {
 		HeaderInfo: {
