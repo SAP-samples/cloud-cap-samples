@@ -4,7 +4,7 @@ using {sap.capire.bookshop.Books} from '@capire/bookshop';
 using {sap.capire.bookshop.Orders} from '@capire/orders';
 using {sap.capire.bookshop.OrderItems} from '@capire/orders';
 
-// @requires:'system-user' - todo - security check
+@requires: 'PersonalDataManagerUser' // security check
 service PDMService {
 
   entity Customers             as projection on db.Customers;

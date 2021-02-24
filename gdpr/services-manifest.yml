@@ -9,8 +9,10 @@ create-services:
   - name:   pdm
     broker: personal-data-manager-service  
     plan: standard
-    parameters: pdm-instance-config.json
+    parameters: ./.pdm/pdm-instance-config.json
   - name:   uaa
     broker: xsuaa
     plan: application
+    parameters: xs-security.json
+     
 

@@ -3,11 +3,14 @@
     "version": "1.0.0",
     "dependencies": {
         "@capire/bookshop": "../bookshop",
-        "@capire/orders": "../orders",
         "@capire/common": "../common",
+        "@capire/orders": "../orders",
         "@sap/cds": "^4",
+        "@sap/hana-client": "^2.4.177",
+        "@sap/xsenv": "^3.1.0",
+        "@sap/xssec": "^3.1.1",
         "express": "^4.17.1",
-        "@sap/hana-client": "^2.4.177"
+        "passport": "^0.4.1"
     },
     "scripts": {
         "start": "cds run --in-memory?",
@@ -17,6 +20,9 @@
         "requires": {
             "db": {
                 "kind": "sql"
+            },
+            "uaa": {
+                "kind": "xsuaa"
             }
         }
     }
