@@ -1,4 +1,4 @@
-using AdminService from '@capire/bookshop';
+using { AdminService } from '../../db';
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -36,6 +36,27 @@ annotate AdminService.Books with @(
 				{Value: modifiedAt}
 			]
 		}
+	}
+);
+
+annotate AdminService.Authors with @(
+	UI: {
+		HeaderInfo: {
+			Description: {Value: lifetime}
+		},
+		Facets: [
+			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}', Target: '@UI.FieldGroup#Details'},
+			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Books}', Target: 'books/@UI.LineItem'},
+		],
+		FieldGroup#Details: {
+			Data: [
+				{Value: placeOfBirth},
+				{Value: placeOfDeath},
+				{Value: dateOfBirth},
+				{Value: dateOfDeath},
+				{Value: age, Label: '{i18n>Age}'},
+			]
+		},
 	}
 );
 
