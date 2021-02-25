@@ -5,7 +5,7 @@
     {
       "title": "Welcome",
       "file": "README.md",
-      "description": "### Welcome to CAP Samples!\n\nThis tour leads you through a collection of samples for the [SAP Cloud Application Programming Model](https://cap.cloud.sap)\nYou will learn which features of the programming models are demonstrated in which sample.\n\nLet's start!",
+      "description": "### Welcome to CAP Samples!\n\nThis tour leads you through a collection of samples for the [SAP Cloud Application Programming Model (CAP)](https://cap.cloud.sap).\nYou will learn which features of the programming model are demonstrated in which sample.\n\nLet's start!",
       "line": 2,
       "selection": {
         "start": {
