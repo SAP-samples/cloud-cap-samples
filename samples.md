@@ -57,7 +57,7 @@ Each sub directory essentially is an individual npm package arranged in an [all-
   - [@capire/reviews](reviews)
   - [@capire/orders](orders)
   - [@capire/common](common)
-- [Adds a SAP Fiori elements application](https://cap.cloud.sap/docs/guides/fiori/) to bookshop, thereby introducing to:
+- [Adds an SAP Fiori elements application](https://cap.cloud.sap/docs/guides/fiori/) to bookshop, thereby introducing to:
   - [OData Annotations](https://cap.cloud.sap/docs/guides/fiori#adding-odata-annotations) in `.cds` files
   - Support for [Fiori Draft](https://cap.cloud.sap/docs/guides/fiori#draft)
   - Support for [Value Helps](https://cap.cloud.sap/docs/guides/fiori#value-help)
