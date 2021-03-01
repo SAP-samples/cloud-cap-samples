@@ -18,7 +18,7 @@ Find here a collection of samples for the [SAP Cloud Application Programming Mod
 
 ### Download
 
-If you have [Git](https://git-scm.com/downloads) installed, clone this repo as shown below, otherwise [download as ZIP file](archive/master.zip).
+If you've [Git](https://git-scm.com/downloads) installed, clone this repo as shown below, otherwise [download as ZIP file](archive/master.zip).
 
 ```sh
 git clone https://github.com/sap-samples/cloud-cap-samples samples
@@ -72,10 +72,14 @@ npm add @capire/common @capire/bookshop
 ```
 
 
+## Code Tours
+
+Take one of the [guideded tours](.tours) in VS Code through our CAP samples and learn which CAP features are showcased by the different parts of the repository. Just install the [CodeTour extension](https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour) for VS Code. We'll add more code tours in the future. Stay tuned!
+
 ## Get Support
 
 Check out the documentation at [https://cap.cloud.sap](https://cap.cloud.sap). <br>
-In case you have a question, find a bug, or otherwise need support, please use our [community](https://answers.sap.com/tags/9f13aee1-834c-4105-8e43-ee442775e5ce).
+In case you've a question, find a bug, or otherwise need support, use our [community](https://answers.sap.com/tags/9f13aee1-834c-4105-8e43-ee442775e5ce) to get more visibility.
 
 
 ## License
