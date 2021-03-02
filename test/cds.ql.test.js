@@ -365,7 +365,7 @@ describe('cds.ql → cqn', () => {
         },
       })
 
-      expect(
+      if (!is_v2) expect(
         SELECT.from(Foo).where(`x=`, 1, `or y.z is null and (a>`, 2, `or b=`, 3, `)`)
       ).to.eql(CQL`SELECT from Foo where x=1 or y.z is null and (a>2 or b=3)`)
 
