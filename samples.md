@@ -64,7 +64,6 @@ Each sub directory essentially is an individual npm package arranged in an [all-
   - Serving SAP Fiori apps locally
 - [The Vue.js app](bookshop/app/vue) imported from bookshop is served as well
 
-
 <br>
 
 # All-in-one Monorepo
