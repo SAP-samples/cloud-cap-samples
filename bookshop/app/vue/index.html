@@ -44,11 +44,11 @@
         <img v-bind:src="book.image" alt=""/>
         <label style="text-align:right">
             <span class="succeeded"> {{ order.succeeded }} </span>
-            <span class="failed"> {{ order.failed }} </span>
-            &nbsp;&nbsp; {{ book.stock }} in stock
+            <span class="failed"> {{ order.failed }} </span> &nbsp;&nbsp;
+            <span id="stock"> {{ book.stock }} in stock </span>
         </label>
         <form @submit.prevent="submitOrder" style="float:right; display:flex; flex-direction:row-reverse">
-            <input type="number" v-model="order.amount" v-bind:class="{ failed: order.failed }" style="width:5em">
+            <input id="amount" type="number" v-model="order.amount" v-bind:class="{ failed: order.failed }" style="width:5em">
             <input type="submit" value="Order:" class="muted-button">
         </form>
         <h4> {{ book.title }} </h4>
