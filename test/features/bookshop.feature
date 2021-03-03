@@ -20,7 +20,7 @@ Feature: List Books using Vue.js UI
     Then it shows '12' in 'stock'
 
   Scenario: Order One Book
-    And we click on button 'Order:'
+    When we click on button 'Order:'
     Then it succeeds with 'ordered 1 item(s)'
 
   Scenario: Order Four Books
