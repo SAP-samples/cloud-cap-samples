@@ -17,6 +17,8 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
+    "@cucumber/cucumber": "^7.0.0",
+    "selenium-webdriver": "^4.0.0-beta.1",
     "sqlite3": "5.0.0"
   },
   "scripts": {
