@@ -71,6 +71,11 @@ Then('it fails with {string}', async message => {
   return (await element.getText()).includes(message)
 })
 
+Then('it shows {string} in {string}', async (message,id) => {
+  const element = await browser.wait (browser.findElement(By.id(id)))
+  return (await element.getText()).includes(message)
+})
+
 Given('we login as {string}, {string}', async (username, password) => {
   const alert = await browser.switchTo().alert()
   return alert.authenticateAs(username, password)
