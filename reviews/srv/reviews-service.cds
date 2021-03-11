@@ -8,9 +8,9 @@ service ReviewsService {
   action unlike (review: type of Reviews:ID);
 
   // Async API
-   event reviewed : {
-     subject: type of Reviews:subject;
-     rating: Decimal(2,1)
+   event reviewed : projection on Reviews {
+     subject,
+     rating
    }
 
   // Input validation
