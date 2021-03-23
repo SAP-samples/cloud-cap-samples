@@ -1,6 +1,6 @@
 const cds = require ('@sap/cds')
 
-cds.on('served', async ()=>{ try {
+cds.on('listening', async ()=>{ try { //> just to see the output at the end; will later on be in db service impl
   console.log ('\nFilling database with initial data...')
   const m = cds.model.minified() //> we likely should do that by default
   const tx = cds.tx()
