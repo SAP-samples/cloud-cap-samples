@@ -16,7 +16,8 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "sql"
+        "kind": "sqlite",
+        "model": "*"
       }
     }
   }
