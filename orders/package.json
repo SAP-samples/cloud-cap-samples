@@ -2,6 +2,6 @@
   "name": "@capire/orders",
   "version": "1.0.0",
   "dependencies": {
-    "@sap/cds": "^4.3.0"
+    "@sap/cds": ">=4.3.0"
   }
 }
