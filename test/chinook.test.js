@@ -33,7 +33,7 @@ describe("Media Store services", () => {
   let customerAccessToken;
   let employeeAccessToken;
 
-  before("login user", async () => {
+  beforeAll(async () => {
     customerLoginResponse = await POST(
       "/users/login",
       {
@@ -86,7 +86,7 @@ describe("Media Store services", () => {
       expect(actualAuthData.roles).to.deep.equal(CURRENT_CUSTOMER_DATA.roles);
     }
 
-    it("should login user successfully", async () => {
+    it("should login user successfully", () => {
       const { data: actualData } = customerLoginResponse;
 
       compareAuthData(actualData);
