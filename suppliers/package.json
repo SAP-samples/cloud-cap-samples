@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@capire/common": "*",
-    "@sap/cds": "^4",
+    "@sap/cds": ">=4",
     "express": "^4"
   },
   "scripts": {
