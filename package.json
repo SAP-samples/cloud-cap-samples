@@ -23,6 +23,7 @@
   "scripts": {
     "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",
     "fix-antlr": "sed -i -e 's/INVALID_ALT_NUMBER = require.*/INVALID_ALT_NUMBER = 0/' node_modules/antlr4/tree/Trees.js node_modules/antlr4/RuleContext.js",
+    "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules && cd test/_cap/samples",
     "registry": "node .registry/server.js",
     "bookshop": "cds watch bookshop",
     "fiori": "cds watch fiori",
