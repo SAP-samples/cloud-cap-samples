@@ -18,7 +18,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
-    "sqlite3": "5.0.0"
+    "sqlite3": "^5.0.0"
   },
   "scripts": {
     "fix-antlr": "sed -i -e 's/INVALID_ALT_NUMBER = require.*/INVALID_ALT_NUMBER = 0/' node_modules/antlr4/tree/Trees.js node_modules/antlr4/RuleContext.js",
