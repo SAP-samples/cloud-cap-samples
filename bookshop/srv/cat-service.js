@@ -16,7 +16,7 @@ class CatalogService extends cds.ApplicationService { init(){
   })
 
   // Add some discount for overstocked books
-  this.after ('READ','Books', each => {
+  this.after ('READ','ListOfBooks', each => {
     if (each.stock > 111) {
       each.title += ` -- 11% discount!`
     }

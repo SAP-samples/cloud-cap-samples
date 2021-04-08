@@ -1,4 +1,4 @@
-using { Currency, managed, sap } from '@sap/cds/common';
+using { Currency, managed, temporal, sap } from '@sap/cds/common';
 namespace sap.capire.bookshop;
 
 entity Books : managed {
