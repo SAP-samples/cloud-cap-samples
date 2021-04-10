@@ -4,28 +4,31 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-  {
-    "name": "Attach by Process ID",
-    "processId": "${command:PickProcess}",
-    "request": "attach",
-    "skipFiles": [
-      "<node_internals>/**"
-    ],
-    "type": "pwa-node"
-  },
     {
       "name": "bookshop",
-      "command": "cds watch bookshop",
-      "request": "launch",
+      "command": "npx cds watch bookshop",
       "type": "node-terminal",
-      "skipFiles": ["<node_internals>/**"]
+      "request": "launch",
+      "skipFiles": [
+        "<node_internals>/**",
+        "**/node_modules/**",
+        "**/cds/lib/lazy.js",
+        "**/cds/lib/req/cls.js",
+        "**/odata-v4/okra/**"
+      ]
     },
     {
-      "name": "Fiori app",
-      "command": "cds watch fiori",
-      "request": "launch",
+      "name": "Fiori App",
+      "command": "npx cds watch fiori",
       "type": "node-terminal",
-      "skipFiles": ["<node_internals>/**"]
+      "request": "launch",
+      "skipFiles": [
+        "<node_internals>/**",
+        "**/node_modules/**",
+        "**/cds/lib/lazy.js",
+        "**/cds/lib/req/cls.js",
+        "**/odata-v4/okra/**"
+      ]
     }
   ],
   "inputs": [
@@ -33,7 +36,7 @@
       "type": "pickString",
       "id": "sample",
       "description": "Which sample do you want to start?",
-      "options": ["bookshop", "fiori", "reviews", "reviews/test/bookshop"],
+      "options": [ "bookshop", "fiori", "reviews", "reviews" ],
       "default": "bookshop"
     }
   ]
