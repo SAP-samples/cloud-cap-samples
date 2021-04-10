@@ -2,10 +2,10 @@
 
 ## Run all-in-one
 
-Open a terminal window and run the bookshop in it:
+Open a terminal window and run the `fiori` app in it:
 
 ```sh
-npm run bookshop
+npm run fiori
 ```
 
 
@@ -17,8 +17,8 @@ Open two terminal windows. In the first one start the reviews service stand-alon
 npm run reviews-service
 ```
 
-In the second one start the bookshop:
+In the second one start the `fiori` app:
 
 ```sh
-npm run bookshop
+npm run fiori
 ```

@@ -1,11 +1,10 @@
 const {expect} = require('../test')
 const cds = require('@sap/cds/lib')
 
-// monkey patching older releases:
-if (!cds.compile.cdl) cds.compile.cdl = cds.parse
 const { parse:cdr } = cds.ql
 
-const model = cds.compile.cdl (`
+// should become cds.compile(...) when cds5 is released
+const model = cds.compile.to.csn (`
   entity Categories {
     key ID   : Integer;
     name     : String;
