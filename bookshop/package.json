@@ -3,20 +3,42 @@
   "version": "1.0.0",
   "description": "A simple self-contained bookshop service.",
   "dependencies": {
-    "@capire/common": "*",
     "@sap/cds": "^5.0.4",
     "express": "^4.17.1",
-    "passport": "0.4.1"
+    "passport": "0.4.1",
+    "@sap/hana-client": "^2.7.21"
   },
   "scripts": {
-    "genres": "cds serve test/genres.cds",
-    "start": "cds run",
     "watch": "cds watch"
   },
   "cds": {
     "requires": {
       "db": {
-        "kind": "sql"
+        "kind": "sql",
+        "xxx-model": "*",
+        "xxx-credentials": {
+            "database": "localSqlite.db"
+        }
+      },
+      "[production]": {
+          "db": {
+              "kind": "hana",
+              "model": [
+                  "db",
+                  "srv"
+              ]
+          }
+      }
+    },
+    "features": {
+      "assert_integrity": false
+    },
+    "hana": {
+        "deploy-format": "hdbtable"
+    },
+    "cdsc": {
+      "beta": {
+        "foreignKeyConstraints": true
       }
     }
   }

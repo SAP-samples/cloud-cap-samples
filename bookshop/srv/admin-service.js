@@ -1,12 +1,15 @@
+// sqlite: FK constraint checks need to be enabled by application at runtime
+// for each db connection
 const cds = require('@sap/cds')
+module.exports = cds.service.impl (async function(){ 
 
-module.exports = cds.service.impl (function(){
-  this.before ('NEW','Authors', genid)
-  this.before ('NEW','Books', genid)
+  const db = await cds.connect.to('db')
+
+  if (db.kind === 'sqlite')
+  {
+    db.before('BEGIN', function (req) { 
+      //console.log('--- PRAGMA foreign_keys = ON ---')
+      return this.dbc.run('PRAGMA foreign_keys = ON;')
+    })
+  }
 })
-
-/** Generate primary keys for target entity in request */
-async function genid (req) {
-  const {ID} = await cds.tx(req).run (SELECT.one.from(req.target).columns('max(ID) as ID'))
-  req.data.ID = ID - ID % 100 + 100 + 1
-}
