@@ -2,6 +2,7 @@
 const cds = require('@sap/cds')
 
 describe('Bookshop: OData Protocol Level Testing', () => {
+  jest.setTimeout(20*1000)
   const app = require('express')()
   const request = require('supertest')(app)
 
