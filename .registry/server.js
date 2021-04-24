@@ -5,7 +5,7 @@ const app = express()
 
 const { PORT=4444 } = process.env
 const [,,port=PORT] = process.argv
-process.chdir(__dirname)
+const cwd = __dirname
 
 app.use('/-/:tarball', (req,res,next) => {
   console.debug ('GET', req.params)
@@ -13,7 +13,7 @@ app.use('/-/:tarball', (req,res,next) => {
     const { tarball } = req.params
     const [, pkg ] = /^capire-(\w+)/.exec(tarball)
     fs.lstat(tarball,(err => {
-      if (err) exec(`npm pack ../${pkg}`,next)
+      if (err) exec(`npm pack ../${pkg}`,{cwd},next)
       else next()
     }))
   } catch (e) {
