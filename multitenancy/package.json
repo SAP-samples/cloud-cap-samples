@@ -1,0 +1,84 @@
+{
+    "name": "multitenancy",
+    "version": "1.0.0",
+    "description": "A simple CAP project.",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@capire/fiori": "../fiori",
+        "@sap/cds": "5.0.6",
+        "@sap/cds-mtx": "1.2.1",
+        "@sap/hana-client": "^2",
+        "@sap/hdi-deploy": "^4",
+        "@sap/instance-manager": "^2",
+        "@sap/xssec": "^3",
+        "express": "^4",
+        "passport": "^0"
+    },
+    "devDependencies": {
+        "sqlite3": "^5.0.2"
+    },
+    "scripts": {
+        "start": "cds run"
+    },
+    "eslintConfig": {
+        "extends": "eslint:recommended",
+        "env": {
+            "es2020": true,
+            "node": true,
+            "jest": true,
+            "mocha": true
+        },
+        "globals": {
+            "SELECT": true,
+            "INSERT": true,
+            "UPDATE": true,
+            "DELETE": true,
+            "CREATE": true,
+            "DROP": true,
+            "CDL": true,
+            "CQL": true,
+            "CXL": true,
+            "cds": true
+        },
+        "rules": {
+            "no-console": "off",
+            "require-atomic-updates": "off"
+        }
+    },
+    "cds": {
+        "requires": {
+            "multitenancy": true,
+            "auth": {
+                "strategy": "JWT"
+            },
+            "db": {
+                "kind": "hana",
+                "vcap": {
+                    "label": "service-manager"
+                }
+            },
+            "uaa": {
+                "kind": "xsuaa"
+            }
+        },
+        "hana": {
+            "deploy-format": "hdbtable"
+        },
+        "mtx": {
+            "element-prefix": "Z_",
+            "namespace-blacklist": [
+                "com.sap.",
+                "sap."
+            ],
+            "entity-whitelist": [],
+            "service-whitelist": []
+        },
+        "auth": {
+            "passport": {
+                "strategy": "JWT"
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+{
+  "xsappname": "multitenancy-${space}", 
+  "tenant-mode": "shared",
+  "scopes": [
+    { "name": "$XSAPPNAME.ExtendCDS", "description": "Extend CDS application" },
+    { "name": "$XSAPPNAME.ExtendCDSdelete", "description": "Extend CDS application with undeploy" },
+    { "name": "$XSAPPNAME.MtxDiagnose", "description": "Diagnose MTX sidecar" },
+    {
+      "name": "$XSAPPNAME.Callback",
+      "description": "With this scope set, the callbacks for subscribe, unsubscribe and getDependencies can be called.",
+      "grant-as-authority-to-apps": [
+      "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
+      ]
+    }
+  ],
+  "authorities": [
+    "$XSAPPNAME.MtxDiagnose"
+  ],
+  "role-templates": [
+    {
+      "name": "ExtensionDeveloper",
+      "description": "Extend application",
+      "scope-references": [
+        "$XSAPPNAME.ExtendCDS"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "ExtensionDeveloperUndeploy",
+      "description": "Undeploy extension",
+      "scope-references": [
+        "$XSAPPNAME.ExtendCDSdelete"
+      ],
+      "attribute-references": []
+    }
+  ]
+}

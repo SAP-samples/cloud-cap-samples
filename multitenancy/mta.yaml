@@ -1,0 +1,89 @@
+## Generated mta.yaml based on template version 0.4.0
+## appName = multitenancy
+## language=nodejs; multitenant=true
+## approuter=
+_schema-version: '3.1'
+ID: multitenancy
+version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
+   
+build-parameters:
+  before-all:
+   - builder: custom
+     commands:
+      - npm install --production
+      - npx -p @sap/cds-dk cds build --production
+
+modules:
+ # --------------------- SERVER MODULE ------------------------
+ - name: multitenancy-srv
+ # ------------------------------------------------------------
+   type: nodejs
+   path: gen/srv
+   properties:
+     SAP_JWT_TRUST_ACL: [{"clientid":"*","identityzone":"sap-provisioning"}]  # Trust between server and SaaS Manager
+   requires:
+    # Resources extracted from CAP configuration
+    - name: multitenancy-db-mt
+    - name: multitenancy-uaa-mt
+    - name: multitenancy-registry
+   provides:
+    - name: srv-api      # required by consumers of CAP services (e.g. approuter)
+      properties:
+        srv-url: ${default-url}
+    - name: mtx-api      # potentially required by approuter
+      properties:
+        mtx-url: ${default-url}
+
+
+
+resources:
+ # services extracted from CAP configuration
+ # 'service-plan' can be configured via 'cds.requires.<name>.vcap.plan'
+# ------------------------------------------------------------
+ - name: multitenancy-db-mt
+# ------------------------------------------------------------
+   type: org.cloudfoundry.managed-service
+   parameters:
+     service: service-manager
+     service-plan: container
+   properties:
+     hdi-service-name: ${service-name}
+# ------------------------------------------------------------
+ - name: multitenancy-uaa-mt
+# ------------------------------------------------------------
+   type: org.cloudfoundry.managed-service
+   parameters:
+     service: xsuaa
+     service-plan: application  
+     path: ./xs-security.json
+     config:
+       xsappname: multitenancy-${space}    #  name + space dependency
+       tenant-mode: shared
+
+ - name: multitenancy-registry
+   type: org.cloudfoundry.managed-service
+   requires:
+      - name: multitenancy-uaa-mt
+      - name: mtx-api 
+        properties: 
+           prop: ~{mtx-url} 
+        parameters: 
+           param: ~{mtx-url} 
+   parameters:
+      service: saas-registry
+      service-plan: application
+      config:
+         xsappname: multitenancy-${space}
+         appName: multitenancy
+         displayName: multitenancy
+         description: A simple CAP project.
+         #category: 'Category'
+         appUrls:
+            onSubscription: ~{mtx-api/mtx-url}/mtx/v1/provisioning/tenant/{tenantId}
+            onSubscriptionAsync: false
+            onUnSubscriptionAsync: false
+            callbackTimeoutMillis: 300000
+
