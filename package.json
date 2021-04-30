@@ -11,7 +11,8 @@
     "@capire/hello": "./hello",
     "@capire/media": "./media",
     "@capire/orders": "./orders",
-    "@capire/reviews": "./reviews"
+    "@capire/reviews": "./reviews",
+    "@capire/multitenancy": "./multitenancy"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -25,6 +26,7 @@
     "bookshop": "cds watch bookshop",
     "fiori": "cds watch fiori",
     "media": "cds watch media",
+    "multitenancy": "cds watch multitenancy",
     "mocha": "npx mocha || echo",
     "jest": "npx jest",
     "test": "npm run jest --silent"
