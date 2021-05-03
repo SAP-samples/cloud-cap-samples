@@ -38,6 +38,119 @@ describe('cds.ql → cqn', () => {
 
 
   describe(`SELECT...`, () => {
+    test('SELECT ( Foo )', () => {
+      expect({
+        SELECT: { from: { ref: ['Foo'] } },
+      })
+      .to.eql(CQL`SELECT from Foo`)
+      .to.eql(SELECT(Foo))
+    })
+
+    test('SELECT ( Foo ) .from ( Bar )', () => {
+
+      expect({
+        SELECT: { columns:[{ref:['Foo']}], from: { ref: ['Bar'] } },
+      })
+      .to.eql(CQL`SELECT Foo from Bar`)
+      .to.eql(SELECT `Foo` .from `Bar`)
+      .to.eql(SELECT `Foo` .from('Bar'))
+      .to.eql(SELECT('Foo').from('Bar'))
+      .to.eql(SELECT(['Foo']).from('Bar'))
+      .to.eql(SELECT(['Foo']).from('Bar'))
+      .to.eql(SELECT `Bar` .columns ('Foo'))
+      .to.eql(SELECT `Bar` .columns (['Foo']))
+      .to.eql(SELECT.from `Bar` .columns ('Foo'))
+      .to.eql(SELECT.from `Bar` .columns (['Foo']))
+
+      expect({
+        SELECT: { columns:[
+          {ref:['Foo']},
+          {ref:['Boo']},
+        ], from: { ref: ['Bar'] } },
+      })
+      .to.eql(CQL`SELECT Foo, Boo from Bar`)
+      .to.eql(SELECT `Foo, Boo` .from `Bar`)
+      .to.eql(SELECT `Foo, Boo` .from('Bar'))
+      .to.eql(SELECT('Foo','Boo').from('Bar'))
+      .to.eql(SELECT(['Foo','Boo']).from('Bar'))
+      .to.eql(SELECT `Bar` .columns ('Foo','Boo'))
+      .to.eql(SELECT `Bar` .columns (['Foo','Boo']))
+      .to.eql(SELECT.from `Bar` .columns ('Foo','Boo'))
+      .to.eql(SELECT.from `Bar` .columns (['Foo','Boo']))
+
+      expect({
+        SELECT: { columns:[
+          {ref:['Foo']},
+          {ref:['Boo']},
+          {ref:['Moo']},
+        ], from: { ref: ['Bar'] } },
+      })
+      .to.eql(CQL`SELECT Foo, Boo, Moo from Bar`)
+      .to.eql(SELECT `Foo, Boo, Moo` .from `Bar`)
+      .to.eql(SELECT `Foo, Boo, Moo` .from('Bar'))
+      .to.eql(SELECT('Foo','Boo','Moo').from('Bar'))
+      .to.eql(SELECT(['Foo','Boo','Moo']).from('Bar'))
+      .to.eql(SELECT `Bar` .columns ('Foo','Boo','Moo'))
+      .to.eql(SELECT `Bar` .columns (['Foo','Boo','Moo']))
+      .to.eql(SELECT.from `Bar` .columns ('Foo','Boo','Moo'))
+      .to.eql(SELECT.from `Bar` .columns (['Foo','Boo','Moo']))
+
+
+      expect({
+        SELECT: { one:true, columns:[{ref:['Foo']}], from: { ref: ['Bar'] } },
+      })
+      // .to.eql(CQL`SELECT one Foo from Bar`)
+      .to.eql(SELECT.one `Foo` .from `Bar`)
+      .to.eql(SELECT.one `Foo` .from('Bar'))
+      .to.eql(SELECT.one('Foo').from('Bar'))
+      .to.eql(SELECT.one(['Foo']).from('Bar'))
+      .to.eql(SELECT.one(['Foo']).from('Bar'))
+      .to.eql(SELECT.one('Bar',['Foo']))
+      .to.eql(SELECT.one('Bar').columns('Foo'))
+      .to.eql(SELECT.one('Bar').columns(['Foo']))
+      .to.eql(SELECT.one.from('Bar',['Foo']))
+      .to.eql(SELECT.one.from('Bar').columns('Foo'))
+      .to.eql(SELECT.one.from('Bar').columns(['Foo']))
+
+      expect({
+        SELECT: { one:true, columns:[
+          {ref:['Foo']},
+          {ref:['Boo']},
+        ], from: { ref: ['Bar'] } },
+      })
+      // .to.eql(CQL`SELECT Foo, Boo from Bar`)
+      .to.eql(SELECT.one `Foo, Boo` .from `Bar`)
+      .to.eql(SELECT.one `Foo, Boo` .from('Bar'))
+      .to.eql(SELECT.one('Foo','Boo').from('Bar'))
+      .to.eql(SELECT.one(['Foo','Boo']).from('Bar'))
+      .to.eql(SELECT.one('Bar',['Foo','Boo']))
+      .to.eql(SELECT.one('Bar').columns('Foo','Boo'))
+      .to.eql(SELECT.one('Bar').columns(['Foo','Boo']))
+      .to.eql(SELECT.one.from('Bar',['Foo','Boo']))
+      .to.eql(SELECT.one.from('Bar').columns('Foo','Boo'))
+      .to.eql(SELECT.one.from('Bar').columns(['Foo','Boo']))
+
+      expect({
+        SELECT: { one:true, columns:[
+          {ref:['Foo']},
+          {ref:['Boo']},
+          {ref:['Moo']},
+        ], from: { ref: ['Bar'] } },
+      })
+      // .to.eql(CQL`SELECT Foo, Boo, Moo from Bar`)
+      .to.eql(SELECT.one `Foo, Boo, Moo` .from `Bar`)
+      .to.eql(SELECT.one `Foo, Boo, Moo` .from('Bar'))
+      .to.eql(SELECT.one('Foo','Boo','Moo').from('Bar'))
+      .to.eql(SELECT.one(['Foo','Boo','Moo']).from('Bar'))
+      .to.eql(SELECT.one('Bar',['Foo','Boo','Moo']))
+      .to.eql(SELECT.one('Bar').columns('Foo','Boo','Moo'))
+      .to.eql(SELECT.one('Bar').columns(['Foo','Boo','Moo']))
+      .to.eql(SELECT.one.from('Bar',['Foo','Boo','Moo']))
+      .to.eql(SELECT.one.from('Bar').columns('Foo','Boo','Moo'))
+      .to.eql(SELECT.one.from('Bar').columns(['Foo','Boo','Moo']))
+
+    })
+
     test('from ( Foo )', () => {
       expect({
         SELECT: { from: { ref: ['Foo'] } },
