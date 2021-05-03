@@ -16,10 +16,22 @@ extend service S4 with {
     //    CityName as name
     // }
 
+    // to_BusinessPartnerAddress
+
     // REVISIT: following is not supported so far in cqn2odata...
     // to_BusinessPartnerAddress.CityCode as city,
     // to_BusinessPartnerAddress.CityName as city_name,
   }
+
+
+  // REVISIT: Alternative idea to use a specific replication view, but request data from
+  // a different view and manual map values.
+  // entity ReplicatedSuppliers as projection on Suppliers {
+  //   ID,
+  //   name,
+  //   to_BusinessPartnerAddress.CityCode as city,
+  //   to_BusinessPartnerAddress.CityName as city_name
+  // }
 }
 
 

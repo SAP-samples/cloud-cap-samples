@@ -23,13 +23,21 @@ module.exports = async()=>{ // called by server.js
     })
 
     // Replicate Supplier data when edited Books have suppliers
-    admin.on (['CREATE','UPDATE'], 'Books', ({data:{supplier}}, next) => {
+    admin.on (['CREATE','UPDATE'], 'Books', async ({data:{supplier_ID: supplierId}}, next) => {
       // Using Promise.all(...) to parallelize local write, i.e. next(), and replication
-      if (supplier) return Promise.all ([ next(), async()=>{
-        let replicated = await db.exists (Suppliers, supplier)
-        if (!replicated) await replicate (supplier, 'initial')
+
+      /*
+      // ERROR: Reference integrity is violated for association "supplier"
+      if (supplierId) return Promise.all ([ next(), async()=>{
+        let replicated = await db.exists (Suppliers, supplierId)
+        if (!replicated) await replicate (supplierId, 'initial')
       }])
       else return next() //> don't forget to pass down the interceptor stack
+      */
+
+      let replicated = await db.exists (Suppliers, supplierId);
+      if (!replicated) await replicate (supplierId, 'initial');
+      return next();
     })
 
   })
@@ -47,7 +55,10 @@ module.exports = async()=>{ // called by server.js
    */
   async function replicate (IDs,_initial) {
     if (!Array.isArray(IDs)) IDs = [ IDs ]
-    let suppliers = await S4bupa.read (Suppliers).where('ID in',IDs)
+    // TODO: Doesn't work when running in same process with mocked API_BUSINESS_PARTNER
+
+    let suppliers = await S4bupa.read (Suppliers).where(...([[]].concat(IDs).reduce( (where, id, index ) => { where.push(`${index>1 ? "OR ":""}ID = `, id); return where })));
+    //let suppliers = await S4bupa.read (Suppliers).where('ID in',IDs)
     if (_initial) return db.insert (suppliers) .into (Suppliers) //> using bulk insert
     else return Promise.all(suppliers.map ( //> parallelizing updates
       each => db.update (Suppliers,each.ID) .with (each)

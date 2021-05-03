@@ -1,0 +1,27 @@
+
+@server = http://localhost:4004
+@authAlice = Authorization: Basic alice:
+
+PUT {{server}}/api-business-partner/A_BusinessPartner('ACME')
+Content-Type: application/json
+
+{
+    "BusinessPartnerFullName": "Alice Changed"
+}
+
+###
+
+PATCH {{server}}/admin/Books(201)
+{{authAlice}}
+Content-Type: application/json
+
+{
+    "supplier_ID": "PNG"
+}
+
+
+
+###
+
+GET {{server}}/admin/Books?$top=11&$expand=supplier
+{{authAlice}}
