@@ -1,0 +1,19 @@
+{
+    "name": "approuter",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "devDependencies": {},
+    "engines": {
+        "node": "^12.0.0"
+    },
+    "scripts": {
+        "start": "node node_modules/@sap/approuter/approuter.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@sap/approuter": ">=9.0.2"
+    }
+}

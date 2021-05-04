@@ -48,36 +48,38 @@
     }
   },
   "cds": {
-    "requires": {
-      "multitenancy": true,
-      "auth": {
-        "strategy": "JWT"
-      },
-      "db": {
-        "kind": "hana",
-        "vcap": {
-          "label": "service-manager"
+    "[production]": {
+      "requires": {
+        "multitenancy": true,
+        "auth": {
+          "strategy": "JWT"
+        },
+        "db": {
+          "kind": "hana",
+          "vcap": {
+            "label": "service-manager"
+          }
+        },
+        "uaa": {
+          "kind": "xsuaa"
         }
       },
-      "uaa": {
-        "kind": "xsuaa"
-      }
-    },
-    "hana": {
-      "deploy-format": "hdbtable"
-    },
-    "mtx": {
-      "element-prefix": "Z_",
-      "namespace-blacklist": [
-        "com.sap.",
-        "sap."
-      ],
-      "entity-whitelist": [],
-      "service-whitelist": []
-    },
-    "auth": {
-      "passport": {
-        "strategy": "JWT"
+      "hana": {
+        "deploy-format": "hdbtable"
+      },
+      "mtx": {
+        "element-prefix": "Z_",
+        "namespace-blacklist": [
+          "com.sap.",
+          "sap."
+        ],
+        "entity-whitelist": [],
+        "service-whitelist": []
+      },
+      "auth": {
+        "passport": {
+          "strategy": "JWT"
+        }
       }
     }
   }

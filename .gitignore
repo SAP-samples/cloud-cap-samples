@@ -15,3 +15,6 @@ default-env.json
 packages/messageBox
 reviews/msg-box
 reviews/db/test.db
+
+package-lock.json
+logs_recent_*.txt

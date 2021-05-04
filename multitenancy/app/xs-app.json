@@ -1,0 +1,28 @@
+{
+    "welcomeFile": "/admin-fiori.html",
+    "authenticationMethod": "route",
+    "sessionTimeout": 30,
+    "logout": {
+        "logoutEndpoint": "/do/logout",
+        "logoutPage": "/"
+    },
+    "routes": [
+        {
+            "source": "^/((admin|browse|orders)/webapp/.*)$",
+            "target": "$1",
+            "localDir": ".",
+            "authenticationType": "xsuaa"
+        },
+        {
+            "source": "^(/[^/]+\\.html(\\?.*)?)$",
+            "target": "$1",
+            "localDir": ".",
+            "authenticationType": "xsuaa"
+        },
+        {
+            "source": "^.*$",
+            "destination": "srv-api",
+            "authenticationType": "xsuaa"
+        }
+     ]
+}

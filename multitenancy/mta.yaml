@@ -8,7 +8,7 @@ version: 1.0.0
 description: "A simple CAP project."
 parameters:
   enable-parallel-deployments: true
-   
+
 build-parameters:
   before-all:
    - builder: custom
@@ -17,6 +17,26 @@ build-parameters:
       - npx -p @sap/cds-dk cds build --production
 
 modules:
+
+ - name: multitenancy-approuter
+   type: nodejs
+   path: app
+   parameters:
+      # Keep existing URLs for this application ("routes")
+      keep-existing-routes: true
+   properties:
+      TENANT_HOST_PATTERN: "^(.*)-${default-host}.${default-domain}"
+   requires:
+    - name: multitenancy-registry
+    - name: multitenancy-uaa-mt
+    - name: srv-api
+      group: destinations
+      properties:
+        forwardAuthToken: true
+        strictSSL: true
+        name: srv-api
+        url: ~{srv-url}
+
  # --------------------- SERVER MODULE ------------------------
  - name: multitenancy-srv
  # ------------------------------------------------------------
@@ -57,7 +77,7 @@ resources:
    type: org.cloudfoundry.managed-service
    parameters:
      service: xsuaa
-     service-plan: application  
+     service-plan: application
      path: ./xs-security.json
      config:
        xsappname: multitenancy-${space}    #  name + space dependency
@@ -67,11 +87,11 @@ resources:
    type: org.cloudfoundry.managed-service
    requires:
       - name: multitenancy-uaa-mt
-      - name: mtx-api 
-        properties: 
-           prop: ~{mtx-url} 
-        parameters: 
-           param: ~{mtx-url} 
+      - name: mtx-api
+        properties:
+           prop: ~{mtx-url}
+        parameters:
+           param: ~{mtx-url}
    parameters:
       service: saas-registry
       service-plan: application

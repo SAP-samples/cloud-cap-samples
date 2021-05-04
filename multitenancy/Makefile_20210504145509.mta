@@ -1,0 +1,54 @@
+# Generated with Cloud MTA Build Tool version 1.0.14
+version=0.0.1
+MBT=/usr/local/lib/node_modules/mbt/unpacked_bin/mbt
+ifndef p
+$(error platform flag is expected. e.g. use make -f makefile.mta p=cf)
+endif
+target_provided=true
+ifndef t
+t="$(CURDIR)"
+target_provided=false
+endif
+ifndef strict
+strict=true
+endif
+ifndef mtar
+mtar="*"
+endif
+modules := $(shell $(MBT) provide modules -d=dev)
+modules := $(subst ],,$(subst [,,$(modules)))
+# List of all the recipes to be executed during the build process
+.PHONY: all pre_validate pre_build validate $(modules) post_build meta mtar cleanup
+# Default target compile all
+all: pre_validate pre_build validate $(modules) post_build meta mtar cleanup
+# Validate mta.yaml
+pre_validate:
+	@$(MBT) validate -r=${strict} -x="paths"
+pre_build: pre_validate
+	@$(MBT) project build -p=pre
+
+
+# Execute module build
+define build_rule
+$(1): validate
+	@$(MBT) module build -m=$(1) -p=${p} -t=${t}
+endef
+
+$(foreach mod,$(modules),$(eval $(call build_rule,$(mod))))# Create META-INF folder with MANIFEST.MF & mtad.yaml
+meta: $(modules) post_build
+	@$(MBT) gen meta -p=${p} -t=${t}
+
+post_build: $(modules)
+	@$(MBT) project build -p=post -t=${t}
+
+# Validate mta.yaml
+validate: pre_build
+	@$(MBT) validate -r=${strict}
+
+# Pack as MTAR artifact
+mtar: $(modules) meta
+	@$(MBT) gen mtar --mtar=${mtar} --target_provided=${target_provided} -t=${t}
+
+cleanup: mtar
+# Remove tmp folder
+	@$(MBT) clean -t=${t}
