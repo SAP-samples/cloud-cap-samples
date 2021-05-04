@@ -6,7 +6,7 @@ module.exports = async()=>{ // called by server.js
 
   const cds = require('@sap/cds')
   const CatalogService = await cds.connect.to ('CatalogService')
-  const ReviewsService = await cds.connect.to ('ReviewsService')
+  //const ReviewsService = await cds.connect.to ('ReviewsService')
   const OrdersService = await cds.connect.to ('OrdersService')
   const db = await cds.connect.to ('db')
 
@@ -39,12 +39,14 @@ module.exports = async()=>{ // called by server.js
   //
   // Update Books' average ratings when ReviewsService signals updatd reviews
   //
+  /*
   ReviewsService.on ('reviewed', (msg) => {
     console.debug ('> received:', msg.event, msg.data)
     const { subject, rating } = msg.data
     return UPDATE(Books,subject).with({rating})
     // ^ Note: the framework will execute this and take care for db.tx
   })
+  */
 
   //
   // Reduce stock of ordered books for orders are created from Orders admin UI
