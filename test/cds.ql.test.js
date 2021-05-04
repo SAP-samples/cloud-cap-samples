@@ -57,6 +57,7 @@ describe('cds.ql → cqn', () => {
       .to.eql(SELECT('Foo').from('Bar'))
       .to.eql(SELECT(['Foo']).from('Bar'))
       .to.eql(SELECT(['Foo']).from('Bar'))
+      .to.eql(SELECT `Bar` .columns `Foo`)
       .to.eql(SELECT `Bar` .columns ('Foo'))
       .to.eql(SELECT `Bar` .columns (['Foo']))
       .to.eql(SELECT.from `Bar` .columns ('Foo'))
@@ -73,6 +74,7 @@ describe('cds.ql → cqn', () => {
       .to.eql(SELECT `Foo, Boo` .from('Bar'))
       .to.eql(SELECT('Foo','Boo').from('Bar'))
       .to.eql(SELECT(['Foo','Boo']).from('Bar'))
+      .to.eql(SELECT `Bar` .columns `Foo, Boo`)
       .to.eql(SELECT `Bar` .columns ('Foo','Boo'))
       .to.eql(SELECT `Bar` .columns (['Foo','Boo']))
       .to.eql(SELECT.from `Bar` .columns ('Foo','Boo'))
@@ -90,6 +92,7 @@ describe('cds.ql → cqn', () => {
       .to.eql(SELECT `Foo, Boo, Moo` .from('Bar'))
       .to.eql(SELECT('Foo','Boo','Moo').from('Bar'))
       .to.eql(SELECT(['Foo','Boo','Moo']).from('Bar'))
+      .to.eql(SELECT `Bar` .columns `Foo, Boo, Moo`)
       .to.eql(SELECT `Bar` .columns ('Foo','Boo','Moo'))
       .to.eql(SELECT `Bar` .columns (['Foo','Boo','Moo']))
       .to.eql(SELECT.from `Bar` .columns ('Foo','Boo','Moo'))
@@ -106,6 +109,7 @@ describe('cds.ql → cqn', () => {
       .to.eql(SELECT.one(['Foo']).from('Bar'))
       .to.eql(SELECT.one(['Foo']).from('Bar'))
       .to.eql(SELECT.one('Bar',['Foo']))
+      .to.eql(SELECT.one `Bar` .columns `Foo`)
       .to.eql(SELECT.one('Bar').columns('Foo'))
       .to.eql(SELECT.one('Bar').columns(['Foo']))
       .to.eql(SELECT.one.from('Bar',['Foo']))
@@ -124,6 +128,7 @@ describe('cds.ql → cqn', () => {
       .to.eql(SELECT.one('Foo','Boo').from('Bar'))
       .to.eql(SELECT.one(['Foo','Boo']).from('Bar'))
       .to.eql(SELECT.one('Bar',['Foo','Boo']))
+      .to.eql(SELECT.one `Bar` .columns `Foo, Boo`)
       .to.eql(SELECT.one('Bar').columns('Foo','Boo'))
       .to.eql(SELECT.one('Bar').columns(['Foo','Boo']))
       .to.eql(SELECT.one.from('Bar',['Foo','Boo']))
@@ -143,6 +148,7 @@ describe('cds.ql → cqn', () => {
       .to.eql(SELECT.one('Foo','Boo','Moo').from('Bar'))
       .to.eql(SELECT.one(['Foo','Boo','Moo']).from('Bar'))
       .to.eql(SELECT.one('Bar',['Foo','Boo','Moo']))
+      .to.eql(SELECT.one `Bar` .columns `Foo, Boo, Moo`)
       .to.eql(SELECT.one('Bar').columns('Foo','Boo','Moo'))
       .to.eql(SELECT.one('Bar').columns(['Foo','Boo','Moo']))
       .to.eql(SELECT.one.from('Bar',['Foo','Boo','Moo']))
@@ -221,8 +227,14 @@ describe('cds.ql → cqn', () => {
       expect((fluid = SELECT('*').from(Foo)))
         .to.eql(SELECT.from(Foo, ['*']))
         .to.eql(SELECT.from(Foo, (foo) => foo('*')))
+        .to.eql(SELECT.from(Foo, (foo) => foo`.*`))
+        .to.eql(SELECT.from(Foo, (foo) => foo`*`))
+        .to.eql(SELECT.from(Foo, (foo) => foo()))
         .to.eql(SELECT.from(Foo).columns('*'))
         .to.eql(SELECT.from(Foo).columns((foo) => foo('*')))
+        .to.eql(SELECT.from(Foo).columns((foo) => foo`.*`))
+        .to.eql(SELECT.from(Foo).columns((foo) => foo`*`))
+        .to.eql(SELECT.from(Foo).columns((foo) => foo()))
         .to.eql({
           SELECT: { from: { ref: ['Foo'] }, columns: [cdr ? '*' : { ref: ['*'] }] },
         })
@@ -232,6 +244,8 @@ describe('cds.ql → cqn', () => {
       // single column, prefix and postfix, as array and function
       expect(CQL`SELECT a from Foo`)
       expect(CQL`SELECT from Foo {a}`)
+        .to.eql(SELECT `a` .from `Foo`)
+        .to.eql(SELECT.from `Foo` .columns `a`)
         .to.eql(SELECT.from(Foo, ['a']))
         .to.eql(SELECT.from(Foo, (foo) => foo.a))
         .to.eql({
@@ -239,14 +253,17 @@ describe('cds.ql → cqn', () => {
         })
 
       // multiple columns, prefix and postfix, as array and function
-      expect(CQL`SELECT a,b as c from Foo`)
-
-      expect (CQL`SELECT from Foo {a,b as c}`).to.eql(cqn = {
+      const cqn = {
         SELECT: {
           from: { ref: ['Foo'] },
           columns: [{ ref: ['a'] }, { ref: ['b'], as: 'c' }],
         },
-      })
+      }
+      expect(CQL`SELECT a,b as c from Foo`).to.eql(cqn)
+      expect(CQL`SELECT from Foo {a,b as c}`).to.eql(cqn)
+      expect(SELECT `a,b as c` .from `Foo`).to.eql(cqn)
+      expect(SELECT `a,b as c` .from(Foo)).to.eql(cqn)
+      expect(SELECT.from(Foo).columns `a,b as c`).to.eql(cqn)
       expect(SELECT.from(Foo, ['a', { b: 'c' }])).to.eql(cqn)
       expect(
         SELECT.from(Foo, (foo) => {
