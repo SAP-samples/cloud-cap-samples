@@ -85,8 +85,17 @@ In case you've a question, find a bug, or otherwise need support, use our [commu
 
 Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSE.txt) file.
 
+# Suppliers - in progress for Service Consumption -
+
 ## TODOs
 
-1. Move `Suppliers` out of `API_BUSINESS_PARTNER` - remove additional lines in monkey patch --> Uwe
-2. Fix problem with `await S4bupa.read (Suppliers).where('ID in',IDs)` --> Johannes
-3.
+1. Fix problem with `await S4bupa.read (Suppliers).where('ID in',IDs)` --> Johannes
+2. Fix issues when running in same process
+3. Automated tests
+
+## Usage
+
+1. Run: `PORT=5001 cds mock API_BUSINESS_PARTNER`
+2. Wait until startup is completed
+3. Run in a 2nd terminal: `cds serve all --with-mocks --in-memory`
+4. Now, you can issues the requests listed in `suppliers/requests.http`

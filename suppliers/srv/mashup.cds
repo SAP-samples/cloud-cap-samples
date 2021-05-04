@@ -3,9 +3,12 @@
   you actually want to use from there.
  */
 
+using { sap.capire.bookshop as bookshop } from '@capire/bookshop';
 using { API_BUSINESS_PARTNER as S4 } from './external/API_BUSINESS_PARTNER.csn';
-extend service S4 with {
-  entity Suppliers as projection on S4.A_BusinessPartner {
+
+@cds.autoexpose // or expose explicitly in Catalog and AdminService
+@cds.persistence: {table,skip:false} // add persistency
+entity sap.capire.bookshop.Suppliers as projection on S4.A_BusinessPartner {
     // TODO: Aliases not supported in Java, yet?
     key BusinessPartner as ID,
     BusinessPartnerFullName as name,
@@ -21,18 +24,19 @@ extend service S4 with {
     // REVISIT: following is not supported so far in cqn2odata...
     // to_BusinessPartnerAddress.CityCode as city,
     // to_BusinessPartnerAddress.CityName as city_name,
-  }
-
-
-  // REVISIT: Alternative idea to use a specific replication view, but request data from
-  // a different view and manual map values.
-  // entity ReplicatedSuppliers as projection on Suppliers {
-  //   ID,
-  //   name,
-  //   to_BusinessPartnerAddress.CityCode as city,
-  //   to_BusinessPartnerAddress.CityName as city_name
-  // }
 }
+
+
+// REVISIT: Alternative idea to use a specific replication view, but request data from
+// a different view and manual map values.
+// entity ReplicatedSuppliers as projection on Suppliers {
+//   ID,
+//   name,
+//   to_BusinessPartnerAddress.CityCode as city,
+//   to_BusinessPartnerAddress.CityName as city_name
+// }
+
+
 
 
 /*
@@ -41,7 +45,7 @@ extend service S4 with {
  */
 using { sap.capire.bookshop.Books, CatalogService } from '@capire/bookshop';
 extend Books with {
-  supplier : Association to S4.Suppliers;
+  supplier : Association to bookshop.Suppliers;
 }
 
 
@@ -51,14 +55,8 @@ extend Books with {
   addressed to your services into calls to the external service.
  */
 extend service AdminService with {
-  entity Suppliers as projection on S4.Suppliers;
+  entity Suppliers as projection on bookshop.Suppliers;
 }
-
-/*
-  Optionally add a local persistence to keep replicas of external
-  entities to have data in fast access locally; much like a cache.
- */
-annotate S4.Suppliers with @cds.persistence:{table,skip:false};
 
 /**
   Having locally cached replicas also allows us to display supplier
