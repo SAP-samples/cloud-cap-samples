@@ -20,7 +20,14 @@ Content-Type: application/json
     "supplier_ID": "PNG"
 }
 
+###
 
+PATCH {{bpServer}}/api-business-partner/A_BusinessPartner('PNG')
+Content-Type: application/json
+
+{
+    "BusinessPartnerFullName": "Penguin Books (Changed)"
+}
 
 ###
 

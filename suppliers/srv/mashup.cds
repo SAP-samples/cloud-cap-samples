@@ -66,3 +66,11 @@ extend service AdminService with {
 extend projection CatalogService.ListOfBooks with {
   supplier
 }
+
+// Extend S4 service with not modelled event
+extend service S4 {
+  @topic: 'BusinessPartners/Changed'
+  event A_BusinessPartner.Changed {
+    BusinessPartners: array of S4.A_BusinessPartner:BusinessPartner;
+  }
+}

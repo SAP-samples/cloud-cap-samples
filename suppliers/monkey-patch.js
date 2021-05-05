@@ -1,5 +1,7 @@
 const deploy = require("@sap/cds/lib/deploy");
 
+// TODO: https://github.wdf.sap.corp/cdx/cds/pull/1949
+
 const DEBUG = (...args) => console.log(...args);
 
 deploy.exclude_external_entities_in = function (csn, _bound) {
@@ -12,8 +14,6 @@ deploy.exclude_external_entities_in = function (csn, _bound) {
     DEBUG && DEBUG("excluding external entities for", service, "...");
     const prefix = service + ".";
     for (let each in csn.definitions) {
-      const def = csn.definitions[each];
-      if (def["@cds.persistence.table"] === true) continue;
       if (each.startsWith(prefix)) {
         DEBUG && DEBUG("excluding external entity", each);
         _exclude(each);

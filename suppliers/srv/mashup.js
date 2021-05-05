@@ -10,7 +10,6 @@ module.exports = async()=>{ // called by server.js
   const S4bupa = await cds.connect.to('API_BUSINESS_PARTNER')   //> external S4 service
   const admin = await cds.connect.to('AdminService')            //> local domain service
   const db = await cds.connect.to('db')                         //> our primary database
-  const messaging = await cds.connect.to('messaging');
 
   // Reflect CDS definition of the Suppliers entity
   const Suppliers  = db.entities["sap.capire.bookshop.Suppliers"];
@@ -41,7 +40,8 @@ module.exports = async()=>{ // called by server.js
   // Subscribe to changes in the S4 origin of Suppliers data
   // REVISIT: cds context is still from the UPDATE method when running in same programm, but should
   // be a separate
-  messaging.on ('BusinessPartners/Changed', async msg => { //> would be great if we had batch events from S/4
+  // https://github.wdf.sap.corp/cap/matters/projects/44#card-196556
+  S4bupa.on ('A_BusinessPartner.Changed', async msg => { //> would be great if we had batch events from S/4
     await new Promise( resolve => setTimeout( resolve, 1000 ));
     const tx = cds.db.tx(msg);
     let replicas = await tx.run(SELECT('ID').from (Suppliers) .where ('ID in', msg.data.businessPartners));
@@ -81,24 +81,24 @@ module.exports = async()=>{ // called by server.js
   }
 
 
+  // TODO: remove test code
   {
-    // one server: returns AdminSuppliers
-    // two servers: returns A_BusinessPartner
+    // one server: returns AdminService.Suppliers
+    // two servers: returns API_BUSINESS_PARTNER.A_BusinessPartner
     const tx = S4bupa.tx({});
     let result = await tx.run(SELECT('*').from ('AdminService.Suppliers') .where ('ID =', 'ACME'));
     tx.commit();
     console.log(result);
   }
 
+  // TODO: remove test code
   {
-    // one server: returns AdminSuppliers
-    // two servers: returns AdminSuppliers
+    // one server: returns AdminService.Suppliers
+    // two servers: returns AdminService.Suppliers
     const tx = db.tx({});
     let result = await db.run(SELECT('*').from ('AdminService.Suppliers') .where ('ID =', 'ACME'));
     tx.commit();
     console.log(result);
   }
-
-  //process.exit(0);
 
 }
