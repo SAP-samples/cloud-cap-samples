@@ -1,10 +1,11 @@
 const cds = require('@sap/cds');
 
-module.exports = cds.service.impl(async function (srv) {
+module.exports = cds.service.impl(function () {
   const { A_BusinessPartner } = this.entities;
 
-  srv.after('UPDATE', A_BusinessPartner, data => {
+  // TODO: Take over the original S/4 event definition
+  this.after('UPDATE', A_BusinessPartner, async data => {
     console.log(`>>> BusinessPartner updated ${data.BusinessPartner}`);
-    srv.emit("A_BusinessPartner.Changed", { businessPartners: [ data.BusinessPartner ] });
+    await this.emit("A_BusinessPartner.Changed", { businessPartners: [ data.BusinessPartner ] });
   });
 });
