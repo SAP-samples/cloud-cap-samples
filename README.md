@@ -95,7 +95,25 @@ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved. This
 
 ## Usage
 
-1. Run: `PORT=5001 cds mock API_BUSINESS_PARTNER`
+1. Run:
+
+   ```
+   cds mock API_BUSINESS_PARTNER -p 5001
+   ```
+
 2. Wait until startup is completed
-3. Run in a 2nd terminal: `cds serve all --with-mocks --in-memory`
+3. Run in a 2nd terminal:
+
+   ```
+   cds serve all --with-mocks --in-memory
+   ```
+
 4. Now, you can issues the requests listed in `suppliers/requests.http`
+
+## Request Sequence
+
+* TODO
+## URLs
+
+* Get books with their replicated supplier: http://localhost:4004/browse/Books?$expand=supplier
+* Get remote suppliers: http://localhost:4004/admin/Suppliers?$top=11
