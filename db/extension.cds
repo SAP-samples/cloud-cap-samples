@@ -9,12 +9,14 @@ using {
 
 namespace sap.bookshop.extension;
 
+// extend existing entity 
 extend orders.Orders with { 
   Customer : Association to one Customers; 
   Remarks  : Composition of many Remarks on Remarks.parent = $self;
   priority : String @assert.range enum {high; medium; low} default 'medium';
 }  
 
+// new entity - as association target
 entity Customers : cuid, managed {
   email        : String;
   firstName    : String;
@@ -32,6 +34,7 @@ annotate Customers with @assert.unique: { email: [ email ] }
    email @mandatory;    // mandatory check
 }
 
+// new entity - as composition target
 entity CustomerPostalAddresses : cuid, managed {
   Customer       : Association to one Customers;
   description    : String;
@@ -40,6 +43,7 @@ entity CustomerPostalAddresses : cuid, managed {
   country        : Country;
 };
 
+// new entity - as composition target
 entity Remarks : cuid, managed
 {  
   parent      : Association to one orders.Orders;  
