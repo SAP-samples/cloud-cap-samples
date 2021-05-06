@@ -1,0 +1,6 @@
+{
+    "name": "multitenancy",
+    "version": "0.1.0",
+    "description": "cds extension project",
+    "dependencies": {}
+}
