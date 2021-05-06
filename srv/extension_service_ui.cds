@@ -9,33 +9,33 @@ annotate OrdersService.Z_Customers with @odata.draft.enabled;
 annotate OrdersService.Z_Customers with {
     ID           @(
         UI.Hidden,
-        Common : {Text : email}
+        Common : {Text : Z_email}
     );
-    firstName    @title : 'First Name';
-    lastName     @title : 'Last Name';
-    email        @title : 'Email';
-    creditCardNo @title : 'Credit Card No';
-    dateOfBirth  @title : 'Date of Birth';
-	status       @title : 'Status';
-	creditScore  @title : 'Credit Score';
+    Z_firstName    @title : 'First Name';
+    Z_lastName     @title : 'Last Name';
+    Z_email        @title : 'Email';
+    Z_creditCardNo @title : 'Credit Card No';
+    Z_dateOfBirth  @title : 'Date of Birth';
+	Z_status       @title : 'Status';
+	Z_creditScore  @title : 'Credit Score';
 }
 
 // new entity -- titles
 annotate OrdersService.Z_CustomerPostalAddresses with {
     ID          @(
         UI.Hidden,
-        Common : {Text : description}
+        Common : {Text : Z_description}
     );
-    description @title : 'Description';
-    street      @title : 'Street';
-    town        @title : 'Town';
-    country     @title : 'Country';
+    Z_description @title : 'Description';
+    Z_street      @title : 'Street';
+    Z_town        @title : 'Town';
+    Z_country     @title : 'Country';
 }
 
 // new entity -- titles
 annotate OrdersService.Z_Remarks with {
-	number          @title: 'Remark Number';
-	remarksLine     @title: 'Remark';
+	Z_number          @title: 'Remark Number';
+	Z_remarksLine     @title: 'Remark';
 }
 
 // new entity in service -- UI
@@ -45,26 +45,26 @@ annotate OrdersService.Z_Customers with @(UI : {
         TypeNamePlural : 'Customers',
         Title          : {
             $Type : 'UI.DataField',
-            Value : email
+            Value : Z_email
         }
     },
     LineItem         : [
-        {Value : firstName},
-        {Value : lastName},
-        {Value : email},
-		{Value : status},
-        {Value : creditScore}
+        {Value : Z_firstName},
+        {Value : Z_lastName},
+        {Value : Z_email},
+		{Value : Z_status},
+        {Value : Z_creditScore}
     ],
     Facets           : [
 		{$Type: 'UI.ReferenceFacet', Label: 'Main', Target : '@UI.FieldGroup#Main'},
-		{$Type: 'UI.ReferenceFacet', Label: 'Customer Postal Addresses', Target: 'PostalAddresses/@UI.LineItem'}
+		{$Type: 'UI.ReferenceFacet', Label: 'Customer Postal Addresses', Target: 'Z_PostalAddresses/@UI.LineItem'}
 	],
     FieldGroup #Main : {Data : [
-        {Value : firstName},
-        {Value : lastName},
-        {Value : email},
-		{Value : status},
-        {Value : creditScore}
+        {Value : Z_firstName},
+        {Value : Z_lastName},
+        {Value : Z_email},
+		{Value : Z_status},
+        {Value : Z_creditScore}
     ]}
 } ) ;
 
@@ -75,23 +75,23 @@ annotate OrdersService.Z_CustomerPostalAddresses with @(UI : {
         TypeNamePlural : 'CustomerPostalAddresses',
         Title          : {
             $Type : 'UI.DataField',
-            Value : description
+            Value : Z_description
         }
     },
     LineItem         : [
-        {Value : description},
-        {Value : street},
-        {Value : town},
-		{Value : country_code}
+        {Value : Z_description},
+        {Value : Z_street},
+        {Value : Z_town},
+		{Value : Z_country_code}
 	],
     Facets           : [
 		{$Type: 'UI.ReferenceFacet', Label: 'Main', Target : '@UI.FieldGroup#Main'}
 	],
     FieldGroup #Main : {Data : [
-        {Value : description},
-        {Value : street},
-        {Value : town},
-		{Value : country_code}
+        {Value : Z_description},
+        {Value : Z_street},
+        {Value : Z_town},
+		{Value : Z_country_code}
     ]}
 }, ) {
 
@@ -107,20 +107,20 @@ annotate OrdersService.Z_Remarks with @(
 			TypeNamePlural: 'Remarks',
 			Title          : {
                 $Type : 'UI.DataField',
-                Value : number
+                Value : Z_number
             }
 		},
 		LineItem: [
-			{Value: number},
-			{Value: remarksLine}       
+			{Value: Z_number},
+			{Value: Z_remarksLine}       
 		],
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: 'Main',    Target: '@UI.FieldGroup#Main'}
 		],
 		FieldGroup#Main: {
 			Data: [
-				{Value: number},
-			    {Value: remarksLine}       
+				{Value: Z_number},
+			    {Value: Z_remarksLine}       
 			]
 		}
 	},
@@ -193,7 +193,7 @@ annotate OrdersService.Orders with @(
 	Z_Customer @(
 		Common: {
 			//show email, not id for Customer in the context of Orders
-			Text: Z_Customer.email  , TextArrangement: #TextOnly,
+			Text: Z_Customer.Z_email  , TextArrangement: #TextOnly,
 			ValueList: {
 				Label: 'Customers',
 				CollectionPath: 'Z_Customers',
@@ -203,7 +203,7 @@ annotate OrdersService.Orders with @(
 						ValueListProperty: 'ID'
 					},
 					{ $Type: 'Common.ValueListParameterDisplayOnly',
-						ValueListProperty: 'email'
+						ValueListProperty: 'Z_email'
 					}
 				]
 			}
