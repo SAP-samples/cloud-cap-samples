@@ -68,13 +68,28 @@
         "deploy-format": "hdbtable"
       },
       "mtx": {
-        "element-prefix": "Z_",
-        "namespace-blacklist": [
+        "element-prefix": [
+          "Z_",
+          "ZZ_"
+        ],
+        "namespace-blocklist": [
           "com.sap.",
           "sap."
         ],
-        "entity-whitelist": [],
-        "service-whitelist": []
+        "extension-allowlist": [
+          {
+            "for": [
+              "sap.capire.orders.Orders"
+            ],
+            "new-fields": 77
+          },
+          {
+            "for": [
+              "OrdersService"
+            ],
+            "new-entities": 77
+          }
+        ]
       },
       "auth": {
         "passport": {
