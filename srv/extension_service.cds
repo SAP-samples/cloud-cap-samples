@@ -2,8 +2,8 @@ using from '_base/srv/admin-service';
 using from '_base/srv/cat-service';
 using from '_base/srv/orders-service';
 
-using { sap.bookshop.extension as ext } from '../db/extension';
+using { Z_bookshop.extension as ext } from '../db/extension';
 
 extend service OrdersService with {
-   entity Customers as projection on ext.Customers;
+   entity Z_Customers as projection on ext.Z_Customers;
 }

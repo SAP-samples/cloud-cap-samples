@@ -3,10 +3,10 @@ using OrdersService from './extension_service';
 
 
 // new entity -- draft enabled
-annotate OrdersService.Customers with @odata.draft.enabled;
+annotate OrdersService.Z_Customers with @odata.draft.enabled;
 
 // new entity -- titles
-annotate OrdersService.Customers with {
+annotate OrdersService.Z_Customers with {
     ID           @(
         UI.Hidden,
         Common : {Text : email}
@@ -21,7 +21,7 @@ annotate OrdersService.Customers with {
 }
 
 // new entity -- titles
-annotate OrdersService.CustomerPostalAddresses with {
+annotate OrdersService.Z_CustomerPostalAddresses with {
     ID          @(
         UI.Hidden,
         Common : {Text : description}
@@ -33,13 +33,13 @@ annotate OrdersService.CustomerPostalAddresses with {
 }
 
 // new entity -- titles
-annotate OrdersService.Remarks with {
+annotate OrdersService.Z_Remarks with {
 	number          @title: 'Remark Number';
 	remarksLine     @title: 'Remark';
 }
 
 // new entity in service -- UI
-annotate OrdersService.Customers with @(UI : {
+annotate OrdersService.Z_Customers with @(UI : {
     HeaderInfo       : {
         TypeName       : 'Customer',
         TypeNamePlural : 'Customers',
@@ -69,7 +69,7 @@ annotate OrdersService.Customers with @(UI : {
 } ) ;
 
 // new entity -- UI
-annotate OrdersService.CustomerPostalAddresses with @(UI : {
+annotate OrdersService.Z_CustomerPostalAddresses with @(UI : {
     HeaderInfo       : {
         TypeName       : 'CustomerPostalAddress',
         TypeNamePlural : 'CustomerPostalAddresses',
@@ -100,7 +100,7 @@ annotate OrdersService.CustomerPostalAddresses with @(UI : {
 
 
 // new entity -- UI
-annotate OrdersService.Remarks with @(
+annotate OrdersService.Z_Remarks with @(
 	UI: {
 		HeaderInfo: {
 			TypeName: 'Remark',
@@ -137,8 +137,8 @@ annotate OrdersService.Orders with @(
 		SelectionFields: [ createdAt, createdBy ],
 		LineItem: [
 			{Value: OrderNo, Label:'OrderNo'},
-			{Value: Customer_ID, Label:'Customer'},  // extension field
-			{Value: priority,    Label:'Priority'},  // extension field
+			{Value: Z_Customer_ID, Label:'Customer'},  // extension field
+			{Value: Z_priority,    Label:'Priority'},  // extension field
 			{Value: createdAt,   Label:'Date'}
 		],
 		HeaderInfo: {
@@ -161,13 +161,13 @@ annotate OrdersService.Orders with @(
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}',    Target: '@UI.FieldGroup#Details'},
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>OrderItems}', Target: 'Items/@UI.LineItem'},
-			{$Type: 'UI.ReferenceFacet', Label: 'Remarks',           Target: 'Remarks/@UI.LineItem'} // new composition
+			{$Type: 'UI.ReferenceFacet', Label: 'Remarks',           Target: 'Z_Remarks/@UI.LineItem'} // new composition
 		],
 		FieldGroup#Details: {
 			Data: [
 				{Value: currency_code, Label:'Currency'},  // correction
-				{Value: Customer_ID, Label:'Customer'},    // extension field
-				{Value: priority,    Label:'Priority'}     // extension field
+				{Value: Z_Customer_ID, Label:'Customer'},    // extension field
+				{Value: Z_priority,    Label:'Priority'}     // extension field
 			]
 		},
 		FieldGroup#Created: {
@@ -190,16 +190,16 @@ annotate OrdersService.Orders with @(
 
 // new field in existing service -- exchange ID with text
  annotate OrdersService.Orders with {
-	Customer @(
+	Z_Customer @(
 		Common: {
 			//show email, not id for Customer in the context of Orders
-			Text: Customer.email  , TextArrangement: #TextOnly,
+			Text: Z_Customer.email  , TextArrangement: #TextOnly,
 			ValueList: {
 				Label: 'Customers',
-				CollectionPath: 'Customers',
+				CollectionPath: 'Z_Customers',
 				Parameters: [
 					{ $Type: 'Common.ValueListParameterInOut',
-						LocalDataProperty: Customer_ID,
+						LocalDataProperty: Z_Customer_ID,
 						ValueListProperty: 'ID'
 					},
 					{ $Type: 'Common.ValueListParameterDisplayOnly',

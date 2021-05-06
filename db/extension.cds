@@ -7,17 +7,17 @@ using {
     cuid, managed, Country
 } from '@sap/cds/common';
 
-namespace sap.bookshop.extension;
+namespace Z_bookshop.extension;
 
 // extend existing entity 
 extend orders.Orders with { 
-  Customer : Association to one Customers; 
-  Remarks  : Composition of many Remarks on Remarks.parent = $self;
-  priority : String @assert.range enum {high; medium; low} default 'medium';
+  Z_Customer : Association to one Z_Customers; 
+  Z_Remarks  : Composition of many Z_Remarks on Z_Remarks.parent = $self;
+  Z_priority : String @assert.range enum {high; medium; low} default 'medium';
 }  
 
 // new entity - as association target
-entity Customers : cuid, managed {
+entity Z_Customers : cuid, managed {
   email        : String;
   firstName    : String;
   lastName     : String; 
@@ -25,18 +25,18 @@ entity Customers : cuid, managed {
   dateOfBirth  : Date;
   status       : String   @assert.range enum {platinum; gold; silver; bronze} default 'bronze';
   creditScore  : Decimal  @assert.range: [ 1.0, 100.0 ] default 50.0;
-  PostalAddresses : Composition of many CustomerPostalAddresses on PostalAddresses.Customer = $self;
+  PostalAddresses : Composition of many Z_CustomerPostalAddresses on PostalAddresses.Customer = $self;
 }
 
 // new unique constraint (secondary index)
-annotate Customers with @assert.unique: { email: [ email ] }   
+annotate Z_Customers with @assert.unique: { email: [ email ] }   
 {
    email @mandatory;    // mandatory check
 }
 
 // new entity - as composition target
-entity CustomerPostalAddresses : cuid, managed {
-  Customer       : Association to one Customers;
+entity Z_CustomerPostalAddresses : cuid, managed {
+  Customer       : Association to one Z_Customers;
   description    : String;
   street         : String;
   town           : String;
@@ -44,7 +44,7 @@ entity CustomerPostalAddresses : cuid, managed {
 };
 
 // new entity - as composition target
-entity Remarks : cuid, managed
+entity Z_Remarks : cuid, managed
 {  
   parent      : Association to one orders.Orders;  
   number      : Integer;
