@@ -209,8 +209,7 @@ annotate OrdersService.Orders with @(
 					}
 				]
 			}
-		} //,
-//		UI.MultiLineText: IsActiveEntity
+		} 
 	);
 } 
 
