@@ -2,10 +2,10 @@ using from '_base/app/services';
 using OrdersService from './extension_service';
 
 
-// new entity in service -- draft enabled
+// new entity -- draft enabled
 annotate OrdersService.Customers with @odata.draft.enabled;
 
-// new entity in service -- titles
+// new entity -- titles
 annotate OrdersService.Customers with {
     ID           @(
         UI.Hidden,
@@ -18,6 +18,24 @@ annotate OrdersService.Customers with {
     dateOfBirth  @title : 'Date of Birth';
 	status       @title : 'Status';
 	creditScore  @title : 'Credit Score';
+}
+
+// new entity -- titles
+annotate OrdersService.CustomerPostalAddresses with {
+    ID          @(
+        UI.Hidden,
+        Common : {Text : description}
+    );
+    description @title : 'Description';
+    street      @title : 'Street';
+    town        @title : 'Town';
+    country     @title : 'Country';
+}
+
+// new entity -- titles
+annotate OrdersService.Remarks with {
+	number          @title: 'Remark Number';
+	remarksLine     @title: 'Remark';
 }
 
 // new entity in service -- UI
@@ -48,25 +66,9 @@ annotate OrdersService.Customers with @(UI : {
 		{Value : status},
         {Value : creditScore}
     ]}
-}, ) {
+} ) ;
 
-};
-
-// new entity in service -- titles
-annotate OrdersService.CustomerPostalAddresses with {
-    ID          @(
-        UI.Hidden,
-        Common : {Text : description}
-    );
-
-    description @title : 'Description';
-    street      @title : 'Street';
-    town        @title : 'Town';
-    country     @title : 'Country';
-
-}
-
-// new entity in service -- UI
+// new entity -- UI
 annotate OrdersService.CustomerPostalAddresses with @(UI : {
     HeaderInfo       : {
         TypeName       : 'CustomerPostalAddress',
@@ -95,13 +97,9 @@ annotate OrdersService.CustomerPostalAddresses with @(UI : {
 
 };
 
-// new composion -- titles
-annotate OrdersService.Remarks with {
-	number          @title: 'Remark Number';
-	remarksLine     @title: 'Remark';
-}
 
-// new composion -- UI
+
+// new entity -- UI
 annotate OrdersService.Remarks with @(
 	UI: {
 		HeaderInfo: {
