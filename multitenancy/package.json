@@ -49,6 +49,9 @@
   },
   "cds": {
     "[production]": {
+      "features": {
+        "fiori_preview": true
+      },
       "requires": {
         "multitenancy": true,
         "auth": {
