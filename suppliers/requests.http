@@ -3,7 +3,7 @@
 @bpServer = http://localhost:5001
 @authAlice = Authorization: Basic alice:
 
-PATCH {{bpServer}}/api-business-partner/A_BusinessPartner('ACME')
+PATCH {{server}}/api-business-partner/A_BusinessPartner('ACME')
 Content-Type: application/json
 
 {
