@@ -17,7 +17,9 @@ extend orders.Orders with {
 }  
 
 // new entity - as association target
-entity Z_Customers : cuid, managed {
+entity Z_Customers // : cuid, managed 
+{
+  key Z_ID       : UUID;     // workaround
   Z_email        : String;
   Z_firstName    : String;
   Z_lastName     : String; 
@@ -35,7 +37,9 @@ annotate Z_Customers with @assert.unique: { Z_email: [ Z_email ] }
 }
 
 // new entity - as composition target
-entity Z_CustomerPostalAddresses : cuid, managed {
+entity Z_CustomerPostalAddresses  // :  
+{
+  key Z_ID         : UUID; // workaround
   Z_Customer       : Association to one Z_Customers;
   Z_description    : String;
   Z_street         : String;
@@ -44,8 +48,9 @@ entity Z_CustomerPostalAddresses : cuid, managed {
 };
 
 // new entity - as composition target
-entity Z_Remarks : cuid, managed
+entity Z_Remarks // : cuid, managed
 {  
+  key Z_ID      : UUID; // workaround
   Z_parent      : Association to one orders.Orders;  
   Z_number      : Integer;
   Z_remarksLine : String; 

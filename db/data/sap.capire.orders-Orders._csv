@@ -1,3 +1,3 @@
-ID;createdAt;createdBy;buyer;OrderNo;currency_code;Z_Customer_Z_ID;Z_priority
+ID;createdAt;createdBy;buyer;OrderNo;currency_code;Z_Customer_ID;Z_priority
 7e2f2640-6866-4dcf-8f4d-3027aa831cad;2019-01-31;john.doe@test.com;john.doe@test.com;1;EUR;8e2f2640-6866-4dcf-8f4d-3027aa831cad;high
 64e718c9-ff99-47f1-8ca3-950c850777d4;2019-01-30;jane.doe@test.com;jane.doe@test.com;2;EUR;74e718c9-ff99-47f1-8ca3-950c850777d4;low

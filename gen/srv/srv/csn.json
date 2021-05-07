@@ -1,11 +1,11 @@
 {
-  "namespace": "sap.bookshop.extension",
+  "namespace": "Z_bookshop.extension",
   "definitions": {
-    "sap.bookshop.extension.Customers": {
+    "Z_bookshop.extension.Z_Customers": {
       "kind": "entity",
-      "@assert.unique.email": [
+      "@assert.unique.Z_email": [
         {
-          "=": "email"
+          "=": "Z_email"
         }
       ],
       "includes": [
@@ -78,23 +78,23 @@
           "type": "User",
           "length": 255
         },
-        "email": {
+        "Z_email": {
           "@mandatory": true,
           "type": "cds.String"
         },
-        "firstName": {
+        "Z_firstName": {
           "type": "cds.String"
         },
-        "lastName": {
+        "Z_lastName": {
           "type": "cds.String"
         },
-        "creditCardNo": {
+        "Z_creditCardNo": {
           "type": "cds.String"
         },
-        "dateOfBirth": {
+        "Z_dateOfBirth": {
           "type": "cds.Date"
         },
-        "status": {
+        "Z_status": {
           "@assert.range": true,
           "type": "cds.String",
           "enum": {
@@ -107,7 +107,7 @@
             "val": "bronze"
           }
         },
-        "creditScore": {
+        "Z_creditScore": {
           "@assert.range": [
             1,
             100
@@ -116,87 +116,43 @@
           "default": {
             "val": 50
           }
+        },
+        "Z_PostalAddresses": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "Z_bookshop.extension.Z_CustomerPostalAddresses",
+          "on": [
+            {
+              "ref": [
+                "Z_PostalAddresses",
+                "Z_Customer"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
         }
       }
     },
-    "sap.bookshop.extension.CustomerPostalAddresses": {
+    "Z_bookshop.extension.Z_CustomerPostalAddresses": {
       "kind": "entity",
-      "includes": [
-        "cuid",
-        "managed"
-      ],
       "elements": {
-        "ID": {
+        "Z_ID": {
           "@Core.Computed": true,
-          "key": true,
           "type": "cds.UUID"
         },
-        "createdAt": {
-          "@Core.Immutable": true,
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@odata.on.insert": {
-            "#": "now"
-          },
-          "@readonly": true,
-          "@title": "{i18n>CreatedAt}",
-          "type": "cds.Timestamp"
-        },
-        "createdBy": {
-          "@Core.Immutable": true,
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@description": "{i18n>UserID.Description}",
-          "@odata.on.insert": {
-            "#": "user"
-          },
-          "@readonly": true,
-          "@title": "{i18n>CreatedBy}",
-          "type": "User",
-          "length": 255
-        },
-        "modifiedAt": {
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@cds.on.update": {
-            "=": "$now"
-          },
-          "@odata.on.update": {
-            "#": "now"
-          },
-          "@readonly": true,
-          "@title": "{i18n>ChangedAt}",
-          "type": "cds.Timestamp"
-        },
-        "modifiedBy": {
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@cds.on.update": {
-            "=": "$user"
-          },
-          "@description": "{i18n>UserID.Description}",
-          "@odata.on.update": {
-            "#": "user"
-          },
-          "@readonly": true,
-          "@title": "{i18n>ChangedBy}",
-          "type": "User",
-          "length": 255
-        },
-        "Customer": {
+        "Z_Customer": {
           "type": "cds.Association",
           "cardinality": {
             "max": 1
           },
-          "target": "sap.bookshop.extension.Customers",
+          "target": "Z_bookshop.extension.Z_Customers",
           "keys": [
             {
               "ref": [
@@ -205,16 +161,16 @@
             }
           ]
         },
-        "description": {
+        "Z_description": {
           "type": "cds.String"
         },
-        "street": {
+        "Z_street": {
           "type": "cds.String"
         },
-        "town": {
+        "Z_town": {
           "type": "cds.String"
         },
-        "country": {
+        "Z_country": {
           "@description": "{i18n>CountryCode.Description}",
           "@title": "{i18n>Country}",
           "type": "Country",
@@ -229,79 +185,14 @@
         }
       }
     },
-    "sap.bookshop.extension.Remarks": {
+    "Z_bookshop.extension.Z_Remarks": {
       "kind": "entity",
-      "includes": [
-        "cuid",
-        "managed"
-      ],
       "elements": {
-        "ID": {
+        "Z_ID": {
           "@Core.Computed": true,
-          "key": true,
           "type": "cds.UUID"
         },
-        "createdAt": {
-          "@Core.Immutable": true,
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@odata.on.insert": {
-            "#": "now"
-          },
-          "@readonly": true,
-          "@title": "{i18n>CreatedAt}",
-          "type": "cds.Timestamp"
-        },
-        "createdBy": {
-          "@Core.Immutable": true,
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@description": "{i18n>UserID.Description}",
-          "@odata.on.insert": {
-            "#": "user"
-          },
-          "@readonly": true,
-          "@title": "{i18n>CreatedBy}",
-          "type": "User",
-          "length": 255
-        },
-        "modifiedAt": {
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@cds.on.update": {
-            "=": "$now"
-          },
-          "@odata.on.update": {
-            "#": "now"
-          },
-          "@readonly": true,
-          "@title": "{i18n>ChangedAt}",
-          "type": "cds.Timestamp"
-        },
-        "modifiedBy": {
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@cds.on.update": {
-            "=": "$user"
-          },
-          "@description": "{i18n>UserID.Description}",
-          "@odata.on.update": {
-            "#": "user"
-          },
-          "@readonly": true,
-          "@title": "{i18n>ChangedBy}",
-          "type": "User",
-          "length": 255
-        },
-        "parent": {
+        "Z_parent": {
           "type": "cds.Association",
           "cardinality": {
             "max": 1
@@ -315,103 +206,104 @@
             }
           ]
         },
-        "number": {
+        "Z_number": {
           "type": "cds.Integer"
         },
-        "remarksLine": {
+        "Z_remarksLine": {
           "type": "cds.String"
         }
       }
     },
-    "OrdersService.Customers": {
+    "OrdersService.Z_Customers": {
       "kind": "entity",
       "@UI.Facets": [
         {
           "$Type": "UI.ReferenceFacet",
           "Label": "Main",
           "Target": "@UI.FieldGroup#Main"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "Customer Postal Addresses",
+          "Target": "Z_PostalAddresses/@UI.LineItem"
         }
       ],
       "@UI.FieldGroup#Main.Data": [
         {
           "Value": {
-            "=": "firstName"
+            "=": "Z_firstName"
           }
         },
         {
           "Value": {
-            "=": "lastName"
+            "=": "Z_lastName"
           }
         },
         {
           "Value": {
-            "=": "email"
+            "=": "Z_email"
           }
         },
         {
           "Value": {
-            "=": "status"
+            "=": "Z_status"
           }
         },
         {
           "Value": {
-            "=": "creditScore"
+            "=": "Z_creditScore"
           }
         }
       ],
       "@UI.HeaderInfo.Title.$Type": "UI.DataField",
       "@UI.HeaderInfo.Title.Value": {
-        "=": "email"
+        "=": "Z_email"
       },
       "@UI.HeaderInfo.TypeName": "Customer",
       "@UI.HeaderInfo.TypeNamePlural": "Customers",
       "@UI.LineItem": [
         {
           "Value": {
-            "=": "firstName"
+            "=": "Z_firstName"
           }
         },
         {
           "Value": {
-            "=": "lastName"
+            "=": "Z_lastName"
           }
         },
         {
           "Value": {
-            "=": "email"
+            "=": "Z_email"
           }
         },
         {
           "Value": {
-            "=": "status"
+            "=": "Z_status"
           }
         },
         {
           "Value": {
-            "=": "creditScore"
+            "=": "Z_creditScore"
           }
         }
       ],
-      "@assert.unique.email": [
+      "@assert.unique.Z_email": [
         {
-          "=": "email"
+          "=": "Z_email"
         }
       ],
       "@odata.draft.enabled": true,
       "projection": {
         "from": {
           "ref": [
-            "sap.bookshop.extension.Customers"
+            "Z_bookshop.extension.Z_Customers"
           ]
         }
       },
       "elements": {
         "ID": {
-          "@Common.Text": {
-            "=": "email"
-          },
           "@Core.Computed": true,
-          "@UI.Hidden": true,
           "key": true,
           "type": "cds.UUID"
         },
@@ -475,28 +367,28 @@
           "type": "User",
           "length": 255
         },
-        "email": {
+        "Z_email": {
           "@mandatory": true,
           "@title": "Email",
           "type": "cds.String"
         },
-        "firstName": {
+        "Z_firstName": {
           "@title": "First Name",
           "type": "cds.String"
         },
-        "lastName": {
+        "Z_lastName": {
           "@title": "Last Name",
           "type": "cds.String"
         },
-        "creditCardNo": {
+        "Z_creditCardNo": {
           "@title": "Credit Card No",
           "type": "cds.String"
         },
-        "dateOfBirth": {
+        "Z_dateOfBirth": {
           "@title": "Date of Birth",
           "type": "cds.Date"
         },
-        "status": {
+        "Z_status": {
           "@assert.range": true,
           "@title": "Status",
           "type": "cds.String",
@@ -510,7 +402,7 @@
             "val": "bronze"
           }
         },
-        "creditScore": {
+        "Z_creditScore": {
           "@assert.range": [
             1,
             100
@@ -520,191 +412,24 @@
           "default": {
             "val": 50
           }
-        }
-      }
-    },
-    "OrdersService.CustomerPostalAddresses": {
-      "kind": "entity",
-      "@UI.Facets": [
-        {
-          "$Type": "UI.ReferenceFacet",
-          "Label": "Main",
-          "Target": "@UI.FieldGroup#Main"
-        }
-      ],
-      "@UI.FieldGroup#Main.Data": [
-        {
-          "Value": {
-            "=": "Customer_ID"
-          }
         },
-        {
-          "Value": {
-            "=": "description"
-          }
-        },
-        {
-          "Value": {
-            "=": "street"
-          }
-        },
-        {
-          "Value": {
-            "=": "town"
-          }
-        },
-        {
-          "Value": {
-            "=": "country_code"
-          }
-        }
-      ],
-      "@UI.HeaderInfo.Title.$Type": "UI.DataField",
-      "@UI.HeaderInfo.Title.Value": {
-        "=": "description"
-      },
-      "@UI.HeaderInfo.TypeName": "CustomerPostalAddress",
-      "@UI.HeaderInfo.TypeNamePlural": "CustomerPostalAddresses",
-      "@UI.LineItem": [
-        {
-          "Value": {
-            "=": "Customer_ID"
-          }
-        },
-        {
-          "Value": {
-            "=": "description"
-          }
-        },
-        {
-          "Value": {
-            "=": "street"
-          }
-        },
-        {
-          "Value": {
-            "=": "town"
-          }
-        },
-        {
-          "Value": {
-            "=": "country_code"
-          }
-        }
-      ],
-      "@odata.draft.enabled": true,
-      "projection": {
-        "from": {
-          "ref": [
-            "sap.bookshop.extension.CustomerPostalAddresses"
-          ]
-        }
-      },
-      "elements": {
-        "ID": {
-          "@Common.Text": {
-            "=": "description"
-          },
-          "@Core.Computed": true,
-          "@UI.Hidden": true,
-          "key": true,
-          "type": "cds.UUID"
-        },
-        "createdAt": {
-          "@Core.Immutable": true,
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@odata.on.insert": {
-            "#": "now"
-          },
-          "@readonly": true,
-          "@title": "{i18n>CreatedAt}",
-          "type": "cds.Timestamp"
-        },
-        "createdBy": {
-          "@Core.Immutable": true,
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@description": "{i18n>UserID.Description}",
-          "@odata.on.insert": {
-            "#": "user"
-          },
-          "@readonly": true,
-          "@title": "{i18n>CreatedBy}",
-          "type": "User",
-          "length": 255
-        },
-        "modifiedAt": {
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@cds.on.update": {
-            "=": "$now"
-          },
-          "@odata.on.update": {
-            "#": "now"
-          },
-          "@readonly": true,
-          "@title": "{i18n>ChangedAt}",
-          "type": "cds.Timestamp"
-        },
-        "modifiedBy": {
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@cds.on.update": {
-            "=": "$user"
-          },
-          "@description": "{i18n>UserID.Description}",
-          "@odata.on.update": {
-            "#": "user"
-          },
-          "@readonly": true,
-          "@title": "{i18n>ChangedBy}",
-          "type": "User",
-          "length": 255
-        },
-        "Customer": {
-          "type": "cds.Association",
+        "Z_PostalAddresses": {
+          "type": "cds.Composition",
           "cardinality": {
-            "max": 1
+            "max": "*"
           },
-          "target": "OrdersService.Customers",
-          "keys": [
+          "target": "OrdersService.Z_CustomerPostalAddresses",
+          "on": [
             {
               "ref": [
-                "ID"
+                "Z_PostalAddresses",
+                "Z_Customer"
               ]
-            }
-          ]
-        },
-        "description": {
-          "@title": "Description",
-          "type": "cds.String"
-        },
-        "street": {
-          "@title": "Street",
-          "type": "cds.String"
-        },
-        "town": {
-          "@title": "Town",
-          "type": "cds.String"
-        },
-        "country": {
-          "@description": "{i18n>CountryCode.Description}",
-          "@title": "Country",
-          "type": "Country",
-          "target": "OrdersService.Countries",
-          "keys": [
+            },
+            "=",
             {
               "ref": [
-                "code"
+                "$self"
               ]
             }
           ]
@@ -2887,7 +2612,7 @@
         {
           "$Type": "UI.ReferenceFacet",
           "Label": "Remarks",
-          "Target": "Remarks/@UI.LineItem"
+          "Target": "Z_Remarks/@UI.LineItem"
         }
       ],
       "@UI.FieldGroup#Created.Data": [
@@ -2911,9 +2636,15 @@
         },
         {
           "Value": {
-            "=": "Customer_ID"
+            "=": "Z_Customer_ID"
           },
           "Label": "Customer"
+        },
+        {
+          "Value": {
+            "=": "Z_priority"
+          },
+          "Label": "Priority"
         }
       ],
       "@UI.FieldGroup#Modified.Data": [
@@ -2977,13 +2708,13 @@
         },
         {
           "Value": {
-            "=": "Customer_ID"
+            "=": "Z_Customer_ID"
           },
           "Label": "Customer"
         },
         {
           "Value": {
-            "=": "priority"
+            "=": "Z_priority"
           },
           "Label": "Priority"
         },
@@ -3120,36 +2851,33 @@
             }
           ]
         },
-        "Customer": {
+        "Z_Customer": {
           "@Common.Text": {
-            "=": "Customer.email"
+            "=": "Z_Customer.Z_email"
           },
           "@Common.TextArrangement": {
             "#": "TextOnly"
           },
-          "@Common.ValueList.CollectionPath": "Customers",
+          "@Common.ValueList.CollectionPath": "Z_Customers",
           "@Common.ValueList.Label": "Customers",
           "@Common.ValueList.Parameters": [
             {
               "$Type": "Common.ValueListParameterInOut",
               "LocalDataProperty": {
-                "=": "Customer_ID"
+                "=": "Z_Customer_ID"
               },
               "ValueListProperty": "ID"
             },
             {
               "$Type": "Common.ValueListParameterDisplayOnly",
-              "ValueListProperty": "email"
+              "ValueListProperty": "Z_email"
             }
           ],
-          "@UI.MultiLineText": {
-            "=": "IsActiveEntity"
-          },
           "type": "cds.Association",
           "cardinality": {
             "max": 1
           },
-          "target": "OrdersService.Customers",
+          "target": "OrdersService.Z_Customers",
           "keys": [
             {
               "ref": [
@@ -3158,21 +2886,28 @@
             }
           ]
         },
-        "Remarks": {
+        "Z_Remarks": {
           "type": "cds.Composition",
           "cardinality": {
             "max": "*"
           },
-          "target": "OrdersService.Remarks",
-          "keys": [
+          "target": "OrdersService.Z_Remarks",
+          "on": [
             {
               "ref": [
-                "ID"
+                "Z_Remarks",
+                "Z_parent"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
               ]
             }
           ]
         },
-        "priority": {
+        "Z_priority": {
           "@assert.range": true,
           "type": "cds.String",
           "enum": {
@@ -3914,12 +3649,12 @@
             }
           ]
         },
-        "Customer": {
+        "Z_Customer": {
           "type": "cds.Association",
           "cardinality": {
             "max": 1
           },
-          "target": "sap.bookshop.extension.Customers",
+          "target": "Z_bookshop.extension.Z_Customers",
           "keys": [
             {
               "ref": [
@@ -3928,21 +3663,28 @@
             }
           ]
         },
-        "Remarks": {
+        "Z_Remarks": {
           "type": "cds.Composition",
           "cardinality": {
             "max": "*"
           },
-          "target": "sap.bookshop.extension.Remarks",
-          "keys": [
+          "target": "Z_bookshop.extension.Z_Remarks",
+          "on": [
             {
               "ref": [
-                "ID"
+                "Z_Remarks",
+                "Z_parent"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
               ]
             }
           ]
         },
-        "priority": {
+        "Z_priority": {
           "@assert.range": true,
           "type": "cds.String",
           "enum": {
@@ -4422,121 +4164,119 @@
         }
       }
     },
-    "OrdersService.Countries": {
+    "OrdersService.Z_CustomerPostalAddresses": {
       "kind": "entity",
-      "@UI.Identification": [
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "Main",
+          "Target": "@UI.FieldGroup#Main"
+        }
+      ],
+      "@UI.FieldGroup#Main.Data": [
         {
           "Value": {
-            "=": "name"
+            "=": "Z_description"
+          }
+        },
+        {
+          "Value": {
+            "=": "Z_street"
+          }
+        },
+        {
+          "Value": {
+            "=": "Z_town"
+          }
+        },
+        {
+          "Value": {
+            "=": "Z_country_code"
           }
         }
       ],
-      "@cds.autoexpose": true,
+      "@UI.HeaderInfo.Title.$Type": "UI.DataField",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "Z_description"
+      },
+      "@UI.HeaderInfo.TypeName": "CustomerPostalAddress",
+      "@UI.HeaderInfo.TypeNamePlural": "CustomerPostalAddresses",
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "Z_description"
+          }
+        },
+        {
+          "Value": {
+            "=": "Z_street"
+          }
+        },
+        {
+          "Value": {
+            "=": "Z_town"
+          }
+        },
+        {
+          "Value": {
+            "=": "Z_country_code"
+          }
+        }
+      ],
       "@cds.autoexposed": true,
-      "@cds.odata.valuelist": true,
-      "@cds.persistence.skip": "if-unused",
       "query": {
         "SELECT": {
           "from": {
             "ref": [
-              "sap.common.Countries"
+              "Z_bookshop.extension.Z_CustomerPostalAddresses"
             ]
           }
         }
       },
       "elements": {
-        "name": {
-          "@title": "{i18n>Name}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 255
-        },
-        "descr": {
-          "@title": "{i18n>Description}",
-          "localized": true,
-          "type": "cds.String",
-          "length": 1000
-        },
-        "code": {
+        "Z_ID": {
           "@Common.Text": {
-            "=": "name"
+            "=": "Z_description"
           },
-          "@title": "{i18n>CountryCode}",
-          "key": true,
-          "type": "cds.String",
-          "length": 3
+          "@Core.Computed": true,
+          "@UI.Hidden": true,
+          "type": "cds.UUID"
         },
-        "regions": {
-          "type": "cds.Composition",
-          "cardinality": {
-            "max": "*"
-          },
-          "target": "OrdersService.Regions",
-          "on": [
-            {
-              "ref": [
-                "regions",
-                "_parent"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "$self",
-                "code"
-              ]
-            }
-          ]
-        },
-        "texts": {
-          "type": "cds.Composition",
-          "cardinality": {
-            "max": "*"
-          },
-          "target": "OrdersService.Countries.texts",
-          "on": [
-            {
-              "ref": [
-                "texts",
-                "code"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "code"
-              ]
-            }
-          ]
-        },
-        "localized": {
+        "Z_Customer": {
           "type": "cds.Association",
-          "target": "OrdersService.Countries.texts",
-          "on": [
+          "cardinality": {
+            "max": 1
+          },
+          "target": "OrdersService.Z_Customers",
+          "keys": [
             {
               "ref": [
-                "localized",
+                "ID"
+              ]
+            }
+          ]
+        },
+        "Z_description": {
+          "@title": "Description",
+          "type": "cds.String"
+        },
+        "Z_street": {
+          "@title": "Street",
+          "type": "cds.String"
+        },
+        "Z_town": {
+          "@title": "Town",
+          "type": "cds.String"
+        },
+        "Z_country": {
+          "@description": "{i18n>CountryCode.Description}",
+          "@title": "Country",
+          "type": "Country",
+          "target": "OrdersService.Countries",
+          "keys": [
+            {
+              "ref": [
                 "code"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "code"
-              ]
-            },
-            "and",
-            {
-              "ref": [
-                "localized",
-                "locale"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "$user",
-                "locale"
               ]
             }
           ]
@@ -5715,7 +5455,7 @@
         }
       }
     },
-    "OrdersService.Remarks": {
+    "OrdersService.Z_Remarks": {
       "kind": "entity",
       "@UI.Facets": [
         {
@@ -5727,30 +5467,30 @@
       "@UI.FieldGroup#Main.Data": [
         {
           "Value": {
-            "=": "number"
+            "=": "Z_number"
           }
         },
         {
           "Value": {
-            "=": "remarksLine"
+            "=": "Z_remarksLine"
           }
         }
       ],
       "@UI.HeaderInfo.Title.$Type": "UI.DataField",
       "@UI.HeaderInfo.Title.Value": {
-        "=": "number"
+        "=": "Z_number"
       },
       "@UI.HeaderInfo.TypeName": "Remark",
       "@UI.HeaderInfo.TypeNamePlural": "Remarks",
       "@UI.LineItem": [
         {
           "Value": {
-            "=": "number"
+            "=": "Z_number"
           }
         },
         {
           "Value": {
-            "=": "remarksLine"
+            "=": "Z_remarksLine"
           }
         }
       ],
@@ -5759,78 +5499,17 @@
         "SELECT": {
           "from": {
             "ref": [
-              "sap.bookshop.extension.Remarks"
+              "Z_bookshop.extension.Z_Remarks"
             ]
           }
         }
       },
       "elements": {
-        "ID": {
+        "Z_ID": {
           "@Core.Computed": true,
-          "key": true,
           "type": "cds.UUID"
         },
-        "createdAt": {
-          "@Core.Immutable": true,
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@odata.on.insert": {
-            "#": "now"
-          },
-          "@readonly": true,
-          "@title": "{i18n>CreatedAt}",
-          "type": "cds.Timestamp"
-        },
-        "createdBy": {
-          "@Core.Immutable": true,
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@description": "{i18n>UserID.Description}",
-          "@odata.on.insert": {
-            "#": "user"
-          },
-          "@readonly": true,
-          "@title": "{i18n>CreatedBy}",
-          "type": "User",
-          "length": 255
-        },
-        "modifiedAt": {
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$now"
-          },
-          "@cds.on.update": {
-            "=": "$now"
-          },
-          "@odata.on.update": {
-            "#": "now"
-          },
-          "@readonly": true,
-          "@title": "{i18n>ChangedAt}",
-          "type": "cds.Timestamp"
-        },
-        "modifiedBy": {
-          "@UI.HiddenFilter": true,
-          "@cds.on.insert": {
-            "=": "$user"
-          },
-          "@cds.on.update": {
-            "=": "$user"
-          },
-          "@description": "{i18n>UserID.Description}",
-          "@odata.on.update": {
-            "#": "user"
-          },
-          "@readonly": true,
-          "@title": "{i18n>ChangedBy}",
-          "type": "User",
-          "length": 255
-        },
-        "parent": {
+        "Z_parent": {
           "type": "cds.Association",
           "cardinality": {
             "max": 1
@@ -5844,11 +5523,11 @@
             }
           ]
         },
-        "number": {
+        "Z_number": {
           "@title": "Remark Number",
           "type": "cds.Integer"
         },
-        "remarksLine": {
+        "Z_remarksLine": {
           "@title": "Remark",
           "type": "cds.String"
         }
@@ -5897,7 +5576,7 @@
         }
       }
     },
-    "OrdersService.Regions": {
+    "OrdersService.Countries": {
       "kind": "entity",
       "@UI.Identification": [
         {
@@ -5914,7 +5593,7 @@
         "SELECT": {
           "from": {
             "ref": [
-              "sap.common_countries.Regions"
+              "sap.common.Countries"
             ]
           }
         }
@@ -5933,11 +5612,15 @@
           "length": 1000
         },
         "code": {
+          "@Common.Text": {
+            "=": "name"
+          },
+          "@title": "{i18n>CountryCode}",
           "key": true,
           "type": "cds.String",
-          "length": 5
+          "length": 3
         },
-        "children": {
+        "regions": {
           "type": "cds.Composition",
           "cardinality": {
             "max": "*"
@@ -5946,7 +5629,7 @@
           "on": [
             {
               "ref": [
-                "children",
+                "regions",
                 "_parent"
               ]
             },
@@ -5959,37 +5642,12 @@
             }
           ]
         },
-        "cities": {
-          "type": "cds.Composition",
-          "cardinality": {
-            "max": "*"
-          },
-          "target": "OrdersService.Cities",
-          "on": [
-            {
-              "ref": [
-                "cities",
-                "region"
-              ]
-            },
-            "=",
-            {
-              "ref": [
-                "$self"
-              ]
-            }
-          ]
-        },
-        "_parent": {
-          "type": "cds.String",
-          "length": 11
-        },
         "texts": {
           "type": "cds.Composition",
           "cardinality": {
             "max": "*"
           },
-          "target": "OrdersService.Regions.texts",
+          "target": "OrdersService.Countries.texts",
           "on": [
             {
               "ref": [
@@ -6007,7 +5665,7 @@
         },
         "localized": {
           "type": "cds.Association",
-          "target": "OrdersService.Regions.texts",
+          "target": "OrdersService.Countries.texts",
           "on": [
             {
               "ref": [
@@ -6036,49 +5694,6 @@
               ]
             }
           ]
-        }
-      }
-    },
-    "OrdersService.Countries.texts": {
-      "kind": "entity",
-      "@cds.autoexposed": true,
-      "@odata.draft.enabled": false,
-      "query": {
-        "SELECT": {
-          "from": {
-            "ref": [
-              "sap.common.Countries.texts"
-            ]
-          }
-        }
-      },
-      "elements": {
-        "locale": {
-          "key": true,
-          "type": "cds.String",
-          "length": 14
-        },
-        "name": {
-          "@title": "{i18n>Name}",
-          "localized": false,
-          "type": "cds.String",
-          "length": 255
-        },
-        "descr": {
-          "@title": "{i18n>Description}",
-          "localized": false,
-          "type": "cds.String",
-          "length": 1000
-        },
-        "code": {
-          "@Common.Text": {
-            "=": "name"
-          },
-          "@odata.containment.ignore": true,
-          "@title": "{i18n>CountryCode}",
-          "key": true,
-          "type": "cds.String",
-          "length": 3
         }
       }
     },
@@ -6283,6 +5898,191 @@
           },
           "@odata.containment.ignore": true,
           "@title": "{i18n>CurrencyCode}",
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        }
+      }
+    },
+    "OrdersService.Regions": {
+      "kind": "entity",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.autoexpose": true,
+      "@cds.autoexposed": true,
+      "@cds.odata.valuelist": true,
+      "@cds.persistence.skip": "if-unused",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "sap.common_countries.Regions"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "key": true,
+          "type": "cds.String",
+          "length": 5
+        },
+        "children": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "OrdersService.Regions",
+          "on": [
+            {
+              "ref": [
+                "children",
+                "_parent"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self",
+                "code"
+              ]
+            }
+          ]
+        },
+        "cities": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "OrdersService.Cities",
+          "on": [
+            {
+              "ref": [
+                "cities",
+                "region"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "_parent": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "OrdersService.Regions.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "OrdersService.Regions.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "OrdersService.Countries.texts": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@odata.draft.enabled": false,
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "sap.common.Countries.texts"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "locale": {
+          "key": true,
+          "type": "cds.String",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": false,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": false,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@Common.Text": {
+            "=": "name"
+          },
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>CountryCode}",
           "key": true,
           "type": "cds.String",
           "length": 3
@@ -6690,6 +6490,17 @@
     {
       "annotate": "cds.UUID",
       "@Core.Computed": true
+    },
+    {
+      "annotate": "OrdersService.Z_Customers",
+      "elements": {
+        "Z_ID": {
+          "@Common.Text": {
+            "=": "Z_email"
+          },
+          "@UI.Hidden": true
+        }
+      }
     }
   ],
   "meta": {

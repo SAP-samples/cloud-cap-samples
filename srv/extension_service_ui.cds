@@ -7,7 +7,7 @@ annotate OrdersService.Z_Customers with @odata.draft.enabled;
 
 // new entity -- titles
 annotate OrdersService.Z_Customers with {
-    ID           @(
+    Z_ID           @(      // workaround
         UI.Hidden,
         Common : {Text : Z_email}
     );
@@ -22,7 +22,7 @@ annotate OrdersService.Z_Customers with {
 
 // new entity -- titles
 annotate OrdersService.Z_CustomerPostalAddresses with {
-    ID          @(
+    Z_ID          @(       // workaround
         UI.Hidden,
         Common : {Text : Z_description}
     );
@@ -137,8 +137,8 @@ annotate OrdersService.Orders with @(
 		SelectionFields: [ createdAt, createdBy ],
 		LineItem: [
 			{Value: OrderNo, Label:'OrderNo'},
-			{Value: Z_Customer_ID, Label:'Customer'},  // extension field
-			{Value: Z_priority,    Label:'Priority'},  // extension field
+			{Value: Z_Customer_Z_ID, Label:'Customer'},  // workaround - extension field
+			{Value: Z_priority,    Label:'Priority'},    // extension field
 			{Value: createdAt,   Label:'Date'}
 		],
 		HeaderInfo: {
@@ -165,9 +165,9 @@ annotate OrdersService.Orders with @(
 		],
 		FieldGroup#Details: {
 			Data: [
-				{Value: currency_code, Label:'Currency'},  // correction
-				{Value: Z_Customer_ID, Label:'Customer'},    // extension field
-				{Value: Z_priority,    Label:'Priority'}     // extension field
+				{Value: currency_code, Label:'Currency'},      // correction
+				{Value: Z_Customer_Z_ID, Label:'Customer'},    // workaround - extension field
+				{Value: Z_priority,    Label:'Priority'}       // extension field
 			]
 		},
 		FieldGroup#Created: {
@@ -183,10 +183,12 @@ annotate OrdersService.Orders with @(
 			]
 		},
 	},
-) {
-	createdAt @UI.HiddenFilter:false;
-	createdBy @UI.HiddenFilter:false;
-};
+) 
+//{
+//	createdAt @UI.HiddenFilter:false;
+//	createdBy @UI.HiddenFilter:false;
+//}
+;
 
 // new field in existing service -- exchange ID with text
  annotate OrdersService.Orders with {
@@ -199,8 +201,8 @@ annotate OrdersService.Orders with @(
 				CollectionPath: 'Z_Customers',
 				Parameters: [
 					{ $Type: 'Common.ValueListParameterInOut',
-						LocalDataProperty: Z_Customer_ID,
-						ValueListProperty: 'ID'
+						LocalDataProperty: Z_Customer_Z_ID,  // workaround
+						ValueListProperty: 'Z_ID'            // workaround
 					},
 					{ $Type: 'Common.ValueListParameterDisplayOnly',
 						ValueListProperty: 'Z_email'
