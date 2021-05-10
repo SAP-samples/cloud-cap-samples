@@ -7,7 +7,7 @@
     "index.cds"
   ],
   "dependencies": {
-    "@sap/cds": ">=4",
+    "@sap/cds": "^5",
     "express": "^4.17.1"
   },
   "scripts": {
