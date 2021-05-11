@@ -3,7 +3,10 @@ using OrdersService from './extension_service';
 
 
 // new entity -- draft enabled
-annotate OrdersService.Z_Customers with @odata.draft.enabled;
+annotate OrdersService.Z_Customers   with @odata.draft.enabled;
+// new codelist entity -- draft enabled
+annotate OrdersService.Z_SalesRegion with @odata.draft.enabled;
+
 
 // new entity -- titles
 annotate OrdersService.Z_Customers with {
@@ -32,6 +35,10 @@ annotate OrdersService.Z_CustomerPostalAddresses with {
     Z_country     @title : 'Country';
 }
 
+// new entity -- titles
+annotate OrdersService.Z_SalesRegion with {
+	Z_regionCode      @title: 'Region Code';
+}
 
 // new entity -- titles
 annotate OrdersService.Z_Remarks with {
@@ -100,6 +107,32 @@ annotate OrdersService.Z_CustomerPostalAddresses with @(UI : {
 
 };
 
+// new entity -- UI
+annotate OrdersService.Z_SalesRegion with @(
+	UI: {
+		HeaderInfo: {
+			TypeName: 'Sales Region',
+			TypeNamePlural: 'Sales Regions',
+			Title          : {
+                $Type : 'UI.DataField',
+                Value : Z_regionCode
+            }
+		},
+		LineItem: [
+			{Value: Z_regionCode}      
+		],
+		Facets: [
+			{$Type: 'UI.ReferenceFacet', Label: 'Main',    Target: '@UI.FieldGroup#Main'}
+		],
+		FieldGroup#Main: {
+			Data: [
+		        {Value: Z_regionCode}     
+			]
+		}
+	},
+) {
+
+};
 
 
 // new entity -- UI
@@ -143,8 +176,9 @@ annotate OrdersService.Orders with @(
 		SelectionFields: [ createdAt, createdBy ],
 		LineItem: [
 			{Value: OrderNo, Label:'OrderNo'},
-		//	{Value: Z_Customer_Z_ID, Label:'Customer'},  // workaround - extension field
-			{Value: Z_priority,    Label:'Priority'},    // extension field
+			{Value: Z_Customer_Z_ID, Label:'Customer'},                 // workaround - extension field
+			{Value: Z_SalesRegion_Z_regionCode, Label:'Sales Region'},  // workaround - extension field
+			{Value: Z_priority,    Label:'Priority'},                   // extension field
 			{Value: createdAt,   Label:'Date'}
 		],
 		HeaderInfo: {
@@ -171,9 +205,10 @@ annotate OrdersService.Orders with @(
 		],
 		FieldGroup#Details: {
 			Data: [
-				{Value: currency_code, Label:'Currency'},      // correction
-			//	{Value: Z_Customer_Z_ID, Label:'Customer'},    // workaround - extension field
-				{Value: Z_priority,    Label:'Priority'}       // extension field
+				{Value: currency_code, Label:'Currency'},                  // correction
+				{Value: Z_Customer_Z_ID, Label:'Customer'},                // workaround - extension field
+				{Value: Z_SalesRegion_Z_regionCode, Label:'Sales Region'}, // workaround - extension field
+				{Value: Z_priority,    Label:'Priority'}                   // extension field
 			]
 		},
 		FieldGroup#Created: {

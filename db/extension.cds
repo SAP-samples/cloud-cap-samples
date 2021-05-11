@@ -1,19 +1,21 @@
-
 using {sap.capire.bookshop} from '_base/db/schema';
-using {sap.capire.orders} from '_base/db/schema';
+using {sap.capire.orders}   from '_base/db/schema';
 using from '_base/db/capire_common';
 
 using {
-    cuid, managed, Country
+    cuid, managed, Country, sap.common.CodeList
 } from '@sap/cds/common';
+
+
 
 namespace Z_bookshop.extension;
 
 // extend existing entity 
 extend orders.Orders with { 
-  Z_Customer : Association to one Z_Customers; 
-  Z_Remarks  : Composition of many Z_Remarks on Z_Remarks.Z_parent = $self;
-  Z_priority : String @assert.range enum {high; medium; low} default 'medium';
+  Z_Customer    : Association to one Z_Customers;  
+  Z_SalesRegion : Association to one Z_SalesRegion; 
+  Z_priority    : String @assert.range enum {high; medium; low} default 'medium';
+  Z_Remarks     : Composition of many Z_Remarks on Z_Remarks.Z_parent = $self;
 }  
 
 // new entity - as association target
@@ -46,6 +48,12 @@ entity Z_CustomerPostalAddresses  // :
   Z_town           : String;
   Z_country        : Country;
 };
+
+// new entity - as code list
+entity Z_SalesRegion: CodeList {
+  key Z_regionCode : String(11);
+}
+
 
 // new entity - as composition target
 entity Z_Remarks // : cuid, managed
