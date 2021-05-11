@@ -12,7 +12,8 @@
     "@capire/media": "./media",
     "@capire/orders": "./orders",
     "@capire/reviews": "./reviews",
-    "@capire/suppliers": "./suppliers"
+    "@capire/suppliers": "./suppliers",
+    "@capire/notes": "./notes"
   },
   "devDependencies": {
     "chai": "^4.2.0",

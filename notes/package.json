@@ -1,0 +1,33 @@
+{
+    "name": "@capire/notes",
+    "version": "1.0.0",
+    "description": "Maintain notes for a Supplier",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@sap/cds": ">=5",
+        "@sap/cds-compiler": "^2",
+        "@sap/hana-client": "^2.6.61",
+        "express": "^4"
+    },
+    "devDependencies": {
+        "sqlite3": "5.0.0"
+    },
+    "scripts": {
+        "start": "cds run"
+    },
+    "cds": {
+        "requires": {
+            "[sandbox]": {
+                "API_BUSINESS_PARTNER": {
+                    "kind": "odata",
+                    "model": "srv/external/API_BUSINESS_PARTNER",
+                    "credentials": {
+                        "url": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_BUSINESS_PARTNER/"
+                    }
+                }
+            }
+        }
+    }
+}
