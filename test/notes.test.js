@@ -172,5 +172,15 @@ describe("Notes", () => {
     });
   });
 
+  it("get notes via navigation", async () => {
+    const { status, data } = await GET("/notes/Suppliers('11')/notes");
+
+    expect({ status, data }).to.containSubset({
+      status: 200,
+      data: {value: SuppliersExpandNotes.value[0].notes },
+    });
+  });
+
+
   after(() => mockServer.close());
 });

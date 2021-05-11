@@ -1,5 +1,7 @@
 const cds = require("@sap/cds");
 
+const RemoteHandler = require('./RemoteHandler');
+
 const s4apiKey = process.env.S4_APIKEY;
 if (!s4apiKey && cds.env.profiles.indexOf("sandbox") >= 0) {
   console.error(
@@ -13,11 +15,21 @@ module.exports = cds.service.impl(async function () {
 
   const bpService = await cds.connect.to("API_BUSINESS_PARTNER");
 
+  // TODO: This seems to be a bug in the compiler
+  RemoteHandler.columnNameFixes = { ["NotesService.Suppliers.BusinessPartner"]: "ID" };
+
   // REVISIT: This is a workaround for the missing capability to add headers to the service
   const bpServiceDelegate = {
     run: query => bpService.send({ query, headers: { APIKey: s4apiKey } })
   };
 
+  const remoteHandler = new RemoteHandler(this, { [Suppliers.name]: bpServiceDelegate });
+
+  this.on("READ", Suppliers, (req, next) => remoteHandler.handle(req, next) );
+  this.on("READ", Notes, (req, next) => remoteHandler.handle(req, next) );
+
+
+  /*
   // Suppliers?$expand=notes
   this.on("READ", Suppliers, async (req, next) => {
     const expandIndex = req.query.SELECT.columns.findIndex(
@@ -57,5 +69,7 @@ module.exports = cds.service.impl(async function () {
   this.on("READ", Suppliers, async req => {
     return bpServiceDelegate.run(req.query);
   });
+
+  */
 
 });
