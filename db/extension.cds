@@ -52,7 +52,8 @@ entity Z_Remarks // : cuid, managed
 {  
   key Z_ID      : UUID; // workaround
   Z_parent      : Association to one orders.Orders;  
-  Z_number      : Integer;
+  // number        : Integer;  // try without Z_
+  Z_number        : Integer;  
   Z_remarksLine : String; 
 }
 

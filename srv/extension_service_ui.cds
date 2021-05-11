@@ -32,11 +32,14 @@ annotate OrdersService.Z_CustomerPostalAddresses with {
     Z_country     @title : 'Country';
 }
 
+
 // new entity -- titles
 annotate OrdersService.Z_Remarks with {
+//  number            @title: 'Remark Number';
 	Z_number          @title: 'Remark Number';
 	Z_remarksLine     @title: 'Remark';
 }
+
 
 // new entity in service -- UI
 annotate OrdersService.Z_Customers with @(UI : {
@@ -108,10 +111,12 @@ annotate OrdersService.Z_Remarks with @(
 			Title          : {
                 $Type : 'UI.DataField',
                 Value : Z_number
+		//		Value : number
             }
 		},
 		LineItem: [
 			{Value: Z_number},
+		//	{Value: number},
 			{Value: Z_remarksLine}       
 		],
 		Facets: [
@@ -119,7 +124,8 @@ annotate OrdersService.Z_Remarks with @(
 		],
 		FieldGroup#Main: {
 			Data: [
-				{Value: Z_number},
+		        {Value: Z_number},
+		//		{Value: number},
 			    {Value: Z_remarksLine}       
 			]
 		}
@@ -137,7 +143,7 @@ annotate OrdersService.Orders with @(
 		SelectionFields: [ createdAt, createdBy ],
 		LineItem: [
 			{Value: OrderNo, Label:'OrderNo'},
-			{Value: Z_Customer_Z_ID, Label:'Customer'},  // workaround - extension field
+		//	{Value: Z_Customer_Z_ID, Label:'Customer'},  // workaround - extension field
 			{Value: Z_priority,    Label:'Priority'},    // extension field
 			{Value: createdAt,   Label:'Date'}
 		],
@@ -161,12 +167,12 @@ annotate OrdersService.Orders with @(
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}',    Target: '@UI.FieldGroup#Details'},
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>OrderItems}', Target: 'Items/@UI.LineItem'},
-			{$Type: 'UI.ReferenceFacet', Label: 'Remarks',           Target: 'Z_Remarks/@UI.LineItem'} // new composition
+		//	{$Type: 'UI.ReferenceFacet', Label: 'Remarks',           Target: 'Z_Remarks/@UI.LineItem'} // new composition
 		],
 		FieldGroup#Details: {
 			Data: [
 				{Value: currency_code, Label:'Currency'},      // correction
-				{Value: Z_Customer_Z_ID, Label:'Customer'},    // workaround - extension field
+			//	{Value: Z_Customer_Z_ID, Label:'Customer'},    // workaround - extension field
 				{Value: Z_priority,    Label:'Priority'}       // extension field
 			]
 		},
@@ -184,11 +190,14 @@ annotate OrdersService.Orders with @(
 		},
 	},
 ) 
+
 //{
 //	createdAt @UI.HiddenFilter:false;
 //	createdBy @UI.HiddenFilter:false;
 //}
 ;
+
+
 
 // new field in existing service -- exchange ID with text
  annotate OrdersService.Orders with {
