@@ -47,7 +47,7 @@ entity Z_CustomerPostalAddresses  // :
   Z_street         : String;
   Z_town           : String;
   Z_country        : Country;
-};
+}
 
 // new entity - as code list
 entity Z_SalesRegion: CodeList {
