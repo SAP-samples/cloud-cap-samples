@@ -135,7 +135,7 @@ annotate OrdersService.Orders with @(
 		LineItem: [
 			{Value: OrderNo,             Label:'OrderNo'},
 			{Value: Z_newField,          Label:'New Field'},        // extension field
-			{Value: Z_NewAssociation_ID, Label:'New Association'},  // extension field
+			{Value: Z_NewEntity_ID,      Label:'New Entity'},       // extension field
 			{Value: Z_NewCodeList_code,  Label:'New Code'},         // extension field
 			{Value: createdAt,           Label:'Date'}
 		],
@@ -159,13 +159,13 @@ annotate OrdersService.Orders with @(
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}',    Target: '@UI.FieldGroup#Details'},
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>OrderItems}', Target: 'Items/@UI.LineItem'},
-			{$Type: 'UI.ReferenceFacet', Label: 'New Composition',   Target: 'Z_NewComposition/@UI.LineItem'} // new composition
+			{$Type: 'UI.ReferenceFacet', Label: 'New Composition',   Target: 'Z_NewCompEntity/@UI.LineItem'}  // new composition
 		],
 		FieldGroup#Details: {
 			Data: [
-				{Value: currency_code, Label:'Currency'},                  // correction
-				{Value: Z_newField,          Label:'New Field'},        // extension field
-			    {Value: Z_NewAssociation_ID, Label:'New Association'},  // extension field
+				{Value: currency_code,       Label:'Currency'},              
+			    {Value: Z_newField,          Label:'New Field'},        // extension field
+			    {Value: Z_NewEntity_ID,      Label:'New Entity'},       // extension field
 			    {Value: Z_NewCodeList_code,  Label:'New Code'},         // extension field
 			]
 		},
@@ -184,4 +184,25 @@ annotate OrdersService.Orders with @(
 	},
 ) ;
 
-
+// new field in existing service -- exchange ID with text
+ annotate OrdersService.Orders with {
+	Z_NewEntity @(
+		Common: {
+			//show description, not id for New Entity in the context of Orders
+			Text: Z_NewEntity.description  , TextArrangement: #TextOnly,
+			ValueList: {
+				Label: 'New Entity',
+				CollectionPath: 'Z_NewEntity',
+				Parameters: [
+					{ $Type: 'Common.ValueListParameterInOut',
+						LocalDataProperty: Z_NewEntity_ID,  
+						ValueListProperty: 'ID'            
+					},
+					{ $Type: 'Common.ValueListParameterDisplayOnly',
+						ValueListProperty: 'description'
+					}
+				]
+			}
+		} 
+	);
+} 

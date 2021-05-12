@@ -12,9 +12,9 @@ namespace Z_bookshop.extension;
 // extend existing entity 
 extend orders.Orders with { 
   Z_newField       : String default 'Default Value';
-  Z_NewAssociation : Association to one  Z_NewEntity;  
+  Z_NewEntity      : Association to one  Z_NewEntity;  
   Z_NewCodeList    : Association to one  Z_NewCodeList; 
-  Z_NewComposition : Composition of many Z_NewCompEntity on Z_NewComposition.parent = $self;
+  Z_NewCompEntity  : Composition of many Z_NewCompEntity on Z_NewCompEntity.parent = $self;
 }  
 
 // new entity - as association target

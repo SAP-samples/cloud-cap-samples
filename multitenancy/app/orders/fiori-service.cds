@@ -45,7 +45,7 @@ annotate OrdersService.Orders with @(
 		],
 		FieldGroup#Details: {
 			Data: [
-				{Value: currency.code, Label:'Currency'}
+				{Value: currency_code, Label:'Currency'}
 			]
 		},
 		FieldGroup#Created: {
