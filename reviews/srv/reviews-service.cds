@@ -9,8 +9,8 @@ service ReviewsService {
 
   // Async API
    event reviewed : projection on Reviews {
-     subject,
-     rating
+     subject, //> recieved new reviews
+     rating  //> new avg rating
    }
 
   // Input validation

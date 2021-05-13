@@ -74,7 +74,7 @@ extend service AdminService with {
   traffic on S4 backends.
  */
 extend projection CatalogService.ListOfBooks with {
-  supplier
+  supplier.name as supplier
 }
 
 // Extend S4 service with not modelled event
