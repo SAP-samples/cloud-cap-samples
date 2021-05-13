@@ -51,5 +51,5 @@ annotate S4.Suppliers with @cds.persistence:{table,skip:false};
   traffic on S4 backends.
  */
 extend projection CatalogService.ListOfBooks with {
-  supplier
+  supplier.name as supplier
 }
