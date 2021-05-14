@@ -118,18 +118,18 @@ annotate OrdersService.Z_SalesRegion with @(
             }
 		},
 		LineItem: [
-			{Value: regionCode} //,   
-        //  {Value: name}, 
-        //  {Value: descr}   
+			{Value: regionCode},   
+            {Value: name}, 
+            {Value: descr}   
 		],
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: 'Main',    Target: '@UI.FieldGroup#Main'}
 		],
 		FieldGroup#Main: {
 			Data: [
-		        {Value: regionCode} //,   
-		//		{Value: name}, 
-        //      {Value: descr}     
+		        {Value: regionCode},   
+				{Value: name}, 
+                {Value: descr}     
 			]
 		}
 	},
@@ -200,7 +200,7 @@ annotate OrdersService.Orders with @(
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}',    Target: '@UI.FieldGroup#Details'},
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>OrderItems}', Target: 'Items/@UI.LineItem'} //,
-		//	{$Type: 'UI.ReferenceFacet', Label: 'Remarks',           Target: 'Z_Remarks/@UI.LineItem'} // new composition		
+			{$Type: 'UI.ReferenceFacet', Label: 'Remarks',           Target: 'Z_Remarks/@UI.LineItem'} // new composition		
 		],
 		FieldGroup#Details: {
 			Data: [

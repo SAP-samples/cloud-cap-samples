@@ -16,7 +16,7 @@ extend orders.Orders with {
   Z_Customer    : Association to one Z_Customers;  
   Z_SalesRegion : Association to one Z_SalesRegion; 
   Z_priority    : String @assert.range enum {high; medium; low} default 'medium';
- // Z_Remarks     : Composition of many Z_Remarks on Z_Remarks.parent = $self;
+  Z_Remarks     : Composition of many Z_Remarks on Z_Remarks.parent = $self;
 }  
 
 
