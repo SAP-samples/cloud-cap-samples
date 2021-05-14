@@ -10,41 +10,40 @@ annotate OrdersService.Z_SalesRegion with @odata.draft.enabled;
 
 // new entity -- titles
 annotate OrdersService.Z_Customers with {
-    Z_ID           @(      // workaround
+    ID           @(     
         UI.Hidden,
-        Common : {Text : Z_email}
+        Common : {Text : email}
     );
-    Z_firstName    @title : 'First Name';
-    Z_lastName     @title : 'Last Name';
-    Z_email        @title : 'Email';
-    Z_creditCardNo @title : 'Credit Card No';
-    Z_dateOfBirth  @title : 'Date of Birth';
-	Z_status       @title : 'Status';
-	Z_creditScore  @title : 'Credit Score';
+    firstName    @title : 'First Name';
+    lastName     @title : 'Last Name';
+    email        @title : 'Email';
+    creditCardNo @title : 'Credit Card No';
+    dateOfBirth  @title : 'Date of Birth';
+	status       @title : 'Status';
+	creditScore  @title : 'Credit Score';
 }
 
 // new entity -- titles
 annotate OrdersService.Z_CustomerPostalAddresses with {
-    Z_ID          @(       // workaround
+    ID          @(       
         UI.Hidden,
-        Common : {Text : Z_description}
+        Common : {Text : description}
     );
-    Z_description @title : 'Description';
-    Z_street      @title : 'Street';
-    Z_town        @title : 'Town';
-    Z_country     @title : 'Country';
+    description @title : 'Description';
+    street      @title : 'Street';
+    town        @title : 'Town';
+    country     @title : 'Country';
 }
 
 // new entity -- titles
 annotate OrdersService.Z_SalesRegion with {
-	Z_regionCode      @title: 'Region Code';
+	regionCode      @title: 'Region Code';
 }
 
 // new entity -- titles
 annotate OrdersService.Z_Remarks with {
-//  number            @title: 'Remark Number';
-	Z_number          @title: 'Remark Number';
-	Z_remarksLine     @title: 'Remark';
+    number          @title: 'Remark Number';
+	remarksLine     @title: 'Remark';
 }
 
 
@@ -55,26 +54,26 @@ annotate OrdersService.Z_Customers with @(UI : {
         TypeNamePlural : 'Customers',
         Title          : {
             $Type : 'UI.DataField',
-            Value : Z_email
+            Value : email
         }
     },
     LineItem         : [
-        {Value : Z_firstName},
-        {Value : Z_lastName},
-        {Value : Z_email},
-		{Value : Z_status},
-        {Value : Z_creditScore}
+        {Value : firstName},
+        {Value : lastName},
+        {Value : email},
+		{Value : status},
+        {Value : creditScore}
     ],
     Facets           : [
 		{$Type: 'UI.ReferenceFacet', Label: 'Main', Target : '@UI.FieldGroup#Main'},
-		{$Type: 'UI.ReferenceFacet', Label: 'Customer Postal Addresses', Target: 'Z_PostalAddresses/@UI.LineItem'}
+		{$Type: 'UI.ReferenceFacet', Label: 'Customer Postal Addresses', Target: 'PostalAddresses/@UI.LineItem'}
 	],
     FieldGroup #Main : {Data : [
-        {Value : Z_firstName},
-        {Value : Z_lastName},
-        {Value : Z_email},
-		{Value : Z_status},
-        {Value : Z_creditScore}
+        {Value : firstName},
+        {Value : lastName},
+        {Value : email},
+		{Value : status},
+        {Value : creditScore}
     ]}
 } ) ;
 
@@ -85,23 +84,23 @@ annotate OrdersService.Z_CustomerPostalAddresses with @(UI : {
         TypeNamePlural : 'CustomerPostalAddresses',
         Title          : {
             $Type : 'UI.DataField',
-            Value : Z_description
+            Value : description
         }
     },
     LineItem         : [
-        {Value : Z_description},
-        {Value : Z_street},
-        {Value : Z_town},
-		{Value : Z_country_code}
+        {Value : description},
+        {Value : street},
+        {Value : town},
+		{Value : country_code}
 	],
     Facets           : [
 		{$Type: 'UI.ReferenceFacet', Label: 'Main', Target : '@UI.FieldGroup#Main'}
 	],
     FieldGroup #Main : {Data : [
-        {Value : Z_description},
-        {Value : Z_street},
-        {Value : Z_town},
-		{Value : Z_country_code}
+        {Value : description},
+        {Value : street},
+        {Value : town},
+		{Value : country_code}
     ]}
 }, ) {
 
@@ -115,18 +114,22 @@ annotate OrdersService.Z_SalesRegion with @(
 			TypeNamePlural: 'Sales Regions',
 			Title          : {
                 $Type : 'UI.DataField',
-                Value : Z_regionCode
+                Value : regionCode
             }
 		},
 		LineItem: [
-			{Value: Z_regionCode}      
+			{Value: regionCode} //,   
+        //  {Value: name}, 
+        //  {Value: descr}   
 		],
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: 'Main',    Target: '@UI.FieldGroup#Main'}
 		],
 		FieldGroup#Main: {
 			Data: [
-		        {Value: Z_regionCode}     
+		        {Value: regionCode} //,   
+		//		{Value: name}, 
+        //      {Value: descr}     
 			]
 		}
 	},
@@ -143,30 +146,26 @@ annotate OrdersService.Z_Remarks with @(
 			TypeNamePlural: 'Remarks',
 			Title          : {
                 $Type : 'UI.DataField',
-                Value : Z_number
-		//		Value : number
+				Value : number
             }
 		},
 		LineItem: [
-			{Value: Z_number},
-		//	{Value: number},
-			{Value: Z_remarksLine}       
+			{Value: number},
+			{Value: remarksLine}       
 		],
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: 'Main',    Target: '@UI.FieldGroup#Main'}
 		],
 		FieldGroup#Main: {
 			Data: [
-		        {Value: Z_number},
-		//		{Value: number},
-			    {Value: Z_remarksLine}       
+		        {Value: number},
+			    {Value: remarksLine}       
 			]
 		}
 	},
 ) {
 
 };
-
 
 // extend existing entity Orders with new extension fields and new composition
 
@@ -176,9 +175,9 @@ annotate OrdersService.Orders with @(
 		SelectionFields: [ createdAt, createdBy ],
 		LineItem: [
 			{Value: OrderNo, Label:'OrderNo'},
-			{Value: Z_Customer_Z_ID, Label:'Customer'},                 // workaround - extension field
-			{Value: Z_SalesRegion_Z_regionCode, Label:'Sales Region'},  // workaround - extension field
-			{Value: Z_priority,    Label:'Priority'},                   // extension field
+			{Value: Z_Customer_ID, Label:'Customer'},                 // extension field
+			{Value: Z_SalesRegion_regionCode, Label:'Sales Region'},  // extension field
+			{Value: Z_priority,    Label:'Priority'},                 // extension field
 			{Value: createdAt,   Label:'Date'}
 		],
 		HeaderInfo: {
@@ -200,15 +199,15 @@ annotate OrdersService.Orders with @(
 		],
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}',    Target: '@UI.FieldGroup#Details'},
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>OrderItems}', Target: 'Items/@UI.LineItem'},
-			{$Type: 'UI.ReferenceFacet', Label: 'Remarks',           Target: 'Z_Remarks/@UI.LineItem'} // new composition
+			{$Type: 'UI.ReferenceFacet', Label: '{i18n>OrderItems}', Target: 'Items/@UI.LineItem'} //,
+		//	{$Type: 'UI.ReferenceFacet', Label: 'Remarks',           Target: 'Z_Remarks/@UI.LineItem'} // new composition		
 		],
 		FieldGroup#Details: {
 			Data: [
-				{Value: currency_code, Label:'Currency'},                  // correction
-				{Value: Z_Customer_Z_ID, Label:'Customer'},                // workaround - extension field
-				{Value: Z_SalesRegion_Z_regionCode, Label:'Sales Region'}, // workaround - extension field
-				{Value: Z_priority,    Label:'Priority'}                   // extension field
+				{Value: currency_code, Label:'Currency'},                  
+				{Value: Z_Customer_ID, Label:'Customer'},                 // extension field
+				{Value: Z_SalesRegion_regionCode, Label:'Sales Region'},  // extension field
+				{Value: Z_priority,    Label:'Priority'}                  // extension field
 			]
 		},
 		FieldGroup#Created: {
@@ -226,10 +225,10 @@ annotate OrdersService.Orders with @(
 	},
 ) 
 
-//{
-//	createdAt @UI.HiddenFilter:false;
-//	createdBy @UI.HiddenFilter:false;
-//}
+{
+	createdAt @UI.HiddenFilter:false;
+	createdBy @UI.HiddenFilter:false;
+}
 ;
 
 
@@ -239,17 +238,17 @@ annotate OrdersService.Orders with @(
 	Z_Customer @(
 		Common: {
 			//show email, not id for Customer in the context of Orders
-			Text: Z_Customer.Z_email  , TextArrangement: #TextOnly,
+			Text: Z_Customer.email  , TextArrangement: #TextOnly,
 			ValueList: {
 				Label: 'Customers',
 				CollectionPath: 'Z_Customers',
 				Parameters: [
 					{ $Type: 'Common.ValueListParameterInOut',
-						LocalDataProperty: Z_Customer_Z_ID,  // workaround
-						ValueListProperty: 'Z_ID'            // workaround
+						LocalDataProperty: Z_Customer_ID,  
+						ValueListProperty: 'ID'            
 					},
 					{ $Type: 'Common.ValueListParameterDisplayOnly',
-						ValueListProperty: 'Z_email'
+						ValueListProperty: 'email'
 					}
 				]
 			}

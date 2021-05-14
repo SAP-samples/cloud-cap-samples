@@ -1,4 +1,4 @@
-Z_regionCode
-AMER
-EMEA
-APJ
+regionCode;name;descr
+AMER;Americas;North, Central and South America
+EMEA;Europe, the Middle East and Africa;Europe, the Middle East and Africa
+APJ;Asia Pacific and Japan;Asia Pacific and Japan
