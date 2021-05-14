@@ -199,7 +199,7 @@ annotate OrdersService.Orders with @(
 		],
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}',    Target: '@UI.FieldGroup#Details'},
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>OrderItems}', Target: 'Items/@UI.LineItem'} //,
+			{$Type: 'UI.ReferenceFacet', Label: '{i18n>OrderItems}', Target: 'Items/@UI.LineItem'},
 			{$Type: 'UI.ReferenceFacet', Label: 'Remarks',           Target: 'Z_Remarks/@UI.LineItem'} // new composition		
 		],
 		FieldGroup#Details: {
