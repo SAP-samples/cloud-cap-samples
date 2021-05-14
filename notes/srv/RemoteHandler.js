@@ -1,70 +1,32 @@
-function getEntity(absoluteName) {
-  const [serviceName, entityName] = absoluteName.split(".");
-  return cds.services[serviceName].entities[entityName];
-}
-
 function fixColumnName(entity, name) {
   const fullName = `${entity.name}.${name}`;
   return RemoteHandler.columnNameFixes[fullName] || name;
 }
 
-function associationLink(entity, associationName) {
-  const association = entity.associations[associationName];
-  const cardinalityMax = association.cardinality && association.cardinality.max;
-  if (!association)
-    throw new Error(
-      `Association "${associationName}" does not exists for entity "${entity.name}".`
-    );
-  if (association.keys) {
-    return associationKey(entity, association);
-  }
-
-  if (association.on && association.on.length === 3 && association.on[0].ref[0] === associationName && association.on[1] === "=" ) {
-    const keyFieldName = fixColumnName(entity, association.on[2].ref[0]);
-    const targetKeyFieldName = association.on[0].ref.slice(1).join("_");
-    return [keyFieldName, targetKeyFieldName, association.target, cardinalityMax];
-  }
-
-  if (association.on) {
-    const { reverseAssociationName } = associationOn(entity, association);
-    const targetEntity = getEntity(association.target);
-    const reverseAssociation =
-      targetEntity.associations[reverseAssociationName];
-    const [targetKeyFieldName, keyFieldName] = associationKey(
-      targetEntity,
-      reverseAssociation
-    );
-    return [keyFieldName, targetKeyFieldName, association.target, cardinalityMax];
-  }
-
-  throw new Error(
-    `Association "${associationName}" of entity "${entity.name}" has no "on" and no "keys".`
-  );
+/**
+ *
+ * @param {string} msg
+ * @returns {never}
+ */
+function throwError(msg) {
+  throw new Error(msg);
 }
 
-function associationOn(entity, association) {
-  if (
-    !association.on.length === 3 ||
-    association.on[1] !== "=" ||
-    association.on[2].ref[0] !== "$self"
-  )
-    throw new Error(
-      `Association "${association.name}" for "${entity.name}" has not the expected form.`
-    );
-
-  const reverseAssociationName = association.on[0].ref[1];
-  const [targetServiceName, targetEntityName] = association.target.split(".");
-  return { targetServiceName, targetEntityName, reverseAssociationName };
+/**
+ * @param {{name: string}|string} entity
+ * @param {{name: string}|string} association
+ * @param {string} msg
+ * @returns {never}
+ */
+function throwAssocError(entity, association, msg) {
+  throw new Error(`Error with association "${association.name || association}" of entity "${entity.name || entity}": ${msg}`);
 }
 
-function associationKey(entity, association) {
-  const key = association.keys && association.keys[0];
-  if (!key)
-    throw new Error(
-      `Association "${association.name}" for entity "${entity.name}" has no keys.`
-    );
-  return [key["$generatedFieldName"], key.ref[0], association.target, association.cardinality.max];
+function getEntity(absoluteName) {
+  const [serviceName, entityName] = absoluteName.split(".");
+  return cds.services[serviceName]?.entities[entityName] || throwError(`Unknown entity "${absoluteName}"`);
 }
+
 
 class RemoteHandler {
   constructor(service, remoteEntities) {
@@ -91,8 +53,8 @@ class RemoteHandler {
     const associationName = expand.ref[0];
 
     // Get association target
-    const [keyFieldName, targetKeyFieldName, targetEntityName, cardinalityMax] =
-      associationLink(req.target, associationName);
+    const {keyFieldName, targetKeyFieldName, target, is2many, is2one} =
+      this.association(req.target, associationName);
 
     // Request all associated entities
     // REVISIT: Still needed?
@@ -110,25 +72,22 @@ class RemoteHandler {
     if (expandColumns.indexOf(targetKeyFieldName) < 0)
       expandColumns.push(targetKeyFieldName);
 
-    const targetService = this.serviceFor(targetEntityName);
+    const targetService = this.serviceFor(target.name);
 
     // Select target
-    const targetQuery = SELECT.from(targetEntityName)
+    const targetQuery = SELECT.from(target.name)
       .where({ [targetKeyFieldName]: ids })
       .columns(expandColumns);
     const targetResult = await targetService.run(targetQuery);
 
     let targetResultMap;
 
-    switch (cardinalityMax) {
-      case '1':
+    if (is2one) {
         targetResultMap = this.mixinExpand_to_1(targetResult, targetKeyFieldName);
-        break;
-      case '*':
+    } else if (is2many) {
         targetResultMap = this.mixinExpand_to_many(targetResult, targetKeyFieldName);
-        break;
-      default:
-        throw new Error(`Association with cardinality may ${cardinalityMax} is not supported.`);
+    } else {
+      throwAssocError(req.target, associationName, `Unsupported cardinality.`);
     }
 
     const resultArray = Array.isArray(result) ? result : [ result ];
@@ -160,6 +119,27 @@ class RemoteHandler {
     return targetResultMap;
   }
 
+  /**
+   * @example
+   * Notes(24B58115-E394-423B-BEAB-53419A32B927)/supplier
+   *
+   * -->
+   * { SELECT: { from: { ref: {[
+   *   [ id: 'NotesService.Notes',
+   *     where: [
+   *       ref: [ 'ID' ],
+   *       '=',
+   *       val: ''545A3CF9-84CF-46C8-93DC-E29F0F2BC6BE'
+   *      ],
+   *   ],
+   *   [ 'supplier' ]
+   * ]}}}
+   *
+   *
+   * @param {*} req
+   * @param {*} next
+   * @returns
+   */
   async resolveNavigation(req, next) {
     const select = req.query.SELECT;
     if (select.from.ref.length !== 2) {
@@ -168,26 +148,37 @@ class RemoteHandler {
       );
     }
 
-    // Get target
-    const entityName = select.from.ref[0].id;
+    const entityName = select.from.ref[0].id || throwError(`Missing source entity name for navigation`);
     const entity = getEntity(entityName);
+    const associationName = select.from.ref[1] || throwError(`Missing association name for navigation`);
 
-    const [keyFieldName, targetKeyFieldName, targetEntityName] =
-      associationLink(entity, select.from.ref[1]);
+    const {keyFieldName, targetKeyFieldName, target, is2many, is2one} = this.association(entity, associationName);
 
     const sourceService = this.serviceFor(entityName);
-    const targetService = this.serviceFor(targetEntityName);
+    const targetService = this.serviceFor(target.name);
 
-    const selectOne = SELECT.one([keyFieldName])
+    if (sourceService === targetService) return await next();
+
+    // REVISIT: How to call service datasource w/o handlers
+    const selectEntry = SELECT.one([keyFieldName])
       .from(entityName)
       .where(select.from.ref[0].where);
-    const entry = await sourceService.run(selectOne);
+    const entry = await sourceService.run(selectEntry);
 
+    // REVISIT: How to call service datasource w/o handlers
+    // TODO: Seems not to respect filter for targetkeyFieldName
     const selectTarget = SELECT(req.query.SELECT.columns)
-      .from(targetEntityName)
+      .from(target)
       .where({ [targetKeyFieldName]: entry[keyFieldName] });
-    return await targetService.run(selectTarget);
-  }
+    const result = await targetService.run(selectTarget);
+    if (is2many) {
+      return result;
+    } else if (is2one) {
+      return result?.[0];
+    } else {
+      throw new Error('Unsupported association cardinality');
+    }
+}
 
   async handle(req, next) {
     let doRequest;
@@ -198,12 +189,19 @@ class RemoteHandler {
     ) {
       doRequest = () => this.resolveNavigation(req, next)
     } else {
-        const targetService = this.serviceFor(req.target.name);
-        doRequest = targetService === this.service ?
-        next : () => targetService.run(req.query)
+        doRequest = this.isRemote(req.target.name) ?
+          () => this.serviceFor(req.target.name).run(req.query) : next;
     }
 
     return this.resolveExpands(req, doRequest);
+  }
+
+  isRemote(entityName) {
+    return this.serviceFor(entityName) !== this.service;
+  }
+
+  isSeparated(entityNameA, entityNameB) {
+    return this.serviceFor(entityNameA) !== this.serviceFor(entityNameB);
   }
 
   async resolveExpands(req, next) {
@@ -211,12 +209,8 @@ class RemoteHandler {
     const expandFilter = (column) => {
       if (!column.expand) return false;
       const associationName = column.ref[0];
-      const associationTargetName =
-        req.target.associations[associationName].target;
-      return (
-        this.remoteEntities[associationTargetName] !==
-        this.remoteEntities[req.target.name]
-      );
+
+      return this.isSeparated(req.target.name, req.target.associations[associationName].target);
     };
 
     const expands = select.columns.filter(expandFilter);
@@ -224,17 +218,20 @@ class RemoteHandler {
 
     if (expands.length === 0) return next();
 
+    const temporaryKeyFieldNames = [];
     for (const expand of expands) {
       const associationName = expand.ref[0];
-      const [keyFieldName] = associationLink(req.target, associationName);
+      const {keyFieldName} = this.association(req.target, associationName);
 
       // Make sure id property is contained in select
       if (
         !select.columns.find((column) =>
           column.ref.find((ref) => ref == keyFieldName)
         )
-      )
+      ) {
         select.columns.push({ ref: keyFieldName });
+        temporaryKeyFieldNames.push(keyFieldName);
+      }
     }
 
     // Call service implementation
@@ -244,8 +241,134 @@ class RemoteHandler {
       expands.map((expand) => this.mixinExpand(req, result, expand))
     );
 
+    if (temporaryKeyFieldNames.length > 0) {
+      for (const entry of result) {
+        for (const name of temporaryKeyFieldNames)
+          delete entry[name];
+      }
+    }
+
     return result;
   }
+
+  association(entity, associationName, recursion = 0) {
+    let associationMetaData;
+
+    if (++recursion > 2) throwAssocError(entity, association, "Association has recursive definition.");
+
+    const association = entity.associations[associationName] || throwAssocError(entity, associationName, `Association does not exists`);
+
+    associationMetaData = this.associationKey(entity, association);
+    if (!associationMetaData) {
+        associationMetaData = this.associationOn(entity, association);
+    }
+    if (!associationMetaData) {
+      associationMetaData = this.associationOnSelf(entity, association, recursion);
+    }
+
+    if (!association) throwAssocError(entity, association, "Only associations with one key field or on conidition with one field are supported.");
+
+    associationMetaData.is2many = association.is2many;
+    associationMetaData.is2one  = association.is2one;
+    associationMetaData.entity  = entity;
+    associationMetaData.target  = getEntity(association.target);
+    return associationMetaData;
+  }
+
+  /**
+   * Association with "on" condition
+   *
+   * @example
+   * entity Notes {
+   *   supplier_ID : Suppliers:ID;
+   *   supplier: Association to Suppliers on supplier.ID = supplier_ID;
+   * }
+   *
+   * -->
+   *
+   * { association: { on: { [
+   *   ref: [ 'supplier', 'ID' ], // <association>.<target-field>
+   *   '=',
+   *   ref: [ 'supplier_ID' ] // <source-field>
+   * ] }}}
+   *
+   * @param {*} entity
+   * @param {*} association
+   * @returns
+   */
+  associationOn(entity, association) {
+    const onLength = association.on?.length ?? 0;
+    if (onLength === 0) return;
+
+    const on = association.on;
+    if (!(onLength === 3 && on[0]?.ref?.[0] === association.name && on[1] === "=" && on[2]?.ref[0] !== "$self")) return; //throwAssocError(entity, association, "Association on condition must compare to $self");
+
+    return {
+      keyFieldName: fixColumnName(entity, association.on[2].ref[0]),
+      targetKeyFieldName: association.on[0].ref.slice(1).join("_")
+    }
+  }
+
+  /**
+   *
+   * @example
+   * extend entity BusinessPartner {
+   *   notes: Composition of many Notes on notes = $self;
+   * }
+   *
+   * @param {*} entity
+   * @param {*} association
+   * @returns
+   */
+
+  associationOnSelf(entity, association, recursion) {
+    const onLength = association.on?.length ?? 0;
+    if (onLength === 0) return;
+
+    const on = association.on;
+    if (!(onLength === 3 && on[0]?.ref && on[1] === "=" && on[2]?.ref[0] === "$self")) return; //throwAssocError(entity, association, "Association on condition must compare to $self");
+
+    const reverseAssociationName = association.on[0].ref[1];
+    const reverseAssociationMetaData = this.association(targetEntity, reverseAssociationName, false);
+
+    return {
+      keyFieldName: reverseAssociationMetaData.targetKeyFieldName,
+      targetKeyFieldName: reverseAssociationMetaData.keyFieldName
+    }
+  }
+
+  /**
+   * Association with keys
+   *
+   * @example
+   * entity Notes {
+   *   supplier: Association to Suppliers;
+   * }
+   *
+   * -->
+   *
+   * { association: keys: [ {
+   *     $generatedFieldName: 'supplier_ID',
+   *     ref: [ 'ID' ]
+   *   } ]
+   * }
+   *
+   * @param {*} entity
+   * @param {*} association
+   * @returns
+   */
+  associationKey(entity, association) {
+    const keyLength = association.keys?.length ?? 0;
+    if (keyLength === 0) return;
+    if (keyLength > 1) throwAssocError(entity, association, `Association has ${keyLength} key fields, but only 1 is supported.`);
+    const key = association.keys[0];
+
+    return {
+      keyFieldName: key["$generatedFieldName"] || throwError(entity, association, "Missing $generatedFieldName"),
+      targetKeyFieldName: key.ref[0] || throwError(entity, association, "Missing key ref")
+    }
+  }
+
 }
 
 RemoteHandler.columnNameFixes = {};
