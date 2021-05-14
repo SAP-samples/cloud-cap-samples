@@ -71,6 +71,10 @@
         "deploy-format": "hdbtable"
       },
       "mtx": {
+        "element-prefix": [
+          "Z_",
+          "ZZ_"
+        ],
         "namespace-blocklist": [
           "com.sap.",
           "sap."
