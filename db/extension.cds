@@ -36,7 +36,7 @@ entity Z_Customers : cuid, managed
 // new unique constraint (secondary index)
 annotate Z_Customers with @assert.unique: { email: [ email ] }   
 {
-   email @mandatory;    // mandatory check
+  email @mandatory;    // mandatory check
 }
 
 // new entity - as composition target
