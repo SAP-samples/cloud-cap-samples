@@ -35,9 +35,9 @@ module.exports = async()=>{ // called by server.js
   })
 
   // Subscribe to changes in the S4 origin of Suppliers data
-  S4bupa.on ('BusinessPartners/Changed', async msg => { //> would be great if we had batch events from S/4
-    let replicas = await SELECT('ID').from (Suppliers) .where ('ID in', msg.businessPartners)
-    return replicate (replicas.map(each => each.ID))
+  S4bupa.on ('BusinessPartner.Changed', async msg => { //> would be great if we had batch events from S/4
+    let replica = await SELECT.one('ID').from (Suppliers) .where ({ID: msg.data.BusinessPartner})
+    return replicate (replica.ID)
   })
 
   /**

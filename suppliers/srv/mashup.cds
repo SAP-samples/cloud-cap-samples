@@ -53,3 +53,12 @@ annotate S4.Suppliers with @cds.persistence:{table,skip:false};
 extend projection CatalogService.ListOfBooks with {
   supplier.name as supplier
 }
+
+// Extend S4 service with modeled event
+extend service S4 {
+  @type: 'sap.s4.beh.businesspartner.v1.BusinessPartner.Changed.v1'
+  event BusinessPartner.Changed {
+    BusinessPartner: S4.A_BusinessPartner:BusinessPartner;
+  }
+}
+
