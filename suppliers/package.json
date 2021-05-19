@@ -15,12 +15,13 @@
   },
   "cds": {
     "requires": {
-      "API_BUSINESS_PARTNER": {
-        "kind": "odata",
-        "model": "srv/external/API_BUSINESS_PARTNER",
-        "credentials": {
-          "destination": "blub",
-          "url": "http://localhost:3333"
+      "[with-destination]": {
+        "API_BUSINESS_PARTNER": {
+          "kind": "odata",
+          "model": "srv/external/API_BUSINESS_PARTNER",
+          "credentials": {
+            "destination": "<change to destination>"
+          }
         }
       },
       "[development]": {

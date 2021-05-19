@@ -2,6 +2,7 @@ const deploy = require("@sap/cds/lib/deploy");
 
 // TODO: https://github.wdf.sap.corp/cdx/cds/pull/1949
 
+/*
 const DEBUG = (...args) => console.log(...args);
 
 deploy.exclude_external_entities_in = function (csn, _bound) {
@@ -36,3 +37,5 @@ deploy.exclude_external_entities_in = function (csn, _bound) {
     }
   }
 };
+
+*/
