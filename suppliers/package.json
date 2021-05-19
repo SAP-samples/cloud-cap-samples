@@ -15,10 +15,10 @@
   },
   "cds": {
     "requires": {
-      "[with-destination]": {
-        "API_BUSINESS_PARTNER": {
-          "kind": "odata",
-          "model": "srv/external/API_BUSINESS_PARTNER",
+      "API_BUSINESS_PARTNER": {
+        "kind": "odata",
+        "model": "srv/external/API_BUSINESS_PARTNER",
+        "[with-destination]": {
           "credentials": {
             "destination": "<change to destination>"
           }
