@@ -228,8 +228,9 @@ describe("Notes", () => {
     });
   });
 
-      // TODO: Seems not to respect filter for targetkeyFieldName
-/*
+      // TODO: Seems not to respect filter for targetKeyFieldName
+      /*
+
   it.only("get supplier via navigation", async () => {
     const { status, data } = await GET("/notes/Notes(545A3CF9-84CF-46C8-93DC-E29F0F2BC6BE)/supplier");
     expect({ status, data }).to.containSubset({
@@ -237,7 +238,8 @@ describe("Notes", () => {
       data: envelope("Suppliers", NotesExpandSuppliers[0].supplier )
     });
   });
-*/
+  */
+
 
   after(() => mockServer.close());
 });

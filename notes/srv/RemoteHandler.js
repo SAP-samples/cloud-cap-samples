@@ -36,7 +36,7 @@ class RemoteHandler {
   }
 
   serviceFor(entityName) {
-    return this.remoteEntities[entityName] || this.service;
+    return this.remoteEntities[entityName] || cds.db;
   }
 
   /**
@@ -75,6 +75,7 @@ class RemoteHandler {
     const targetService = this.serviceFor(target.name);
 
     // Select target
+    // REVISIT: const targetResult = await targetService.read(target.name).where({ [targetKeyFieldName]: ids }).columns(expandColumns);
     const targetQuery = SELECT.from(target.name)
       .where({ [targetKeyFieldName]: ids })
       .columns(expandColumns);
@@ -166,6 +167,7 @@ class RemoteHandler {
     const entry = await sourceService.run(selectEntry);
 
     // REVISIT: How to call service datasource w/o handlers
+    // REVISIT: const result = await targetService.read(target).columns(req.query.SELECT.columns).where({ [targetKeyFieldName]: entry[keyFieldName] });
     // TODO: Seems not to respect filter for targetkeyFieldName
     const selectTarget = SELECT(req.query.SELECT.columns)
       .from(target)
@@ -197,7 +199,7 @@ class RemoteHandler {
   }
 
   isRemote(entityName) {
-    return this.serviceFor(entityName) !== this.service;
+    return this.serviceFor(entityName) !== cds.db;
   }
 
   isSeparated(entityNameA, entityNameB) {
