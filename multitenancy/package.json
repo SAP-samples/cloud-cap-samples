@@ -7,7 +7,7 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "5.0.6",
-    "@sap/cds-mtx": "1.2.1",
+    "@sap/cds-mtx": "git+https://github.wdf.sap.corp/cdx/cds-mtx.git#dev/linterSampleTest",
     "@sap/hana-client": "^2",
     "@sap/hdi-deploy": "^4",
     "@sap/instance-manager": "^2",
@@ -71,6 +71,10 @@
         "deploy-format": "hdbtable"
       },
       "mtx": {
+        "element-prefix": [
+          "Z_",
+          "ZZ_"
+        ],
         "namespace-blocklist": [
           "com.sap.",
           "sap."
