@@ -168,7 +168,6 @@ class RemoteHandler {
 
     // REVISIT: How to call service datasource w/o handlers
     // REVISIT: const result = await targetService.read(target).columns(req.query.SELECT.columns).where({ [targetKeyFieldName]: entry[keyFieldName] });
-    // TODO: Seems not to respect filter for targetkeyFieldName
     const selectTarget = SELECT(req.query.SELECT.columns)
       .from(target)
       .where({ [targetKeyFieldName]: entry[keyFieldName] });

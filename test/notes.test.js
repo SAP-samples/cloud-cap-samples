@@ -109,6 +109,16 @@ const NotesExpandSuppliers = [
         }
     ];
 
+const BPMock = {
+  url: /.*/,
+  data: BPs
+};
+
+const BP11Mock = {
+  url: /\/A_BusinessPartner\?.*\$filter=BusinessPartner%20eq%20%2711%27/,
+  data: [ BPs[0] ]
+};
+
 class MockServer {
   async start() {
     const http = require('http');
@@ -116,11 +126,27 @@ class MockServer {
     this.app = express();
     this.server = http.createServer(this.app).listen();
     this.app.set('port', this.server.address().port);
+    this.mocks = [];
 
     this.app.get("*", (req, res) => {
+      const mock = this.mocks.shift();
+      if (!mock || !req.url.match(mock.url)) {
+        res.writeHead(404);
+        res.end();
+        return;
+      }
+
       res.writeHead(200);
-      res.end(JSON.stringify(BPs));
+      res.end(JSON.stringify(mock.data));
     });
+  }
+
+  reset() {
+    this.mocks = [];
+  }
+
+  add(mock) {
+    this.mocks.push(mock);
   }
 
   url() {
@@ -153,6 +179,10 @@ describe("Notes", () => {
       },
     });
 
+  });
+
+  beforeEach( () => {
+    mockServer.reset();
   });
 
   const { expect, GET, PATCH } = require(".").run(
@@ -193,6 +223,7 @@ describe("Notes", () => {
   });
 
   it("get remote suppliers", async () => {
+    mockServer.add(BPMock);
     const { status, data } = await GET("/notes/Suppliers");
 
     expect({ status, data }).to.containSubset({
@@ -202,6 +233,7 @@ describe("Notes", () => {
   });
 
   it("get remote suppliers with notes", async () => {
+    mockServer.add(BPMock);
     const { status, data } = await GET("/notes/Suppliers?$expand=notes");
 
     expect({ status, data }).to.containSubset({
@@ -211,6 +243,7 @@ describe("Notes", () => {
   });
 
   it("get notes via navigation", async () => {
+    mockServer.add(BPMock);
     const { status, data } = await GET("/notes/Suppliers('11')/notes");
 
     expect({ status, data }).to.containSubset({
@@ -220,6 +253,7 @@ describe("Notes", () => {
   });
 
   it("get notes with suppliers", async () => {
+    mockServer.add(BPMock);
     const { status, data } = await GET("/notes/Notes?$expand=supplier");
 
     expect({ status, data }).to.containSubset({
@@ -228,18 +262,14 @@ describe("Notes", () => {
     });
   });
 
-      // TODO: Seems not to respect filter for targetKeyFieldName
-      /*
-
-  it.only("get supplier via navigation", async () => {
-    const { status, data } = await GET("/notes/Notes(545A3CF9-84CF-46C8-93DC-E29F0F2BC6BE)/supplier");
+  it("get supplier via navigation", async () => {
+    mockServer.add(BP11Mock);
+    const { status, data } = await GET(`/notes/Notes(${ NotesExpandSuppliers[1].ID })/supplier`);
     expect({ status, data }).to.containSubset({
       status: 200,
-      data: envelope("Suppliers", NotesExpandSuppliers[0].supplier )
+      data: envelope("../$metadata#Suppliers/$entity", NotesExpandSuppliers[1].supplier )
     });
   });
-  */
 
-
-  after(() => mockServer.close());
+  afterAll(() => mockServer.close());
 });
