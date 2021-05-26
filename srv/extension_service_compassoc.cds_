@@ -1,0 +1,14 @@
+using from '_base/srv/admin-service';
+using from '_base/srv/cat-service';
+using from '_base/srv/orders-service';
+
+using from '../db/field_extension';
+using { Z_bookshop.compExtension as comp } from '../db/comp_extension';
+using { Z_bookshop.assocExtension as assoc } from '../db/assoc_extension';
+
+
+extend service OrdersService with {
+   entity Z_Customers   as projection on assoc.Z_Customers;
+   entity Z_SalesRegion as projection on assoc.Z_SalesRegion;
+}
+

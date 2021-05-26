@@ -1,0 +1,41 @@
+using {sap.capire.bookshop} from '_base/db/schema';
+using {sap.capire.orders}   from '_base/db/schema';
+using from '_base/db/capire_common';
+using {Z_bookshop.assocExtension as assoc} from './assoc_extension';
+
+using {
+    cuid, managed, Country, sap.common.CodeList
+} from '@sap/cds/common';
+
+
+
+namespace Z_bookshop.compExtension;
+
+
+// extend existing entity 
+extend orders.Orders with { 
+  Z_Remarks     : Composition of many Z_Remarks on Z_Remarks.parent = $self;
+}  
+
+// new entity - as composition target
+entity Z_CustomerPostalAddresses : cuid, managed 
+{
+  Customer       : Association to one assoc.Z_Customers;
+  description    : String;
+  street         : String;
+  town           : String;
+  country        : Country;
+}
+
+
+// new entity - as composition target
+entity Z_Remarks : cuid, managed
+{  
+  parent      : Association to one orders.Orders;  
+  number      : Integer;  
+  remarksLine : String; 
+}
+
+extend assoc.Z_Customers with {
+  PostalAddresses : Composition of many Z_CustomerPostalAddresses on PostalAddresses.Customer = $self;
+}
