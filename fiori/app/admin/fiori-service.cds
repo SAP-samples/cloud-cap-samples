@@ -70,7 +70,7 @@ annotate AdminService.Authors with @(
 annotate sap.capire.bookshop.Books with @fiori.draft.enabled;
 annotate AdminService.Books with @odata.draft.enabled;
 
-annotate AdminService.Books_texts with @(
+annotate AdminService.Books.texts with @(
 	UI: {
 		Identification: [{Value:title}],
 		SelectionFields: [ locale, title ],
@@ -83,7 +83,7 @@ annotate AdminService.Books_texts with @(
 );
 
 // Add Value Help for Locales
-annotate AdminService.Books_texts {
+annotate AdminService.Books.texts {
 	locale @ValueList:{entity:'Languages',type:#fixed}
 }
 // In addition we need to expose Languages through AdminService
