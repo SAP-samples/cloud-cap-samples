@@ -26,7 +26,7 @@
     "fiori": "cds watch fiori",
     "media": "cds watch media",
     "mocha": "npx mocha || echo",
-    "jest": "npx jest@^26",
+    "jest": "npx jest",
     "test": "npm run jest --silent"
   },
   "mocha": {
