@@ -43,7 +43,7 @@ describe('Localized Data', () => {
       { title: 'Jane Eyre', author: 'Charlotte Brontë', currency: { name: 'Pfund' } },
       { title: 'The Raven', author: 'Edgar Allen Poe', currency: { name: 'US-Dollar' } },
       { title: 'Eleonora', author: 'Edgar Allen Poe', currency: { name: 'US-Dollar' } },
-      { title: 'Catweazle', author: 'Richard Carpenter', currency: { name: 'Euro' } },
+      { title: 'Catweazle', author: 'Richard Carpenter', currency: { name: 'Yen' } },
     ])
   })
 
@@ -85,7 +85,7 @@ describe('Localized Data', () => {
       { title: 'Jane Eyre', currency: { name: 'British Pound' } },
       { title: 'The Raven', currency: { name: 'US Dollar' } },
       { title: 'Eleonora',  currency: { name: 'US Dollar' } },
-      { title: 'Catweazle', currency: { name: 'Euro' } },
+      { title: 'Catweazle', currency: { name: 'Yen' } },
     ])
   })
 })
