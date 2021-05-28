@@ -35,7 +35,7 @@ const books = new Vue ({
             try {
                 const res = await POST(`/submitOrder`, { amount, book: book.ID })
                 book.stock = res.data.stock
-                books.order = { amount, succeeded: `Successfully orderd ${amount} item(s).` }
+                books.order = { amount, succeeded: `Successfully ordered ${amount} item(s).` }
             } catch (e) {
                 books.order = { amount, failed: e.response.data.error.message }
             }
