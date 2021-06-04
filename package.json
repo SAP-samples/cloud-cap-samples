@@ -16,11 +16,14 @@
     "express": "^4"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.0",
     "cds-swagger-ui-express": "^0.2.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
-    "sqlite3": "^5.0.0"
+    "sqlite3": "^5.0.0",
+    "ts-jest": "^27.0.2"
   },
   "scripts": {
     "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",
@@ -30,7 +33,8 @@
     "media": "cds watch media",
     "mocha": "npx mocha || echo",
     "jest": "npx jest",
-    "test": "npm run jest --silent"
+    "test": "npm run jest --silent --testMatch test/*.test.js && npm run test:ts",
+    "test:ts": "npm run jest --silent --preset ts-jest --testMatch test/*.test.ts"
   },
   "mocha": {
     "parallel": true
