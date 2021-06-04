@@ -1,0 +1,14 @@
+
+@S4bupa = http://localhost:4006/api-business-partner
+
+#################################################
+#
+#   Suppliers Service (-> S/4)
+#
+
+PATCH {{S4bupa}}/A_BusinessPartner('ACME')
+Content-Type: application/json
+
+{ "FirstName":"ACME" }
+
+###
