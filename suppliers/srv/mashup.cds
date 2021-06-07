@@ -58,7 +58,7 @@ extend projection CatalogService.ListOfBooks with {
 extend service S4 {
   @type: 'sap.s4.beh.businesspartner.v1.BusinessPartner.Changed.v1'
   event BusinessPartner.Changed {
-    BusinessPartner: S4.A_BusinessPartner:BusinessPartner;
+    BusinessPartner: String(10);
   }
 }
 
