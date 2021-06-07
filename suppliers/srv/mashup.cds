@@ -81,6 +81,6 @@ extend projection CatalogService.ListOfBooks with {
 extend service S4 {
   @topic: 'BusinessPartner/Changed'
   event BusinessPartner.Changed {
-    BusinessPartner: S4.A_BusinessPartner:BusinessPartner;
+    BusinessPartner: String(10);
   }
 }
