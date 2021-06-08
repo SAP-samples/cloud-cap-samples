@@ -3,7 +3,7 @@ service CatalogService @(path:'/browse') {
 
   /** For displaying lists of Books */
   @readonly entity ListOfBooks as projection on Books {
-    ID, author, genre, price, currency
+    ID, title, author, genre, price, currency
   }
 
   /** For display in details pages */
