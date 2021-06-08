@@ -1,12 +1,7 @@
-////////////////////////////////////////////////////////////////////////////
-//
-//    Mashing up imported models...
-//
-
+namespace sap.capire.bookshop; //> allows UPDATE('Books')...
 //
 //  Extend Books with access to Reviews and average ratings
 //
-
 using { CatalogService.ListOfBooks, sap.capire.bookshop.Books } from '@capire/bookshop';
 using { ReviewsService.Reviews } from '@capire/reviews';
 extend Books with {
@@ -14,12 +9,3 @@ extend Books with {
   rating  : Reviews:rating;
 }
 extend projection ListOfBooks with { rating }
-
-//
-//  Extend Orders with Books as Products
-//
-
-using { sap.capire.orders.Orders_Items } from '@capire/orders';
-extend Orders_Items with {
-  book : Association to Books on product.ID = book.ID
-}

@@ -9,19 +9,12 @@ cds.emit = function (event,...args) {
 }
 
 cds.once('bootstrap',(app)=>{
-  app.use ('/orders/webapp', _from('@capire/orders/app/orders/webapp/manifest.json'))
-  app.use ('/bookshop', _from('@capire/bookshop/app/vue/index.html'))
-  app.use ('/reviews', _from('@capire/reviews/app/vue/index.html'))
+  app.serve ('/orders/webapp').from('@capire/orders','app/orders/webapp')
+  app.serve ('/bookshop').from('@capire/bookshop','app/vue')
+  app.serve ('/reviews').from('@capire/reviews','app/vue')
 })
 
 cds.once('served', require('./srv/mashup'))
 cds.once('served', require('@capire/suppliers/srv/mashup'))
 
 module.exports = cds.server
-
-
-// -----------------------------------------------------------------------
-// Helper for serving static content from npm-installed packages
-const {static} = require('express')
-const {dirname} = require('path')
-const _from = target => static (dirname (require.resolve(target)))
