@@ -13,5 +13,5 @@
       "**/cds/lib/req/cls.js",
       "**/odata-v4/okra/**"
     ]
-  },
+  }
 }
