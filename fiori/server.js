@@ -1,5 +1,13 @@
 const cds = require ('@sap/cds')
 
+cds.emit = function (event,...args) {
+  switch (event) {
+    case 'served': return this.served = Promise.all (this.listeners(event).map (each => each.call(this,...args)))
+    case 'listening': return this.served.then (()=> this.__proto__.emit.call (this, event, ...args))
+    default: return this.__proto__.emit.call (this, event, ...args)
+  }
+}
+
 cds.once('bootstrap',(app)=>{
   app.use ('/orders/webapp', _from('@capire/orders/app/orders/webapp/manifest.json'))
   app.use ('/bookshop', _from('@capire/bookshop/app/vue/index.html'))
