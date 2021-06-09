@@ -3,21 +3,50 @@
   you actually want to use from there.
  */
 
+using { sap.capire.bookshop as bookshop } from '@capire/bookshop';
 using { API_BUSINESS_PARTNER as S4 } from './external/API_BUSINESS_PARTNER.csn';
-extend service S4 with {
-  entity Suppliers as projection on S4.A_BusinessPartner {
+
+@cds.autoexpose // or expose explicitly in Catalog and AdminService
+@cds.persistence: {table,skip:false} // add persistency
+entity sap.capire.bookshop.Suppliers as projection on S4.A_BusinessPartner {
+    // TODO: Aliases not supported in Java, yet?
     key BusinessPartner as ID,
     BusinessPartnerFullName as name,
+
     // REVISIT: following is not supported so far in cds compiler...
     // to_BusinessPartnerAddress as city {
     //    CityCode as code,
     //    CityName as name
     // }
+
+    // to_BusinessPartnerAddress
+
     // REVISIT: following is not supported so far in cqn2odata...
     // to_BusinessPartnerAddress.CityCode as city,
     // to_BusinessPartnerAddress.CityName as city_name,
-  }
+
+    //// REVISIT: Should this be here or in the service, when it is only used for Fiori?
+    //// Compositions should work as well
+    //// The version with "virtual" is prefered, as this makes clear that the association is "added" here
+    // virtual books: Association to Books on book.supplier = $self,
+    // books2: Association to Books on book.supplier = $self,
+    //// Add virtual field, that does'nt exisits in the persistence or the underlying service
+    // virtual saveEnabled: Boolean
+} excluding {
+    OrganizationBPName1, OrganizationBPName2,OrganizationBPName3, OrganizationBPName4, to_BuPaIdentification, to_BuPaIndustry, to_BusinessPartnerAddress, to_BusinessPartnerBank, to_BusinessPartnerContact, to_BusinessPartnerRole, to_BusinessPartnerTax, to_Customer, to_Supplier
 }
+
+
+// REVISIT: Alternative idea to use a specific replication view, but request data from
+// a different view and manual map values.
+// entity ReplicatedSuppliers as projection on Suppliers {
+//   ID,
+//   name,
+//   to_BusinessPartnerAddress.CityCode as city,
+//   to_BusinessPartnerAddress.CityName as city_name
+// }
+
+
 
 
 /*
@@ -26,7 +55,7 @@ extend service S4 with {
  */
 using { sap.capire.bookshop.Books, CatalogService } from '@capire/bookshop';
 extend Books with {
-  supplier : Association to S4.Suppliers;
+  supplier : Association to bookshop.Suppliers;
 }
 
 
@@ -36,14 +65,8 @@ extend Books with {
   addressed to your services into calls to the external service.
  */
 extend service AdminService with {
-  entity Suppliers as projection on S4.Suppliers;
+  entity Suppliers as projection on bookshop.Suppliers;
 }
-
-/*
-  Optionally add a local persistence to keep replicas of external
-  entities to have data in fast access locally; much like a cache.
- */
-annotate S4.Suppliers with @cds.persistence:{table,skip:false};
 
 /**
   Having locally cached replicas also allows us to display supplier
@@ -54,11 +77,10 @@ extend projection CatalogService.ListOfBooks with {
   supplier.name as supplier
 }
 
-// Extend S4 service with modeled event
+// Extend S4 service with an event (events are not included in EDMX files)
 extend service S4 {
   @type: 'sap.s4.beh.businesspartner.v1.BusinessPartner.Changed.v1'
   event BusinessPartner.Changed {
-    BusinessPartner: String(10);
+    BusinessPartner: S4.A_BusinessPartner:BusinessPartner;
   }
 }
-

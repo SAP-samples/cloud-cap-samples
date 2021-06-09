@@ -12,7 +12,7 @@ module.exports = async()=>{ // called by server.js
   const db = await cds.connect.to('db')                         //> our primary database
 
   // Reflect CDS definition of the Suppliers entity
-  const { Suppliers } = S4bupa.entities
+  const Suppliers  = db.entities["sap.capire.bookshop.Suppliers"];
 
   admin.prepend (()=>{ //> to ensure our .on handlers below go before the default ones
 
@@ -23,12 +23,15 @@ module.exports = async()=>{ // called by server.js
     })
 
     // Replicate Supplier data when edited Books have suppliers
-    admin.on (['CREATE','UPDATE'], 'Books', ({data:{supplier}}, next) => {
+    admin.on (['CREATE','UPDATE'], 'Books', async ({data:{supplier_ID: supplierId}}, next) => {
       // Using Promise.all(...) to parallelize local write, i.e. next(), and replication
-      if (supplier) return Promise.all ([ next(), async()=>{
-        let replicated = await db.exists (Suppliers, supplier)
-        if (!replicated) await replicate (supplier, 'initial')
-      }])
+
+      const replicateIfNotExists = async()=>{
+        let replicated = await db.exists (Suppliers, supplierId);
+        if (!replicated) await replicate (supplierId, 'initial');
+      };
+
+      if (supplierId) return Promise.all ([ next(), replicateIfNotExists() ])
       else return next() //> don't forget to pass down the interceptor stack
     })
 
@@ -36,22 +39,47 @@ module.exports = async()=>{ // called by server.js
 
   // Subscribe to changes in the S4 origin of Suppliers data
   S4bupa.on ('BusinessPartner.Changed', async msg => { //> would be great if we had batch events from S/4
-    let replica = await SELECT.one('ID').from (Suppliers) .where ({ID: msg.data.BusinessPartner})
-    if (replica) return replicate (replica.ID)
+    await new Promise( resolve => setTimeout( resolve, 1000 ));
+    const id = msg.data.BusinessPartner;
+    let replica = await SELECT.one('ID').from (Suppliers) .where ('ID =', id);
+    if (replica) await replicate(id);
   })
 
   /**
    * Helper function to replicate Suppliers data.
-   * @param {string|string[]} IDs a single ID or an array of IDs
+   * @param {string} a single ID
    * @param {truthy|falsy} _initial indicates whether an insert or an update is required
    */
-  async function replicate (IDs,_initial) {
-    if (!Array.isArray(IDs)) IDs = [ IDs ]
-    let suppliers = await S4bupa.read (Suppliers).where('ID in',IDs)
+  async function replicate (id,_initial) {
+    // TODO: Doesn't work when running in same process with mocked API_BUSINESS_PARTNER
+
+    // TODO: Doesn't work because fields are not mapped back!
+    //let supplier = await S4bupa.run(SELECT.one('*').from(Suppliers).where('ID =',id));
+
+    let suppliers = await S4bupa.read(Suppliers).where('ID =',id);
     if (_initial) return db.insert (suppliers) .into (Suppliers) //> using bulk insert
-    else return Promise.all(suppliers.map ( //> parallelizing updates
-      each => db.update (Suppliers,each.ID) .with (each)
-    ))
+    else return db.update(Suppliers,id) .with (suppliers[0]);
+  }
+
+
+  // TODO: remove test code
+  {
+    // one server: returns AdminService.Suppliers
+    // two servers: returns API_BUSINESS_PARTNER.A_BusinessPartner
+    const tx = S4bupa.tx({});
+    let result = await tx.run(SELECT('*').from ('AdminService.Suppliers') .where ('ID =', 'ACME'));
+    tx.commit();
+    console.log(result);
+  }
+
+  // TODO: remove test code
+  {
+    // one server: returns AdminService.Suppliers
+    // two servers: returns AdminService.Suppliers
+    const tx = db.tx({});
+    let result = await db.run(SELECT('*').from ('AdminService.Suppliers') .where ('ID =', 'ACME'));
+    tx.commit();
+    console.log(result);
   }
 
 }

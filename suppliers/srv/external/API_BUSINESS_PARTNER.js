@@ -1,11 +1,10 @@
-const cds = require("@sap/cds");
+const cds = require('@sap/cds');
 
 module.exports = cds.service.impl(function () {
   const { A_BusinessPartner } = this.entities;
 
-  this.after("UPDATE", A_BusinessPartner, (data, req) =>
-    this.tx(req).emit("BusinessPartner.Changed", {
-      BusinessPartner: data.BusinessPartner
-    })
-  );
+  // https://api.sap.com/event/SAPS4HANACloudBusinessEvents_BusinessPartner/resource
+  this.after('UPDATE', A_BusinessPartner, async data => {
+    await this.emit("BusinessPartner.Changed", { BusinessPartner: data.BusinessPartner });
+  });
 });

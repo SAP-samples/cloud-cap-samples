@@ -7,7 +7,7 @@
     "@capire/orders": "*",
     "@capire/reviews": "*",
     "@capire/suppliers": "*",
-    "@sap/cds": "^5",
+    "@sap/cds": ">=5",
     "express": "^4.17.1",
     "passport": "^0.4.1"
   },
