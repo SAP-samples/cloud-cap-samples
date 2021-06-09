@@ -85,13 +85,12 @@ In case you've a question, find a bug, or otherwise need support, use our [commu
 
 Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSE.txt) file.
 
-# Suppliers - in progress for Service Consumption -
+# Suppliers - in progress for Messaging & Service Consumption -
 
 ## TODOs
 
-1. Fix problem with `await S4bupa.read (Suppliers).where('ID in',IDs)` --> Johannes
-2. Fix issues when running in same process
-3. Automated tests
+1. Fix issues when running in same process
+2. Automated tests
 
 ## Usage
 
