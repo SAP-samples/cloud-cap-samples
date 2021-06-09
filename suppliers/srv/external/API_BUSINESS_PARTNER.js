@@ -5,7 +5,6 @@ module.exports = cds.service.impl(function () {
 
   // https://api.sap.com/event/SAPS4HANACloudBusinessEvents_BusinessPartner/resource
   this.after('UPDATE', A_BusinessPartner, async data => {
-    console.log(`>>> BusinessPartner updated ${data.BusinessPartner}`);
     await this.emit("BusinessPartner.Changed", { BusinessPartner: data.BusinessPartner });
   });
 });

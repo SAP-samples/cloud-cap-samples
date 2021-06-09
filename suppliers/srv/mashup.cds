@@ -77,9 +77,9 @@ extend projection CatalogService.ListOfBooks with {
   supplier.name as supplier
 }
 
-// Extend S4 service with not modelled event
+// Extend S4 service with an event (events are not included in EDMX files)
 extend service S4 {
-  @topic: 'BusinessPartner/Changed'
+  @type: 'sap.s4.beh.businesspartner.v1.BusinessPartner.Changed.v1'
   event BusinessPartner.Changed {
     BusinessPartner: String(10);
   }
