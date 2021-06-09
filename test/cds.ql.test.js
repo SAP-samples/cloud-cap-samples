@@ -289,7 +289,7 @@ describe('cds.ql → cqn', () => {
                 'and',
                 { ref: ['args'] },
                 'in',
-                { list: [{ val: 'foo' }, { val: 'bar' }, { val: 3 }] },
+                { list: args.map(val => ({ val })) },
                 'and',
                 '(', //> this one is missing, and that's changing the logic -> that's a BUG
                 { ref: ['x'] },
