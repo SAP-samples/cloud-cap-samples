@@ -38,7 +38,11 @@ GET {{bookshop}}/browse/Books(201)?
 &$select=ID,title,rating
 &$expand=reviews
 
+###
 
+GET {{bookshop}}/browse/Books?
+  &$select=title,author&$expand=currency
+Accept-Language: de
 
 #################################################
 #
