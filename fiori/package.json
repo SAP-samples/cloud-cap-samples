@@ -20,12 +20,12 @@
       "deploy-format": "hdbtable"
     },
     "requires": {
-      "auth": {
-        "strategy": "dummy"
-      },
       "API_BUSINESS_PARTNER": {
         "kind": "odata",
         "model": "@capire/suppliers"
+      },
+      "auth": {
+        "strategy": "dummy"
       },
       "ReviewsService": {
         "kind": "odata",
