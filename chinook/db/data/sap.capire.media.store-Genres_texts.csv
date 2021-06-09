@@ -1,0 +1,76 @@
+ID;locale;name
+1;ru;Рок
+1;fr;Roche
+1;de;Felsen
+2;ru;Джаз
+2;fr;le jazz
+2;de;Jazz
+3;ru;Металл
+3;fr;Métal
+3;de;Metall
+4;ru;Альтернатива и панк
+4;fr;Alternatif et punk
+4;de;Alternative & Punk
+5;ru;Рок-н-ролл
+5;fr;Rock and roll
+5;de;Rock'n'Roll
+6;ru;Блюз
+6;fr;Blues
+6;de;Blues
+7;ru;Латинский
+7;fr;Latine
+7;de;Latein
+8;ru;Регги
+8;fr;Reggae
+8;de;Reggae
+9;ru;Поп
+9;fr;Pop
+9;de;Pop
+10;ru;Саундтрек
+10;fr;Bande sonore
+10;de;Soundtrack
+11;ru;Босса-нова
+11;fr;Bossa Nova
+11;de;Bossa Nova
+12;ru;Легко слушать
+12;fr;Écoute facile
+12;de;Einfaches Zuhören
+13;ru;Тяжелый металл
+13;fr;Heavy métal
+13;de;Einfaches Zuhören
+14;ru;R&B / Соул 
+14;fr;R&B / Soul
+14;de;R&B / Soul
+15;ru;Электроника / Танцы
+15;fr;Électronique / danse
+15;de;Elektronisch / Tanz
+16;ru;Мир
+16;fr;Monde
+16;de;Welt
+17;ru;Хип-хоп / рэп
+17;fr;Hip-hop / Rap
+17;de;Hip Hop / Rap
+18;ru;Научная фантастика
+18;fr;Science fiction
+18;de;Science-Fiction
+19;ru;ТВ шоу
+19;fr;Émissions de télévision
+19;de;Fernsehshows
+20;ru;Научная фантастика и фэнтези
+20;fr;Science-fiction et fantastique
+20;de;Sci Fi & Fantasy
+21;ru;Драма
+21;fr;Drame
+21;de;Theater
+22;ru;Комедия
+22;fr;La comédie
+22;de;Komödie
+23;ru;Альтернатива
+23;fr;Alternative
+23;de;Alternative
+24;ru;Классический
+24;fr;Classique
+24;de;Klassik
+25;ru;Опера
+25;fr;Opéra
+25;de;Oper

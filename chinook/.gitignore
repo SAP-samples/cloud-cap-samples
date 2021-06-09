@@ -1,0 +1,35 @@
+# CAP media-store
+_out
+*.db
+connection.properties
+default-*.json
+gen/
+node_modules/
+target/
+package-lock.json
+app/build
+
+# html5Deployer
+app/deployers/html5Deployer/resources/
+
+# Web IDE, App Studio
+.che/
+.gen/
+
+# MTA
+*_mta_build_tmp
+*.mtar
+*.mta
+mta_archives/
+
+# Other
+.DS_Store
+*.orig
+*.log
+
+*.iml
+*.flattened-pom.xml
+
+# IDEs
+# .vscode
+# .idea
