@@ -62,6 +62,8 @@ Each sub directory essentially is an individual npm package arranged in an [all-
 - A [composite app, reusing and combining](https://cap.cloud.sap/docs/guides/verticalize) these packages:
   - [@capire/bookshop](bookshop)
   - [@capire/common](common)
+  - [@capire/orders](orders)
+  - [@capire/reviews](reviews)
   - [@capire/suppliers](suppliers)
 - [Adds an SAP Fiori elements application](https://cap.cloud.sap/docs/guides/fiori/) to bookshop, thereby introducing to:
   - [OData Annotations](https://cap.cloud.sap/docs/guides/fiori#adding-odata-annotations) in `.cds` files
