@@ -280,7 +280,7 @@ describe('cds.ql → cqn', () => {
       ).to.eql({
         SELECT: {
           from: { ref: ['Foo'] },
-          where: cds.version >= '5.3.0'
+          where: cds.version >= '5.2.0'
             ? [
                 // '(', //> this one is not required
                 { ref: ['ID'] },
