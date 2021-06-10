@@ -40,6 +40,7 @@ module.exports = async()=>{ // called by server.js
   // Subscribe to changes in the S4 origin of Suppliers data
   S4bupa.on ('BusinessPartner.Changed', async msg => { //> would be great if we had batch events from S/4
     await new Promise( resolve => setTimeout( resolve, 1000 ));
+    console.log(">>", msg.event)
     const id = msg.data.BusinessPartner;
     let replica = await SELECT.one('ID').from (Suppliers) .where ('ID =', id);
     if (replica) await replicate(id);
