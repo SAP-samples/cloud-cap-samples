@@ -32,7 +32,7 @@
       },
       "[hybrid]": {
         "messaging": {
-          "kind": "enterprise-messaging"
+          "kind": "enterprise-messaging-shared"
         }
       }
     }
