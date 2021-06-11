@@ -3,7 +3,7 @@
 */
 
 using from './admin/fiori-service';
-using from './browse/fiori-service';
+//using from './browse/fiori-service';
 using from './common';
 
 using from '@capire/common';
