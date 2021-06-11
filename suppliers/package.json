@@ -16,7 +16,7 @@
   "cds": {
     "requires": {
       "API_BUSINESS_PARTNER": {
-        "kind": "odata",
+        "kind": "odata-v2",
         "model": "srv/external/API_BUSINESS_PARTNER",
         "[hybrid]": {
           "credentials": {
