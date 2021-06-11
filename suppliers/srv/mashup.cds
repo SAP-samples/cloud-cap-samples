@@ -8,6 +8,7 @@ using { API_BUSINESS_PARTNER as S4 } from './external/API_BUSINESS_PARTNER.csn';
 
 @cds.autoexpose // or expose explicitly in Catalog and AdminService
 @cds.persistence: {table,skip:false} // add persistency
+@readonly
 entity sap.capire.bookshop.Suppliers as projection on S4.A_BusinessPartner {
     // TODO: Aliases not supported in Java, yet?
     key BusinessPartner as ID,

@@ -31,8 +31,10 @@ module.exports = async()=>{ // called by server.js
         if (!replicated) await replicate (supplierId, 'initial');
       };
 
-      if (supplierId) return Promise.all ([ next(), replicateIfNotExists() ])
-      else return next() //> don't forget to pass down the interceptor stack
+      if (supplierId)
+        return (await Promise.all ([ next(), replicateIfNotExists() ]))[0]
+      else
+        return next() //> don't forget to pass down the interceptor stack
     })
 
   })
