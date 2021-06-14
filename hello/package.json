@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "scripts": {
     "watch": "cds serve world.cds",
-    "watch:ts": "npx ts-node ../node_modules/@sap/cds/bin/cds serve world.cds"
+    "watch:ts": "cds-ts serve world.cds"
   }
 }
