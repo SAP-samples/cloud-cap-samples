@@ -99,27 +99,6 @@ extend service AdminService {
 	entity Languages as projection on sap.common.Languages;
 }
 
-annotate AdminService.Books with {
-	supplier @(
-		Common: {
-			Label: '{i18n>Supplier}',
-			ValueList: {
-				Label: '{i18n>Supplier}',
-				CollectionPath: 'Suppliers',
-				Parameters: [
-					{ $Type: 'Common.ValueListParameterInOut',
-						LocalDataProperty: supplier_ID,
-						ValueListProperty: 'ID'
-					},
-					{ $Type: 'Common.ValueListParameterDisplayOnly',
-						ValueListProperty: 'name'
-					}
-				]
-			}
-		}
-	);
-}
-
 annotate AdminService.Suppliers with
 	@(Capabilities.SearchRestrictions : {
     	Searchable : false
