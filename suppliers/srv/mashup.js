@@ -23,7 +23,8 @@ module.exports = async()=>{ // called by server.js
     })
 
     // Replicate Supplier data when edited Books have suppliers
-    admin.after (['CREATE','UPDATE'], 'Books', async ({supplier_ID:ID}) => {
+    admin.after (['CREATE','UPDATE'], 'Books', async data => {
+      const { supplier_ID: ID } = data
       if (ID) {
         let replicated = await db.exists (Suppliers,ID)
         if (!replicated) { // initially replicate Supplier info
