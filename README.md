@@ -97,14 +97,14 @@ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved. This
 1. Run:
 
    ```
-   cds mock API_BUSINESS_PARTNER -p 5001
+   CDS_ENV=local-hybrid cds mock API_BUSINESS_PARTNER -p 5001
    ```
 
 2. Wait until startup is completed
 3. Run in a 2nd terminal:
 
    ```
-   cds serve all --with-mocks --in-memory
+   CDS_ENV=local-hybrid cds serve all --with-mocks --in-memory
    ```
 
 4. Now, you can issues the requests listed in `suppliers/requests.http`
