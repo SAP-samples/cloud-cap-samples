@@ -8,7 +8,6 @@ namespace sap.capire.bookshop;
   actually interested in. This fosters both: (a) minimized network traffic as
   well as (b) options to dynamically add extension fields by SaaS tenants.
  */
-@cds.odata.valuelist
 entity Suppliers as projection on S4.A_BusinessPartner {
     key BusinessPartner as ID,
     BusinessPartnerFullName as name,
@@ -33,6 +32,7 @@ extend Books with {
   services into calls to the external service.
  */
 extend service AdminService with {
+  @cds.odata.valuelist
   entity Suppliers as projection on bookshop.Suppliers;
 }
 
