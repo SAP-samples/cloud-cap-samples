@@ -12,7 +12,7 @@ module.exports = async()=>{ // called by server.js
   const db = await cds.connect.to('db')                         //> our primary database
 
   // Reflect CDS definition of the Suppliers entity
-  const Suppliers  = db.entities["sap.capire.bookshop.Suppliers"];
+  const Suppliers  = db.entities.Suppliers;
 
   admin.prepend (()=>{ //> to ensure our .on handlers below go before the default ones
 
