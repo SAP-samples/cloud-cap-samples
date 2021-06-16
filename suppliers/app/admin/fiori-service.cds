@@ -119,3 +119,8 @@ annotate AdminService.Books with {
 		}
 	);
 }
+
+annotate AdminService.Suppliers with
+	@(Capabilities.SearchRestrictions : {
+    	Searchable : false
+});
