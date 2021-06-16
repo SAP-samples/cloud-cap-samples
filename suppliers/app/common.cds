@@ -22,7 +22,7 @@ annotate my.Books with @(
 			{Value: stock},
 			{Value: price},
 			{Value: currency.symbol, Label:' '},
-			{Value: supplier_ID},
+			{Value: supplier.ID},
 			{Value: supplier.name}
 		]
 	}
@@ -64,6 +64,7 @@ annotate my.Books with {
 
 annotate my.Suppliers with {
 	name @title:'{i18n>SupplierName}';
+	ID @title:'{i18n>Supplier}';
 }
 
 ////////////////////////////////////////////////////////////////////////////
