@@ -23,19 +23,14 @@ module.exports = async()=>{ // called by server.js
     })
 
     // Replicate Supplier data when edited Books have suppliers
-    admin.on (['CREATE','UPDATE'], 'Books', async ({data:{supplier_ID:ID}}, next) => {
+    admin.after (['CREATE','UPDATE'], 'Books', async ({supplier_ID:ID}) => {
       if (ID) {
-        // Using Promise.all(...) to parallelize local write, i.e. next(), and replication
-        const [result] = await Promise.all([ next(), (async()=>{
-          let replicated = await db.exists (Suppliers,ID)
-          if (!replicated) { // initially replicate Supplier info
+        let replicated = await db.exists (Suppliers,ID)
+        if (!replicated) { // initially replicate Supplier info
             let supplier = await S4bupa.read (Suppliers,ID)
             await INSERT(supplier) .into (Suppliers)
-          }
-        })()])
-        return result
+        }
       }
-      else return next() //> don't forget to pass down the interceptor stack
     })
 
   })
