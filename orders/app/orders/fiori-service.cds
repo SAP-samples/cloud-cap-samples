@@ -68,7 +68,7 @@ annotate OrdersService.Orders with @(
 
 
 
-annotate OrdersService.Orders_Items with @(
+annotate OrdersService.Orders.Items with @(
 	UI: {
 		LineItem: [
 			{Value: product_ID, Label:'Product ID'},

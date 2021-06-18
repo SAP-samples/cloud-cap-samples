@@ -1,0 +1,31 @@
+
+@Orders = http://localhost:4006/orders/Orders
+
+
+### Read Orders
+GET {{Orders}}?
+###
+GET {{Orders}}?$expand=Items
+###
+GET {{Orders}}(ID={{Order1}},IsActiveEntity=true)/Items
+
+
+
+@Order1 = 64e718c9-ff99-47f1-8ca3-950c850777d4
+@Order3 = e939604c-ab83-4d4f-bdb6-95fe30b3773e
+
+### Create order, still inactive
+POST {{Orders}}
+Content-Type: application/json
+
+{"ID": "{{Order3}}"}
+
+### Get inactive order.  We have to specify `IsActiveEntity`.
+GET {{Orders}}(ID={{Order3}},IsActiveEntity=false)
+
+### Activate order using `.../<servicename>.draftActivate`
+POST {{Orders}}(ID={{Order3}},IsActiveEntity=false)/OrdersService.draftActivate
+Content-Type: application/json
+
+### Get active order
+GET {{Orders}}(ID={{Order3}},IsActiveEntity=true)
