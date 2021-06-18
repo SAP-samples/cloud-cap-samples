@@ -11,7 +11,7 @@ entity Orders : cuid, managed {
 entity Orders.Items {
   key ID    : UUID;
   /*key*/ up_   : Association to Orders; // REVISIT: 'key' doesn't work due to bug in runtime
-  product   : Association to Products @assert.integrity:false; // REVISIT: this is a temporary workaround for a glitch in cds-runtime
+  product   : Association to Products;
   amount    : Integer;
   title     : String; //> intentionally replicated as snapshot from product.title or alike
   price     : Double;
@@ -21,7 +21,3 @@ entity Orders.Items {
 entity Products @(cds.persistence.skip:'always') {
   key ID : String;
 }
-
-
-// REVISIT: below is a workaround for a GAP in Fiori elements, which crashes for proxies
-// annotate Products with @cds.autoexpose;

@@ -3,7 +3,7 @@ class OrdersService extends cds.ApplicationService {
 
   /** register custom handlers */
   init(){
-    const { Orders_Items:OrderItems } = this.entities
+    const { 'Orders.Items':OrderItems } = this.entities
 
     this.before ('UPDATE', 'Orders', async function(req) {
       const { ID, Items } = req.data

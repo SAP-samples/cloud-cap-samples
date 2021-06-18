@@ -11,6 +11,7 @@
 
 
 using { OrdersService } from '../../srv/orders-service';
+using { sap.common } from '@capire/common';
 
 
 @odata.draft.enabled
@@ -77,13 +78,22 @@ annotate OrdersService.Orders.Items with @(
 			{Value: amount, Label:'Quantity'},
 		],
 		Identification: [ //Is the main field group
+			{Value: product_ID, Label:'Product ID'},
+			{Value: title, Label:'Product Title'},
 			{Value: amount, Label:'Amount'},
-			{Value: title, Label:'Product'},
 			{Value: price, Label:'Unit Price'},
 		],
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>OrderItems}', Target: '@UI.Identification'},
 		],
+		HeaderInfo: {
+			TypeName: 'Order Item', TypeNamePlural: 'Order Items',
+			Title: {
+				Label: 'Product ID ', //A label is possible but it is not considered on the ObjectPage yet
+				Value: product_ID
+			},
+			Description: {Value: createdBy}
+		},
 	},
 ) {
 	amount @(
