@@ -16,7 +16,6 @@
           <NavigationPropertyBinding Path="currency" Target="Currencies"/>
           <NavigationPropertyBinding Path="SiblingEntity" Target="Orders"/>
         </EntitySet>
-        <EntitySet Name="Products" EntityType="OrdersService.Products"/>
         <EntitySet Name="Currencies" EntityType="OrdersService.Currencies"/>
       </EntityContainer>
       <EntityType Name="Orders">
@@ -70,7 +69,7 @@
         </Key>
         <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
         <NavigationProperty Name="up_" Type="OrdersService.Orders" Partner="Items"/>
-        <NavigationProperty Name="product" Type="OrdersService.Products"/>
+        <NavigationProperty Name="product" Type="sap.capire.orders.Products"/>
         <Property Name="amount" Type="Edm.Int32"/>
         <Property Name="title" Type="Edm.String"/>
         <Property Name="price" Type="Edm.Double"/>
@@ -403,11 +402,13 @@
         <Annotation Term="Common.Label" String="{i18n>Description}"/>
       </Annotations>
     </Schema>
-    <EntityType Name="Products">
-      <Key>
-        <PropertyRef Name="ID"/>
-      </Key>
-      <Property Name="ID" Type="Edm.String" Nullable="false"/>
-    </EntityType>
-</edmx:DataServices>
+    <Schema Namespace="sap.capire.orders" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityType Name="Products">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.String" Nullable="false"/>
+      </EntityType>
+    </Schema>
+  </edmx:DataServices>
 </edmx:Edmx>
