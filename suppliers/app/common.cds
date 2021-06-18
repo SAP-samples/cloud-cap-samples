@@ -13,7 +13,7 @@ annotate my.Books with @(
 	Common.SemanticKey: [title],
 	UI: {
 		Identification: [{Value:title}],
-		SelectionFields: [ ID, author_ID, price, currency_code, supplier_ID, supplier.name ],
+		SelectionFields: [ ID, author_ID, price, currency_code, supplier.ID, supplier.name ],
 		LineItem: [
 			{Value: ID},
 			{Value: title},
