@@ -5,8 +5,9 @@
     { "name": "$XSAPPNAME.ExtendCDS", "description": "Extend CDS application" },
     { "name": "$XSAPPNAME.ExtendCDSdelete", "description": "Extend CDS application with undeploy" },
     { "name": "$XSAPPNAME.MtxDiagnose", "description": "Diagnose MTX sidecar" },
+    { "name": "$XSAPPNAME.mtdeployment", "description": "Deploy applications" },
     {
-      "name": "$XSAPPNAME.Callback",
+      "name": "$XSAPPNAME.mtcallback",
       "description": "With this scope set, the callbacks for subscribe, unsubscribe and getDependencies can be called.",
       "grant-as-authority-to-apps": [
       "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
@@ -32,6 +33,14 @@
         "$XSAPPNAME.ExtendCDSdelete"
       ],
       "attribute-references": []
+    },
+    {
+      "name": "MultitenancyAdministrator",
+      "description": "Multitenancy Administrator",
+      "scope-references": [
+        "$XSAPPNAME.mtcallback",
+        "$XSAPPNAME.mtdeployment"
+      ]
     }
   ]
 }
