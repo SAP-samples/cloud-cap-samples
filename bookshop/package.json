@@ -5,15 +5,13 @@
   "dependencies": {
     "@capire/common": "*",
     "@sap/cds": "^5.0.4",
-    "cors": "^2.8.5",
     "express": "^4.17.1",
     "passport": "0.4.1"
   },
   "scripts": {
     "genres": "cds serve test/genres.cds",
     "start": "cds run",
-    "watch": "cds watch",
-    "to-openapi": "cds compile srv --to openapi -s all -o srv --openapi:diagram"
+    "watch": "cds watch"
   },
   "cds": {
     "requires": {
