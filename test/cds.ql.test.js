@@ -280,7 +280,7 @@ describe('cds.ql → cqn', () => {
       ).to.eql({
         SELECT: {
           from: { ref: ['Foo'] },
-          where: cdr
+          where: cds.version >= '5.3.0'
             ? [
                 // '(', //> this one is not required
                 { ref: ['ID'] },
@@ -289,7 +289,7 @@ describe('cds.ql → cqn', () => {
                 'and',
                 { ref: ['args'] },
                 'in',
-                { val: args },
+                { list: args.map(val => ({ val })) },
                 'and',
                 '(', //> this one is missing, and that's changing the logic -> that's a BUG
                 { ref: ['x'] },
