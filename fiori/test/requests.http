@@ -38,7 +38,11 @@ GET {{bookshop}}/browse/Books(201)?
 &$select=ID,title,rating
 &$expand=reviews
 
+###
 
+GET {{bookshop}}/browse/Books?
+  &$select=title,author&$expand=currency
+Accept-Language: de
 
 #################################################
 #
@@ -63,3 +67,15 @@ Content-Type: application/json
 
 ### Get active order
 GET {{bookshop}}/orders/Orders(ID={{newOrderID}},IsActiveEntity=true)
+
+### Create author
+POST {{bookshop}}/admin/Authors
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "ID": 200,
+  "name": "William Shakespeare",
+  "dateOfBirth": "1564-04-26",
+  "dateOfDeath": "1616-04-23"
+}
