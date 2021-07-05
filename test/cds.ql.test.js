@@ -152,69 +152,69 @@ describe('cds.ql → cqn', () => {
       expect(CQL`SELECT *,a,b from Foo`).to.eql(CQL`SELECT from Foo{*,a,b}`)
       //> .to.eql... FIXME: see skipped 'should handle * correctly' below
       expect(SELECT.from(Foo, ['a', 'b', '*']))
-        .to.eql(SELECT.from(Foo).columns('a', 'b', '*'))
-        .to.eql(SELECT.from(Foo).columns(['a', 'b', '*']))
-        .to.eql(
-          SELECT.from(Foo, (foo) => {
-            foo.a, foo.b, foo('*')
-          })
-        )
-        .to.eql({
-          SELECT: {
-            from: { ref: ['Foo'] },
-            columns: [{ ref: ['a'] }, { ref: ['b'] }, cdr ? '*' : { ref: ['*'] }],
-          },
+      .to.eql(SELECT.from(Foo).columns('a', 'b', '*'))
+      .to.eql(SELECT.from(Foo).columns(['a', 'b', '*']))
+      .to.eql(
+        SELECT.from(Foo, (foo) => {
+          foo.a, foo.b, foo('*')
         })
+      )
+      .to.eql({
+        SELECT: {
+          from: { ref: ['Foo'] },
+          columns: [{ ref: ['a'] }, { ref: ['b'] }, cdr ? '*' : { ref: ['*'] }],
+        },
       })
+    })
 
-      test('from ( ..., => _.expand ( x=>{...}))', () => {
-        // SELECT from Foo { *, x, bar.*, car{*}, boo { *, moo.zoo } }
-        expect(
-          SELECT.from(Foo, (foo) => {
-            foo('*'),
-              foo.x,
-              foo.car('*'),
-              foo.boo((b) => {
-                b('*'), b.moo.zoo((x) => x.y.z)
-              })
-          })
-        ).to.eql({
-          SELECT: {
-            from: { ref: ['Foo'] },
-            columns: [
-              cdr ? '*' : { ref: ['*'] },
-              { ref: ['x'] },
-              { ref: ['car'], expand: ['*'] },
-              {
-                ref: ['boo'],
-                expand: ['*', { ref: ['moo', 'zoo'], expand: [{ ref: ['y', 'z'] }] }],
-              },
-            ],
-          },
+    test('from ( ..., => _.expand ( x=>{...}))', () => {
+      // SELECT from Foo { *, x, bar.*, car{*}, boo { *, moo.zoo } }
+      expect(
+        SELECT.from(Foo, (foo) => {
+          foo('*'),
+            foo.x,
+            foo.car('*'),
+            foo.boo((b) => {
+              b('*'), b.moo.zoo((x) => x.y.z)
+            })
         })
+      ).to.eql({
+        SELECT: {
+          from: { ref: ['Foo'] },
+          columns: [
+            cdr ? '*' : { ref: ['*'] },
+            { ref: ['x'] },
+            { ref: ['car'], expand: ['*'] },
+            {
+              ref: ['boo'],
+              expand: ['*', { ref: ['moo', 'zoo'], expand: [{ ref: ['y', 'z'] }] }],
+            },
+          ],
+        },
       })
+    })
 
-      test('from ( ..., => _.inline ( _=>{...}))', () => {
-        // SELECT from Foo { *, x, bar.*, car{*}, boo { *, moo.zoo } }
-        expect(
-          SELECT.from(Foo, (foo) => {
-            foo.bar('*'),
-              foo.bar('.*'), //> leading dot indicates inline
-              foo.boo((x) => x.moo.zoo),
-              foo.boo((_) => _.moo.zoo) //> underscore arg name indicates inline
-          })
-        ).to.eql({
-          SELECT: {
-            from: { ref: ['Foo'] },
-            columns: [
-              { ref: ['bar'], expand: ['*'] },
-              { ref: ['bar'], inline: ['*'] },
-              { ref: ['boo'], expand: [{ ref: ['moo', 'zoo'] }] },
-              { ref: ['boo'], inline: [{ ref: ['moo', 'zoo'] }] },
-            ],
-          },
+    test('from ( ..., => _.inline ( _=>{...}))', () => {
+      // SELECT from Foo { *, x, bar.*, car{*}, boo { *, moo.zoo } }
+      expect(
+        SELECT.from(Foo, (foo) => {
+          foo.bar('*'),
+            foo.bar('.*'), //> leading dot indicates inline
+            foo.boo((x) => x.moo.zoo),
+            foo.boo((_) => _.moo.zoo) //> underscore arg name indicates inline
         })
+      ).to.eql({
+        SELECT: {
+          from: { ref: ['Foo'] },
+          columns: [
+            { ref: ['bar'], expand: ['*'] },
+            { ref: ['bar'], inline: ['*'] },
+            { ref: ['boo'], expand: [{ ref: ['moo', 'zoo'] }] },
+            { ref: ['boo'], inline: [{ ref: ['moo', 'zoo'] }] },
+          ],
+        },
       })
+    })
 
     test('one / distinct ...', () => {
       expect(SELECT.distinct.from(Foo).SELECT)
@@ -280,7 +280,7 @@ describe('cds.ql → cqn', () => {
       ).to.eql({
         SELECT: {
           from: { ref: ['Foo'] },
-          where: cdr
+          where: cds.version >= '5.3.0'
             ? [
                 // '(', //> this one is not required
                 { ref: ['ID'] },
@@ -289,7 +289,7 @@ describe('cds.ql → cqn', () => {
                 'and',
                 { ref: ['args'] },
                 'in',
-                { val: args },
+                { list: args.map(val => ({ val })) },
                 'and',
                 '(', //> this one is missing, and that's changing the logic -> that's a BUG
                 { ref: ['x'] },
@@ -365,7 +365,7 @@ describe('cds.ql → cqn', () => {
         },
       })
 
-      expect(
+      if (!is_v2) expect(
         SELECT.from(Foo).where(`x=`, 1, `or y.z is null and (a>`, 2, `or b=`, 3, `)`)
       ).to.eql(CQL`SELECT from Foo where x=1 or y.z is null and (a>2 or b=3)`)
 

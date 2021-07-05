@@ -17,7 +17,7 @@ service ReviewsService {
   annotate Reviews with {
     subject  @mandatory;
     title    @mandatory;
-    rating   @assert.enum;
+    rating   @assert.range;
   }
 
 }

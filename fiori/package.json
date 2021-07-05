@@ -6,24 +6,38 @@
     "@capire/reviews": "*",
     "@capire/orders": "*",
     "@capire/common": "*",
-    "@sap/cds": "^4",
+    "@sap/cds": "^5",
     "express": "^4.17.1",
-    "passport": "0.4.1"
+    "passport": "^0.4.1"
   },
   "scripts": {
     "start": "cds run --in-memory?",
     "watch": "cds watch"
   },
   "cds": {
+    "hana": {
+      "deploy-format": "hdbtable"
+    },
     "requires": {
+      "auth": {
+        "strategy": "dummy"
+      },
       "ReviewsService": {
-        "kind": "odata", "model": "@capire/reviews"
+        "kind": "odata",
+        "model": "@capire/reviews"
       },
       "OrdersService": {
-        "kind": "odata", "model": "@capire/orders"
+        "kind": "odata",
+        "model": "@capire/orders"
       },
       "db": {
-        "kind": "sql"
+        "kind": "sql",
+        "[development]": {
+          "model": "db/sqlite"
+        },
+        "[production]": {
+          "model": "db/hana"
+        }
       }
     }
   }

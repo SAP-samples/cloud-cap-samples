@@ -17,16 +17,17 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
-    "sqlite3": "5.0.0",
+    "sqlite3": "^5.0.0",
     "swagger-ui-express": "^4.1.4"
   },
   "scripts": {
-    "registry": "cd .registry && node server.js",
+    "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",
+    "registry": "node .registry/server.js",
     "bookshop": "cds watch bookshop",
     "fiori": "cds watch fiori",
     "media": "cds watch media",
     "mocha": "npx mocha || echo",
-    "jest": "npx jest",
+    "jest": "npx jest@^26",
     "test": "npm run jest --silent"
   },
   "mocha": {
