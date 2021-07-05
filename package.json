@@ -14,11 +14,11 @@
     "@capire/reviews": "./reviews"
   },
   "devDependencies": {
+    "cds-swagger-ui-express": "^0.1.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
-    "sqlite3": "^5.0.0",
-    "swagger-ui-express": "^4.1.4"
+    "sqlite3": "^5.0.0"
   },
   "scripts": {
     "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",
