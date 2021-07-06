@@ -6,13 +6,8 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "@sap/cds": "git+https://b60833c73d12694645300a9e2b54a5650e6951ba:x-oauth-basic@github.tools.sap/cap/cds.git",
     "@sap/cds-mtx": "^2",
-=======
-    "@sap/cds": "^5.1",
-    "@sap/cds-mtx": "git+https://dd15a9cc2fa570fa26a4ab135f488ba260d65408:x-oauth-basic@github.wdf.sap.corp/cdx/cds-mtx.git",
->>>>>>> ac895a508ab0d84ed46845359fdb0ed7a0f0571f
     "@sap/hana-client": "^2",
     "@sap/hdi-deploy": "^4",
     "@sap/instance-manager": "^2",

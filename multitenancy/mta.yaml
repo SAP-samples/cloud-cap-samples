@@ -22,7 +22,7 @@ modules:
    type: nodejs
    path: app
    build-parameters:
-     ignore: ["node_modules/"]
+      ignore: ["node_modules/"]
    parameters:
       # Keep existing URLs for this application ("routes")
       keep-existing-routes: true
@@ -44,8 +44,8 @@ modules:
  # ------------------------------------------------------------
    type: nodejs
    path: gen/srv
-   build-parameters:
-     ignore: ["node_modules/"]
+ #  build-parameters:
+ #    ignore: ["node_modules/"]
    properties:
      SAP_JWT_TRUST_ACL: [{"clientid":"*","identityzone":"sap-provisioning"}]  # Trust between server and SaaS Manager
    requires:
