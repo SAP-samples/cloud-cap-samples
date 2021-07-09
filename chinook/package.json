@@ -1,0 +1,47 @@
+{
+  "name": "@capire/chinook",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "files": [
+    "db", "srv", "server.js"
+  ],
+  "dependencies": {
+    "@sap/cds": "^4.2.8",
+    "bcryptjs": "^2.4.3",
+    "express": "^4",
+    "hdb": "^0.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
+    "passport": "^0.4.1"
+  },
+  "devDependencies": {
+    "sqlite3": "^5"
+  },
+  "scripts": {
+    "start": "npx cds run",
+    "deploy": "npx cds deploy",
+    "test": "npx mocha ../test/chinook.test.js --verbose --timeout 10000"
+  },
+  "cds": {
+    "folders": {
+      "app": "app/build"
+    },
+    "requires": {
+      "db": {
+        "kind": "sql",
+        "[development]": {
+          "model": "*",
+          "credentials": {
+            "database": "chinook.db"
+          }
+        }
+      },
+      "auth": {
+        "impl": "srv/auth.js"
+      }
+    }
+  }
+}
