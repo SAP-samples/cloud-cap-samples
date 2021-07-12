@@ -39,22 +39,6 @@
   "mocha": {
     "parallel": true
   },
-  "jest": {
-    "testEnvironment": "node",
-    "transform": {
-      "\\.ts$": "ts-jest"
-    },
-    "globals": {
-      "ts-jest": {
-        "diagnostics": {
-          "_comment": "see https://githubmemory.com/repo/kulshekhar/ts-jest/issues/2722",
-          "ignoreCodes": [
-            151001
-          ]
-        }
-      }
-    }
-  },
   "license": "SAP SAMPLE CODE LICENSE",
   "private": true
 }
