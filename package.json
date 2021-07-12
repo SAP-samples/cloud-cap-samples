@@ -16,6 +16,7 @@
     "express": "^4"
   },
   "devDependencies": {
+    "cds-swagger-ui-express": "^0.2.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
@@ -28,7 +29,7 @@
     "fiori": "cds watch fiori",
     "media": "cds watch media",
     "mocha": "npx mocha || echo",
-    "jest": "npx jest@^26",
+    "jest": "npx jest",
     "test": "npm run jest --silent"
   },
   "mocha": {
