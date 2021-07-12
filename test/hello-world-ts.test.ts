@@ -1,7 +1,8 @@
-const testKit = require('../test')
-process.env.TYPESCRIPT_SUPPORT = 'true';
+process.env.CDS_TYPESCRIPT = 'true';
+import * as cds from '@sap/cds';
 
-const {GET} = testKit.run('serve', 'hello/world.cds')
+//@ts-ignore
+const {GET} =  cds.test.in(__dirname,'../hello').run('serve', 'world.cds')
 
 describe('Hello world!', () => {
 
