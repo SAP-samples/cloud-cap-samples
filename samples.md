@@ -63,6 +63,7 @@ Each sub directory essentially is an individual npm package arranged in an [all-
   - Support for [Value Helps](https://cap.cloud.sap/docs/guides/fiori#value-help)
   - Serving SAP Fiori apps locally
 - [The Vue.js app](bookshop/app/vue) imported from bookshop is served as well
+- [OpenAPI export + Swagger UI](https://cap.cloud.sap/docs/advanced/openapi)
 
 <br>
 

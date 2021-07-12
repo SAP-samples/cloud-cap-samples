@@ -11,11 +11,14 @@
     "@capire/hello": "./hello",
     "@capire/media": "./media",
     "@capire/orders": "./orders",
-    "@capire/reviews": "./reviews"
+    "@capire/reviews": "./reviews",
+    "@sap/cds": "^5",
+    "express": "^4"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/node": "^15.12.0",
+    "cds-swagger-ui-express": "^0.2.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
@@ -29,8 +32,9 @@
     "fiori": "cds watch fiori",
     "media": "cds watch media",
     "mocha": "npx mocha || echo",
-    "jest": "npx jest@^27",
-    "test": "npm run jest --silent --testMatch test/*.test.js && npm run jest --silent --preset ts-jest --testMatch test/*.test.ts"
+    "jest": "npx jest",
+    "test": "npm run jest --silent --testMatch test/*.test.js && npm run test:ts",
+    "test:ts": "npm run jest --silent --preset ts-jest --testMatch test/*.test.ts"
   },
   "mocha": {
     "parallel": true
