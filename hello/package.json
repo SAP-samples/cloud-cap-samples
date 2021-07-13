@@ -2,6 +2,7 @@
   "name": "@capire/hello-world",
   "version": "1.0.0",
   "scripts": {
+    "test": "npx jest --silent",
     "watch": "cds serve world.cds",
     "watch:ts": "cds-ts serve world.cds"
   },

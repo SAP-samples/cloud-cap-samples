@@ -2,7 +2,7 @@ process.env.CDS_TYPESCRIPT = 'true';
 import * as cds from '@sap/cds';
 
 //@ts-ignore
-const {GET} = cds.test.in(__dirname,'../hello').run('serve', 'world.cds');
+const {GET} = cds.test.in(__dirname,'..').run('serve', 'world.cds');
 
 describe('Hello world!', () => {
     afterAll(() => { delete process.env.CDS_TYPESCRIPT; });

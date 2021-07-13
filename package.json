@@ -30,7 +30,12 @@
     "media": "cds watch media",
     "mocha": "npx mocha || echo",
     "jest": "npx jest",
-    "test": "npm run jest --silent"
+    "test": "npm run jest --silent && npm run test:hello",
+    "test:hello": "cd hello && npm test"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": ["**/*.test.js"]
   },
   "mocha": {
     "parallel": true
