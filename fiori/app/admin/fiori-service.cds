@@ -1,4 +1,5 @@
 using { AdminService, sap.capire.bookshop } from '../../db/schema';
+using from '../common'; // to help UI linter get the complete annotations
 
 ////////////////////////////////////////////////////////////////////////////
 //
