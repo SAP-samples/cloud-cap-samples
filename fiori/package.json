@@ -21,18 +21,18 @@
     },
     "requires": {
       "API_BUSINESS_PARTNER": {
-        "kind": "odata",
+        "kind": "odata-v2",
         "model": "@capire/suppliers"
       },
       "auth": {
         "strategy": "dummy"
       },
       "ReviewsService": {
-        "kind": "odata",
+        "kind": "odata-v4",
         "model": "@capire/reviews"
       },
       "OrdersService": {
-        "kind": "odata",
+        "kind": "odata-v4",
         "model": "@capire/orders"
       },
       "db": {

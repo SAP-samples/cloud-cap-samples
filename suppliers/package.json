@@ -25,16 +25,8 @@
           }
         }
       },
-      "[local-hybrid]": {
-        "messaging": {
-          "kind": "file-based-messaging"
-        }
-      },
-      "[hybrid]": {
-        "messaging": {
-          "kind": "enterprise-messaging-shared"
-        }
-      }
+      "[local-hybrid]": { "messaging": { "kind": "file-based-messaging" }},
+      "[hybrid]": { "messaging": { "kind": "enterprise-messaging-shared" }}
     }
   }
 }

@@ -23,3 +23,9 @@ using { sap.capire.orders.Orders_Items } from '@capire/orders';
 extend Orders_Items with {
   book : Association to Books on product.ID = book.ID
 }
+
+
+using { OrdersService.Orders } from '@capire/orders';
+// extend service CatalogService with {
+//   entity OrdereredBooks as projection on Orders;
+// }
