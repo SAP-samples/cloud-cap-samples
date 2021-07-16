@@ -1,4 +1,5 @@
-using { AdminService } from '../../db/schema';
+using { AdminService, sap.capire.bookshop } from '../../db/schema';
+using from '../common'; // to help UI linter get the complete annotations
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -86,8 +87,9 @@ annotate AdminService.Books.texts with @(
 annotate AdminService.Books.texts {
 	locale @ValueList:{entity:'Languages',type:#fixed}
 }
-// In addition we need to expose Languages through AdminService
+// In addition we need to expose Languages and Books.texts through AdminService
 using { sap } from '@sap/cds/common';
 extend service AdminService {
 	entity Languages as projection on sap.common.Languages;
+	entity Books.texts as projection on bookshop.Books.texts;
 }

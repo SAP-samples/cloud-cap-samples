@@ -12,9 +12,12 @@
     "@capire/media": "./media",
     "@capire/orders": "./orders",
     "@capire/reviews": "./reviews",
-    "@capire/suppliers": "./suppliers"
+    "@capire/suppliers": "./suppliers",
+    "@sap/cds": "^5",
+    "express": "^4"
   },
   "devDependencies": {
+    "cds-swagger-ui-express": "^0.2.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
@@ -27,14 +30,16 @@
     "fiori": "cds watch fiori",
     "media": "cds watch media",
     "mocha": "npx mocha || echo",
-    "jest": "npx jest@^26",
-    "test": "npm run jest --silent"
+    "jest": "npx jest",
+    "test": "npm run jest --silent && npm run test:hello",
+    "test:hello": "cd hello && npm test"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": ["**/*.test.js"]
   },
   "mocha": {
     "parallel": true
-  },
-  "jest": {
-    "testEnvironment": "node"
   },
   "license": "SAP SAMPLE CODE LICENSE",
   "private": true
