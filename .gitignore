@@ -18,4 +18,4 @@ reviews/msg-box
 reviews/db/test.db
 
 package-lock.json
-logs*.txt
+*log*.txt
