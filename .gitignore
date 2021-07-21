@@ -10,6 +10,7 @@ target/
 .DS_Store
 *.log
 *.mtar
+*mta-op*/
 connection.properties
 default-env.json
 packages/messageBox
@@ -17,4 +18,4 @@ reviews/msg-box
 reviews/db/test.db
 
 package-lock.json
-logs_recent_*.txt
+logs*.txt
