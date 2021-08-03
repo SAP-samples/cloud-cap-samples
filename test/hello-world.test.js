@@ -1,4 +1,4 @@
-const { GET, expect } = require('../test') .run ('serve','hello/world.cds')
+const { GET, expect } = require('../test') .run ('serve','hello/srv/world.cds')
 
 describe('Hello world!', () => {
 
