@@ -1,0 +1,40 @@
+{
+  "name": "@capire/suppliers",
+  "version": "1.0.0",
+  "description": "Shows integration with SAP S/4HANA, in turn provided as a reusable extension package to bookshop.",
+  "private": true,
+  "dependencies": {
+    "@capire/common": "*",
+    "@sap/cds": ">=4",
+    "express": "^4"
+  },
+  "scripts": {
+    "start": "cds run --in-memory?",
+    "watch": "cds watch",
+    "mocked-s4": "cds mock API_BUSINESS_PARTNER"
+  },
+  "cds": {
+    "requires": {
+      "API_BUSINESS_PARTNER": {
+        "kind": "odata",
+        "model": "srv/external/API_BUSINESS_PARTNER",
+        "[hybrid]": {
+          "credentials": {
+            "destination": "cap-api098",
+            "path": "/sap/opu/odata/sap/API_BUSINESS_PARTNER"
+          }
+        }
+      },
+      "[local-hybrid]": {
+        "messaging": {
+          "kind": "file-based-messaging"
+        }
+      },
+      "[hybrid]": {
+        "messaging": {
+          "kind": "enterprise-messaging-shared"
+        }
+      }
+    }
+  }
+}

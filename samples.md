@@ -50,14 +50,22 @@ Each sub directory essentially is an individual npm package arranged in an [all-
 - Late-cut Micro Services
 - As well as managed data, input validations, and authorization
 
+## [@capire/suppliers](suppliers)
+
+- Shows how to integrate remote services, in this case the BusinessPartner service from SAP S/4HANA.
+- Extending [@capire/bookshop](bookshop) with suppliers from SAP S/4HANA
+- Providing that as a pre-built integration & extension package
+- Used in [@capire/fiori](fiori)
+
 
 ## [@capire/fiori](fiori)
 
 - A [composite app, reusing and combining](https://cap.cloud.sap/docs/guides/verticalize) these packages:
   - [@capire/bookshop](bookshop)
-  - [@capire/reviews](reviews)
-  - [@capire/orders](orders)
   - [@capire/common](common)
+  - [@capire/orders](orders)
+  - [@capire/reviews](reviews)
+  - [@capire/suppliers](suppliers)
 - [Adds an SAP Fiori elements application](https://cap.cloud.sap/docs/guides/fiori/) to bookshop, thereby introducing to:
   - [OData Annotations](https://cap.cloud.sap/docs/guides/fiori#adding-odata-annotations) in `.cds` files
   - Support for [Fiori Draft](https://cap.cloud.sap/docs/guides/fiori#draft)

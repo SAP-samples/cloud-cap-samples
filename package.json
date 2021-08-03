@@ -12,6 +12,7 @@
     "@capire/media": "./media",
     "@capire/orders": "./orders",
     "@capire/reviews": "./reviews",
+    "@capire/suppliers": "./suppliers",
     "@sap/cds": "^5",
     "express": "^4"
   },

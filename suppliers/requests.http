@@ -1,0 +1,51 @@
+
+@server = http://localhost:4006
+@bpServer = http://localhost:5001
+@authAlice = Authorization: Basic alice:
+
+###
+### Replication on changed Business Partner
+###
+
+### 1. Check supplier name before update ("A Company Making Everything")
+
+GET {{server}}/admin/Books(299)?$expand=supplier
+{{authAlice}}
+
+### 2. Change Business Partner -> Triggers event that updates supplier replication
+
+PATCH {{bpServer}}/api-business-partner/A_BusinessPartner('ACME')
+Content-Type: application/json
+
+{
+    "BusinessPartnerFullName": "A Company Making Everything *better*"
+}
+
+### 3. Check supplier name after update ("A Company Making Everything *better*")
+
+GET {{server}}/admin/Books(299)?$expand=supplier
+{{authAlice}}
+
+###
+### Replication on new assigned supplier
+###
+
+### 1. No supplier is assigned to "Wuthering Heights"
+
+GET {{server}}/admin/Books(201)?$expand=supplier
+{{authAlice}}
+
+### 2. Assign supplier ID "PNG"
+
+PATCH {{server}}/admin/Books(201)
+{{authAlice}}
+Content-Type: application/json
+
+{
+    "supplier_ID": "PNG"
+}
+
+### 3. Supplier information is replicated
+
+GET {{server}}/admin/Books(201)?$expand=supplier
+{{authAlice}}

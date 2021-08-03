@@ -84,3 +84,35 @@ In case you've a question, find a bug, or otherwise need support, use our [commu
 ## License
 
 Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSE.txt) file.
+
+# Suppliers - in progress for Messaging & Service Consumption -
+
+## TODOs
+
+1. Fix issues when running in same process
+2. Automated tests
+
+## Usage
+
+1. Run:
+
+   ```
+   CDS_ENV=local-hybrid cds mock API_BUSINESS_PARTNER -p 5001
+   ```
+
+2. Wait until startup is completed
+3. Run in a 2nd terminal:
+
+   ```
+   CDS_ENV=local-hybrid cds serve all --with-mocks --in-memory
+   ```
+
+4. Now, you can issues the requests listed in `suppliers/requests.http`
+
+## Request Sequence
+
+* TODO
+## URLs
+
+* Get books with their replicated supplier: http://localhost:4004/browse/Books?$expand=supplier
+* Get remote suppliers: http://localhost:4004/admin/Suppliers?$top=11

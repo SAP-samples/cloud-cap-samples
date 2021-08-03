@@ -1,0 +1,19 @@
+{
+  "name": "@capire/fiori",
+  "version": "1.0.0",
+  "dependencies": {
+    "@capire/bookshop": "*",
+    "@capire/reviews": "*",
+    "@sap/cds": "^5",
+    "express": "^4.17.1"
+  },
+  "cds": {
+    "requires": {
+      "auth": { "strategy": "dummy" },
+      "ReviewsService": {
+        "kind": "odata",
+        "model": "@capire/reviews"
+      }
+    }
+  }
+}
