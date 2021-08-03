@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "npx jest --silent",
-    "watch": "cds serve world.cds",
-    "watch:ts": "cds-ts serve world.cds"
+    "start": "cds serve srv/world.cds",
+    "start:ts": "cds-ts serve srv/world.cds"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
@@ -24,6 +24,31 @@
           ]
         }
       }
+    }
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "es2020": true,
+      "node": true,
+      "jest": true,
+      "mocha": true
+    },
+    "globals": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true,
+      "CREATE": true,
+      "DROP": true,
+      "CDL": true,
+      "CQL": true,
+      "CXL": true,
+      "cds": true
+    },
+    "rules": {
+      "no-console": "off",
+      "require-atomic-updates": "off"
     }
   }
 }
