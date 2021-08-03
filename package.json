@@ -27,6 +27,7 @@
     "registry": "node .registry/server.js",
     "bookshop": "cds watch bookshop",
     "fiori": "cds watch fiori",
+    "hello": "cds watch hello",
     "media": "cds watch media",
     "mocha": "npx mocha || echo",
     "jest": "npx jest",
