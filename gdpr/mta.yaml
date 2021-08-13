@@ -22,6 +22,8 @@ modules:
  # ------------------------------------------------------------
    type: nodejs
    path: gen/srv
+   parameters:
+     buildpack: nodejs_buildpack
    requires:
     # Resources extracted from CAP configuration
     - name: gdpr-db
