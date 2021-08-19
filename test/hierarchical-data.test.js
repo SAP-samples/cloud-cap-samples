@@ -76,7 +76,6 @@ describe('Hierarchical Data', ()=>{
 		const expected = [
       { ID:100, name:'Some Cats...' },
       { ID:101, name:'Cat' },
-        { ID:104, name:'Aristocat' },  // REVISIT: Should be deleted as well?
       { ID:108, name:'Catweazle' }
 		]
 		if (cdr) expect ( await SELECT.from(Cats) ).to.containSubset (expected)
