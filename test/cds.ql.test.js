@@ -4,7 +4,7 @@ const CQL = ([cql]) => cds.parse.cql(cql)
 const Foo = { name: 'Foo' }
 const Books = { name: 'capire.bookshop.Books' }
 
-const { parse:cdr } = cds.ql
+const { cdr } = cds.ql
 
 // while jest has 'test' as alias to 'it', mocha doesn't
 if (!global.test) global.test = it
@@ -111,7 +111,7 @@ describe('cds.ql → cqn', () => {
         .to.eql(SELECT.from(Foo).columns('*'))
         .to.eql(SELECT.from(Foo).columns((foo) => foo('*')))
         .to.eql({
-          SELECT: { from: { ref: ['Foo'] }, columns: [cdr ? '*' : { ref: ['*'] }] },
+          SELECT: { from: { ref: ['Foo'] }, columns: [{ ref: ['*'] }] },
         })
 
       if (cdr) expect(parsed).to.eql(fluid)
@@ -162,7 +162,7 @@ describe('cds.ql → cqn', () => {
       .to.eql({
         SELECT: {
           from: { ref: ['Foo'] },
-          columns: [{ ref: ['a'] }, { ref: ['b'] }, cdr ? '*' : { ref: ['*'] }],
+          columns: [{ ref: ['a'] }, { ref: ['b'] }, { ref: ['*'] }],
         },
       })
     })
@@ -182,7 +182,7 @@ describe('cds.ql → cqn', () => {
         SELECT: {
           from: { ref: ['Foo'] },
           columns: [
-            cdr ? '*' : { ref: ['*'] },
+            { ref: ['*'] },
             { ref: ['x'] },
             { ref: ['car'], expand: ['*'] },
             {
@@ -246,19 +246,37 @@ describe('cds.ql → cqn', () => {
       expect(SELECT.from(Foo).where({ x: 1, and: { y: 2, or: { z: 3 } } })).to.eql({
         SELECT: {
           from: { ref: ['Foo'] },
-          where: [
+          where: cdr ? [
+            { ref: ['x'] },
+            '=',
+            { val: 1 },
+            'and',
+            // '(',
+            {xpr:[
+              { ref: ['y'] },
+              '=',
+              { val: 2 },
+              'or',
+              { ref: ['z'] },
+              '=',
+              { val: 3 },
+            ]},
+            // ')',
+          ] : [
             { ref: ['x'] },
             '=',
             { val: 1 },
             'and',
             '(',
-            { ref: ['y'] },
-            '=',
-            { val: 2 },
-            'or',
-            { ref: ['z'] },
-            '=',
-            { val: 3 },
+            // {xpr:[
+              { ref: ['y'] },
+              '=',
+              { val: 2 },
+              'or',
+              { ref: ['z'] },
+              '=',
+              { val: 3 },
+            // ]},
             ')',
           ],
         },
@@ -280,9 +298,8 @@ describe('cds.ql → cqn', () => {
       ).to.eql({
         SELECT: {
           from: { ref: ['Foo'] },
-          where: cds.version >= '5.3.0'
+          where: cdr
             ? [
-                // '(', //> this one is not required
                 { ref: ['ID'] },
                 '=',
                 { val: ID },
@@ -291,18 +308,17 @@ describe('cds.ql → cqn', () => {
                 'in',
                 { list: args.map(val => ({ val })) },
                 'and',
-                '(', //> this one is missing, and that's changing the logic -> that's a BUG
-                { ref: ['x'] },
-                'like',
-                { val: '%x%' },
-                'or',
-                { ref: ['y'] },
-                '>=',
-                { val: 9 },
-                ')',
+                {xpr:[
+                  { ref: ['x'] },
+                  'like',
+                  { val: '%x%' },
+                  'or',
+                  { ref: ['y'] },
+                  '>=',
+                  { val: 9 },
+                ]},
               ]
             : [
-                // '(', //> this one is not required
                 { ref: ['ID'] },
                 '=',
                 { val: ID },
@@ -311,14 +327,14 @@ describe('cds.ql → cqn', () => {
                 'in',
                 { val: args },
                 'and',
-                '(',  //> this one is missing, and that's changing the logic -> that's a BUG
-                { ref: ['x'] },
-                'like',
-                { val: '%x%' },
-                'or',
-                { ref: ['y'] },
-                '>=',
-                { val: 9 },
+                '(',
+                  { ref: ['x'] },
+                  'like',
+                  { val: '%x%' },
+                  'or',
+                  { ref: ['y'] },
+                  '>=',
+                  { val: 9 },
                 ')',
               ],
         },
