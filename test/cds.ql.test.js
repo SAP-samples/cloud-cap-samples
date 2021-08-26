@@ -114,7 +114,7 @@ describe('cds.ql → cqn', () => {
           SELECT: { from: { ref: ['Foo'] }, columns: [{ ref: ['*'] }] },
         })
 
-      if (cdr) expect(parsed).to.eql(fluid)
+      if (cdr === 'all') expect(parsed).to.eql(fluid)
 
       // single column, prefix and postfix, as array and function
       expect(CQL`SELECT a from Foo`)
