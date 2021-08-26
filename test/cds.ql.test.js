@@ -325,7 +325,7 @@ describe('cds.ql → cqn', () => {
                 'and',
                 { ref: ['args'] },
                 'in',
-                { val: args },
+                { list: args.map(val => ({ val })) },
                 'and',
                 '(',
                   { ref: ['x'] },
