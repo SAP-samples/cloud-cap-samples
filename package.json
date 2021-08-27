@@ -31,7 +31,7 @@
     "media": "cds watch media",
     "mocha": "npx mocha || echo",
     "jest": "npx jest",
-    "test": "npm run jest --silent && npm run test:hello",
+    "test": "npm run jest --silent",
     "test:hello": "cd hello && npm test"
   },
   "jest": {
