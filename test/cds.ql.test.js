@@ -111,7 +111,7 @@ describe('cds.ql → cqn', () => {
         .to.eql(SELECT.from(Foo).columns('*'))
         .to.eql(SELECT.from(Foo).columns((foo) => foo('*')))
         .to.eql({
-          SELECT: { from: { ref: ['Foo'] }, columns: [{ ref: ['*'] }] },
+          SELECT: { from: { ref: ['Foo'] }, columns: [cdr ? '*' : { ref: ['*'] }] },
         })
 
       if (cdr === 'all') expect(parsed).to.eql(fluid)
@@ -162,7 +162,7 @@ describe('cds.ql → cqn', () => {
       .to.eql({
         SELECT: {
           from: { ref: ['Foo'] },
-          columns: [{ ref: ['a'] }, { ref: ['b'] }, { ref: ['*'] }],
+          columns: [{ ref: ['a'] }, { ref: ['b'] }, cdr ? '*' : { ref: ['*'] }],
         },
       })
     })
@@ -182,7 +182,7 @@ describe('cds.ql → cqn', () => {
         SELECT: {
           from: { ref: ['Foo'] },
           columns: [
-            { ref: ['*'] },
+            cdr ? '*' : { ref: ['*'] },
             { ref: ['x'] },
             { ref: ['car'], expand: ['*'] },
             {
