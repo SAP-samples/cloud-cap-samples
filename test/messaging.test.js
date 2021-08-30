@@ -1,5 +1,5 @@
-const { expect } = require('../test')
 const cds = require('@sap/cds/lib')
+const { expect } = cds.test
 const _model = '@capire/reviews'
 if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
 else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
