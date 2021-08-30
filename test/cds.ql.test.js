@@ -13,9 +13,10 @@ describe('cds.ql → cqn', () => {
   //
   let cqn
 
-  describe.skip(`BUGS + GAPS...`, () => {
+  describe(`SELECT...`, () => {
 
     it('should consistently handle *', () => {
+      if (!cdr) return
       expect({
         SELECT: { from: { ref: ['Foo'] }, columns: ['*'] },
       })
@@ -25,19 +26,6 @@ describe('cds.ql → cqn', () => {
       .to.eql(SELECT.from(Foo,['*']))
     })
 
-
-    it('should consistently handle lists', () => {
-      const ID = 11,  args = [`foo`, "'bar'", 3]
-      const cqn = CQL`SELECT from Foo where ID=11 and x in (foo,'bar',3)`
-      expect(SELECT.from(Foo).where(`ID=${ID} and x in (${args})`)).to.eql(cqn)
-      expect(SELECT.from(Foo).where(`ID=`, ID, `and x in`, args)).to.eql(cqn)
-      expect(SELECT.from(Foo).where({ ID, x:args })).to.eql(cqn)
-    })
-
-  })
-
-
-  describe(`SELECT...`, () => {
     test('from ( Foo )', () => {
       expect({
         SELECT: { from: { ref: ['Foo'] } },
@@ -388,6 +376,15 @@ describe('cds.ql → cqn', () => {
       expect(SELECT.from(Foo).where(`x between`, 1, `and`, 9)).to.eql(
         CQL`SELECT from Foo where x between 1 and 9`
       )
+    })
+
+    it('should consistently handle lists', () => {
+      if (!cdr) return
+      const ID = 11,  args = [{ref:['foo']}, "bar", 3]
+      const cqn = CQL`SELECT from Foo where ID=11 and x in (foo,'bar',3)`
+      expect(SELECT.from(Foo).where`ID=${ID} and x in ${args}`).to.eql(cqn)
+      expect(SELECT.from(Foo).where(`ID=`, ID, `and x in`, args)).to.eql(cqn)
+      expect(SELECT.from(Foo).where({ ID, x:args })).to.eql(cqn)
     })
 
     test('w/ sub selects', () => {
