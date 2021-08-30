@@ -1,11 +1,11 @@
-const { expect } = require('../test') .run (
+const cds = require('@sap/cds/lib')
+const { expect } = cds.test (
   'serve', 'AdminService', '--from', '@capire/bookshop,@capire/common', '--in-memory'
 )
-const cds = require('@sap/cds/lib')
 
 describe('Consuming Services locally', () => {
   //
-  it('bootrapped the database successfully', ()=>{
+  it('bootstrapped the database successfully', ()=>{
     const { AdminService } = cds.services
     const { Authors } = AdminService.entities
     expect(AdminService).not.to.be.undefined

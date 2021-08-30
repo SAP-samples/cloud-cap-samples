@@ -1,5 +1,5 @@
-const {expect} = require('../test')
 const cds = require('@sap/cds/lib')
+const {expect} = cds.test
 
 const { parse:cdr } = cds.ql
 

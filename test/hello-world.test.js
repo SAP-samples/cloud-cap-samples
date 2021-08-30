@@ -1,4 +1,5 @@
-const { GET, expect } = require('../test') .run ('serve','hello/srv/world.cds')
+const cds = require('@sap/cds/lib')
+const { GET, expect } = cds.test (__dirname+'/../hello')
 
 describe('Hello world!', () => {
 
