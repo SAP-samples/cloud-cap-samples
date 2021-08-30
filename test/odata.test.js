@@ -1,5 +1,5 @@
-const { GET, expect } = require('../test') .run ('bookshop')
 const cds = require('@sap/cds/lib')
+const { GET, expect } = cds.test ('@capire/bookshop')
 if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
 else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
 
@@ -18,9 +18,9 @@ describe('OData Protocol', () => {
   })
 
   it('supports $search in multiple fields', async () => {
-    const { data } = await GET(`/browse/Books`, {
+    const { data } = await GET `/browse/Books ${{
       params: { $search: 'Po', $select: `title,author` },
-    })
+    }}`
     expect(data.value).to.eql([
       { ID: 201, title: 'Wuthering Heights', author: 'Emily Brontë' },
       { ID: 207, title: 'Jane Eyre', author: 'Charlotte Brontë' },
