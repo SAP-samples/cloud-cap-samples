@@ -248,6 +248,25 @@ describe('cds.ql → cqn', () => {
       })
     })
 
+    test ("where x='*'", ()=>{
+      if (cdr)
+      expect (SELECT.from(Foo).where({x:'*'}))
+      .to.eql(SELECT.from(Foo).where("x='*'"))
+      .to.eql(SELECT.from(Foo).where("x=",'*'))
+      .to.eql(SELECT.from(Foo).where`x=${'*'}`)
+      .to.eql(
+        CQL`SELECT from Foo where x='*'`
+      )
+      if (cdr)
+      expect (SELECT.from(Foo).where({x:['*',1]}))
+      .to.eql(SELECT.from(Foo).where("x in ('*',1)"))
+      .to.eql(SELECT.from(Foo).where("x in",['*',1]))
+      .to.eql(SELECT.from(Foo).where`x in ${['*',1]}`)
+      .to.eql(
+        CQL`SELECT from Foo where x in ('*',1)`
+      )
+    })
+
     test ('where, and, or', ()=>{
       expect (
         SELECT.from(Foo).where({x:1,and:{y:2}})
