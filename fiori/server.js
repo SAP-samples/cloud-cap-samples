@@ -1,4 +1,5 @@
 const cds = require ('@sap/cds')
+module.exports = cds.server
 
 cds.once('bootstrap',(app)=>{
   app.use ('/orders/webapp', _from('@capire/orders/app/orders/webapp/manifest.json'))
@@ -8,7 +9,11 @@ cds.once('bootstrap',(app)=>{
 
 cds.once('served', require('./srv/mashup'))
 
-module.exports = cds.server
+// Swagger UI - see https://cap.cloud.sap/docs/advanced/openapi
+if (process.env.NODE_ENV !== 'production') {
+  const cds_swagger = require ('cds-swagger-ui-express')
+  cds.once ('bootstrap', app => app.use (cds_swagger()) )
+}
 
 
 // -----------------------------------------------------------------------

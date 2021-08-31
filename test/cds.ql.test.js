@@ -1,8 +1,9 @@
-const { expect, cds } = require('@sap/cds/lib').test
-const { parse:cdr } = cds.ql
-const Books = { name: 'capire.bookshop.Books' }
+const cds = require('@sap/cds/lib')
+const { expect } = cds.test
+const { cdr } = cds.ql
 const Foo = { name: 'Foo' }
-const srv = new cds.Service
+const Books = { name: 'capire.bookshop.Books' }
+
 
 const STAR = cdr ? '*' : { ref: ['*'] }
 const skip = {to:{eql:()=>skip}}
@@ -13,9 +14,10 @@ expect.one = (cqn) => !cqn.SELECT.distinct ? expect(cqn) : skip
 describe('cds.ql → cqn', () => {
   //
 
-  describe.skip(`BUGS + GAPS...`, () => {
+  describe(`SELECT...`, () => {
 
     it('should consistently handle *', () => {
+      if (!cdr) return
       expect({
         SELECT: { from: { ref: ['Foo'] }, columns: ['*'] },
       })
@@ -225,19 +227,37 @@ describe('cds.ql → cqn', () => {
       expect(SELECT.from(Foo).where({ x: 1, and: { y: 2, or: { z: 3 } } })).to.eql({
         SELECT: {
           from: { ref: ['Foo'] },
-          where: [
+          where: cdr ? [
+            { ref: ['x'] },
+            '=',
+            { val: 1 },
+            'and',
+            // '(',
+            {xpr:[
+              { ref: ['y'] },
+              '=',
+              { val: 2 },
+              'or',
+              { ref: ['z'] },
+              '=',
+              { val: 3 },
+            ]},
+            // ')',
+          ] : [
             { ref: ['x'] },
             '=',
             { val: 1 },
             'and',
             '(',
-            { ref: ['y'] },
-            '=',
-            { val: 2 },
-            'or',
-            { ref: ['z'] },
-            '=',
-            { val: 3 },
+            // {xpr:[
+              { ref: ['y'] },
+              '=',
+              { val: 2 },
+              'or',
+              { ref: ['z'] },
+              '=',
+              { val: 3 },
+            // ]},
             ')',
           ],
         },
@@ -261,43 +281,41 @@ describe('cds.ql → cqn', () => {
           from: { ref: ['Foo'] },
           where: cdr
             ? [
-                // '(', //> this one is not required
                 { ref: ['ID'] },
                 '=',
                 { val: ID },
                 'and',
                 { ref: ['args'] },
                 'in',
-                { val: args },
+                { list: args.map(val => ({ val })) },
                 'and',
-                '(', //> this one is missing, and that's changing the logic -> that's a BUG
-                { ref: ['x'] },
-                'like',
-                { val: '%x%' },
-                'or',
-                { ref: ['y'] },
-                '>=',
-                { val: 9 },
-                ')',
+                {xpr:[
+                  { ref: ['x'] },
+                  'like',
+                  { val: '%x%' },
+                  'or',
+                  { ref: ['y'] },
+                  '>=',
+                  { val: 9 },
+                ]},
               ]
             : [
-                // '(', //> this one is not required
                 { ref: ['ID'] },
                 '=',
                 { val: ID },
                 'and',
                 { ref: ['args'] },
                 'in',
-                { val: args },
+                { list: args.map(val => ({ val })) },
                 'and',
-                '(',  //> this one is missing, and that's changing the logic -> that's a BUG
-                { ref: ['x'] },
-                'like',
-                { val: '%x%' },
-                'or',
-                { ref: ['y'] },
-                '>=',
-                { val: 9 },
+                '(',
+                  { ref: ['x'] },
+                  'like',
+                  { val: '%x%' },
+                  'or',
+                  { ref: ['y'] },
+                  '>=',
+                  { val: 9 },
                 ')',
               ],
         },
@@ -351,6 +369,15 @@ describe('cds.ql → cqn', () => {
       expect(SELECT.from(Foo).where(`x between`, 1, `and`, 9)).to.eql(
         CQL`SELECT from Foo where x between 1 and 9`
       )
+    })
+
+    it('should consistently handle lists', () => {
+      if (!cdr) return
+      const ID = 11,  args = [{ref:['foo']}, "bar", 3]
+      const cqn = CQL`SELECT from Foo where ID=11 and x in (foo,'bar',3)`
+      expect(SELECT.from(Foo).where`ID=${ID} and x in ${args}`).to.eql(cqn)
+      expect(SELECT.from(Foo).where(`ID=`, ID, `and x in`, args)).to.eql(cqn)
+      expect(SELECT.from(Foo).where({ ID, x:args })).to.eql(cqn)
     })
 
     test('w/ sub selects', () => {
