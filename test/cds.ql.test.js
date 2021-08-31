@@ -180,11 +180,10 @@ describe('cds.ql → cqn', () => {
       })
     })
 
-    if (each !== 'SELECT') return
 
     test('with nested inlines', () => {
       // SELECT from Foo { *, x, bar.*, car{*}, boo { *, moo.zoo } }
-      expect(
+      expect.plain(
         SELECT.from (Foo, foo => {
           foo.bar `*`,
           foo.bar `.*`, //> leading dot indicates inline
@@ -203,6 +202,10 @@ describe('cds.ql → cqn', () => {
         },
       })
     })
+
+  })}
+
+  describe ('SELECT where...', ()=>{
 
     it('should correctly handle { ... and:{...} }', () => {
       expect(SELECT.from(Foo).where({ x: 1, and: { y: 2, or: { z: 3 } } })).to.eql({
@@ -243,6 +246,58 @@ describe('cds.ql → cqn', () => {
           ],
         },
       })
+    })
+
+    test ('where, and, or', ()=>{
+      expect (
+        SELECT.from(Foo).where({x:1,and:{y:2}})
+      ).to.eql (
+        CQL`SELECT from Foo where x=1 and y=2`
+      ) .to.eql ({ SELECT: {
+        from: {ref:['Foo']},
+        where: [
+          {ref:['x']}, '=', {val:1},
+          'and',
+          {ref:['y']}, '=', {val:2}
+        ]
+      }})
+
+      expect (
+        SELECT.from(Foo).where({x:1,or:{y:2}})
+      ).to.eql (
+        CQL`SELECT from Foo where x=1 or y=2`
+      ).to.eql ({ SELECT: {
+        from: {ref:['Foo']},
+        where: [
+          {ref:['x']}, '=', {val:1},
+          'or',
+          {ref:['y']}, '=', {val:2}
+        ]
+      }})
+
+      expect (
+        SELECT.from(Foo).where({x:1,and:{y:2}}).or({z:3})
+      ).to.eql (
+        CQL`SELECT from Foo where x=1 and y=2 or z=3`
+      )
+
+      if (cdr) expect (
+        SELECT.from(Foo).where({x:1}).and({y:2,or:{z:3}})
+      ).to.eql (
+        CQL`SELECT from Foo where x=1 and ( y=2 or z=3 )`
+      )
+
+      if (cdr) expect (
+        SELECT.from(Foo).where({1:1}).and({x:1,or:{x:2}}).and({y:2,or:{z:3}})
+      ).to.eql (
+        CQL`SELECT from Foo where 1=1 and ( x=1 or x=2 ) and ( y=2 or z=3 )`
+      )
+
+      if (cdr) expect (
+        SELECT.from(Foo).where({x:1,or:{x:2}}).and({y:2,or:{z:3}})
+      ).to.eql (
+        CQL`SELECT from Foo where ( x=1 or x=2 ) and ( y=2 or z=3 )`
+      )
     })
 
     test('where ( ... cql  |  {x:y} )', () => {
@@ -412,7 +467,6 @@ describe('cds.ql → cqn', () => {
 
     //
   })
-}
 
   describe(`INSERT...`, () => {
     test('entries ({a,b}, ...)', () => {
