@@ -319,6 +319,19 @@ describe('cds.ql → cqn', () => {
       )
     })
 
+    test('where ({x:[undefined]})', () => {
+      if (cdr) expect (
+        SELECT.from(Foo).where({x:[undefined]})
+      ).to.eql ({ SELECT: {
+        from: {ref:['Foo']},
+        where: [
+          {ref:['x']},
+          'in',
+          { list: [ {val:undefined} ] }
+        ]
+      }})
+    })
+
     test('where ( ... cql  |  {x:y} )', () => {
       const args = [`foo`, "'bar'", 3]
       const ID = 11
