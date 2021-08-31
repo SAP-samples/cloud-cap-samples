@@ -7,7 +7,9 @@ const Books = { name: 'capire.bookshop.Books' }
 
 const STAR = cdr ? '*' : { ref: ['*'] }
 const skip = {to:{eql:()=>skip}}
+const srv = new cds.Service
 let cqn
+
 expect.plain = (cqn) => !cqn.SELECT.one && !cqn.SELECT.distinct ? expect(cqn) : skip
 expect.one = (cqn) => !cqn.SELECT.distinct ? expect(cqn) : skip
 
@@ -29,9 +31,9 @@ describe('cds.ql → cqn', () => {
 
 
     it('should consistently handle lists', () => {
-      const ID = 11,  args = [`foo`, "'bar'", 3]
+      const ID = 11,  args = [{ref:['foo']}, 'bar', 3]
       const cqn = CQL`SELECT from Foo where ID=11 and x in (foo,'bar',3)`
-      expect(SELECT.from(Foo).where(`ID=${ID} and x in (${args})`)).to.eql(cqn)
+      expect(SELECT.from`Foo`.where `ID=${ID} and x in ${args}`).to.eql(cqn)
       expect(SELECT.from(Foo).where(`ID=`, ID, `and x in`, args)).to.eql(cqn)
       expect(SELECT.from(Foo).where({ ID, x:args })).to.eql(cqn)
     })
