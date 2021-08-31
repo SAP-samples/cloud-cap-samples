@@ -15,17 +15,17 @@ describe('Consuming Services locally', () => {
   it('supports targets as strings or reflected defs', async () => {
     const AdminService = await cds.connect.to('AdminService')
     const { Authors } = AdminService.entities
-    const _ = expect (await AdminService.read(Authors))
+    expect (await SELECT.from(Authors))
+    .to.eql(await SELECT.from('Authors'))
+    .to.eql(await AdminService.read(Authors))
     .to.eql(await AdminService.read('Authors'))
     .to.eql(await AdminService.run(SELECT.from(Authors)))
-    // temporary workaround
-    if (cds.version >= '4.2.0')
-      _.to.eql(await AdminService.run(SELECT.from('Authors')))
+    .to.eql(await AdminService.run(SELECT.from('Authors')))
   })
 
   it('allows reading from local services using cds.ql', async () => {
     const AdminService = await cds.connect.to('AdminService')
-    const query = SELECT.from('Authors', (a) => {
+    const authors = await AdminService.read (`Authors`, a => {
       a.name,
         a.books((b) => {
           b.title,
@@ -34,10 +34,6 @@ describe('Consuming Services locally', () => {
             })
         })
     }).where(`name like`, 'E%')
-    // temporary workaround
-    if (cds.version < '4.2.0')
-      query.SELECT.from.ref[0] = 'AdminService.Authors'
-    const authors = await AdminService.run(query)
     expect(authors).to.containSubset([
       {
         name: 'Emily Brontë',
