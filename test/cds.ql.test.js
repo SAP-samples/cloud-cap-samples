@@ -75,32 +75,36 @@ describe('cds.ql → cqn', () => {
       .to.eql(SELECT.from `Foo[11]`)
       .to.eql(SELECT.from `Foo[${11}]`)
       .to.eql(SELECT`Foo[11]`)
-      // .to.eql(SELECT`Foo[${11}]`)      //> doesn't work!
       expect.plain(cqn)
       .to.eql(CQL`SELECT from Foo[11]`)
       .to.eql(srv.read`Foo[11]`)
-      // .to.eql(srv.read`Foo[${11}]`)   //> doesn't work!
       .to.eql({
         SELECT: { from: {
           ref: [{ id: 'Foo', where: [{ val: 11 }] }]
         }},
       })
 
+      if (cdr) expect.plain (cqn)
+      .to.eql(srv.read`Foo[${11}]`)
+      .to.eql(SELECT`Foo[${11}]`)
+
       expect((cqn = SELECT`from Foo[ID=11]`))
       .to.eql(SELECT`from Foo[ID=${11}]`)
       .to.eql(SELECT.from `Foo[ID=11]`)
       .to.eql(SELECT.from `Foo[ID=${11}]`)
       .to.eql(SELECT`Foo[ID=11]`)
-      // .to.eql(SELECT`Foo[ID=${11}]`)      //> doesn't work!
       expect.plain(cqn)
       .to.eql(CQL`SELECT from Foo[ID=11]`)
       .to.eql(srv.read`Foo[ID=11]`)
-      // .to.eql(srv.read`Foo[ID=${11}]`)   //> doesn't work!
       .to.eql({
         SELECT: { from: {
           ref: [{ id: 'Foo', where: [{ ref: ['ID'] }, '=', { val: 11 }] }],
         }},
       })
+
+      if (cdr) expect.plain (cqn)
+      .to.eql(SELECT`Foo[ID=${11}]`)
+      .to.eql(srv.read`Foo[ID=${11}]`)
 
       // Following implicitly resolve to SELECT.one
       expect(cqn = SELECT.from(Foo,11))
