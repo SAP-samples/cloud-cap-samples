@@ -12,7 +12,7 @@ entity Orders_Items {
   key ID    : UUID;
   up_       : Association to Orders;
   product   : Association to Products @assert.integrity:false; // REVISIT: this is a temporary workaround for a glitch in cds-runtime
-  amount    : Integer;
+  quantity  : Integer;
   title     : String; //> intentionally replicated as snapshot from product.title
   price     : Double;
 }

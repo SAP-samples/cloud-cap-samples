@@ -48,7 +48,7 @@
             &nbsp;&nbsp; {{ book.stock }} in stock
         </label>
         <form @submit.prevent="submitOrder" style="float:right; display:flex; flex-direction:row-reverse">
-            <input type="number" v-model="order.amount" v-bind:class="{ failed: order.failed }" style="width:5em">
+            <input type="number" v-model="order.quantity" v-bind:class="{ failed: order.failed }" style="width:5em">
             <input type="submit" value="Order:" class="muted-button">
         </form>
         <h4> {{ book.title }} </h4>
