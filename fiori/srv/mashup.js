@@ -27,11 +27,11 @@ module.exports = async()=>{ // called by server.js
   // Create an order with the OrdersService when CatalogService signals a new order
   //
   CatalogService.on ('OrderedBook', async (msg) => {
-    const { book, amount, buyer } = msg.data
+    const { book, quantity, buyer } = msg.data
     const { title, price } = await db.tx(msg).read (Books, book, b => { b.title, b.price })
     return OrdersService.tx(msg).create ('Orders').entries({
       OrderNo: 'Order at '+ (new Date).toLocaleString(),
-      Items: [{ product:{ID:`${book}`}, title, price, amount }],
+      Items: [{ product:{ID:`${book}`}, title, price, quantity }],
       buyer, createdBy: buyer
     })
   })
@@ -51,9 +51,9 @@ module.exports = async()=>{ // called by server.js
   //
   OrdersService.on ('OrderChanged', (msg) => {
     console.debug ('> received:', msg.event, msg.data)
-    const { product, deltaAmount } = msg.data
+    const { product, deltaQuantity } = msg.data
     return UPDATE (Books) .where ('ID =', product)
-    .and ('stock >=', deltaAmount)
-    .set ('stock -=', deltaAmount)
+    .and ('stock >=', deltaQuantity)
+    .set ('stock -=', deltaQuantity)
   })
 }
