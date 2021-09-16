@@ -6,7 +6,7 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/cds": "git+https://b60833c73d12694645300a9e2b54a5650e6951ba:x-oauth-basic@github.tools.sap/cap/cds.git#ext",
+    "@sap/cds": "^5",
     "@sap/cds-mtx": "^2",
     "@sap/hana-client": "^2",
     "@sap/hdi-deploy": "^4",
@@ -17,6 +17,9 @@
   },
   "devDependencies": {
     "sqlite3": "^5.0.2"
+  },
+  "engines": {
+    "node": "^14"
   },
   "scripts": {
     "start": "cds run",
@@ -71,6 +74,10 @@
         "deploy-format": "hdbtable"
       },
       "mtx": {
+        "element-prefix": [
+          "Z_",
+          "ZZ_"
+        ],
         "namespace-blocklist": [
           "com.sap.",
           "sap."
