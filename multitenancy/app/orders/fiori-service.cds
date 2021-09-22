@@ -19,7 +19,7 @@ annotate OrdersService.Orders with @(
 		SelectionFields: [ createdAt, createdBy ],
 		LineItem: [
 			{Value: OrderNo, Label:'OrderNo'},
-			{Value: buyer, Label:'Customer'},
+			// {Value: buyer, Label:'Customer'}, we do not need this, because we want extend it later
 			{Value: createdAt, Label:'Date'}
 		],
 		HeaderInfo: {
