@@ -6,39 +6,55 @@ using {
     cuid, managed, Country, sap.common.CodeList
 } from '@sap/cds/common';
 
-
 namespace Z_bookshop.extension;
 
 // extend existing entity 
 extend orders.Orders with { 
-  Z_newField       : String default 'Default Value';
-  Z_NewEntity      : Association to one  Z_NewEntity;  
-  Z_NewCodeList    : Association to one  Z_NewCodeList; 
-  Z_NewCompEntity  : Composition of many Z_NewCompEntity on Z_NewCompEntity.parent = $self;
+  Z_Customer    : Association to one Z_Customers;  
+  Z_SalesRegion : Association to one Z_SalesRegion; 
+  Z_priority    : String @assert.range enum {high; medium; low} default 'medium';
+  Z_Remarks     : Composition of many Z_Remarks on Z_Remarks.parent = $self;
 }  
 
 // new entity - as association target
-entity Z_NewEntity : cuid, managed 
+entity Z_Customers : cuid, managed 
 {
-  description  : String;  
-  dateField    : Date;
-  integerField : Integer;  
-  stringField  : String;
-  enumField    : String   @assert.range enum {high; medium; low} default 'medium';
-  rangeField   : Decimal  @assert.range: [ 1.0, 100.0 ]          default 50.0;
+  email        : String;
+  firstName    : String;
+  lastName     : String; 
+  creditCardNo : String;
+  dateOfBirth  : Date;
+  status       : String   @assert.range enum {platinum; gold; silver; bronze} default 'bronze';
+  creditScore  : Decimal  @assert.range: [ 1.0, 100.0 ] default 50.0;
+  PostalAddresses : Composition of many Z_CustomerPostalAddresses on PostalAddresses.Customer = $self;
 }
 
-// new entity - as code list
-entity Z_NewCodeList : CodeList {
-  key code : String(11);
+// new unique constraint (secondary index)
+annotate Z_Customers with @assert.unique: { email: [ email ] }   
+{
+  email @mandatory;    // mandatory check
 }
 
 // new entity - as composition target
-entity Z_NewCompEntity : cuid, managed
-{  
-  parent       : Association to one orders.Orders;  
-  description  : String; 
-  dateField    : Date;
-  integerField : Integer;
-  stringField  : String;
+entity Z_CustomerPostalAddresses : cuid, managed 
+{
+  Customer       : Association to one Z_Customers;
+  description    : String;
+  street         : String;
+  town           : String;
+  country        : Country;
 }
+
+// new entity - as code list
+entity Z_SalesRegion: CodeList {
+  key regionCode : String(11);
+}
+
+// new entity - as composition target
+entity Z_Remarks : cuid, managed
+{  
+  parent      : Association to one orders.Orders;  
+  number      : Integer;  
+  remarksLine : String; 
+}
+
