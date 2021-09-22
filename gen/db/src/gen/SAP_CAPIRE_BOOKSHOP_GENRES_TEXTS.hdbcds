@@ -1,0 +1,6 @@
+entity SAP_CAPIRE_BOOKSHOP_GENRES_TEXTS {
+  key LOCALE : String(14);
+  NAME : String(255);
+  DESCR : String(1000);
+  key ID : Integer;
+};

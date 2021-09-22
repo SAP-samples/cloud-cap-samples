@@ -1,0 +1,6 @@
+entity SAP_COMMON_LANGUAGES_TEXTS {
+  key LOCALE : String(14);
+  NAME : String(255);
+  DESCR : String(1000);
+  key CODE : String(14);
+};

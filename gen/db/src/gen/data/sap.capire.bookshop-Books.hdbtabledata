@@ -1,0 +1,39 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "SAP_CAPIRE_BOOKSHOP_BOOKS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "sap.capire.bookshop-Books.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ";"
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "TITLE",
+          "DESCR",
+          "AUTHOR_ID",
+          "STOCK",
+          "PRICE",
+          "CURRENCY_CODE",
+          "GENRE_ID"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "ID": "ID",
+        "TITLE": "title",
+        "DESCR": "descr",
+        "AUTHOR_ID": "author_ID",
+        "STOCK": "stock",
+        "PRICE": "price",
+        "CURRENCY_CODE": "currency_code",
+        "GENRE_ID": "genre_ID"
+      }
+    }
+  ]
+}

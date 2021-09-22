@@ -1,0 +1,3 @@
+entity SAP_CAPIRE_ORDERS_PRODUCTS {
+  key ID : String(5000);
+};

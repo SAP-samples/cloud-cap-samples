@@ -1,0 +1,27 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "SAP_COMMON_LANGUAGES",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "sap.common-Languages.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ";"
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "CODE",
+          "NAME"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "CODE": "code",
+        "NAME": "name"
+      }
+    }
+  ]
+}

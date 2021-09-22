@@ -1,0 +1,29 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "Z_BOOKSHOP_EXTENSION_Z_SALESREGION",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "Z_bookshop.extension-Z_SalesRegion.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ";"
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "REGIONCODE",
+          "NAME",
+          "DESCR"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "REGIONCODE": "regionCode",
+        "NAME": "name",
+        "DESCR": "descr"
+      }
+    }
+  ]
+}

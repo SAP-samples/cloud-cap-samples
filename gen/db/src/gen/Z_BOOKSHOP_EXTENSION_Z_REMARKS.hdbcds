@@ -1,0 +1,12 @@
+using SAP_CAPIRE_ORDERS_ORDERS as SAP_CAPIRE_ORDERS_ORDERS;
+entity Z_BOOKSHOP_EXTENSION_Z_REMARKS {
+  key ID : String(36);
+  CREATEDAT : UTCTimestamp;
+  CREATEDBY : String(255);
+  MODIFIEDAT : UTCTimestamp;
+  MODIFIEDBY : String(255);
+  PARENT : association[1] to SAP_CAPIRE_ORDERS_ORDERS on PARENT.ID = PARENT_ID;
+  PARENT_ID : String(36);
+  NUMBER : Integer;
+  REMARKSLINE : String(5000);
+};

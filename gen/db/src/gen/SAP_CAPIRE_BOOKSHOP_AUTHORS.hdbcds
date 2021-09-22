@@ -1,0 +1,14 @@
+using SAP_CAPIRE_BOOKSHOP_BOOKS as SAP_CAPIRE_BOOKSHOP_BOOKS;
+entity SAP_CAPIRE_BOOKSHOP_AUTHORS {
+  CREATEDAT : UTCTimestamp;
+  CREATEDBY : String(255);
+  MODIFIEDAT : UTCTimestamp;
+  MODIFIEDBY : String(255);
+  key ID : Integer;
+  NAME : String(111);
+  DATEOFBIRTH : LocalDate;
+  DATEOFDEATH : LocalDate;
+  PLACEOFBIRTH : String(5000);
+  PLACEOFDEATH : String(5000);
+  BOOKS : association[*] to SAP_CAPIRE_BOOKSHOP_BOOKS on BOOKS.AUTHOR_ID = ID;
+};

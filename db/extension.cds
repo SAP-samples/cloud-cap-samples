@@ -6,10 +6,7 @@ using {
     cuid, managed, Country, sap.common.CodeList
 } from '@sap/cds/common';
 
-
-
 namespace Z_bookshop.extension;
-
 
 // extend existing entity 
 extend orders.Orders with { 
@@ -18,7 +15,6 @@ extend orders.Orders with {
   Z_priority    : String @assert.range enum {high; medium; low} default 'medium';
   Z_Remarks     : Composition of many Z_Remarks on Z_Remarks.parent = $self;
 }  
-
 
 // new entity - as association target
 entity Z_Customers : cuid, managed 
@@ -54,7 +50,6 @@ entity Z_SalesRegion: CodeList {
   key regionCode : String(11);
 }
 
-
 // new entity - as composition target
 entity Z_Remarks : cuid, managed
 {  
@@ -62,4 +57,5 @@ entity Z_Remarks : cuid, managed
   number      : Integer;  
   remarksLine : String; 
 }
+
 

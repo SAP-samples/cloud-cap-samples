@@ -1,0 +1,37 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "SAP_COMMON_CURRENCIES",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "sap.common-Currencies.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ";"
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "CODE",
+          "SYMBOL",
+          "NAME",
+          "DESCR",
+          "NUMCODE",
+          "MINOR",
+          "EXPONENT"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "CODE": "code",
+        "SYMBOL": "symbol",
+        "NAME": "name",
+        "DESCR": "descr",
+        "NUMCODE": "numcode",
+        "MINOR": "minor",
+        "EXPONENT": "exponent"
+      }
+    }
+  ]
+}

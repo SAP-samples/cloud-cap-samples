@@ -1,0 +1,35 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "SAP_CAPIRE_BOOKSHOP_AUTHORS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "sap.capire.bookshop-Authors.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ";"
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "NAME",
+          "DATEOFBIRTH",
+          "PLACEOFBIRTH",
+          "DATEOFDEATH",
+          "PLACEOFDEATH"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "ID": "ID",
+        "NAME": "name",
+        "DATEOFBIRTH": "dateOfBirth",
+        "PLACEOFBIRTH": "placeOfBirth",
+        "DATEOFDEATH": "dateOfDeath",
+        "PLACEOFDEATH": "placeOfDeath"
+      }
+    }
+  ]
+}
