@@ -9,4 +9,3 @@ extend service OrdersService with {
    entity Z_Customers   as projection on ext.Z_Customers;
    entity Z_SalesRegion as projection on ext.Z_SalesRegion;
 }
-
