@@ -35,6 +35,7 @@
   },
   "jest": {
     "testEnvironment": "node",
+    "testTimeout": 20000,
     "testMatch": [
       "**/*.test.js"
     ]
