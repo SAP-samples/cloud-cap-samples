@@ -1,11 +1,8 @@
 using from '_base/app/services';
 using OrdersService from './extension_service';
 
-
 // new entity -- draft enabled
 annotate OrdersService.Z_Customers   with @odata.draft.enabled;
-// new codelist entity -- draft enabled
-annotate OrdersService.Z_SalesRegion with @odata.draft.enabled;
 
 // new entity -- titles
 annotate OrdersService.Z_Customers with {
