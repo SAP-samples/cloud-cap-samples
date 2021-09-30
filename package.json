@@ -12,7 +12,8 @@
     "@capire/media": "./media",
     "@capire/orders": "./orders",
     "@capire/reviews": "./reviews",
-    "@sap/cds": "^5.1.5"
+    "@sap/cds": "git+https://github.tools.sap/cap/cds.git#runtime/ui-flex-prod",
+    "@sap/cds-dk": "*"
   },
   "devDependencies": {
     "cds-swagger-ui-express": "^0.2.0",
