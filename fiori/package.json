@@ -30,12 +30,14 @@
         "kind": "odata",
         "model": "@capire/orders"
       },
-      "uiflex": {
-        "model": "@sap/cds/libx/_runtime/fiori/uiflex/extensibility"
+      "extensibility": {
+        "kind": "uiflex"
       },
       "db": {
         "kind": "sqlite",
-        "model": "*"
+        "credentials": {
+          "database": "sqlite.db"
+        }
       }
     }
   }
