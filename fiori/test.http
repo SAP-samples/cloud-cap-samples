@@ -4,8 +4,11 @@ Content-Type: application/json
 
 {
   "extensions": [
-    "{\"extend\":\"AdminService.Books\",\"elements\":{\"abc\":{\"name\":\"abc\",\"type\":\"cds.Integer\"}}}"
+    "{\"extend\":\"AdminService.Books\",\"elements\":{\"ab c\":{\"type\":\"cds.Integer\"}}}"
   ]
 }
 
 ###
+    # { "extend": "AdminService.Books", "elements":{
+    #   "abc":{"type":"cds.Integer"}
+    # }},
