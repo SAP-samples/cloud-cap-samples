@@ -35,19 +35,38 @@
 					url: "/orders/webapp",
 					navigationMode: "embedded"
 				}
-			}
+			},
+        bootstrapPlugins: {
+          RuntimeAuthoringPlugin: {
+            component: "sap.ushell.plugins.rta",
+            config: {
+              validateAppVersion: false,
+            },
+          },
+          PersonalizePlugin: {
+            component: "sap.ushell.plugins.rta-personalize",
+            config: {
+              validateAppVersion: false,
+            },
+          },
+        },
 		};
 	</script>
 
-	<script id="sap-ushell-bootstrap" src="https://sapui5.hana.ondemand.com/test-resources/sap/ushell/bootstrap/sandbox.js"></script>
-	<script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+	<script id="sap-ushell-bootstrap" src="https://sapui5nightly.int.sap.eu2.hana.ondemand.com/test-resources/sap/ushell/bootstrap/sandbox.js"></script>
+	<script id="sap-ui-bootstrap" src="https://sapui5nightly.int.sap.eu2.hana.ondemand.com/resources/sap-ui-core.js"
     	data-sap-ui-libs="sap.m, sap.ushell, sap.collaboration, sap.ui.layout"
     	data-sap-ui-compatVersion="edge"
     	data-sap-ui-theme="sap_fiori_3"
     	data-sap-ui-frameOptions="allow"
+			data-sap-ui-bindingSyntax="complex"
 	></script>
 	<script>
-		sap.ui.getCore().attachInit(()=> sap.ushell.Container.createRenderer().placeAt("content"))
+		sap.ui.getCore().attachInit(()=> sap.ushell.Container.createRenderer().placeAt("content"));
+		sap.ui
+        .getCore()
+        .getConfiguration()
+        .setFlexibilityServices([{ connector: "SessionStorageConnector" }]);
 	</script>
 
 </head>

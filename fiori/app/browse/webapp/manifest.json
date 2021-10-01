@@ -22,6 +22,7 @@
     }
   },
   "sap.ui5": {
+    "flexEnabled": true,
     "dependencies": {
       "libs": {
         "sap.fe.templates": {}
