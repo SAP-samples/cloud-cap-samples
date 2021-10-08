@@ -18,7 +18,7 @@
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
-    "sqlite3": "git+https://github.com/mapbox/node-sqlite3"
+    "sqlite3": "^5"
   },
   "scripts": {
     "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",
