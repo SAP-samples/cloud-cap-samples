@@ -45,7 +45,8 @@ annotate OrdersService.Orders with @(
 		],
 		FieldGroup#Details: {
 			Data: [
-				{Value: currency.code, Label:'Currency'}
+				{Value: currency.code, Label:'Currency'},
+				{Value: status.code, Label:'Status'},
 			]
 		},
 		FieldGroup#Created: {
@@ -66,6 +67,9 @@ annotate OrdersService.Orders with @(
 	createdBy @UI.HiddenFilter:false;
 };
 
+annotate OrdersService.OrderStatus with {
+	code @Common: { Text: name,  TextArrangement: #TextOnly };
+}
 
 
 annotate OrdersService.Orders_Items with @(

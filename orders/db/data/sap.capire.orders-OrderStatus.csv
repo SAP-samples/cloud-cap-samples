@@ -1,0 +1,4 @@
+code;name;descr
+O;Open;Order is open
+P;In Process;Order is about to be processed
+C;Closed;Order is closed

@@ -1,4 +1,4 @@
-using { Currency, User, managed, cuid } from '@sap/cds/common';
+using { Currency, User, managed, cuid, sap.common.CodeList } from '@sap/cds/common';
 namespace sap.capire.orders;
 
 entity Orders : cuid, managed {
@@ -6,7 +6,11 @@ entity Orders : cuid, managed {
   Items    : Composition of many Orders_Items on Items.up_ = $self;
   buyer    : User;
   currency : Currency;
+  status   : Association to OrderStatus;
 }
+
+@cds.persistence.data.kind: 'config'
+entity OrderStatus : CodeList { key code: String(1) }
 
 entity Orders_Items {
   key ID    : UUID;
