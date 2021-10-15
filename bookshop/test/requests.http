@@ -50,7 +50,8 @@ Authorization: Basic alice:
 }
 
 ### ------------------------------------------------------------------------
-# Create multiple books in one batch request
+# Create multiple books in one JSON batch request
+# JSON batch request are only available in the NodeJS stack
 POST {{server}}/admin/$batch
 Content-Type: application/json;IEEE754Compatible=true
 Authorization: Basic alice:
