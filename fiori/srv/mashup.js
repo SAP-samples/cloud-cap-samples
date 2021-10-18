@@ -41,8 +41,8 @@ module.exports = async()=>{ // called by server.js
   //
   ReviewsService.on ('reviewed', (msg) => {
     console.debug ('> received:', msg.event, msg.data)
-    const { subject, rating } = msg.data
-    return UPDATE(Books,subject).with({rating})
+    const { subject, count, rating } = msg.data
+    return UPDATE(Books,subject).with({ numberOfReviews:count, rating })
     // ^ Note: the framework will execute this and take care for db.tx
   })
 
