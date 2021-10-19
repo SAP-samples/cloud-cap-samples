@@ -10,7 +10,7 @@
 
 
 
-using { OrdersService } from '../../srv/orders-service';
+using { OrdersService } from '../srv/orders-service';
 
 
 @odata.draft.enabled
