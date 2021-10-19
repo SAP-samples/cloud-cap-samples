@@ -51,20 +51,27 @@ Each sub directory essentially is an individual npm package arranged in an [all-
 - As well as managed data, input validations, and authorization
 
 
-## [@capire/fiori](fiori)
+## [@capire/bookstore](bookstore)
 
 - A [composite app, reusing and combining](https://cap.cloud.sap/docs/guides/verticalize) these packages:
   - [@capire/bookshop](bookshop)
   - [@capire/reviews](reviews)
   - [@capire/orders](orders)
   - [@capire/common](common)
-- [Adds an SAP Fiori elements application](https://cap.cloud.sap/docs/guides/fiori/) to bookshop, thereby introducing to:
-  - [OData Annotations](https://cap.cloud.sap/docs/guides/fiori#adding-odata-annotations) in `.cds` files
-  - Support for [Fiori Draft](https://cap.cloud.sap/docs/guides/fiori#draft)
-  - Support for [Value Helps](https://cap.cloud.sap/docs/guides/fiori#value-help)
-  - Serving SAP Fiori apps locally
 - [The Vue.js app](bookshop/app/vue) imported from bookshop is served as well
+- [The Vue.js app](reviews/app/vue) imported from reviews is served as well
+- [The Fiori app](orders/app) imported from orders is served as well
 - [OpenAPI export + Swagger UI](https://cap.cloud.sap/docs/advanced/openapi)
+
+
+
+## [@capire/fiori](fiori)
+
+- [Adds an SAP Fiori elements application](https://cap.cloud.sap/docs/guides/fiori/) to bookshop, thereby introducing to:
+- [OData Annotations](https://cap.cloud.sap/docs/guides/fiori#adding-odata-annotations) in `.cds` files
+- Support for [Fiori Draft](https://cap.cloud.sap/docs/guides/fiori#draft)
+- Support for [Value Helps](https://cap.cloud.sap/docs/guides/fiori#value-help)
+- Serving SAP Fiori apps locally
 
 <br>
 
