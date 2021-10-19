@@ -15,13 +15,24 @@
         "kind": "odata",
         "model": "@capire/reviews"
       },
-      "messaging": {
-        "[production]": { "kind": "enterprise-messaging" },
-        "[hybrid]": { "kind": "enterprise-messaging-shared" },
-        "[local]": { "kind": "file-based-messaging" },
-        "kind": "local-messaging"
+      "OrdersService": {
+        "kind": "odata",
+        "model": "@capire/orders"
       },
-      "db": { "kind": "sql" }
+      "messaging": {
+        "[development]": { "kind": "file-based-messaging" },
+        "[hybrid]": { "kind": "enterprise-messaging-shared" },
+        "[production]": { "kind": "enterprise-messaging" }
+      },
+      "db": {
+        "kind": "sql",
+        "[development]": {
+          "model": "db/sqlite"
+        },
+        "[production]": {
+          "model": "db/hana"
+        }
+      }
     },
     "log": { "service": true }
   }
