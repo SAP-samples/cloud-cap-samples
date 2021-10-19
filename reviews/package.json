@@ -10,17 +10,12 @@
     "@sap/cds": "^5",
     "express": "^4.17.1"
   },
-  "scripts": {
-    "reviews-service": "cds watch",
-    "books-reviewed": "cds watch ../reviewed"
-  },
   "cds": {
     "requires": {
       "messaging": {
-        "[production]": { "kind": "enterprise-messaging" },
+        "[development]": { "kind": "file-based-messaging" },
         "[hybrid]": { "kind": "enterprise-messaging-shared" },
-        "[local]": { "kind": "file-based-messaging" },
-        "kind": "local-messaging"
+        "[production]": { "kind": "enterprise-messaging" }
       },
       "db": { "kind": "sql" }
     }

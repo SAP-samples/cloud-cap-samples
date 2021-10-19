@@ -24,26 +24,10 @@
         "kind": "odata",
         "model": "@capire/orders"
       },
-      "db": {
-        "kind": "sql",
-        "[development]": {
-          "model": "db/sqlite"
-        },
-        "[production]": {
-          "model": "db/hana"
-        }
-      },
       "messaging": {
-        "[production]": {
-          "kind": "enterprise-messaging"
-        },
-        "[hybrid]": {
-          "kind": "enterprise-messaging-shared"
-        },
-        "[local]": {
-          "kind": "file-based-messaging"
-        },
-        "kind": "local-messaging"
+        "[production]": { "kind": "enterprise-messaging" },
+        "[development]": { "kind": "file-based-messaging" },
+        "[hybrid!]": { "kind": "enterprise-messaging-shared" }
       },
       "hana": {
         "deploy-format": "hdbtable"
