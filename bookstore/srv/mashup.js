@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////
 //
-//    Mashing up provided and required services...
+//    Mashing up bookshop services with required services...
 //
 module.exports = async()=>{ // called by server.js
 
