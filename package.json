@@ -12,7 +12,7 @@
     "@capire/media": "./media",
     "@capire/orders": "./orders",
     "@capire/reviews": "./reviews",
-    "@sap/cds": "git+https://github.tools.sap/cap/cds.git#runtime/ui-flex-prod",
+    "@sap/cds": "git+https://github.tools.sap/cap/cds.git",
     "@sap/cds-dk": "*"
   },
   "devDependencies": {

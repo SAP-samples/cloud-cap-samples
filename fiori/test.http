@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "extensions": [
-    "{\"extend\":\"AdminService.Books\",\"elements\":{\"ab c\":{\"type\":\"cds.Integer\"}}}"
+    "{\"extend\":\"AdminService.Books\",\"elements\":{\"neuesFeld2\":{\"type\":\"cds.String\", \"default\":\"hallo\"}}}"
   ]
 }
 

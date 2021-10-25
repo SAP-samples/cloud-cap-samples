@@ -23,6 +23,9 @@
 	},
 	"sap.ui5": {
         "flexEnabled": true,
+        "config": {   
+            "experimentalCAPScenario": true
+        },
         "dependencies": {
             "libs": {
                 "sap.fe.templates": {}
