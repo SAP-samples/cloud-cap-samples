@@ -38,6 +38,11 @@
         "[production]": {
           "model": "db/hana"
         }
+      },
+      "messaging": {
+        "[development]": { "kind": "file-based-messaging" },
+        "[hybrid]": { "kind": "enterprise-messaging-shared" },
+        "kind": "enterprise-messaging"
       }
     }
   }
