@@ -60,11 +60,11 @@ describe('Messaging', ()=>{
         expect(M).equals(N)
         expect(received.length).equals(N)
         expect(received.map(m=>m.data)).to.deep.equal([
-            { subject: '201', rating: 1 },
-            { subject: '201', rating: 1.5 },
-            { subject: '201', rating: 2 },
-            { subject: '201', rating: 2.5 },
-            { subject: '201', rating: 3 },
+            { count: 1, subject: '201', rating: 1 },
+            { count: 2, subject: '201', rating: 1.5 },
+            { count: 3, subject: '201', rating: 2 },
+            { count: 4, subject: '201', rating: 2.5 },
+            { count: 5, subject: '201', rating: 3 },
         ])
     })
 })
