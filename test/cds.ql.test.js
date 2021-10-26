@@ -91,7 +91,7 @@ describe('cds.ql → cqn', () => {
         .to.eql({
           SELECT: {
             one: true,
-            ref: [{ id: 'Foo', where: [{ ref: ['ID'] }, '=', { val: 11 }] }],
+            from: { ref: [{ id: 'Foo', where: [{ ref: ['ID'] }, '=', { val: 11 }] }] },
           },
         })
       } else {
