@@ -30,10 +30,12 @@ app.use('/-/:tarball', (req,res,next) => {
 app.use('/-', express.static(__dirname))
 
 app.get('/*', (req,res)=>{
+  const urlRegex = /^\/(@\w+)\/(\w+)/
   const url = decodeURIComponent(req.url)
   console.debug ('GET',url)
   try {
-    const [, scpe, pkg ] = /^\/(@\w+)\/(\w+)/.exec(url)
+    if (!urlRegex.test(url))  return res.sendStatus(404)
+    const [, scpe, pkg ] = urlRegex.exec(url)
     const package = require (`${scpe}/${pkg}/package.json`)
     const tarball = `${scpe.slice(1)}-${pkg}-${package.version}.tgz`
     // https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md
@@ -47,23 +49,24 @@ app.get('/*', (req,res)=>{
           "name": package.name,
           "version": package.version,
           "dist": {
-            "tarball": `http://localhost:${port}/-/${tarball}`
+            "tarball": `/-/${tarball}`
           },
         }
       },
     })
   } catch (e) {
-    console.error(e)
-    res.sendStatus(404)
+    if (e.code === 'MODULE_NOT_FOUND')  return res.sendStatus(404)
+    console.error(e);  throw e
   }
 })
 
 const server = app.listen(port, ()=>{
-  const url = `http://localhost:${port}`
+  const url = `http://localhost:${server.address().port}`
   console.log (`npm set ${scope}:registry=${url}`)
   exec(`npm set ${scope}:registry=${url}`)
   console.log (`${scope} registry listening on ${url}`)
 })
+
 
 const _exit = ()=>{
   server.close()
