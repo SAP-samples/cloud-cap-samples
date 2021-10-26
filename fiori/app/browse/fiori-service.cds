@@ -6,11 +6,11 @@ using CatalogService from '@capire/bookshop';
 //
 annotate CatalogService.Books with @(
 	UI: {
-  	HeaderInfo: {
+		HeaderInfo: {
 			TypeName: 'Book',
 			TypeNamePlural: 'Books',
-  		Description: {Value: author}
-  	},
+			Description: {Value: author}
+		},
 		HeaderFacets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Description}', Target: '@UI.FieldGroup#Descr'},
 		],
@@ -38,7 +38,7 @@ annotate CatalogService.Books with @(
 //
 annotate CatalogService.Books with @(
 	UI: {
-	  SelectionFields: [ ID, price, currency_code ],
+		SelectionFields: [ ID, price, currency_code ],
 		LineItem: [
 			{Value: title},
 			{Value: author, Label:'{i18n>Author}'},
