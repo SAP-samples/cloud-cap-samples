@@ -10,9 +10,11 @@ cds.once('bootstrap',(app)=>{
 cds.once('served', require('./srv/mashup'))
 
 // Swagger UI - see https://cap.cloud.sap/docs/advanced/openapi
-if (process.env.NODE_ENV !== 'production') {
+try {
   const cds_swagger = require ('cds-swagger-ui-express')
   cds.once ('bootstrap', app => app.use (cds_swagger()) )
+} catch (err) {
+  if (err.code !== 'MODULE_NOT_FOUND')  throw err
 }
 
 
