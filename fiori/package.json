@@ -35,7 +35,9 @@
       },
       "db": {
         "kind": "sqlite",
-        "model": "*"
+        "credentials": {
+          "database": "sqlite.db"
+        }
       }
     }
   }
