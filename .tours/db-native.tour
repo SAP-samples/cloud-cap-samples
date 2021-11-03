@@ -105,5 +105,5 @@
       "description": "### Summary\n\nThat's it!  You have seen: \n- How to integrate database-specific functions in a CDS model.\n- How to switch between the two implementations for SQLite and SAP HANA."
     }
   ],
-  "ref": "master"
+  "ref": "main"
 }
