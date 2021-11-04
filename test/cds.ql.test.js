@@ -86,14 +86,24 @@ describe('cds.ql → cqn', () => {
       .to.eql(SELECT.from(Foo,{ID:11}))
       .to.eql(SELECT.from(Foo).byKey(11))
       .to.eql(SELECT.from(Foo).byKey({ID:11}))
-      expect.one(cqn)
-      .to.eql({
-        SELECT: {
-          one: true,
-          from: { ref: ['Foo'] },
-          where: [{ ref: ['ID'] }, '=', { val: 11 }],
-        },
-      })
+      if (cds.version >= '5.6.0') {
+        expect.one(cqn)
+        .to.eql({
+          SELECT: {
+            one: true,
+            from: { ref: [{ id: 'Foo', where: [{ ref: ['ID'] }, '=', { val: 11 }] }] },
+          },
+        })
+      } else {
+        expect.one(cqn)
+        .to.eql({
+          SELECT: {
+            one: true,
+            from: { ref: ['Foo'] },
+            where: [{ ref: ['ID'] }, '=', { val: 11 }],
+          },
+        })
+      }
 
     })
 
@@ -131,15 +141,27 @@ describe('cds.ql → cqn', () => {
       // Test combination with key as second argument to .from
       expect(cqn = SELECT.from(Foo, 11, ['a']))
       .to.eql(SELECT.from(Foo, 11, foo => foo.a))
-      expect.one(cqn)
-      .to.eql({
-        SELECT: {
-          one: true,
-          from: { ref: ['Foo'] },
-          columns: [{ ref: ['a'] }],
-          where: [{ ref: ['ID'] }, '=', { val: 11 }],
-        },
-      })
+
+      if (cds.version >= '5.6.0') {
+        expect.one(cqn)
+        .to.eql({
+          SELECT: {
+            one: true,
+            from: { ref: [{ id: 'Foo', where: [{ ref: ['ID'] }, '=', { val: 11 }]}] },
+            columns: [{ ref: ['a'] }]
+          },
+        })
+      } else {
+        expect.one(cqn)
+        .to.eql({
+          SELECT: {
+            one: true,
+            from: { ref: ['Foo'] },
+            columns: [{ ref: ['a'] }],
+            where: [{ ref: ['ID'] }, '=', { val: 11 }],
+          },
+        })
+      }
 
     })
 
@@ -551,21 +573,31 @@ describe('cds.ql → cqn', () => {
 
   describe(`UPDATE...`, () => {
     test('entity (..., <key>)', () => {
-      expect(UPDATE(Books, 4711))
-        .to.eql(UPDATE(Books, { ID: 4711 }))
-        .to.eql(UPDATE(Books).byKey(4711))
-        .to.eql(UPDATE(Books).byKey({ ID: 4711 }))
-        .to.eql(UPDATE(Books).where({ ID: 4711 }))
-        .to.eql(UPDATE(Books).where(`ID=`, 4711))
-        .to.eql(UPDATE.entity(Books, 4711))
-        .to.eql(UPDATE.entity(Books, { ID: 4711 }))
-        // etc...
-        .to.eql({
+      const cqnWhere = {
           UPDATE: {
             entity: 'capire.bookshop.Books',
             where: [{ ref: ['ID'] }, '=', { val: 4711 }],
           },
-        })
+        }
+      expect(UPDATE(Books).where({ ID: 4711 }))
+        .to.eql(UPDATE(Books).where(`ID=`, 4711))
+        .to.eql(cqnWhere)
+
+      const cqnKey = (cds.version >= '5.6.0') ? 
+        {
+          UPDATE: {
+            entity: { ref: [{ id: 'capire.bookshop.Books', where: [{ ref: ['ID'] }, '=', { val: 4711 }] }] }
+          }
+        }
+        : cqnWhere
+      expect(UPDATE(Books, 4711))
+        .to.eql(UPDATE(Books, { ID: 4711 }))
+        .to.eql(UPDATE(Books).byKey(4711))
+        .to.eql(UPDATE(Books).byKey({ ID: 4711 }))
+        .to.eql(UPDATE.entity(Books, 4711))
+        .to.eql(UPDATE.entity(Books, { ID: 4711 }))
+        // etc...
+        .to.eql(cqnKey)
     })
 
     /*
@@ -616,20 +648,29 @@ describe('cds.ql → cqn', () => {
 
   describe(`DELETE...`, () => {
     test('from (..., <key>)', () => {
+      const cqnWhere = {
+          DELETE: {
+            from: 'capire.bookshop.Books',
+            where: [{ ref: ['ID'] }, '=', { val: 4711 }],
+          },
+        }
+      expect(DELETE.from(Books).where({ ID: 4711 }))
+        .to.eql(DELETE.from(Books).where(`ID=`, 4711))
+        .to.eql(cqnWhere)
+      const cqnKey = (cds.version >= '5.6.0') ? 
+        {
+          DELETE: {
+          from: { ref: [{ id: 'capire.bookshop.Books', where: [{ ref: ['ID'] }, '=', { val: 4711 }]}] }
+          },
+        } : cqnWhere
+
       expect(DELETE(Books, 4711))
         .to.eql(DELETE(Books, { ID: 4711 }))
         .to.eql(DELETE.from(Books, 4711))
         .to.eql(DELETE.from(Books, { ID: 4711 }))
         .to.eql(DELETE.from(Books).byKey(4711))
         .to.eql(DELETE.from(Books).byKey({ ID: 4711 }))
-        .to.eql(DELETE.from(Books).where({ ID: 4711 }))
-        .to.eql(DELETE.from(Books).where(`ID=`, 4711))
-        .to.eql({
-          DELETE: {
-            from: 'capire.bookshop.Books',
-            where: [{ ref: ['ID'] }, '=', { val: 4711 }],
-          },
-        })
+        .to.eql(cqnKey)
     })
 
     test('/w plain SQL', () => {
