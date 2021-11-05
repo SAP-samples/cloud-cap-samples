@@ -18,6 +18,7 @@ app.use('/-/:tarball', (req,res,next) => {
     const { tarball } = req.params
     const [, pkg ] = /^\w+-(\w+)/.exec(tarball)
     fs.lstat(tarball,(err => {
+      if (err) console.debug (`npm pack ../${pkg}`)
       if (err) exec(`npm pack ../${pkg}`,{cwd},next)
       else next()
     }))
@@ -49,7 +50,7 @@ app.get('/*', (req,res)=>{
           "name": package.name,
           "version": package.version,
           "dist": {
-            "tarball": `/-/${tarball}`
+            "tarball": `${server.url}/-/${tarball}`
           },
         }
       },
@@ -61,7 +62,7 @@ app.get('/*', (req,res)=>{
 })
 
 const server = app.listen(port, ()=>{
-  const url = `http://localhost:${server.address().port}`
+  const url = server.url = `http://localhost:${server.address().port}`
   console.log (`npm set ${scope}:registry=${url}`)
   exec(`npm set ${scope}:registry=${url}`)
   console.log (`${scope} registry listening on ${url}`)
