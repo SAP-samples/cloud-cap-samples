@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////
 //
-//    Mashing up provided and required services...
+//    Mashing up bookshop services with required services...
 //
 module.exports = async()=>{ // called by server.js
 
@@ -20,7 +20,7 @@ module.exports = async()=>{ // called by server.js
   CatalogService.prepend (srv => srv.on ('READ', 'Books/reviews', (req) => {
     console.debug ('> delegating request to ReviewsService')
     const [id] = req.params, { columns, limit } = req.query.SELECT
-    return ReviewsService.tx(req).read ('Reviews',columns).limit(limit).where({subject:String(id)})
+    return ReviewsService.read ('Reviews',columns).limit(limit).where({subject:String(id)})
   }))
 
   //
@@ -37,13 +37,12 @@ module.exports = async()=>{ // called by server.js
   })
 
   //
-  // Update Books' average ratings when ReviewsService signals updatd reviews
+  // Update Books' average ratings when ReviewsService signals updated reviews
   //
   ReviewsService.on ('reviewed', (msg) => {
     console.debug ('> received:', msg.event, msg.data)
-    const { subject, rating } = msg.data
-    return UPDATE(Books,subject).with({rating})
-    // ^ Note: the framework will execute this and take care for db.tx
+    const { subject, count, rating } = msg.data
+    return UPDATE(Books,subject).with({ numberOfReviews:count, rating })
   })
 
   //
