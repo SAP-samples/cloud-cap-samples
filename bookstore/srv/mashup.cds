@@ -20,9 +20,11 @@ extend Books with {
 //
 //  Extend Orders with Books as Products
 //
-using { sap.capire.orders.Orders_Items } from '@capire/orders';
-extend Orders_Items with {
-  book : Association to Books on product.ID = book.ID
+using { sap.capire.orders.Orders } from '@capire/orders';
+extend Orders with {
+  extend Items with {
+    book : Association to Books on product.ID = book.ID
+  }
 }
 
 
