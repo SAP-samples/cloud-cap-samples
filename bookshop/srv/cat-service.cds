@@ -1,14 +1,16 @@
 using { sap.capire.bookshop as my } from '../db/schema';
 service CatalogService @(path:'/browse') {
 
-  @readonly entity Books as SELECT from my.Books {*,
+  /** For displaying lists of Books */
+  @readonly entity ListOfBooks as projection on Books
+  excluding { descr };
+
+  /** For display in details pages */
+  @readonly entity Books as projection on my.Books { *,
     author.name as author
   } excluding { createdBy, modifiedBy };
 
-  @readonly entity ListOfBooks as SELECT from Books
-  excluding { descr, stock };
-
   @requires: 'authenticated-user'
-  action submitOrder ( book: Books:ID, amount: Integer ) returns { stock: Integer };
-  event OrderedBook : { book: Books:ID; amount: Integer; buyer: String };
+  action submitOrder ( book: Books:ID, quantity: Integer ) returns { stock: Integer };
+  event OrderedBook : { book: Books:ID; quantity: Integer; buyer: String };
 }

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////
 //
-//    Mashing up provided and required services...
+//    Mashing up bookshop services with required services...
 //
 module.exports = async()=>{ // called by server.js
 
@@ -20,40 +20,39 @@ module.exports = async()=>{ // called by server.js
   CatalogService.prepend (srv => srv.on ('READ', 'Books/reviews', (req) => {
     console.debug ('> delegating request to ReviewsService')
     const [id] = req.params, { columns, limit } = req.query.SELECT
-    return ReviewsService.tx(req).read ('Reviews',columns).limit(limit).where({subject:String(id)})
+    return ReviewsService.read ('Reviews',columns).limit(limit).where({subject:String(id)})
   }))
 
   //
   // Create an order with the OrdersService when CatalogService signals a new order
   //
   CatalogService.on ('OrderedBook', async (msg) => {
-    const { book, amount, buyer } = msg.data
+    const { book, quantity, buyer } = msg.data
     const { title, price } = await db.tx(msg).read (Books, book, b => { b.title, b.price })
     return OrdersService.tx(msg).create ('Orders').entries({
       OrderNo: 'Order at '+ (new Date).toLocaleString(),
-      Items: [{ product:{ID:`${book}`}, title, price, amount }],
+      Items: [{ product:{ID:`${book}`}, title, price, quantity }],
       buyer, createdBy: buyer
     })
   })
 
   //
-  // Update Books' average ratings when ReviewsService signals updatd reviews
+  // Update Books' average ratings when ReviewsService signals updated reviews
   //
   ReviewsService.on ('reviewed', (msg) => {
     console.debug ('> received:', msg.event, msg.data)
-    const { subject, rating } = msg.data
-    return UPDATE(Books,subject).with({rating})
-    // ^ Note: the framework will execute this and take care for db.tx
+    const { subject, count, rating } = msg.data
+    return UPDATE(Books,subject).with({ numberOfReviews:count, rating })
   })
 
   //
   // Reduce stock of ordered books for orders are created from Orders admin UI
   //
-  OrdersService.on ('OrderChanged', async (msg) => {
+  OrdersService.on ('OrderChanged', (msg) => {
     console.debug ('> received:', msg.event, msg.data)
-    const { product, deltaAmount } = msg.data
+    const { product, deltaQuantity } = msg.data
     return UPDATE (Books) .where ('ID =', product)
-    .and ('stock >=', deltaAmount)
-    .set ('stock -=', deltaAmount)
+    .and ('stock >=', deltaQuantity)
+    .set ('stock -=', deltaQuantity)
   })
 }

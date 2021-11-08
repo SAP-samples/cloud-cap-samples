@@ -1,12 +1,10 @@
 const cds = require('@sap/cds/lib')
-const cwd = process.cwd(); process.chdir (__dirname) //> only for internal CI/CD@SAP
-const {expect} = cds.test
+const { expect } = cds.test
 const _model = '@capire/reviews'
-cds.User = cds.User.Privileged // hard core monkey patch
+if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
+else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
 
 describe('Messaging', ()=>{
-
-    after(()=> process.chdir(cwd))
 
     it ('should bootstrap sqlite in-memory db', async()=>{
         const db = await cds.deploy (_model) .to ('sqlite::memory:')
@@ -22,11 +20,11 @@ describe('Messaging', ()=>{
 
     let N=0, received=[], M=0
     it ('should add messaging event handlers', ()=>{
-        srv.on('reviewed', (msg,next)=> { received.push(msg); return next() })
+        srv.on('reviewed', (msg)=> received.push(msg))
     })
 
     it ('should add more messaging event handlers', ()=>{
-        srv.on('reviewed', (_,next)=> { ++M; return next() })
+        srv.on('reviewed', ()=> ++M)
     })
 
     it ('should add review', async ()=>{
@@ -44,16 +42,16 @@ describe('Messaging', ()=>{
         //     { ID: 111 + (++N),  subject: "201", title: "Captivating", rating: N },
         // ),
         srv.create ('Reviews') .entries (
-            { ID: 111 + (++N),  subject: "201", title: "Captivating", rating: N }
+            { ID: String(111 + (++N)),  subject: "201", title: "Captivating", rating: N }
         ),
         srv.create ('Reviews') .entries (
-            { ID: 111 + (++N),  subject: "201", title: "Captivating", rating: N }
+            { ID: String(111 + (++N)),  subject: "201", title: "Captivating", rating: N }
         ),
         srv.create ('Reviews') .entries (
-            { ID: 111 + (++N),  subject: "201", title: "Captivating", rating: N }
+            { ID: String(111 + (++N)),  subject: "201", title: "Captivating", rating: N }
         ),
         srv.create ('Reviews') .entries (
-            { ID: 111 + (++N),  subject: "201", title: "Captivating", rating: N }
+            { ID: String(111 + (++N)),  subject: "201", title: "Captivating", rating: N }
         ),
     ]))
 
@@ -62,11 +60,11 @@ describe('Messaging', ()=>{
         expect(M).equals(N)
         expect(received.length).equals(N)
         expect(received.map(m=>m.data)).to.deep.equal([
-            { subject: '201', rating: 1 },
-            { subject: '201', rating: 1.5 },
-            { subject: '201', rating: 2 },
-            { subject: '201', rating: 2.5 },
-            { subject: '201', rating: 3 },
+            { count: 1, subject: '201', rating: 1 },
+            { count: 2, subject: '201', rating: 1.5 },
+            { count: 3, subject: '201', rating: 2 },
+            { count: 4, subject: '201', rating: 2.5 },
+            { count: 5, subject: '201', rating: 3 },
         ])
     })
 })

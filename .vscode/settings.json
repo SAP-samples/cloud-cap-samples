@@ -1,6 +1,17 @@
 {
   "files.exclude": {
+    ".reuse/**": true,
     "**/.gitignore": true,
-    "**/.vscode": true
+    "**/.vscode": true,
+    "LICENSES/**": true
+  },
+  "debug.javascript.terminalOptions": {
+    "skipFiles": [
+      "<node_internals>/**",
+      "**/node_modules/**",
+      "**/cds/lib/lazy.js",
+      "**/cds/lib/req/cls.js",
+      "**/odata-v4/okra/**"
+    ]
   }
 }

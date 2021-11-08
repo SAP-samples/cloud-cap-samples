@@ -12,8 +12,8 @@ entity Orders_Items {
   key ID    : UUID;
   up_       : Association to Orders;
   product   : Association to Products;
-  amount    : Integer;
-  title     : String;
+  quantity  : Integer;
+  title     : String; //> intentionally replicated as snapshot from product.title
   price     : Double;
 }
 
@@ -21,6 +21,3 @@ entity Orders_Items {
 entity Products @(cds.persistence.skip:'always') {
   key ID : String;
 }
-
-// Activate extension package
-using from '@capire/common';

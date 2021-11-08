@@ -1,4 +1,5 @@
-using AdminService from '@capire/bookshop';
+using { AdminService } from '@capire/bookshop';
+using from '../common'; // to help UI linter get the complete annotations
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -39,6 +40,27 @@ annotate AdminService.Books with @(
 	}
 );
 
+annotate AdminService.Authors with @(
+	UI: {
+		HeaderInfo: {
+			Description: {Value: lifetime}
+		},
+		Facets: [
+			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}', Target: '@UI.FieldGroup#Details'},
+			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Books}', Target: 'books/@UI.LineItem'},
+		],
+		FieldGroup#Details: {
+			Data: [
+				{Value: placeOfBirth},
+				{Value: placeOfDeath},
+				{Value: dateOfBirth},
+				{Value: dateOfDeath},
+				{Value: age, Label: '{i18n>Age}'},
+			]
+		},
+	}
+);
+
 
 
 ////////////////////////////////////////////////////////////
@@ -49,7 +71,7 @@ annotate AdminService.Books with @(
 annotate sap.capire.bookshop.Books with @fiori.draft.enabled;
 annotate AdminService.Books with @odata.draft.enabled;
 
-annotate AdminService.Books_texts with @(
+annotate AdminService.Books.texts with @(
 	UI: {
 		Identification: [{Value:title}],
 		SelectionFields: [ locale, title ],
@@ -62,11 +84,11 @@ annotate AdminService.Books_texts with @(
 );
 
 // Add Value Help for Locales
-annotate AdminService.Books_texts {
+annotate AdminService.Books.texts {
 	locale @ValueList:{entity:'Languages',type:#fixed}
 }
-// In addition we need to expose Languages through AdminService
+// In addition we need to expose Languages through AdminService as a target for ValueList
 using { sap } from '@sap/cds/common';
 extend service AdminService {
-	entity Languages as projection on sap.common.Languages;
+	@readonly entity Languages as projection on sap.common.Languages;
 }

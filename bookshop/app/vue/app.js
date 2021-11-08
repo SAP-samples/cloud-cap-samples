@@ -10,7 +10,7 @@ const books = new Vue ({
     data: {
         list: [],
         book: undefined,
-        order: { amount:1, succeeded:'', failed:'' }
+        order: { quantity:1, succeeded:'', failed:'' }
     },
 
     methods: {
@@ -26,18 +26,18 @@ const books = new Vue ({
             const book = books.book = books.list [eve.currentTarget.rowIndex-1]
             const res = await GET(`/Books/${book.ID}?$select=descr,stock,image`)
             Object.assign (book, res.data)
-            books.order = { amount:1 }
+            books.order = { quantity:1 }
             setTimeout (()=> $('form > input').focus(), 111)
         },
 
         async submitOrder () {
-            const {book,order} = books, amount = parseInt (order.amount) || 1 // REVISIT: Okra should be less strict
+            const {book,order} = books, quantity = parseInt (order.quantity) || 1 // REVISIT: Okra should be less strict
             try {
-                const res = await POST(`/submitOrder`, { amount, book: book.ID })
+                const res = await POST(`/submitOrder`, { quantity, book: book.ID })
                 book.stock = res.data.stock
-                books.order = { amount, succeeded: `Successfully orderd ${amount} item(s).` }
+                books.order = { quantity, succeeded: `Successfully ordered ${quantity} item(s).` }
             } catch (e) {
-                books.order = { amount, failed: e.response.data.error.message }
+                books.order = { quantity, failed: e.response.data.error.message }
             }
         }
 

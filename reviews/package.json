@@ -7,18 +7,17 @@
     "index.cds"
   ],
   "dependencies": {
-    "@sap/cds": "^4",
+    "@sap/cds": "^5",
     "express": "^4.17.1"
-  },
-  "scripts": {
-    "reviews-service": "cds watch",
-    "books-reviewed": "cds watch ../reviewed"
   },
   "cds": {
     "requires": {
-      "db": {
-        "kind": "sql"
-      }
+      "messaging": {
+        "[development]": { "kind": "file-based-messaging" },
+        "[hybrid]": { "kind": "enterprise-messaging-shared" },
+        "[production]": { "kind": "enterprise-messaging" }
+      },
+      "db": { "kind": "sql" }
     }
   }
 }
