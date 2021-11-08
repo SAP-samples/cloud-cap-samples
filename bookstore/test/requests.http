@@ -2,7 +2,7 @@
 @bookshop = http://localhost:4004
 @reviews-service = {{bookshop}}/reviews
 # Uncomment this when running a separate reviews service
-@reviews-service = http://localhost:4005/reviews
+# @reviews-service = http://localhost:4005/reviews
 
 
 
@@ -38,7 +38,11 @@ GET {{bookshop}}/browse/Books(201)?
 &$select=ID,title,rating
 &$expand=reviews
 
+###
 
+GET {{bookshop}}/browse/Books?
+  &$select=title,author&$expand=currency
+Accept-Language: de
 
 #################################################
 #

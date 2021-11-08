@@ -10,7 +10,7 @@
 
 
 
-using { OrdersService } from '../../srv/orders-service';
+using { OrdersService } from '../srv/orders-service';
 
 
 @odata.draft.enabled
@@ -74,10 +74,10 @@ annotate OrdersService.Orders_Items with @(
 			{Value: product_ID, Label:'Product ID'},
 			{Value: title, Label:'Product Title'},
 			{Value: price, Label:'Unit Price'},
-			{Value: amount, Label:'Quantity'},
+			{Value: quantity, Label:'Quantity'},
 		],
 		Identification: [ //Is the main field group
-			{Value: amount, Label:'Amount'},
+			{Value: quantity, Label:'Quantity'},
 			{Value: title, Label:'Product'},
 			{Value: price, Label:'Unit Price'},
 		],
@@ -86,7 +86,7 @@ annotate OrdersService.Orders_Items with @(
 		],
 	},
 ) {
-	amount @(
+	quantity @(
 		Common.FieldControl: #Mandatory
 	);
 };

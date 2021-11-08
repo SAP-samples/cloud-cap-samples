@@ -5,35 +5,43 @@
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
   "dependencies": {
+    "@capire/bookstore": "./bookstore",
     "@capire/bookshop": "./bookshop",
     "@capire/common": "./common",
     "@capire/fiori": "./fiori",
     "@capire/hello": "./hello",
     "@capire/media": "./media",
     "@capire/orders": "./orders",
-    "@capire/reviews": "./reviews"
+    "@capire/reviews": "./reviews",
+    "@sap/cds": "^5.5.3"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
+    "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
-    "sqlite3": "^5.0.0"
+    "sqlite3": "^5"
   },
   "scripts": {
     "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",
     "registry": "node .registry/server.js",
     "bookshop": "cds watch bookshop",
     "fiori": "cds watch fiori",
+    "hello": "cds watch hello",
     "media": "cds watch media",
     "mocha": "npx mocha || echo",
     "jest": "npx jest",
-    "test": "npm run jest --silent"
+    "test": "npm run jest -- --silent",
+    "test:hello": "cd hello && npm test"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testTimeout": 20000,
+    "testMatch": [
+      "**/*.test.js"
+    ]
   },
   "mocha": {
     "parallel": true
-  },
-  "jest": {
-    "testEnvironment": "node"
   },
   "license": "SAP SAMPLE CODE LICENSE",
   "private": true
