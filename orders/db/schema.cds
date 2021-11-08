@@ -21,3 +21,9 @@ entity Orders_Items {
 entity Products @(cds.persistence.skip:'always') {
   key ID : String;
 }
+
+
+
+
+// this is to ensure we have filled-in currencies
+using from '@capire/common';
