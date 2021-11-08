@@ -76,7 +76,7 @@ describe('Hierarchical Data', ()=>{
       { ID:101, name:'Cat' },
       { ID:108, name:'Catweazle' }
 		]
-		expect ( await SELECT.from(Cats) ).to.eql (expected)
+		expect ( await SELECT`ID,name`.from(Cats) ).to.eql (expected)
 	})
 
 })
