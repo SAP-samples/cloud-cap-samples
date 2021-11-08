@@ -42,24 +42,132 @@ describe('cds.ql → cqn', () => {
       })
     })
 
-
-    test('from Foo [<key>]', () => {
-
-      expect(cqn = SELECT`from Foo[11]`)
-      .to.eql(SELECT`from Foo[${11}]`)
-      .to.eql(SELECT.from `Foo[11]`)
-      .to.eql(SELECT.from `Foo[${11}]`)
-      .to.eql(SELECT`Foo[11]`)
-      expect.plain(cqn)
-      .to.eql(CQL`SELECT from Foo[11]`)
-      .to.eql(srv.read`Foo[11]`)
-      .to.eql({
-        SELECT: { from: {
-          ref: [{ id: 'Foo', where: [{ val: 11 }] }]
-        }},
+    if (each === 'SELECT')
+    test('SELECT ( Foo )', () => {
+      expect({
+        SELECT: { from: { ref: ['Foo'] } },
       })
+      .to.eql(CQL`SELECT from Foo`)
+      .to.eql(SELECT(Foo))
+    })
 
-      if (cdr) expect.plain (cqn)
+    if (each === 'SELECT')
+    test('SELECT ( Foo ) .from ( Bar )', () => {
+
+      expect({
+        SELECT: { columns:[{ref:['Foo']}], from: { ref: ['Bar'] } },
+      })
+      .to.eql(CQL`SELECT Foo from Bar`)
+      .to.eql(SELECT `Foo` .from `Bar`)
+      .to.eql(SELECT `Foo` .from('Bar'))
+      .to.eql(SELECT('Foo').from('Bar'))
+      .to.eql(SELECT(['Foo']).from('Bar'))
+      .to.eql(SELECT(['Foo']).from('Bar'))
+      .to.eql(SELECT `Bar` .columns `Foo`)
+      .to.eql(SELECT `Bar` .columns ('Foo'))
+      .to.eql(SELECT `Bar` .columns (['Foo']))
+      .to.eql(SELECT.from `Bar` .columns ('Foo'))
+      .to.eql(SELECT.from `Bar` .columns (['Foo']))
+
+      expect({
+        SELECT: { columns:[
+          {ref:['Foo']},
+          {ref:['Boo']},
+        ], from: { ref: ['Bar'] } },
+      })
+      .to.eql(CQL`SELECT Foo, Boo from Bar`)
+      .to.eql(SELECT `Foo, Boo` .from `Bar`)
+      .to.eql(SELECT `Foo, Boo` .from('Bar'))
+      .to.eql(SELECT('Foo','Boo').from('Bar'))
+      .to.eql(SELECT(['Foo','Boo']).from('Bar'))
+      .to.eql(SELECT `Bar` .columns `Foo, Boo`)
+      .to.eql(SELECT `Bar` .columns ('Foo','Boo'))
+      .to.eql(SELECT `Bar` .columns (['Foo','Boo']))
+      .to.eql(SELECT.from `Bar` .columns ('Foo','Boo'))
+      .to.eql(SELECT.from `Bar` .columns (['Foo','Boo']))
+
+      expect({
+        SELECT: { columns:[
+          {ref:['Foo']},
+          {ref:['Boo']},
+          {ref:['Moo']},
+        ], from: { ref: ['Bar'] } },
+      })
+      .to.eql(CQL`SELECT Foo, Boo, Moo from Bar`)
+      .to.eql(SELECT `Foo, Boo, Moo` .from `Bar`)
+      .to.eql(SELECT `Foo, Boo, Moo` .from('Bar'))
+      .to.eql(SELECT('Foo','Boo','Moo').from('Bar'))
+      .to.eql(SELECT(['Foo','Boo','Moo']).from('Bar'))
+      .to.eql(SELECT `Bar` .columns `Foo, Boo, Moo`)
+      .to.eql(SELECT `Bar` .columns ('Foo','Boo','Moo'))
+      .to.eql(SELECT `Bar` .columns (['Foo','Boo','Moo']))
+      .to.eql(SELECT.from `Bar` .columns ('Foo','Boo','Moo'))
+      .to.eql(SELECT.from `Bar` .columns (['Foo','Boo','Moo']))
+
+
+      expect({
+        SELECT: { one:true, columns:[{ref:['Foo']}], from: { ref: ['Bar'] } },
+      })
+      // .to.eql(CQL`SELECT one Foo from Bar`)
+      .to.eql(SELECT.one `Foo` .from `Bar`)
+      .to.eql(SELECT.one `Foo` .from('Bar'))
+      .to.eql(SELECT.one('Foo').from('Bar'))
+      .to.eql(SELECT.one(['Foo']).from('Bar'))
+      .to.eql(SELECT.one(['Foo']).from('Bar'))
+      .to.eql(SELECT.one('Bar',['Foo']))
+      .to.eql(SELECT.one `Bar` .columns `Foo`)
+      .to.eql(SELECT.one('Bar').columns('Foo'))
+      .to.eql(SELECT.one('Bar').columns(['Foo']))
+      .to.eql(SELECT.one.from('Bar',['Foo']))
+      .to.eql(SELECT.one.from('Bar').columns('Foo'))
+      .to.eql(SELECT.one.from('Bar').columns(['Foo']))
+
+      expect({
+        SELECT: { one:true, columns:[
+          {ref:['Foo']},
+          {ref:['Boo']},
+        ], from: { ref: ['Bar'] } },
+      })
+      // .to.eql(CQL`SELECT Foo, Boo from Bar`)
+      .to.eql(SELECT.one `Foo, Boo` .from `Bar`)
+      .to.eql(SELECT.one `Foo, Boo` .from('Bar'))
+      .to.eql(SELECT.one('Foo','Boo').from('Bar'))
+      .to.eql(SELECT.one(['Foo','Boo']).from('Bar'))
+      .to.eql(SELECT.one('Bar',['Foo','Boo']))
+      .to.eql(SELECT.one `Bar` .columns `Foo, Boo`)
+      .to.eql(SELECT.one('Bar').columns('Foo','Boo'))
+      .to.eql(SELECT.one('Bar').columns(['Foo','Boo']))
+      .to.eql(SELECT.one.from('Bar',['Foo','Boo']))
+      .to.eql(SELECT.one.from('Bar').columns('Foo','Boo'))
+      .to.eql(SELECT.one.from('Bar').columns(['Foo','Boo']))
+
+      expect({
+        SELECT: { one:true, columns:[
+          {ref:['Foo']},
+          {ref:['Boo']},
+          {ref:['Moo']},
+        ], from: { ref: ['Bar'] } },
+      })
+      // .to.eql(CQL`SELECT Foo, Boo, Moo from Bar`)
+      .to.eql(SELECT.one `Foo, Boo, Moo` .from `Bar`)
+      .to.eql(SELECT.one `Foo, Boo, Moo` .from('Bar'))
+      .to.eql(SELECT.one('Foo','Boo','Moo').from('Bar'))
+      .to.eql(SELECT.one(['Foo','Boo','Moo']).from('Bar'))
+      .to.eql(SELECT.one('Bar',['Foo','Boo','Moo']))
+      .to.eql(SELECT.one `Bar` .columns `Foo, Boo, Moo`)
+      .to.eql(SELECT.one('Bar').columns('Foo','Boo','Moo'))
+      .to.eql(SELECT.one('Bar').columns(['Foo','Boo','Moo']))
+      .to.eql(SELECT.one.from('Bar',['Foo','Boo','Moo']))
+      .to.eql(SELECT.one.from('Bar').columns('Foo','Boo','Moo'))
+      .to.eql(SELECT.one.from('Bar').columns(['Foo','Boo','Moo']))
+
+    })
+
+    if (each === 'SELECT')
+    test('from ( Foo )', () => {
+      expect({
+        SELECT: { from: {ref: [{ id:'Foo', where: [{val:11}] }] }}
+      })
       .to.eql(srv.read`Foo[${11}]`)
       .to.eql(SELECT`Foo[${11}]`)
 
@@ -583,7 +691,7 @@ describe('cds.ql → cqn', () => {
         .to.eql(UPDATE(Books).where(`ID=`, 4711))
         .to.eql(cqnWhere)
 
-      const cqnKey = (cds.version >= '5.6.0') ? 
+      const cqnKey = (cds.version >= '5.6.0') ?
         {
           UPDATE: {
             entity: { ref: [{ id: 'capire.bookshop.Books', where: [{ ref: ['ID'] }, '=', { val: 4711 }] }] }
@@ -657,7 +765,7 @@ describe('cds.ql → cqn', () => {
       expect(DELETE.from(Books).where({ ID: 4711 }))
         .to.eql(DELETE.from(Books).where(`ID=`, 4711))
         .to.eql(cqnWhere)
-      const cqnKey = (cds.version >= '5.6.0') ? 
+      const cqnKey = (cds.version >= '5.6.0') ?
         {
           DELETE: {
           from: { ref: [{ id: 'capire.bookshop.Books', where: [{ ref: ['ID'] }, '=', { val: 4711 }]}] }
