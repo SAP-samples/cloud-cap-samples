@@ -41,11 +41,8 @@ describe('cds.ql → cqn', () => {
         SELECT: { from: { ref: ['Foo'] } },
       })
     })
-  })}
 
-
-  describe(`SELECT...`, () => {
-
+    if (each === 'SELECT')
     test('SELECT ( Foo )', () => {
       expect({
         SELECT: { from: { ref: ['Foo'] } },
@@ -54,6 +51,7 @@ describe('cds.ql → cqn', () => {
       .to.eql(SELECT(Foo))
     })
 
+    if (each === 'SELECT')
     test('SELECT ( Foo ) .from ( Bar )', () => {
 
       expect({
@@ -165,12 +163,11 @@ describe('cds.ql → cqn', () => {
 
     })
 
+    if (each === 'SELECT')
     test('from ( Foo )', () => {
       expect({
-        SELECT: { from: { ref: ['Foo'] } },
+        SELECT: { from: {ref: [{ id:'Foo', where: [{val:11}] }] }}
       })
-
-      if (cdr) expect.plain (cqn)
       .to.eql(srv.read`Foo[${11}]`)
       .to.eql(SELECT`Foo[${11}]`)
 
@@ -336,7 +333,7 @@ describe('cds.ql → cqn', () => {
       })
     })
 
-  })
+  })}
 
   describe ('SELECT where...', ()=>{
 
