@@ -71,7 +71,7 @@ POST {{server}}/browse/submitOrder
 Content-Type: application/json
 {{me}}
 
-{ "book":201, "amount":5 }
+{ "book":201, "quantity":5 }
 
 
 ### ------------------------------------------------------------------------

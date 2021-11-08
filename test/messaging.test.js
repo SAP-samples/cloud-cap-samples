@@ -1,5 +1,5 @@
-const { expect } = require('../test')
 const cds = require('@sap/cds/lib')
+const { expect } = cds.test
 const _model = '@capire/reviews'
 if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
 else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
@@ -60,11 +60,11 @@ describe('Messaging', ()=>{
         expect(M).equals(N)
         expect(received.length).equals(N)
         expect(received.map(m=>m.data)).to.deep.equal([
-            { subject: '201', rating: 1 },
-            { subject: '201', rating: 1.5 },
-            { subject: '201', rating: 2 },
-            { subject: '201', rating: 2.5 },
-            { subject: '201', rating: 3 },
+            { count: 1, subject: '201', rating: 1 },
+            { count: 2, subject: '201', rating: 1.5 },
+            { count: 3, subject: '201', rating: 2 },
+            { count: 4, subject: '201', rating: 2.5 },
+            { count: 5, subject: '201', rating: 3 },
         ])
     })
 })

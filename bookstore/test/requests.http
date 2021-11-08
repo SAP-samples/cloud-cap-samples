@@ -2,7 +2,7 @@
 @bookshop = http://localhost:4004
 @reviews-service = {{bookshop}}/reviews
 # Uncomment this when running a separate reviews service
-@reviews-service = http://localhost:4005/reviews
+# @reviews-service = http://localhost:4005/reviews
 
 
 

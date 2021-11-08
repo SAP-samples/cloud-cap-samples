@@ -17,7 +17,7 @@ Find here a collection of samples for the [SAP Cloud Application Programming Mod
 
 ### Download
 
-If you've [Git](https://git-scm.com/downloads) installed, clone this repo as shown below, otherwise [download as ZIP file](archive/master.zip).
+If you've [Git](https://git-scm.com/downloads) installed, clone this repo as shown below, otherwise [download as ZIP file](archive/main.zip).
 
 ```sh
 git clone https://github.com/sap-samples/cloud-cap-samples samples

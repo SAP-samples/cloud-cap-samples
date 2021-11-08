@@ -1,18 +1,19 @@
 const cds = require('@sap/cds')
-const { Books } = cds.entities ('sap.capire.bookshop')
 
 class CatalogService extends cds.ApplicationService { init(){
 
+  const { Books } = cds.entities ('sap.capire.bookshop')
+
   // Reduce stock of ordered books if available stock suffices
   this.on ('submitOrder', async req => {
-    const {book,amount} = req.data
+    const {book,quantity} = req.data
     let {stock} = await SELECT `stock` .from (Books,book)
-    if (stock >= amount) {
-      await UPDATE (Books,book) .with (`stock -=`, amount)
-      await this.emit ('OrderedBook', { book, amount, buyer:req.user.id })
+    if (stock >= quantity) {
+      await UPDATE (Books,book) .with (`stock -=`, quantity)
+      await this.emit ('OrderedBook', { book, quantity, buyer:req.user.id })
       return { stock }
     }
-    else return req.error (409,`${amount} exceeds stock for book #${book}`)
+    else return req.error (409,`${quantity} exceeds stock for book #${book}`)
   })
 
   // Add some discount for overstocked books
