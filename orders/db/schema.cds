@@ -11,7 +11,7 @@ entity Orders : cuid, managed {
 entity Orders_Items {
   key ID    : UUID;
   up_       : Association to Orders;
-  product   : Association to Products @assert.integrity:false; // REVISIT: this is a temporary workaround for a glitch in cds-runtime
+  product   : Association to Products;
   quantity  : Integer;
   title     : String; //> intentionally replicated as snapshot from product.title
   price     : Double;
@@ -21,3 +21,9 @@ entity Orders_Items {
 entity Products @(cds.persistence.skip:'always') {
   key ID : String;
 }
+
+
+
+
+// this is to ensure we have filled-in currencies
+using from '@capire/common';
