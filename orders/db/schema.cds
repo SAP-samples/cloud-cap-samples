@@ -14,7 +14,6 @@ entity Orders : cuid, managed {
   currency : Currency;
 }
 
-
 /** This is a stand-in for arbitrary ordered Products */
 entity Products @(cds.persistence.skip:'always') {
   key ID : String;

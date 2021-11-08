@@ -20,7 +20,6 @@ extend Books with {
 //
 //  Extend Orders with Books as Products
 //
-
 using { sap.capire.orders.Orders } from '@capire/orders';
 extend Orders with {
   extend Items with {
