@@ -1,4 +1,4 @@
-using { AdminService } from '../../db/schema';
+using { AdminService } from '@capire/bookshop';
 using from '../common'; // to help UI linter get the complete annotations
 
 ////////////////////////////////////////////////////////////////////////////
