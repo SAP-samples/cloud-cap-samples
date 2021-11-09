@@ -2,10 +2,7 @@
   "name": "@capire/fiori",
   "version": "1.0.0",
   "dependencies": {
-    "@capire/bookshop": "*",
-    "@capire/reviews": "*",
-    "@capire/orders": "*",
-    "@capire/common": "*",
+    "@capire/bookstore": "*",
     "@sap/cds": "^5",
     "express": "^4.17.1",
     "passport": "^0.4.1"
@@ -15,9 +12,6 @@
     "watch": "cds watch"
   },
   "cds": {
-    "hana": {
-      "deploy-format": "hdbtable"
-    },
     "requires": {
       "auth": {
         "strategy": "dummy"
@@ -30,19 +24,13 @@
         "kind": "odata",
         "model": "@capire/orders"
       },
-      "db": {
-        "kind": "sql",
-        "[development]": {
-          "model": "db/sqlite"
-        },
-        "[production]": {
-          "model": "db/hana"
-        }
-      },
       "messaging": {
+        "[production]": { "kind": "enterprise-messaging" },
         "[development]": { "kind": "file-based-messaging" },
-        "[hybrid]": { "kind": "enterprise-messaging-shared" },
-        "kind": "enterprise-messaging"
+        "[hybrid!]": { "kind": "enterprise-messaging-shared" }
+      },
+      "hana": {
+        "deploy-format": "hdbtable"
       }
     }
   }
