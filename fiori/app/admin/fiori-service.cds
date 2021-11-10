@@ -87,7 +87,6 @@ annotate AdminService.Books.texts with @(
 annotate AdminService.Books.texts {
 	locale @ValueList:{entity:'Languages'};
 	locale @Common.ValueListWithFixedValues:true; //show as drop down, not a dialog
-	locale @Common.ValueListForValidation:''; // validate against this list
 }
 // In addition we need to expose Languages through AdminService as a target for ValueList
 using { sap } from '@sap/cds/common';
