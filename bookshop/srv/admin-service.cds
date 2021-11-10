@@ -5,10 +5,5 @@ service AdminService @(requires:'admin') {
 }
 
 //Since ID is computed, we can hide the popup for ID on Create
-annotate AdminService.Books with {
-	ID @Core.Computed;
-}
-
-annotate AdminService.Authors with {
-	ID @Core.Computed;
-}
+annotate AdminService.Books with   { ID @Core.Computed; }
+annotate AdminService.Authors with { ID @Core.Computed; }
