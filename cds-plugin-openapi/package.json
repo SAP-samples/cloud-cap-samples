@@ -1,0 +1,9 @@
+{
+  "name": "@sap/cds-plugin-openapi",
+  "version": "1.0.0",
+  "description": "OpenAPI service specification build plugin",
+  "main": "index.js",
+  "dependencies": {
+    "@sap/cds-dk": "^4"
+  }
+}
