@@ -14,7 +14,6 @@
               "tiles": [
                 {
                   "id": "BrowseBooks",
-                  "size": "1×1",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Browse Books",
@@ -23,7 +22,6 @@
                 },
                 {
                   "id": "BrowseAuthors",
-                  "size": "1×1",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Browse Authors",
@@ -41,7 +39,6 @@
               "tiles": [
                 {
                   "id": "ManageBooks",
-                  "size": "1×1",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Manage Books",
@@ -50,7 +47,6 @@
                 },
                 {
                   "id": "ManageOrders",
-                  "size": "1×1",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Manage Orders",
@@ -77,8 +73,12 @@
               "action": "display",
               "title": "Browse Books",
               "signature": {
-                "parameters": {},
-                "additionalParameters": "allowed"
+                "parameters": {
+                  "Books.author.ID":{
+                    "renameTo": "ID"                    
+                  }
+                },
+                "additionalParameters": "ignored"
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
