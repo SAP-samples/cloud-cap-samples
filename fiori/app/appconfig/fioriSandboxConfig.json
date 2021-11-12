@@ -74,7 +74,10 @@
               "title": "Browse Books",
               "signature": {
                 "parameters": {
-                  "Books.author.ID":{
+                  "Books.ID": {
+                    "renameTo": "ID"                    
+                  },
+                  "Authors.books.ID": {
                     "renameTo": "ID"                    
                   }
                 },
@@ -91,8 +94,12 @@
               "action": "display",
               "title": "Browse Authors",
               "signature": {
-                "parameters": {},
-                "additionalParameters": "allowed"
+                "parameters": {
+                  "Books.author.ID":{
+                    "renameTo": "ID"
+                  }
+                },
+                "additionalParameters": "ignored"
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",

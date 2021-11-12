@@ -22,6 +22,34 @@
       "id": "ui5template.basicSAPUI5ApplicationProject",
       "-id": "ui5template.smartTemplate",
       "version": "1.40.12"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "intent1": {
+          "signature": {
+            "parameters": {
+              "Books.ID":{
+                "renameTo": "ID"
+              },
+              "Authors.books.ID": {
+                "renameTo": "ID"                    
+              }
+            },
+            "additionalParameters": "ignored"
+          },
+          "semanticObject": "Books",
+          "action": "display",
+          "title": "{{appTitle}}",
+          "info": "{{appInfo}}",
+          "subTitle": "{{appSubTitle}}",
+          "icon": "sap-icon://course-book",
+          "indicatorDataSource": {
+            "dataSource": "CatalogService",
+            "path": "Books/$count",
+            "refresh": 1800
+          }
+        }
+      }
     }
   },
   "sap.ui5": {
