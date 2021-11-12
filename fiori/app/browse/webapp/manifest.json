@@ -68,6 +68,7 @@
           "options": {
             "settings": {
               "entitySet": "Books",
+              "initialLoad": true,
               "navigation": {
                 "Books": {
                   "detail": {
