@@ -135,7 +135,6 @@ annotate my.Authors with @(
         SelectionFields : [name],
         LineItem        : [
             {Value : ID},
-            {Value : name},
             {Value : dateOfBirth},
             {Value : dateOfDeath},
             {Value : placeOfBirth},
