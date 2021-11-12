@@ -58,7 +58,7 @@ annotate my.Books with @(UI : {HeaderInfo : {
 //	Books Elements
 //
 annotate my.Books with {
-    ID     @title : '{i18n>ID}'  @UI.HiddenFilter;
+    ID     @title : '{i18n>ID}';
     title  @title : '{i18n>Title}';
     genre  @title : '{i18n>Genre}'  @Common               : {
         Text            : genre.name,
@@ -164,7 +164,7 @@ annotate my.Authors with @(UI : {
 //	Authors Elements
 //
 annotate my.Authors with {
-    ID           @title : '{i18n>ID}'  @UI.HiddenFilter;
+    ID           @title : '{i18n>ID}';
     name         @title : '{i18n>Name}';
     dateOfBirth  @title : '{i18n>DateOfBirth}';
     dateOfDeath  @title : '{i18n>DateOfDeath}';
