@@ -15,8 +15,14 @@ service CatalogService @(path : '/browse') {
    */
   @readonly
   entity Books       as projection on my.Books {
-    * , author.name as author
+    * , author.name as authorName
   } excluding {
+    createdBy,
+    modifiedBy
+  };
+
+  @readonly
+  entity Authors     as projection on my.Authors excluding {
     createdBy,
     modifiedBy
   };
