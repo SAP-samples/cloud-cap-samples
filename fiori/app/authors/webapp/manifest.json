@@ -68,6 +68,7 @@
           "options": {
             "settings": {
               "entitySet": "Authors",
+              "initialLoad": true,
               "navigation": {
                 "Authors": {
                   "detail": {
