@@ -22,6 +22,7 @@ annotate my.Books with @(
         LineItem        : [
             {Value : ID},
             {Value : title},
+            {Value : author.ID},
             {
                 Value : author.name,
                 Label : '{i18n>Author}'
