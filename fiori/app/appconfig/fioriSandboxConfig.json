@@ -1,0 +1,135 @@
+{
+  "services": {
+    "LaunchPage": {
+      "adapter": {
+        "config": {
+          "catalogs": [],
+          "groups": [
+            {
+              "id": "Bookshop",
+              "title": "Bookshop",
+              "isPreset": true,
+              "isVisible": true,
+              "isGroupLocked": false,
+              "tiles": [
+                {
+                  "id": "BrowseBooks",
+                  "size": "1×1",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Browse Books",
+                    "targetURL": "#Books-display"
+                  }
+                },
+                {
+                  "id": "BrowseAuthors",
+                  "size": "1×1",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Browse Authors",
+                    "targetURL": "#Authors-display"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "Administration",
+              "title": "Administration",
+              "isPreset": true,
+              "isVisible": true,
+              "isGroupLocked": false,
+              "tiles": [
+                {
+                  "id": "ManageBooks",
+                  "size": "1×1",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Books",
+                    "targetURL": "#Books-manage"
+                  }
+                },
+                {
+                  "id": "ManageOrders",
+                  "size": "1×1",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Orders",
+                    "targetURL": "#Orders-manage"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "NavTargetResolution": {
+      "config": {
+        "enableClientSideTargetResolution": true
+      }
+    },
+    "ClientSideTargetResolution": {
+      "adapter": {
+        "config": {
+          "inbounds": {
+            "BrowseBooks": {
+              "semanticObject": "Books",
+              "action": "display",
+              "title": "Browse Books",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=bookshop",
+                "url": "/browse/webapp"
+              }
+            },
+            "BrowseAuthors": {
+              "semanticObject": "Authors",
+              "action": "display",
+              "title": "Browse Authors",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=authors",
+                "url": "/authors/webapp"
+              }
+            },
+            "ManageBooks": {
+              "semanticObject": "Books",
+              "action": "manage",
+              "title": "Manage Books",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=admin",
+                "url": "/admin/webapp"
+              }
+            },
+            "ManageOrders": {
+              "semanticObject": "Orders",
+              "action": "manage",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=orders",
+                "url": "/orders/webapp"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
