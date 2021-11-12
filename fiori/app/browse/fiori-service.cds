@@ -42,10 +42,12 @@ annotate CatalogService.Books with @(UI : {
         currency_code
     ],
     LineItem        : [
-        {Value : title},
-        {Value : author.ID},
         {
-            Value : authorName,
+            Value : ID,
+            Label : '{i18n>Title}'
+        },
+        {
+            Value : author.ID,
             Label : '{i18n>Author}'
         },
         {Value : genre.name},
