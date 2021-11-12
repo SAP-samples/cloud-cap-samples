@@ -43,6 +43,7 @@ annotate CatalogService.Books with @(UI : {
     ],
     LineItem        : [
         {Value : title},
+        {Value : author.ID},
         {
             Value : authorName,
             Label : '{i18n>Author}'
