@@ -4,6 +4,6 @@
 
 using from './admin/fiori-service';
 using from './browse/fiori-service';
+using from './authors/fiori-service';
 using from './common';
-
 using from '@capire/bookstore/srv/mashup';
