@@ -20,11 +20,12 @@ annotate my.Books with @(
             currency_code
         ],
         LineItem        : [
-            {Value : ID},
-            {Value : title},
-            {Value : author.ID},
             {
-                Value : author.name,
+                Value : ID,
+                Label : '{i18n>Title}'
+            },
+            {
+                Value : author.ID,
                 Label : '{i18n>Author}'
             },
             {Value : genre.name},
@@ -37,7 +38,11 @@ annotate my.Books with @(
         ]
     }
 ) {
-    title  @Common.SemanticObject : 'Books';
+    ID  @Common: {
+        SemanticObject : 'Books',
+        Text: title,
+        TextArrangement : #TextOnly
+    };
     author @ValueList.entity      : 'Authors';
 };
 
@@ -138,7 +143,11 @@ annotate my.Authors with @(
         ],
     }
 ) {
-    name @Common.SemanticObject : 'Authors';
+    ID  @Common: {
+        SemanticObject : 'Authors',
+        Text: name,
+        TextArrangement : #TextOnly,
+    };
 };
 
 ////////////////////////////////////////////////////////////////////////////
