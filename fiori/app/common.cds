@@ -10,7 +10,7 @@ using {sap.common} from '@capire/common';
 //	Books Lists
 //
 annotate my.Books with @(
-    Common.SemanticKey : [title],
+    Common.SemanticKey : [ID],
     UI                 : {
         Identification  : [{Value : title}],
         SelectionFields : [
@@ -36,7 +36,8 @@ annotate my.Books with @(
         ]
     }
 ) {
-    author @ValueList.entity : 'Authors';
+    title  @Common.SemanticObject : 'Books';
+    author @ValueList.entity      : 'Authors';
 };
 
 ////////////////////////////////////////////////////////////////////////////
@@ -122,7 +123,7 @@ annotate my.Genres with {
 //	Authors List
 //
 annotate my.Authors with @(
-    Common.SemanticKey : [name],
+    Common.SemanticKey : [ID],
     UI                 : {
         Identification  : [{Value : name}],
         SelectionFields : [name],
@@ -135,7 +136,9 @@ annotate my.Authors with @(
             {Value : placeOfDeath},
         ],
     }
-);
+) {
+    name @Common.SemanticObject : 'Authors';
+};
 
 ////////////////////////////////////////////////////////////////////////////
 //
