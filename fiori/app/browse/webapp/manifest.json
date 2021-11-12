@@ -1,11 +1,14 @@
 {
-  "_version": "1.8.0",
+  "_version": "1.28.0",
   "sap.app": {
     "id": "bookshop",
     "type": "application",
     "title": "Browse Books",
     "description": "Sample Application",
     "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
     "dataSources": {
       "CatalogService": {
         "uri": "/browse/",
@@ -15,14 +18,15 @@
         }
       }
     },
-    "-sourceTemplate": {
+    "sourceTemplate": {
       "id": "ui5template.basicSAPUI5ApplicationProject",
       "-id": "ui5template.smartTemplate",
-      "-version": "1.40.12"
+      "version": "1.40.12"
     }
   },
   "sap.ui5": {
     "dependencies": {
+      "minUI5Version": "1.81.0",
       "libs": {
         "sap.fe.templates": {}
       }
@@ -98,7 +102,12 @@
   },
   "sap.ui": {
     "technology": "UI5",
-    "fullWidth": false
+    "fullWidth": false,
+    "deviceTypes":{
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
   },
   "sap.fiori": {
     "registrationIds": [],
