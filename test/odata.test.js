@@ -19,13 +19,13 @@ describe('OData Protocol', () => {
 
   it('supports $search in multiple fields', async () => {
     const { data } = await GET `/browse/Books ${{
-      params: { $search: 'Po', $select: `title,author` },
+      params: { $search: 'Po', $select: `title,authorName` },
     }}`
     expect(data.value).to.eql([
-      { ID: 201, title: 'Wuthering Heights', author: 'Emily Brontë' },
-      { ID: 207, title: 'Jane Eyre', author: 'Charlotte Brontë' },
-      { ID: 251, title: 'The Raven', author: 'Edgar Allen Poe' },
-      { ID: 252, title: 'Eleonora', author: 'Edgar Allen Poe' },
+      { ID: 201, title: 'Wuthering Heights', authorName: 'Emily Brontë' },
+      { ID: 207, title: 'Jane Eyre', authorName: 'Charlotte Brontë' },
+      { ID: 251, title: 'The Raven', authorName: 'Edgar Allen Poe' },
+      { ID: 252, title: 'Eleonora', authorName: 'Edgar Allen Poe' },
     ])
   })
 
