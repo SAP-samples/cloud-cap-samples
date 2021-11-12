@@ -28,19 +28,3 @@ annotate CatalogService.Authors with @(UI : {
         {Value : placeOfDeath},
     ]},
 });
-
-
-////////////////////////////////////////////////////////////////////////////
-//
-//	Authors List Page
-//
-annotate CatalogService.Authors with @(UI : {
-    SelectionFields : [
-        ID,
-        name,
-    ],
-    LineItem        : [
-        {Value : ID},
-        {Value : name},
-    ]
-}, );
