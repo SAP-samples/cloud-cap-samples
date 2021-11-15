@@ -24,6 +24,16 @@ git clone https://github.com/sap-samples/cloud-cap-samples samples
 cd samples
 ```
 
+### Serve `npm`
+
+We've included a simple npm registry mock, which allows you to do an `npm install @capire/<package>` locally. Use it as follows:
+
+1. Start the @capire registry:
+```sh
+npm run registry
+```
+> While running this will have `@capire:registry=http://localhost:4444` set with npmrc.
+ 
 ### Setup
 
 In the samples folder run:
@@ -31,6 +41,13 @@ In the samples folder run:
 ```sh
 npm install
 ```
+
+From the sample you want to run, for example, bookstore, again run:
+
+```sh
+npm install
+```
+> This uses the mocked npm registry to resolve the `@capire/<package>` dependencies.
 
 ### Run
 
@@ -52,23 +69,6 @@ Run the provided tests with [_jest_](http://jestjs.io) or [_mocha_](http://mocha
 npx jest
 ```
 > While mocha is a bit smaller and faster, jest runs tests in parallel and isolation, which allows to run all tests.
-
-
-### Serve `npm`
-
-We've included a simple npm registry mock, which allows you to do an `npm install @capire/<package>` locally. Use it as follows:
-
-1. Start the @capire registry:
-```sh
-npm run registry
-```
-> While running this will have `@capire:registry=http://localhost:4444` set with npmrc.
-
-2. Install one of the @capire packages wherever you like, for example:
-
-```sh
-npm add @capire/common @capire/bookshop
-```
 
 
 ## Code Tours
