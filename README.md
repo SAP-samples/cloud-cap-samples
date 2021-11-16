@@ -24,30 +24,13 @@ git clone https://github.com/sap-samples/cloud-cap-samples samples
 cd samples
 ```
 
-### Serve `npm`
-
-We've included a simple npm registry mock, which allows you to do an `npm install @capire/<package>` locally. Use it as follows:
-
-1. Start the @capire registry:
-```sh
-npm run registry
-```
-> While running this will have `@capire:registry=http://localhost:4444` set with npmrc.
- 
 ### Setup
 
-In the samples folder run:
+In the _samples_ folder run:
 
 ```sh
 npm install
 ```
-
-From the sample you want to run, for example, bookstore, again run:
-
-```sh
-npm install
-```
-> This uses the mocked npm registry to resolve the `@capire/<package>` dependencies.
 
 ### Run
 
@@ -70,6 +53,24 @@ npx jest
 ```
 > While mocha is a bit smaller and faster, jest runs tests in parallel and isolation, which allows to run all tests.
 
+### Deploy Sample
+
+We've included a simple npm registry mock, which allows you to do an `npm install @capire/<package>` locally. Use it as follows:
+
+Start the @capire registry:
+```sh
+npm run registry
+```
+> While running this will have `@capire:registry=http://localhost:4444` set with npmrc.
+
+In the folder of the sample you want to deploy, for example, _bookstore_, again run:
+
+```sh
+npm install
+```
+> This uses the mocked npm registry to resolve the `@capire/<package>` dependencies.
+
+**Important:** If you have executed `npm install` in a sample folder and want to work with the [monorepo setup](samples.md#all-in-one-monorepo) again, delete the _node_modules_ folder from the sample folder
 
 ## Code Tours
 
