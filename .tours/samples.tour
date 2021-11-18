@@ -19,7 +19,7 @@
       }
     },
     {
-      "file": "hello/world.cds",
+      "file": "hello/srv/world.cds",
       "description": "### Hello World!\n\nThis is a simplistic [Hello World](https://cap.cloud.sap/docs/get-started/hello-world) service using [CDS](https://cap.cloud.sap/docs/cds/) and [cds.services](https://cap.cloud.sap/docs/node.js/api#services-api).",
       "line": 2,
       "selection": {
@@ -68,7 +68,7 @@
     },
     {
       "file": "orders/db/schema.cds",
-      "description": "### Compositions and Serving Documents\n\nA standalone orders management service, demonstrating:\n- Using [Compositions](https://cap.cloud.sap/docs/cds/cdl#compositions) in [Domain Models](https://cap.cloud.sap/docs/guides/domain-models), along with\n- [Serving deeply nested documents](https://cap.cloud.sap/docs/guides/generic-providers#serving-structured-data)\n",
+      "description": "### Orders - Compositions and Serving Documents\n\nA standalone orders management service, demonstrating:\n- Using [Compositions](https://cap.cloud.sap/docs/cds/cdl#compositions) in [Domain Models](https://cap.cloud.sap/docs/guides/domain-models), along with\n- [Serving deeply nested documents](https://cap.cloud.sap/docs/guides/generic-providers#serving-structured-data)\n",
       "line": 1,
       "selection": {
         "start": {
@@ -84,7 +84,7 @@
     },
     {
       "file": "reviews/db/schema.cds",
-      "description": "### More Modularity\n\nShows how to implement a modular service to manage product reviews, including:\n- Consuming other services synchronously and asynchronously\n- Serving requests synchronously\n- Emitting events asynchronously\n- Grow as you go, with:\n- Mocking app services\n- Running service meshes\n- Late-cut Micro Services\n- As well as managed data, input validations, and authorization\n",
+      "description": "### Reviews - More Modularity\n\nShows how to implement a modular service to manage product reviews, including:\n- Consuming other services synchronously and asynchronously\n- Serving requests synchronously\n- Emitting events asynchronously\n- Grow as you go, with:\n- Mocking app services\n- Running service meshes\n- Late-cut Micro Services\n- As well as managed data, input validations, and authorization\n",
       "line": 1,
       "selection": {
         "start": {
@@ -99,8 +99,12 @@
       "title": "Reviews"
     },
     {
-      "file": "fiori/app/index.cds",
-      "description": "### Annotations for SAP Fiori Elements\n\nA [composite app, reusing and combining](https://cap.cloud.sap/docs/guides/verticalize) these packages:\n  - [@capire/bookshop](bookshop)\n  - [@capire/reviews](reviews)\n  - [@capire/orders](orders)\n  - [@capire/common](common)\n\n[Adds a SAP Fiori elements application](https://cap.cloud.sap/docs/guides/fiori/) to bookshop, thereby introducing to:\n  - [OData Annotations](https://cap.cloud.sap/docs/guides/fiori#adding-odata-annotations) in `.cds` files\n  - Support for [Fiori Draft](https://cap.cloud.sap/docs/guides/fiori#draft)\n  - Support for [Value Helps](https://cap.cloud.sap/docs/guides/fiori#value-help)\n  - Serving SAP Fiori apps locally\n\n[The Vue.js app](bookshop/app/vue) imported from bookshop is served as well.\n",
+      "title": "Bookstore",
+      "description": "### Bookstore - Reuse and UI\n\n- A [composite app, reusing and combining](https://cap.cloud.sap/docs/guides/reuse-and-compose) these packages:\n  - [@capire/bookshop](bookshop)\n  - [@capire/reviews](reviews)\n  - [@capire/orders](orders)\n  - [@capire/common](common)\n- [The Vue.js app](bookshop/app/vue) imported from bookshop is served as well\n- [The Vue.js app](reviews/app/vue) imported from reviews is served as well\n- [The Fiori app](orders/app) imported from orders is served as well\n- [OpenAPI export + Swagger UI](https://cap.cloud.sap/docs/advanced/openapi)"
+    },
+    {
+      "file": "fiori/app/services.cds",
+      "description": "### Annotations for SAP Fiori Elements\n\n- [Adds an SAP Fiori elements application](https://cap.cloud.sap/docs/guides/fiori/) to bookstore, thereby introducing to:\n- [OData Annotations](https://cap.cloud.sap/docs/guides/fiori#adding-odata-annotations) in `.cds` files\n- Support for [Fiori Draft](https://cap.cloud.sap/docs/guides/fiori#draft)\n- Support for [Value Helps](https://cap.cloud.sap/docs/guides/fiori#value-help)\n- Serving SAP Fiori apps locally\n",
       "line": 1,
       "selection": {
         "start": {
@@ -117,14 +121,13 @@
     {
       "file": "package.json",
       "description": "### All-in-one Monorepo\n\nEach sample sub directory essentially is a standard npm package, some with standard npm dependencies to other samples. The root folder's [package.json](package.json) has local links to the sub folders, such that an `npm install` populates a local `node_modules` folder acts like a local npm registry to the individual sample packages.\n",
-      "line": 8,
       "selection": {
         "start": {
           "line": 8,
           "character": 1
         },
         "end": {
-          "line": 15,
+          "line": 16,
           "character": 1
         }
       },
