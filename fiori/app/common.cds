@@ -2,8 +2,8 @@
  Common Annotations shared by all apps
 */
 
-using {sap.capire.bookshop as my} from '@capire/bookshop';
-using {sap.common} from '@capire/common';
+using { sap.capire.bookshop as my } from '@capire/bookstore';
+using { sap.common } from '@capire/common';
 
 ////////////////////////////////////////////////////////////////////////////
 //
