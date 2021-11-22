@@ -1,9 +1,9 @@
 {
   "_version": "1.28.0",
   "sap.app": {
-    "id": "bookshop",
+    "id": "authors",
     "type": "application",
-    "title": "Browse Books",
+    "title": "Browse Authors",
     "description": "Sample Application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -28,24 +28,21 @@
         "intent1": {
           "signature": {
             "parameters": {
-              "Books.ID":{
+              "Books.author.ID":{
                 "renameTo": "ID"
-              },
-              "Authors.books.ID": {
-                "renameTo": "ID"                    
               }
             },
             "additionalParameters": "ignored"
           },
-          "semanticObject": "Books",
+          "semanticObject": "Authors",
           "action": "display",
           "title": "{{appTitle}}",
           "info": "{{appInfo}}",
           "subTitle": "{{appSubTitle}}",
-          "icon": "sap-icon://course-book",
+          "icon": "sap-icon://SAP-icons-TNT/user",
           "indicatorDataSource": {
             "dataSource": "CatalogService",
-            "path": "Books/$count",
+            "path": "Authors/$count",
             "refresh": 1800
           }
         }
@@ -83,41 +80,41 @@
       "routes": [
         {
           "pattern": ":?query:",
-          "name": "BooksList",
-          "target": "BooksList"
+          "name": "AuthorsList",
+          "target": "AuthorsList"
         },
         {
-          "pattern": "Books({key}):?query:",
-          "name": "BooksDetails",
-          "target": "BooksDetails"
+          "pattern": "Authors({key}):?query:",
+          "name": "AuthorsDetails",
+          "target": "AuthorsDetails"
         }
       ],
       "targets": {
-        "BooksList": {
+        "AuthorsList": {
           "type": "Component",
-          "id": "BooksList",
+          "id": "AuthorsList",
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "entitySet": "Books",
+              "entitySet": "Authors",
               "initialLoad": true,
               "navigation": {
-                "Books": {
+                "Authors": {
                   "detail": {
-                    "route": "BooksDetails"
+                    "route": "AuthorsDetails"
                   }
                 }
               }
             }
           }
         },
-        "BooksDetails": {
+        "AuthorsDetails": {
           "type": "Component",
-          "id": "BooksDetailsList",
+          "id": "AuthorsDetailsList",
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
-              "entitySet": "Books"
+              "entitySet": "Authors"
             }
           }
         }
