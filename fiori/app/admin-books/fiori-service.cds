@@ -40,27 +40,6 @@ annotate AdminService.Books with @(
 	}
 );
 
-annotate AdminService.Authors with @(
-	UI: {
-		HeaderInfo: {
-			Description: {Value: lifetime}
-		},
-		Facets: [
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}', Target: '@UI.FieldGroup#Details'},
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Books}', Target: 'books/@UI.LineItem'},
-		],
-		FieldGroup#Details: {
-			Data: [
-				{Value: placeOfBirth},
-				{Value: placeOfDeath},
-				{Value: dateOfBirth},
-				{Value: dateOfDeath},
-				{Value: age, Label: '{i18n>Age}'},
-			]
-		},
-	}
-);
-
 
 
 ////////////////////////////////////////////////////////////
@@ -93,3 +72,6 @@ using { sap } from '@sap/cds/common';
 extend service AdminService {
 	@readonly entity Languages as projection on sap.common.Languages;
 }
+
+// Workaround for Fiori popup for asking user to enter a new UUID on Create
+annotate AdminService.Books with { ID @Core.Computed; }

@@ -8,7 +8,7 @@ annotate CatalogService.Books with @(UI : {
     HeaderInfo        : {
         TypeName       : 'Book',
         TypeNamePlural : 'Books',
-        Description    : {Value : authorName}
+        Description    : {Value : author}
     },
     HeaderFacets      : [{
         $Type  : 'UI.ReferenceFacet',
@@ -47,7 +47,7 @@ annotate CatalogService.Books with @(UI : {
             Label : '{i18n>Title}'
         },
         {
-            Value : author.ID,
+            Value : author,
             Label : '{i18n>Author}'
         },
         {Value : genre.name},
