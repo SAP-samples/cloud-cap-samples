@@ -5,7 +5,7 @@ const cds = require('@sap/cds'), { BuildTaskProvider, BuildTaskHandler } = cds.b
 const cdsdk = require('@sap/cds-dk')
 const logger = cds.log("build")
 
-module.exports.activate = () => {
+// module.exports.activate = () => {
     cds.build.registerProvider(
         new (class extends BuildTaskProvider {
             get id() {
@@ -50,4 +50,4 @@ module.exports.activate = () => {
             // }
         })()
     )
-}
+// }
