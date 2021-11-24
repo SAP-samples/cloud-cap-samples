@@ -25,13 +25,7 @@
         "[production]": { "kind": "enterprise-messaging" }
       },
       "db": {
-        "kind": "sql",
-        "[development]": {
-          "model": "db/sqlite"
-        },
-        "[production]": {
-          "model": "db/hana"
-        }
+        "kind": "sql"
       }
     },
     "log": { "service": true }

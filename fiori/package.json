@@ -29,6 +29,15 @@
         "[development]": { "kind": "file-based-messaging" },
         "[hybrid!]": { "kind": "enterprise-messaging-shared" }
       },
+      "db": {
+        "kind": "sql",
+        "[development]": {
+          "model": "db/sqlite"
+        },
+        "[production]": {
+          "model": "db/hana"
+        }
+      },
       "hana": {
         "deploy-format": "hdbtable"
       }
