@@ -3,15 +3,15 @@
   "sap.app": {
     "id": "authors",
     "type": "application",
-    "title": "Browse Authors",
+    "title": "Manage Authors",
     "description": "Sample Application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
       "version": "1.0.0"
     },
     "dataSources": {
-      "CatalogService": {
-        "uri": "/browse/",
+      "AdminService": {
+        "uri": "/admin/",
         "type": "OData",
         "settings": {
           "odataVersion": "4.0"
@@ -41,7 +41,7 @@
           "subTitle": "{{appSubTitle}}",
           "icon": "sap-icon://SAP-icons-TNT/user",
           "indicatorDataSource": {
-            "dataSource": "CatalogService",
+            "dataSource": "AdminService",
             "path": "Authors/$count",
             "refresh": 1800
           }
@@ -62,7 +62,7 @@
         "uri": "i18n/i18n.properties"
       },
       "": {
-        "dataSource": "CatalogService",
+        "dataSource": "AdminService",
         "settings": {
           "synchronizationMode": "None",
           "operationMode": "Server",
