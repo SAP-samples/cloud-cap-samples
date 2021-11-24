@@ -11,39 +11,39 @@ describe('Localized Data', () => {
   })
 
   it('supports sap-language param', async () => {
-    const { data } = await GET(`/browse/Books?$select=title,author` + '&sap-language=de')
+    const { data } = await GET(`/browse/Books?$select=title,authorName` + '&sap-language=de')
     expect(data.value).to.containSubset([
-      { title: 'Sturmhöhe', author: 'Emily Brontë' },
-      { title: 'Jane Eyre', author: 'Charlotte Brontë' },
-      { title: 'The Raven', author: 'Edgar Allen Poe' },
-      { title: 'Eleonora', author: 'Edgar Allen Poe' },
-      { title: 'Catweazle', author: 'Richard Carpenter' },
+      { title: 'Sturmhöhe', authorName: 'Emily Brontë' },
+      { title: 'Jane Eyre', authorName: 'Charlotte Brontë' },
+      { title: 'The Raven', authorName: 'Edgar Allen Poe' },
+      { title: 'Eleonora', authorName: 'Edgar Allen Poe' },
+      { title: 'Catweazle', authorName: 'Richard Carpenter' },
     ])
   })
 
   it('supports accept-language header', async () => {
-    const { data } = await GET(`/browse/Books?$select=title,author`, {
+    const { data } = await GET(`/browse/Books?$select=title,authorName`, {
       headers: { 'Accept-Language': 'de' },
     })
     expect(data.value).to.containSubset([
-      { title: 'Sturmhöhe', author: 'Emily Brontë' },
-      { title: 'Jane Eyre', author: 'Charlotte Brontë' },
-      { title: 'The Raven', author: 'Edgar Allen Poe' },
-      { title: 'Eleonora', author: 'Edgar Allen Poe' },
-      { title: 'Catweazle', author: 'Richard Carpenter' },
+      { title: 'Sturmhöhe', authorName: 'Emily Brontë' },
+      { title: 'Jane Eyre', authorName: 'Charlotte Brontë' },
+      { title: 'The Raven', authorName: 'Edgar Allen Poe' },
+      { title: 'Eleonora', authorName: 'Edgar Allen Poe' },
+      { title: 'Catweazle', authorName: 'Richard Carpenter' },
     ])
   })
 
   it('supports queries with $expand', async () => {
-    const { data } = await GET(`/browse/Books?&$select=title,author&$expand=currency`, {
+    const { data } = await GET(`/browse/Books?&$select=title,authorName&$expand=currency`, {
       headers: { 'Accept-Language': 'de' },
     })
     expect(data.value).to.containSubset([
-      { title: 'Sturmhöhe', author: 'Emily Brontë', currency: { name: 'Pfund' } },
-      { title: 'Jane Eyre', author: 'Charlotte Brontë', currency: { name: 'Pfund' } },
-      { title: 'The Raven', author: 'Edgar Allen Poe', currency: { name: 'US-Dollar' } },
-      { title: 'Eleonora', author: 'Edgar Allen Poe', currency: { name: 'US-Dollar' } },
-      { title: 'Catweazle', author: 'Richard Carpenter', currency: { name: 'Yen' } },
+      { title: 'Sturmhöhe', authorName: 'Emily Brontë', currency: { name: 'Pfund' } },
+      { title: 'Jane Eyre', authorName: 'Charlotte Brontë', currency: { name: 'Pfund' } },
+      { title: 'The Raven', authorName: 'Edgar Allen Poe', currency: { name: 'US-Dollar' } },
+      { title: 'Eleonora', authorName: 'Edgar Allen Poe', currency: { name: 'US-Dollar' } },
+      { title: 'Catweazle', authorName: 'Richard Carpenter', currency: { name: 'Yen' } },
     ])
   })
 

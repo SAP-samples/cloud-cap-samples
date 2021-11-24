@@ -5,6 +5,7 @@
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
   "dependencies": {
+    "@capire/bookstore": "./bookstore",
     "@capire/bookshop": "./bookshop",
     "@capire/common": "./common",
     "@capire/fiori": "./fiori",
@@ -15,11 +16,10 @@
     "@sap/cds": "git+https://github.tools.sap/cap/cds#add/customBuildTaskProviders"
   },
   "devDependencies": {
-    "cds-swagger-ui-express": "^0.2.0",
-    "chai": "^4.2.0",
+    "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
-    "sqlite3": "^5.0.0",
+    "sqlite3": "^5",
     "@cds/cds-plugin-openapi": "./cds-plugin-openapi"
   },
   "scripts": {

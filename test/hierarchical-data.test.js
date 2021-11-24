@@ -1,8 +1,6 @@
 const cds = require('@sap/cds/lib')
 const {expect} = cds.test
 
-const { parse:cdr } = cds.ql
-
 // should become cds.compile(...) when cds5 is released
 const model = cds.compile.to.csn (`
   entity Categories {
@@ -78,9 +76,7 @@ describe('Hierarchical Data', ()=>{
       { ID:101, name:'Cat' },
       { ID:108, name:'Catweazle' }
 		]
-    return 'skipped as this will be fixed in a newer cds version'
-		if (cdr) expect ( await SELECT.from(Cats) ).to.containSubset (expected)
-		else expect ( await SELECT.from(Cats) ).to.eql (expected)
+		expect ( await SELECT`ID,name`.from(Cats) ).to.eql (expected)
 	})
 
 })

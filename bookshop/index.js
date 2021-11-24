@@ -1,1 +1,2 @@
-exports.CatalogService = require('./srv/cat-service')
+const { CatalogService } = require('./srv/cat-service')
+module.exports = { CatalogService }

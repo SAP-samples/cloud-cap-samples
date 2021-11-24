@@ -8,10 +8,11 @@ service ReviewsService {
   action unlike (review: type of Reviews:ID);
 
   // Async API
-   event reviewed : {
-     subject: type of Reviews:subject;
-     rating: Decimal(2,1)
-   }
+  event reviewed : {
+    subject : type of Reviews:subject;
+    count   : Integer;
+    rating  : Decimal;
+  }
 
   // Input validation
   annotate Reviews with {
@@ -27,14 +28,7 @@ service ReviewsService {
 annotate ReviewsService.Reviews with @restrict:[
   { grant:'READ',   to:'any' },                 // everybody can read reviews
   { grant:'CREATE', to:'authenticated-user' },  // users must login to add reviews
-  /////////////////////////////////////////////////
-  //
-  // Temporarily disabling this due to glitch in CAP Node.js runtime:
-  // { grant:'UPDATE', to:'authenticated-user', where:'reviewer=$user' },
-  // -> reenable it when the issue is fixed
-     { grant:'UPDATE', to:'authenticated-user' },
-  //
-  ////////////////////////////////////////////////////
+  { grant:'UPDATE', to:'authenticated-user', where:'reviewer=$user' },
   { grant:'DELETE', to:'admin' },
 ];
 
