@@ -14,7 +14,7 @@ const logger = cds.log("build")
             get dependents() {
                 return ['node-cf', 'java-cf']
             }
-            applyTaskDefaults(task) {
+            applyDefaults(task) {
                 task.src = task.src || cds.env.folders.srv.replace(/\/$/, '')
             }
             get handler() {
