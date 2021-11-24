@@ -11,6 +11,6 @@ service CatalogService @(path:'/browse') {
   } excluding { createdBy, modifiedBy };
 
   @requires: 'authenticated-user'
-  action submitOrder ( book: Books:ID, amount: Integer ) returns { stock: Integer };
-  event OrderedBook : { book: Books:ID; amount: Integer; buyer: String };
+  action submitOrder ( book: Books:ID, quantity: Integer ) returns { stock: Integer };
+  event OrderedBook : { book: Books:ID; quantity: Integer; buyer: String };
 }

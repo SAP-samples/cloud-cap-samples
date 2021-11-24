@@ -33,6 +33,19 @@ GET {{server}}/admin/Authors?
 Authorization: Basic alice:
 
 ### ------------------------------------------------------------------------
+# Create Author
+POST {{server}}/admin/Authors
+Content-Type: application/json;IEEE754Compatible=true
+Authorization: Basic alice:
+
+{
+  "ID": 112,
+  "name": "Shakespeeeeere",
+  "age": 22
+}
+
+
+### ------------------------------------------------------------------------
 # Create book
 POST {{server}}/admin/Books
 Content-Type: application/json;IEEE754Compatible=true
