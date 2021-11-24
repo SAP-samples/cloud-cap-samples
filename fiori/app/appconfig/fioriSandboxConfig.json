@@ -19,14 +19,6 @@
                     "title": "Browse Books",
                     "targetURL": "#Books-display"
                   }
-                },
-                {
-                  "id": "BrowseAuthors",
-                  "tileType": "sap.ushell.ui.tile.StaticTile",
-                  "properties": {
-                    "title": "Browse Authors",
-                    "targetURL": "#Authors-display"
-                  }
                 }
               ]
             },
@@ -43,6 +35,14 @@
                   "properties": {
                     "title": "Manage Books",
                     "targetURL": "#Books-manage"
+                  }
+                },
+                {
+                  "id": "ManageAuthors",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Authors",
+                    "targetURL": "#Authors-display"
                   }
                 },
                 {
@@ -75,10 +75,10 @@
               "signature": {
                 "parameters": {
                   "Books.ID": {
-                    "renameTo": "ID"                    
+                    "renameTo": "ID"
                   },
                   "Authors.books.ID": {
-                    "renameTo": "ID"                    
+                    "renameTo": "ID"
                   }
                 },
                 "additionalParameters": "ignored"
@@ -104,7 +104,7 @@
               "resolutionResult": {
                 "applicationType": "SAPUI5",
                 "additionalInformation": "SAPUI5.Component=authors",
-                "url": "/authors/webapp"
+                "url": "/admin-authors/webapp"
               }
             },
             "ManageBooks": {
@@ -117,8 +117,8 @@
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
-                "additionalInformation": "SAPUI5.Component=admin",
-                "url": "/admin/webapp"
+                "additionalInformation": "SAPUI5.Component=books",
+                "url": "/admin-books/webapp"
               }
             },
             "ManageOrders": {
