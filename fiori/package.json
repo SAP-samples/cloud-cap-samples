@@ -25,9 +25,15 @@
         "model": "@capire/orders"
       },
       "messaging": {
-        "[production]": { "kind": "enterprise-messaging" },
-        "[development]": { "kind": "file-based-messaging" },
-        "[hybrid!]": { "kind": "enterprise-messaging-shared" }
+        "[production]": {
+          "kind": "enterprise-messaging"
+        },
+        "[development]": {
+          "kind": "file-based-messaging"
+        },
+        "[hybrid!]": {
+          "kind": "enterprise-messaging-shared"
+        }
       },
       "db": {
         "kind": "sql",
