@@ -36,7 +36,9 @@
         }
       },
       "db": {
-        "kind": "sql",
+        "kind": "sql"
+      },
+      "db-ext": {
         "[development]": {
           "model": "db/sqlite"
         },
