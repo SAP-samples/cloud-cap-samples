@@ -68,20 +68,29 @@
     },
     {
       "file": "fiori/package.json",
-      "description": "#### Configuration\n\nThe `cds` section in `package.json` is a place to configure which of the `db/sqlite` and `db/hana` folders are used for which database.\nWe use [Node.js profiles](https://cap.cloud.sap/docs/node.js/cds-env#profiles) to separate the configuration.\nIn the `development` profile, you can see that `db/sqlite` is set as the model, while the `db/hana` folder is configured in the `production` profile.",
-      "line": 12,
+      "description": "#### Configuration\n\nThe `cds.requires` section in `package.json` is a place to configure which of the `db/sqlite` and `db/hana` folders are used for which database.\n\nWe use [Node.js profiles](https://cap.cloud.sap/docs/node.js/cds-env#profiles) to separate the configuration.\nIn the `development` profile, you can see that `db/sqlite` is set as the model, while the `db/hana` folder is configured in the `production` profile.  `db-ext` is a pseudo datasource, its name doesn't matter.\n\nSee [`cds.resolve`](https://cap.cloud.sap/docs/node.js/cds-compile#cds-resolve) to learn more about how models are found.",
+      "selection": {
+        "start": {
+          "line": 41,
+          "character": 1
+        },
+        "end": {
+          "line": 48,
+          "character": 1
+        }
+      },
       "title": "Configuration"
     },
     {
       "file": "fiori/package.json",
       "description": "#### Run with SQLite\n\nTo run with `development` and an in-memory SQLite database, you don't need to do anything special, because it's activated by default.  Just run:\n\n>> cds watch fiori\n\nThen open [http://localhost:4004/admin/Authors](http://localhost:4004/admin/Authors) to see the two new fields.\n",
-      "line": 35,
+      "line": 43,
       "title": "Run with SQLite"
     },
     {
       "file": "fiori/package.json",
       "description": "#### Deploy the CDS Model to SAP HANA\n\nTo 'activate' SAP HANA through the `production` profile, you can use the global `--production` flag:\n\n>> cd fiori; cds deploy --to hana --production\n\n[Learn more about SAP HANA deployment](https://cap.cloud.sap/docs/guides/databases#get-hana)\n\n#### Run the Application\n\n>> cd fiori; cds watch --production\n\nThe service on [http://localhost:4004/admin/Authors](http://localhost:4004/admin/Authors) is the same as before, but this time the `Authors` entity is backed by a database view with an SAP HANA function.\n\n#### More\n\nIf you don't see data, you can add some in the next step.",
-      "line": 38,
+      "line": 46,
       "title": "Run with SAP HANA"
     },
     {
