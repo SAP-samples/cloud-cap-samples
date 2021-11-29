@@ -7,13 +7,12 @@ class CatalogService extends cds.ApplicationService { init(){
   // Reduce stock of ordered books if available stock suffices
   this.on ('submitOrder', async req => {
     const {book,quantity} = req.data
+    if (quantity < 1) return req.reject (400,`quantity has to be 1 or more`)
     let {stock} = await SELECT `stock` .from (Books,book)
-    if (stock >= quantity) {
-      await UPDATE (Books,book) .with (`stock -=`, quantity)
-      await this.emit ('OrderedBook', { book, quantity, buyer:req.user.id })
-      return { stock }
-    }
-    else return req.error (409,`${quantity} exceeds stock for book #${book}`)
+    if (quantity > stock) return req.reject (409,`${quantity} exceeds stock for book #${book}`)
+    await UPDATE (Books,book) .with ({ stock: stock -= quantity })
+    await this.emit ('OrderedBook', { book, quantity, buyer:req.user.id })
+    return { stock }
   })
 
   // Add some discount for overstocked books
