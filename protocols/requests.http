@@ -1,0 +1,86 @@
+@server = http://localhost:4004
+
+
+#
+#   The basic variant expects a CQN object passed as an application/json
+#   body to a POST request
+#
+
+POST {{server}}/cds/admin
+Content-Type: application/json
+
+{"SELECT": { "from": { "ref": ["Books"] }}}
+###
+
+
+#
+#   Alternatively you can pass a CQL string as plain/text body
+#
+
+POST {{server}}/cds/admin
+Content-Type: text/plain
+
+SELECT from Authors {
+  name as author,
+  books {
+    title,
+    stock,
+    currency { * }
+  }
+}
+where name like '%Bro%'
+order by name asc
+###
+
+
+#
+#   Simple REST-style URLs as supported as well
+#
+
+GET {{server}}/cds/admin/Books
+###
+
+GET {{server}}/cds/admin/Books/201
+###
+
+
+#
+#   REST-style URLs can be combined with trailing CQL in the path, in plain
+#   text body, or with projections sent as application/json array
+#
+
+GET {{server}}/cds/admin/Books order by stock desc
+###
+
+GET {{server}}/cds/admin/Books { title as book, stock }
+###
+
+GET {{server}}/cds/admin/Authors/101
+Content-Type: text/plain
+
+{
+  name as author,
+  books {
+    title,
+    stock,
+    currency { * }
+  }
+}
+where name like '%Bro%'
+order by name asc
+###
+
+
+GET {{server}}/cds/admin/Books/201
+Content-Type: application/json
+
+[ "title", "stock" ]
+###
+
+
+#
+#   CQL adaptor also provides access to the underlying CSN schema
+#
+
+GET {{server}}/cds/admin/$csn
+###
