@@ -2,9 +2,12 @@
   "name": "@capire/hello-world",
   "version": "1.0.0",
   "scripts": {
-    "test": "npx jest --silent",
     "start": "cds serve srv/world.cds",
-    "start:ts": "cds-ts serve srv/world.cds"
+    "prebuild": "npx rimraf dist # Deletes the folder `dist` containing the compiled JavaScript files",
+    "build": "npx tsc # Compiles the TypeScript files in `srv` to JavaScript artifacts in the `dist` folder",
+    "postbuild": "npx copyfiles -u 1 -e \"./src/**/*.ts\" -a \"./src/**/*.*\" \"dist\" # Copies the other \"static\" files e.g. CDS files from `src` to `dist`",
+    "start:ts": "cds serve dist/srv/world.cds # Starts the server based on the compiled JavaScript files (be sure to run `npm run build` before!)",
+    "test": "npx jest --silent # Runs the tests on the TypeScript code"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",

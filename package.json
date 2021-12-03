@@ -9,7 +9,7 @@
     "@capire/bookshop": "./bookshop",
     "@capire/common": "./common",
     "@capire/fiori": "./fiori",
-    "@capire/hello": "./hello",
+    "@capire/hello-world": "./hello",
     "@capire/media": "./media",
     "@capire/orders": "./orders",
     "@capire/reviews": "./reviews",
@@ -30,8 +30,8 @@
     "media": "cds watch media",
     "mocha": "npx mocha || echo",
     "jest": "npx jest",
-    "test": "npm run jest -- --silent",
-    "test:hello": "cd hello && npm test"
+    "test": "npm run jest -- --silent && npm run test:hello",
+    "test:hello": "cd hello && npm ci && npm test"
   },
   "jest": {
     "testEnvironment": "node",
