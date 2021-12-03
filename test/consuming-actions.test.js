@@ -8,7 +8,7 @@ const { expect } = cds.test(
 );
 
 describe("Consuming actions locally", () => {
-  let cats;
+  let cats, tx;
 
   before("bootstrap the database", async () => {
     const { CatalogService } = cds.services;
@@ -20,18 +20,24 @@ describe("Consuming actions locally", () => {
     cats = await cds.connect.to("CatalogService");
   });
 
+
+  beforeEach(async () => {
+    // Use a manual transaction to create a continuation with an authenticated user
+    tx = await cats.tx({user: "alice"});
+  });
+
   it("calls unbound actions - basic variant using srv.send", async () => {
-    const res1 = await cats.send("submitOrder", {
-      book: 111,
+    const res1 = await tx.send("submitOrder", {
+      book: 251,
       quantity: 1,
     });
   });
 
   it("calls unbound actions - named args variant", async () => {
-    const res2 = await cats.submitOrder({ book: 111, quantity: 1 });
+    const res2 = await tx.submitOrder({ book: 251, quantity: 1 });
   });
 
   it("calls unbound actions - positional args variant", async () => {
-    const res3 = await cats.submitOrder(111, 1);
+    const res3 = await tx.submitOrder(251, 1);
   });
 });
