@@ -2,7 +2,7 @@
 //  Add Author.age and .lifetime with a DB-specific function
 //
 
-using { AdminService } from '../schema';
+using { AdminService } from '@capire/bookshop';
 
 extend projection AdminService.Authors with {
   YEARS_BETWEEN(dateOfBirth, dateOfDeath)         as age: Integer,

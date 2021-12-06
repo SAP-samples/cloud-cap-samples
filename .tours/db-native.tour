@@ -37,7 +37,7 @@
       "title": "Authors service"
     },
     {
-      "file": "bookstore/db/sqlite/index.cds",
+      "file": "fiori/db/sqlite/index.cds",
       "description": "#### SQLite Implementation\n\nHere's the first implementation for SQLite.  It computes the two fields `age` and `lifetime` through SQLite's [strftime](https://sqlite.org/lang_datefunc.html) function.\n\nThrough the [`extend projection`](https://cap.cloud.sap/docs/cds/cdl#extend-view) clause you can add additional fields to projection entities.  These are deployed as database views, which is why we can integrate the database functions in the first place.\n",
       "selection": {
         "start": {
@@ -52,8 +52,8 @@
       "title": "SQLite implementation"
     },
     {
-      "file": "bookstore/db/hana/index.cds",
-      "description": "#### SAP HANA Implementation\n\nThis is the second implementation for SAP HANA.  It computes the same two fields `age` and `lifetime` through the [YEARS_BETWEEN](https://help.sap.com/viewer/7c78579ce9b14a669c1f3295b0d8ca16/Cloud/en-US/7c0d2c161ea34def86de3f5eadd6a0af.html) and [YEAR](https://help.sap.com/viewer/7c78579ce9b14a669c1f3295b0d8ca16/Cloud/en-US/20f5fac6751910148dabd3c6821f907d.html) functions of SAP HANA.\n\n#### File Layout and Code Structure\n\nNote the path of the `.cds` file we are in: it's in a subfolder of `db`, so that it's _not_ automatically picked up when we start the application.  The same is true for the SQLite implementation: it's in a separate `db/sqlite/` folder as well.  In the next step, you'll see how these files are loaded.\n\nAlso, we choose to implement all of that as an extension of the original bookshop here in the _bookstore_ package.  See the first [CAP Samples] code tour for more details on the different packages of this repository.",
+      "file": "fiori/db/hana/index.cds",
+      "description": "#### SAP HANA Implementation\n\nThis is the second implementation for SAP HANA.  It computes the same two fields `age` and `lifetime` through the [YEARS_BETWEEN](https://help.sap.com/viewer/7c78579ce9b14a669c1f3295b0d8ca16/Cloud/en-US/7c0d2c161ea34def86de3f5eadd6a0af.html) and [YEAR](https://help.sap.com/viewer/7c78579ce9b14a669c1f3295b0d8ca16/Cloud/en-US/20f5fac6751910148dabd3c6821f907d.html) functions of SAP HANA.\n\n#### File Layout and Code Structure\n\nNote the path of the `.cds` file we are in: it's in a subfolder of `db`, so that it's _not_ automatically picked up when we start the application.  The same is true for the SQLite implementation: it's in a separate `db/sqlite/` folder as well.  In the next step, you'll see how these files are loaded.\n\nAlso, we choose to implement all of that as an extension of the original bookshop here in the _fiori_ package.  See the first [CAP Samples] code tour for more details on the different packages of this repository.",
       "selection": {
         "start": {
           "line": 7,
@@ -67,25 +67,34 @@
       "title": "SAP HANA implementation"
     },
     {
-      "file": "bookstore/package.json",
-      "description": "#### Configuration\n\nThe `cds` section in `package.json` is a place to configure which of the `db/sqlite` and `db/hana` folders are used for which database.\nWe use [Node.js profiles](https://cap.cloud.sap/docs/node.js/cds-env#profiles) to separate the configuration.\nIn the `development` profile, you can see that `db/sqlite` is set as the model, while the `db/hana` folder is configured in the `production` profile.",
-      "line": 12,
+      "file": "fiori/package.json",
+      "description": "#### Configuration\n\nThe `cds.requires` section in `package.json` is a place to configure which of the `db/sqlite` and `db/hana` folders are used for which database.\n\nWe use [Node.js profiles](https://cap.cloud.sap/docs/node.js/cds-env#profiles) to separate the configuration.\nIn the `development` profile, you can see that `db/sqlite` is set as the model, while the `db/hana` folder is configured in the `production` profile.  `db-ext` is a pseudo datasource, its name doesn't matter.\n\nSee [`cds.resolve`](https://cap.cloud.sap/docs/node.js/cds-compile#cds-resolve) to learn more about how models are found.",
+      "selection": {
+        "start": {
+          "line": 41,
+          "character": 1
+        },
+        "end": {
+          "line": 48,
+          "character": 1
+        }
+      },
       "title": "Configuration"
     },
     {
-      "file": "bookstore/package.json",
-      "description": "#### Run with SQLite\n\nTo run with `development` and an in-memory SQLite database, you don't need to do anything special, because it's activated by default.  Just run:\n\n>> cds watch bookstore\n\nThen open [http://localhost:4004/admin/Authors](http://localhost:4004/admin/Authors) to see the two new fields.\n",
-      "line": 30,
+      "file": "fiori/package.json",
+      "description": "#### Run with SQLite\n\nTo run with `development` and an in-memory SQLite database, you don't need to do anything special, because it's activated by default.  Just run:\n\n>> cds watch fiori\n\nThen open [http://localhost:4004/admin/Authors](http://localhost:4004/admin/Authors) to see the two new fields.\n",
+      "line": 43,
       "title": "Run with SQLite"
     },
     {
-      "file": "bookstore/package.json",
-      "description": "#### Deploy the CDS Model to SAP HANA\n\nTo 'activate' SAP HANA through the `production` profile, you can use the global `--production` flag:\n\n>> cd bookstore; cds deploy --to hana --production\n\n[Learn more about SAP HANA deployment](https://cap.cloud.sap/docs/guides/databases#get-hana)\n\n#### Run the Application\n\n>> cd bookstore; cds watch --production\n\nThe service on [http://localhost:4004/admin/Authors](http://localhost:4004/admin/Authors) is the same as before, but this time the `Authors` entity is backed by a database view with an SAP HANA function.\n\n#### More\n\nIf you don't see data, you can add some in the next step.",
-      "line": 33,
+      "file": "fiori/package.json",
+      "description": "#### Deploy the CDS Model to SAP HANA\n\nTo 'activate' SAP HANA through the `production` profile, you can use the global `--production` flag:\n\n>> cd fiori; cds deploy --to hana --production\n\n[Learn more about SAP HANA deployment](https://cap.cloud.sap/docs/guides/databases#get-hana)\n\n#### Run the Application\n\n>> cd fiori; cds watch --production\n\nThe service on [http://localhost:4004/admin/Authors](http://localhost:4004/admin/Authors) is the same as before, but this time the `Authors` entity is backed by a database view with an SAP HANA function.\n\n#### More\n\nIf you don't see data, you can add some in the next step.",
+      "line": 46,
       "title": "Run with SAP HANA"
     },
     {
-      "file": "bookstore/test/requests.http",
+      "file": "fiori/test/requests.http",
       "description": "### Add More Data\n\nOptionally you can add some `Authors` data by clicking on the _Send Request_ link (provided by the [REST client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension).",
       "line": 72,
       "selection": {
@@ -104,6 +113,5 @@
       "title": "Wrap-up",
       "description": "### Summary\n\nThat's it!  You have seen: \n- How to integrate database-specific functions in a CDS model.\n- How to switch between the two implementations for SQLite and SAP HANA."
     }
-  ],
-  "ref": "main"
+  ]
 }
