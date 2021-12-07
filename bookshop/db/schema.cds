@@ -1,7 +1,7 @@
-using { Currency, managed, sap } from '@sap/cds/common';
+using { Currency, managed, sap, extensible } from '@sap/cds/common';
 namespace sap.capire.bookshop;
 
-entity Books : managed {
+entity Books : managed, extensible {
   key ID : Integer;
   title  : localized String(111);
   descr  : localized String(1111);
@@ -13,7 +13,7 @@ entity Books : managed {
   image : LargeBinary @Core.MediaType : 'image/png';
 }
 
-entity Authors : managed {
+entity Authors : managed, extensible {
   key ID : Integer;
   name   : String(111);
   dateOfBirth  : Date;

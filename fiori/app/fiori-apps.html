@@ -10,7 +10,21 @@
 	<script>
 		window["sap-ushell-config"] = {
 			defaultRenderer: "fiori2",
-			applications: {}
+			applications: {},
+			bootstrapPlugins: {
+          RuntimeAuthoringPlugin: {
+            component: "sap.ushell.plugins.rta",
+            config: {
+              validateAppVersion: false,
+            },
+          },
+          PersonalizePlugin: {
+            component: "sap.ushell.plugins.rta-personalize",
+            config: {
+              validateAppVersion: false,
+            },
+          },
+        }
 		};
 	</script>
 
@@ -22,8 +36,13 @@
     	data-sap-ui-frameOptions="allow"
 	></script>
 	<script>
-		sap.ui.getCore().attachInit(()=> sap.ushell.Container.createRenderer().placeAt("content"))
-	</script>
+		sap.ui.getCore().attachInit(()=> sap.ushell.Container.createRenderer().placeAt("content"));
+		sap.ui
+        .getCore()
+        .getConfiguration()
+        .setFlexibilityServices([{ connector: "SessionStorageConnector" }]);
+				sap.ui.getCore().getConfiguration().setLanguage("en");
+</script>
 
 </head>
 <body class="sapUiBody" id="content"></body>

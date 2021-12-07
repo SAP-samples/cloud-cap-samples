@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@capire/bookstore": "*",
-    "@sap/cds": "^5",
+    "@sap/cds": "*",
     "express": "^4.17.1",
     "passport": "^0.4.1"
   },
@@ -13,6 +13,9 @@
   },
   "cds": {
     "requires": {
+      "extensibility": {
+        "kind": "uiflex"
+      },
       "auth": {
         "strategy": "dummy"
       },
@@ -36,7 +39,10 @@
         }
       },
       "db": {
-        "kind": "sql"
+        "kind": "sqlite",
+        "credentials": {
+          "database": "sqlite.db"
+        }
       },
       "db-ext": {
         "[development]": {
