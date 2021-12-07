@@ -13,6 +13,9 @@
   },
   "cds": {
     "requires": {
+      "extensibility": {
+        "kind": "uiflex"
+      },
       "auth": {
         "strategy": "dummy"
       },
