@@ -9,7 +9,7 @@ class CatalogService extends cds.ApplicationService { init(){
     const {book,quantity} = req.data
     if (quantity < 1) return req.reject (400,`quantity has to be 1 or more`)
     let {stock} = await SELECT `stock` .from (Books,book)
-    if (quantity > stock) return req.reject (409,`${quantity} exceeds stock for book #${book}`)
+    if (quantity > stock) return req.reject (409, "ORDER_EXCEEDS_STOCK", [quantity, book])
     await UPDATE (Books,book) .with ({ stock: stock -= quantity })
     await this.emit ('OrderedBook', { book, quantity, buyer:req.user.id })
     return { stock }
