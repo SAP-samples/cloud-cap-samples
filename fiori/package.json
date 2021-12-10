@@ -40,7 +40,6 @@
       },
       "db": {
         "kind": "sql"
-        }
       },
       "db-ext": {
         "[development]": {
