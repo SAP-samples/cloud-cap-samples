@@ -1,5 +1,5 @@
 const express = require('express')
-const cds = require('@sap/cds')
+const cds = require('@sap/cds/lib')
 
 const CQLAdapter = function() { return express.Router()
 
@@ -35,10 +35,11 @@ const CQLAdapter = function() { return express.Router()
    */
   .use ('/:srv', (req,res,next) => {
     let srv = cds.service.paths['/'+req.params.srv]; if (!srv) return next()
-    let q = typeof req.body === 'object' ? req.body : CQL(req.body)
-    let tx = cds.context = cds.tx (req)
-    return srv.run(q)
-    .then (tx.commit, tx.rollback)
+    let tx = cds.context = cds.tx (req) // should reduce to: cds.context = req
+    return srv.run(
+      typeof req.body === 'object' ? req.body : CQL(req.body)
+    )
+    .then (tx.commit, tx.rollback) // shouldn't be neccessary
     .then (r => res.json(r), next)
   })
 
@@ -46,11 +47,11 @@ const CQLAdapter = function() { return express.Router()
 
 
 cds.on('bootstrap', ()=> cds.app
-  // we do that on bootstrap so that the logger has access to req.body
+  // we do that on bootstrap so cds.server's default logger has access to req.body
   .use ('/cds', express.json()) //> for application/json -> cqn
   .use ('/cds', express.text()) //> for text/plain -> cql -> cqn
 )
 cds.on('served', ()=> cds.app
-  // we do that on served so it comes after the logger
+  // we do that on served so it comes after the cds.server's default logger
   .use ('/cds', new CQLAdapter)
 )
