@@ -30,6 +30,7 @@
     "media": "cds watch media",
     "mocha": "npx mocha || echo",
     "jest": "npx jest",
+    "start": "cds watch fiori",
     "test": "npm run jest -- --silent",
     "test:hello": "cd hello && npm test"
   },
