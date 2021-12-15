@@ -29,6 +29,7 @@ const CQLAdapter = function() { return express.Router()
   })
 
   /**
+   * These few lines are a full-blown CAP protocol adapter.
    * Handles CQN requests sent as application/json,
    * as well as CQL requests sent as text/plain.
    */
@@ -36,7 +37,7 @@ const CQLAdapter = function() { return express.Router()
     let srv = cds.service.paths['/'+req.params.srv]; if (!srv) return next()
     let cqn = is_string(req.body) ? cds.parse.cql(req.body) : req.body
     cds.context = {req}
-    srv.run (cqn) .then (r => res.json(r), next)
+    srv.run (cqn) .then (r => res.json(r)) .catch (next)
   })
 
 }
