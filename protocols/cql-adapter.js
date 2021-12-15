@@ -1,6 +1,7 @@
 const express = require('express')
 const cds = require('@sap/cds/lib')
 
+
 const CQLAdapter = function() { return express.Router()
 
   /**
@@ -35,15 +36,13 @@ const CQLAdapter = function() { return express.Router()
    */
   .use ('/:srv', (req,res,next) => {
     let srv = cds.service.paths['/'+req.params.srv]; if (!srv) return next()
-    let tx = cds.context = cds.tx (req) // should reduce to: cds.context = req
-    return srv.run(
-      typeof req.body === 'object' ? req.body : CQL(req.body)
-    )
-    .then (tx.commit, tx.rollback) // shouldn't be neccessary
-    .then (r => res.json(r), next)
+    let cqn = typeof req.body === 'string' ? CQL(req.body) : req.body
+    cds.context = {req}
+    srv.run (cqn) .then (r => res.json(r), next)
   })
 
 }
+
 
 
 cds.on('bootstrap', ()=> cds.app
