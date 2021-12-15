@@ -52,7 +52,7 @@ GET {{server}}/cds/admin/Books/201
 GET {{server}}/cds/admin/Books order by stock desc
 ###
 
-GET {{server}}/cds/admin/Books { title as book, stock }
+GET {{server}}/cds/admin/Books { title as book, stock } order by stock desc
 ###
 
 GET {{server}}/cds/admin/Authors/101

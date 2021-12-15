@@ -14,29 +14,27 @@ const CQLAdapter = function() { return express.Router()
   })
 
   /**
-   * Prepares CQN in req.body from REST-style requests
+   * Prepares CQN in req.body from REST-style convenience request formats:
+   * GET /Books
+   * GET /Books/201
+   * GET /Books order by stock desc
+   * GET /Books { title as book, stock } order by stock desc
    */
   .get ('/:srv/:entity/:id?(%20:tail)?', (req,_,next) => {
-    let { entity, id, tail } = req.params
-    let q = SELECT.from(entity,id)
-    if (typeof req.body === 'object' && Object.keys(req.body).length)
-      q.columns(req.body)
-    if (typeof req.body === 'string')
-      tail = req.body
-    if (tail) {
-      let { SELECT } = CQL(`SELECT from Foo ${tail}`); delete SELECT.from
-      Object.assign (q.SELECT, SELECT)
-    }
-    req.body = q
-    next()
+    let { entity, id, tail } = req.params, q = SELECT.from(entity,id)
+    if (is_array(req.body)) q.columns(req.body)
+    if (is_string(req.body)) tail = req.body
+    if (tail) q = { SELECT: { ...CQL(`SELECT from _ ${tail}`).SELECT, ...q.SELECT }}
+    req.body = q; next() // update req.body and delegate to main handler
   })
 
   /**
-   * Handles CQN and CQL requests
+   * Handles CQN requests sent as application/json,
+   * as well as CQL requests sent as text/plain.
    */
   .use ('/:srv', (req,res,next) => {
     let srv = cds.service.paths['/'+req.params.srv]; if (!srv) return next()
-    let cqn = typeof req.body === 'string' ? CQL(req.body) : req.body
+    let cqn = is_string(req.body) ? CQL(req.body) : req.body
     cds.context = {req}
     srv.run (cqn) .then (r => res.json(r), next)
   })
@@ -54,3 +52,6 @@ cds.on('served', ()=> cds.app
   // we do that on served so it comes after the cds.server's default logger
   .use ('/cds', new CQLAdapter)
 )
+
+const is_array = Array.isArray
+const is_string = x => typeof x === 'string'

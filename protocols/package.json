@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@capire/bookshop": "*",
+    "@capire/common": "*",
     "@sap/cds": "^5.7",
     "express": "^4.17.1"
   },
