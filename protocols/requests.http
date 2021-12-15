@@ -57,6 +57,7 @@ GET {{server}}/cds/admin/Books { title as book, stock } order by stock desc
 
 GET {{server}}/cds/admin/Authors/101
 Content-Type: text/plain
+Accept-Language: fr
 
 {
   name as author,
