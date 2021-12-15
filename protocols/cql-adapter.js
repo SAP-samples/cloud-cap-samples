@@ -34,7 +34,7 @@ const CQLAdapter = function() { return express.Router()
    */
   .use ('/:srv', (req,res,next) => {
     let srv = cds.service.paths['/'+req.params.srv]; if (!srv) return next()
-    let cqn = is_string(req.body) ? CQL(req.body) : req.body
+    let cqn = is_string(req.body) ? cds.parse.cql(req.body) : req.body
     cds.context = {req}
     srv.run (cqn) .then (r => res.json(r), next)
   })
