@@ -18,6 +18,9 @@
       "db": {
         "kind": "sql"
       }
+    },
+    "features": {
+      "assert_integrity": "db"
     }
   }
 }

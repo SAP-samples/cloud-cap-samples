@@ -17,7 +17,7 @@ GET {{server}}/browse/$metadata
 ### ------------------------------------------------------------------------
 # Browse Books as any user
 GET {{server}}/browse/Books?
-  # &$select=title,stock
+  &$select=title,stock,author
   # &$expand=currency
   # &sap-language=de
 {{me}}
@@ -62,6 +62,22 @@ Authorization: Basic alice:
   "currency": { "code": "USD" }
 }
 
+### ------------------------------------------------------------------------
+# Create book with invalid author ID -> will fail
+POST {{server}}/admin/Books
+Content-Type: application/json;IEEE754Compatible=true
+Authorization: Basic alice:
+
+{
+  "ID": 34,
+  "title": "Let constraints do the magic",
+  "descr": "Database constraints are helpful little things that prevent messing up your data.",
+  "author": { "ID": 777 },
+  "genre": { "ID": 14 },
+  "stock": 4,
+  "price": "19.99",
+  "currency": { "code": "USD" }
+}
 
 ### ------------------------------------------------------------------------
 # Put image to books

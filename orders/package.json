@@ -4,5 +4,10 @@
   "dependencies": {
     "@capire/common": "*",
     "@sap/cds": "^5"
+  },
+  "cds": {
+    "features": {
+      "assert_integrity": "db"
+    }
   }
 }
