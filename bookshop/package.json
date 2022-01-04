@@ -8,6 +8,9 @@
     "express": "^4.17.1",
     "passport": "0.4.1"
   },
+  "devDependencies": {
+    "@cds/cds-plugin-openapi": "*"
+  },
   "scripts": {
     "genres": "cds serve test/genres.cds",
     "start": "cds run",

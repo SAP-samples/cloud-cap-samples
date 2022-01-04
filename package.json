@@ -13,13 +13,14 @@
     "@capire/media": "./media",
     "@capire/orders": "./orders",
     "@capire/reviews": "./reviews",
-    "@sap/cds": "^5.5.3"
+    "@sap/cds": "git+https://github.tools.sap/cap/cds#add/customBuildTaskProviders"
   },
   "devDependencies": {
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
-    "sqlite3": "^5"
+    "sqlite3": "^5",
+    "@cds/cds-plugin-openapi": "./cds-plugin-openapi"
   },
   "scripts": {
     "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",
