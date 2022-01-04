@@ -9,8 +9,7 @@ describe('Hello world!', () => {
   })
 
   it('should say hello with another impl', async () => {
-    const cds = require ('@sap/cds')
-    cds.serve('say').from(cds.model)
+    await cds.serve('say').from(cds.model)
     .at('/say-again').in(cds.app)
     .with(srv => {
       srv.on('hello', (req) => `Hello again ${req.data.to}!`)

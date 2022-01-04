@@ -1,7 +1,8 @@
 
+const cds = require('@sap/cds/lib')
+const { expect } = cds.test
 const { fork } = require('child_process')
 const { resolve } = require('path')
-const Axios = require('axios')
 const verbose = process.env.CDS_TEST_VERBOSE
 // ||true
 
@@ -10,28 +11,28 @@ describe('Local NPM registry', () => {
   let axios
   const cwd = resolve(__dirname, '..')
 
-  beforeAll(async ()=> {
+  before(async ()=> {
     const env = Object.assign(process.env, {PORT:'0'})
     const res = await exec (resolve(cwd, '.registry/server.js'), {cwd, stdio: 'pipe', env})
     registry = res.cp
-    axios = Axios.default.create ({ baseURL: res.url, validateStatus: (status)=>status<500 })
+    axios = require('axios').default.create ({ baseURL: res.url, validateStatus: (status)=>status<500 })
   })
 
-  afterAll(() => { registry.kill() })
+  after(() => { registry.kill() })
 
   for (const mod of ['bookshop','fiori','orders','reviews']) {
     it(`should serve ${mod}`, async () => {
       const resp = await axios.get(`/@capire/${mod}`)
-      expect(resp.data).toMatchObject({name: `@capire/${mod}`, versions:{}})
+      expect(resp.data).to.containSubset({name: `@capire/${mod}`, versions:{}})
       const versions = Object.values(resp.data.versions)
       await axios.get(versions[0].dist.tarball)
     })
   }
   it(`should return 404 for unknown packages`, async () => {
     let resp = await axios.get(`/@capire/foo`)
-    expect(resp.status).toEqual(404)
+    expect(resp.status).to.equal(404)
     resp = await axios.get(`/foo`)
-    expect(resp.status).toEqual(404)
+    expect(resp.status).to.equal(404)
   })
 
 })
