@@ -58,9 +58,11 @@ Each sub directory essentially is an individual npm package arranged in an [all-
   - [@capire/reviews](reviews)
   - [@capire/orders](orders)
   - [@capire/common](common)
-- [The Vue.js app](bookshop/app/vue) imported from bookshop is served as well
-- [The Vue.js app](reviews/app/vue) imported from reviews is served as well
-- [The Fiori app](orders/app) imported from orders is served as well
+  - [@capire/data-viewer](data-viewer)
+- [The Vue.js app](bookshop/app/vue) imported from `bookshop` is served as well
+- [The Vue.js app](reviews/app/vue) imported from `reviews` is served as well
+- [The Vue.js app](data-viewer/app/data) imported from `data-viewer` is served as well
+- [The Fiori app](orders/app) imported from `orders` is served as well
 - [OpenAPI export + Swagger UI](https://cap.cloud.sap/docs/advanced/openapi)
 
 
