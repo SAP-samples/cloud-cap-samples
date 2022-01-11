@@ -16,13 +16,13 @@ expect.one = (cqn) => !cqn.SELECT.distinct ? expect(cqn) : skip
 describe('cds.ql → cqn', () => {
   //
 
-  for (let each of ['SELECT', 'SELECT one', 'SELECT distinct']) {
+  describe.each(['SELECT', 'SELECT one', 'SELECT distinct'])(`%s...`, (each) => {
+
     let SELECT; beforeEach(()=> SELECT = (
       each === 'SELECT distinct' ? cds.ql.SELECT.distinct :
       each === 'SELECT one' ? cds.ql.SELECT.one :
       cds.ql.SELECT
     ))
-  describe(`${each}...`, () => {
 
     test(`from Foo`, () => {
       expect(cqn = SELECT `from Foo`)
@@ -333,7 +333,7 @@ describe('cds.ql → cqn', () => {
       })
     })
 
-  })}
+  })
 
   describe ('SELECT where...', ()=>{
 
@@ -628,6 +628,34 @@ describe('cds.ql → cqn', () => {
     })
 
     //
+  })
+
+  describe(`SELECT for update`, () => {
+    beforeAll(() => {
+      delete cds.env.sql.lock_acquire_timeout
+    })
+
+    it('no wait', () => {
+      const q = SELECT.from('Foo').forUpdate()
+      expect(q.SELECT.forUpdate).eqls({})
+    })
+
+    it('specific wait', () => {
+      const q = SELECT.from('Foo').forUpdate({ wait: 1 })
+      expect(q.SELECT.forUpdate).eqls({ wait: 1 })
+    })
+
+    it('default wait', () => {
+      cds.env.sql.lock_acquire_timeout = 2
+      const q = SELECT.from('Foo').forUpdate()
+      expect(q.SELECT.forUpdate).eqls({ wait: 2 })
+    })
+
+    it('override default', () => {
+      cds.env.sql.lock_acquire_timeout = 1
+      const q = SELECT.from('Foo').forUpdate({ wait:-1 })
+      expect(q.SELECT.forUpdate).eqls({})
+    })
   })
 
   describe(`INSERT...`, () => {
