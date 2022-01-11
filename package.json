@@ -8,6 +8,7 @@
     "@capire/bookstore": "./bookstore",
     "@capire/bookshop": "./bookshop",
     "@capire/common": "./common",
+    "@capire/data-viewer": "./data-viewer",
     "@capire/fiori": "./fiori",
     "@capire/hello": "./hello",
     "@capire/media": "./media",
