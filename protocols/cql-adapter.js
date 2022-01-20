@@ -25,7 +25,7 @@ const CQLAdapter = function() { return express.Router()
     if (is_array(req.body)) q.columns(req.body)
     if (is_string(req.body)) tail = req.body
     if (tail) q = { SELECT: { ...CQL(`SELECT from _ ${tail}`).SELECT, ...q.SELECT }}
-    req.body = q; next() // update req.body and delegate to main handler
+    req.body = q; next() // delegating to main handler, i.e. -> continue below
   })
 
   /**
@@ -34,10 +34,10 @@ const CQLAdapter = function() { return express.Router()
    * as well as CQL requests sent as text/plain.
    */
   .use ('/:srv', (req,res,next) => {
+    cds.context = {req} //> should go to auth middleware (?)
     let srv = cds.service.paths['/'+req.params.srv]; if (!srv) return next()
-    let cqn = is_string(req.body) ? cds.parse.cql(req.body) : req.body
-    cds.context = {req}
-    srv.run (cqn) .then (r => res.json(r)) .catch (next)
+    let cqn = is_cqn(req.body) ? req.body : cds.parse.cql(req.body)
+    srv.run(cqn) .then (r => res.json(r)) .catch (next)
   })
 
 }
@@ -56,3 +56,4 @@ cds.on('served', ()=> cds.app
 
 const is_array = Array.isArray
 const is_string = x => typeof x === 'string'
+const is_cqn = x => x.SELECT || x.INSERT || x.UPDATE || x.DELETE
