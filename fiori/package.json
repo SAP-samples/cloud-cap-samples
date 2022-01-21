@@ -14,7 +14,7 @@
   "cds": {
     "requires": {
       "auth": {
-        "strategy": "dummy"
+        "kind": "dummy-auth"
       },
       "ReviewsService": {
         "kind": "odata",
