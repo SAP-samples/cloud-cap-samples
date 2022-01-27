@@ -30,3 +30,7 @@ extend Orders with {
 
 // Add orders fiori app (in case of embedded orders service)
 using from '@capire/orders/app/fiori';
+
+
+// Incorporate pre-build extensions from...
+using from '@capire/common';
