@@ -4,16 +4,21 @@
  * currencies, if not obtained through @capire/common.
  */
 
-const cds = require ('@sap/cds')
-const has_common = cds.model.definitions['sap.common.Currencies'].elements.numcode
+module.exports = async (db)=>{
 
-if (!has_common) module.exports = ()=>
-INSERT.into ('sap.common.Currencies') .columns (
-  'code','symbol','name'
-) .rows (
-  [ 'EUR','€','Euro' ],
-  [ 'USD','$','US Dollar' ],
-  [ 'GBP','£','British Pound' ],
-  [ 'ILS','₪','Shekel' ],
-  [ 'JPY','¥','Yen' ],
-)
+  const has_common = db.model.definitions['sap.common.Currencies'].elements.numcode
+  if (has_common) return
+
+  const already_filled = await db.exists('sap.common.Currencies',{code:'EUR'})
+  if (already_filled) return
+
+  await INSERT.into ('sap.common.Currencies') .columns (
+    'code','symbol','name'
+  ) .rows (
+    [ 'EUR','€','Euro' ],
+    [ 'USD','$','US Dollar' ],
+    [ 'GBP','£','British Pound' ],
+    [ 'ILS','₪','Shekel' ],
+    [ 'JPY','¥','Yen' ],
+  )
+}
