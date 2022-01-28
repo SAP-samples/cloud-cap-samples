@@ -31,6 +31,8 @@ extend Orders with {
 // Add orders fiori app (in case of embedded orders service)
 using from '@capire/orders/app/fiori';
 
+// Add data browser
+using from '@capire/data-viewer';
 
 // Incorporate pre-build extensions from...
 using from '@capire/common';
