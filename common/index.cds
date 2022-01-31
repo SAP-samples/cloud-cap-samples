@@ -20,7 +20,7 @@ extend sap.common.Currencies with {
  * annotate sap.common.Countries with @cds.persistence.skip:false;
  */
 
-context sap.common_countries {
+context sap.common.countries {
 
   extend sap.common.Countries {
     regions   : Composition of many Regions on regions._parent = $self.code;
