@@ -7,6 +7,7 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <style>
+    .noscroll { overflow: hidden; }
     .hovering tr:hover td { background: #ebeefc; cursor: pointer; }
     .highlight { background: #ebeefc !important; }
     .rating-stars { color:teal }
@@ -17,14 +18,17 @@
     .not-key { font-weight: lighter;}
     .with-sidebar { display: flex; flex-wrap: wrap; gap: 1rem; }
     .sidebar    { flex-basis: 20rem; flex-grow: 1; }
-    .not-sidebar  { flex-basis: 0; flex-grow: 999; min-inline-size: 50%;}
+    .sidebar-main { height: 100vh; overflow-y: scroll; }
+    .not-sidebar  { flex-basis: 0; flex-grow: 999; min-inline-size: 50%; align-items: stretch;}
+    .not-sidebar-main { max-height: 40vh; overflow-y: scroll; }
+    .not-sidebar-sub {  max-height: 40vh; overflow-y: scroll; }
     .horizontal label { display: inline; }
     .horizontal input { width: initial; display: inline; }
   </style>
 </head>
 
-<body>
-<div id='app' class="container">
+<body class="noscroll">
+<div id='app' class="full-container">
 
   <h1> {{ document.title }}{{ entity ? ' &ndash; ' + entity.name : '' }}</h1>
 
@@ -37,14 +41,16 @@
         <input type="radio" id="dataSource-srv" value="service" v-model="dataSource">
         <label for="dataSource-srv">Service</label>
       </div>
-      <table id='entities' class="hovering">
-        <thead>
-          <th>Entity Name</th>
-        </thead>
-        <tr v-for="e in entities" :key="e.name" @click="inspectEntity" :class="{'highlight': (entity && e.name === entity.name)}">
-          <td>{{ e.name }}</td>
-        </tr>
-      </table>
+      <div class="sidebar-main">
+        <table id='entities' class="hovering">
+          <thead>
+            <th>Entity Name</th>
+          </thead>
+          <tr v-for="e in entities" :key="e.name" @click="inspectEntity" :class="{'highlight': (entity && e.name === entity.name)}">
+            <td>{{ e.name }}</td>
+          </tr>
+        </table>
+      </div>
     </div>
 
     <div class="not-sidebar">
@@ -54,7 +60,7 @@
         <label for="top">Top:</label>
         <input id="top" v-model.lazy="top" title="No. of entries to read" type="number" min="0">
       </div>
-      <div v-if="entity">
+      <div v-if="entity" class="not-sidebar-main">
         <table id='data' class="hovering striped-table condensed">
           <thead>
             <th v-for="col in columns" :title="col.type" :class="[col.isKey ? 'key' : 'not-key']">{{ col.name }} </th>
@@ -64,8 +70,8 @@
           </tr>
         </table>
       </div>
-
-      <div v-if="rowDetails">
+      <p></p>
+      <div v-if="rowDetails"  class="not-sidebar-sub">
         <table id='rowDetails'>
           <tr v-for="(key, value) in rowDetails" >
             <td class="key">{{ value }}</td>
