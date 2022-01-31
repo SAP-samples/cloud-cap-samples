@@ -2,79 +2,79 @@
 <html>
 
 <head>
-    <title>Data Browser</title>
-    <link rel="stylesheet" href="https://unpkg.com/primitive-ui/dist/css/main.css">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <style>
-        .hovering tr:hover td { background: #ebeefc; cursor: pointer; }
-        .highlight { background: #ebeefc !important; }
-        .rating-stars { color:teal }
-        .succeeded { color:teal }
-        .failed { color:red }
-        .condensed { max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .key { font-weight: bold }
-        .not-key { font-weight: lighter;}
-        .with-sidebar { display: flex; flex-wrap: wrap; gap: 1rem; }
-        .sidebar      { flex-basis: 20rem; flex-grow: 1; }
-        .not-sidebar  { flex-basis: 0; flex-grow: 999; min-inline-size: 50%;}
-        .horizontal label { display: inline; }
-        .horizontal input { width: initial; display: inline; }
-    </style>
+  <title>Data Browser</title>
+  <link rel="stylesheet" href="https://unpkg.com/primitive-ui/dist/css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <style>
+    .hovering tr:hover td { background: #ebeefc; cursor: pointer; }
+    .highlight { background: #ebeefc !important; }
+    .rating-stars { color:teal }
+    .succeeded { color:teal }
+    .failed { color:red }
+    .condensed { max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .key { font-weight: bold }
+    .not-key { font-weight: lighter;}
+    .with-sidebar { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .sidebar    { flex-basis: 20rem; flex-grow: 1; }
+    .not-sidebar  { flex-basis: 0; flex-grow: 999; min-inline-size: 50%;}
+    .horizontal label { display: inline; }
+    .horizontal input { width: initial; display: inline; }
+  </style>
 </head>
 
 <body>
 <div id='app' class="container">
 
-    <h1> {{ document.title }}{{ entity ? ' &ndash; ' + entity.name : '' }}</h1>
+  <h1> {{ document.title }}{{ entity ? ' &ndash; ' + entity.name : '' }}</h1>
 
-    <div class="with-sidebar">
-        <div class="sidebar">
-            <div class="horizontal" style="padding: 0.75rem 0;">
-                <label>Datasource:</label>
-                <input type="radio" id="dataSource-db" value="db" v-model="dataSource">
-                <label for="dataSource-db">Database</label>
-                <input type="radio" id="dataSource-srv" value="service" v-model="dataSource">
-                <label for="dataSource-srv">Service</label>
-            </div>
-            <table id='entities' class="hovering">
-                <thead>
-                    <th>Entity Name</th>
-                </thead>
-                <tr v-for="e in entities" :key="e.name" @click="inspectEntity" :class="{'highlight': (entity && e.name === entity.name)}">
-                    <td>{{ e.name }}</td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="not-sidebar">
-            <div class="horizontal">
-                <label for="skip">Skip:</label>
-                <input id="skip" v-model.lazy="skip" title="No. of entries to skip" type="number" min="0">
-                <label for="top">Top:</label>
-                <input id="top" v-model.lazy="top" title="No. of entries to read" type="number" min="0">
-            </div>
-            <div v-if="entity">
-                <table id='data' class="hovering striped-table condensed">
-                    <thead>
-                        <th v-for="col in columns" :title="col.type" :class="[col.isKey ? 'key' : 'not-key']">{{ col.name }} </th>
-                    </thead>
-                    <tr v-for="row in data" @click="inspectRow" :class="{'highlight': isActiveRow(row)}">
-                        <td v-for="d in row" :title="d">{{ d }}</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div v-if="rowDetails">
-                <table id='rowDetails'>
-                    <tr v-for="(key, value) in rowDetails" >
-                        <td class="key">{{ value }}</td>
-                        <td>{{ key }}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+  <div class="with-sidebar">
+    <div class="sidebar">
+      <div class="horizontal" style="padding: 0.75rem 0;">
+        <label>Datasource:</label>
+        <input type="radio" id="dataSource-db" value="db" v-model="dataSource">
+        <label for="dataSource-db">Database</label>
+        <input type="radio" id="dataSource-srv" value="service" v-model="dataSource">
+        <label for="dataSource-srv">Service</label>
+      </div>
+      <table id='entities' class="hovering">
+        <thead>
+          <th>Entity Name</th>
+        </thead>
+        <tr v-for="e in entities" :key="e.name" @click="inspectEntity" :class="{'highlight': (entity && e.name === entity.name)}">
+          <td>{{ e.name }}</td>
+        </tr>
+      </table>
     </div>
+
+    <div class="not-sidebar">
+      <div class="horizontal">
+        <label for="skip">Skip:</label>
+        <input id="skip" v-model.lazy="skip" title="No. of entries to skip" type="number" min="0">
+        <label for="top">Top:</label>
+        <input id="top" v-model.lazy="top" title="No. of entries to read" type="number" min="0">
+      </div>
+      <div v-if="entity">
+        <table id='data' class="hovering striped-table condensed">
+          <thead>
+            <th v-for="col in columns" :title="col.type" :class="[col.isKey ? 'key' : 'not-key']">{{ col.name }} </th>
+          </thead>
+          <tr v-for="row in data" @click="inspectRow" :class="{'highlight': isActiveRow(row)}">
+            <td v-for="d in row" :title="d">{{ d }}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div v-if="rowDetails">
+        <table id='rowDetails'>
+          <tr v-for="(key, value) in rowDetails" >
+            <td class="key">{{ value }}</td>
+            <td>{{ key }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
 
 </div>
 </body>
