@@ -15,7 +15,8 @@ const viewer = new Vue ({
         entities: [],
         columns: [],
         data: [],
-        rowDetails: undefined,
+        rowDetails: {},
+        rowKey: storageGet('rowKey')
     },
 
     watch: {
@@ -55,16 +56,36 @@ const viewer = new Vue ({
             if (viewer.dataSource === 'db')  url += `&dataSource=db`
             const {data} = await GET(url)
             viewer.data = data.value.map(d => d.record.map(r => r.data))
-            viewer.rowDetails = undefined
+            const row = viewer.data.find(data => viewer._makeRowKey(data) === viewer.rowKey)
+            if (row)  viewer._setRowDetails(row)
+            else viewer.rowDetails = {}
         },
 
         inspectRow (eve) {
             viewer.rowDetails = {}
             const selectedRow = eve.currentTarget.rowIndex-1
-            viewer.data[selectedRow].forEach((line, colIndex) => {
+            viewer.rowKey = viewer._makeRowKey(viewer.data[selectedRow])
+            storageSet('rowKey', viewer.rowKey)
+            viewer._setRowDetails(viewer.data[selectedRow])
+        },
+
+        _setRowDetails(row) {
+            viewer.rowDetails = {}
+            row.forEach((line, colIndex) => {
                 viewer.rowDetails[viewer.columns[colIndex].name] = line
             })
         },
+
+        _makeRowKey(row) {
+            // to identify a row, build a key string out of all key columns' values
+            return row
+                .filter((_, colIndex) => viewer.columns[colIndex] && viewer.columns[colIndex].isKey)
+                .reduce(((prev, next) => prev += next), '')
+        },
+
+        isActiveRow(row) {
+            return viewer._makeRowKey(row) === viewer.rowKey
+        }
 
     }
 })
