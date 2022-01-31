@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <style>
         .hovering tr:hover td { background: #ebeefc; cursor: pointer; }
-        .highlight { background: #ebeefc; }
+        .highlight { background: #ebeefc !important; }
         .rating-stars { color:teal }
         .succeeded { color:teal }
         .failed { color:red }
@@ -41,7 +41,7 @@
                 <thead>
                     <th>Entity Name</th>
                 </thead>
-                <tr v-for="e in entities" v-bind:id="e.name" v-on:click="inspectEntity" :class="{'highlight': (entity && e.name === entity.name)}">
+                <tr v-for="e in entities" :key="e.name" @click="inspectEntity" :class="{'highlight': (entity && e.name === entity.name)}">
                     <td>{{ e.name }}</td>
                 </tr>
             </table>
@@ -57,10 +57,10 @@
             <div v-if="entity">
                 <table id='data' class="hovering striped-table condensed">
                     <thead>
-                        <th v-for="col in columns" v-bind:title="col.type" :class="[col.isKey ? 'key' : 'not-key']">{{ col.name }} </th>
+                        <th v-for="col in columns" :title="col.type" :class="[col.isKey ? 'key' : 'not-key']">{{ col.name }} </th>
                     </thead>
-                    <tr v-for="(row, index) in data" v-on:click="inspectRow">
-                        <td v-for="d in row" v-bind:title="d">{{ d }}</td>
+                    <tr v-for="row in data" @click="inspectRow" :class="{'highlight': isActiveRow(row)}">
+                        <td v-for="d in row" :title="d">{{ d }}</td>
                     </tr>
                 </table>
             </div>
