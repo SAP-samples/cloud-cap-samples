@@ -3,70 +3,91 @@ const GET = (url) => axios.get('/-data'+url)
 const storageGet = (key, def) => localStorage.getItem('data-viewer:'+key) || def
 const storageSet = (key, val) => localStorage.setItem('data-viewer:'+key, val)
 
-const viewer = new Vue ({
+const vue = new Vue ({
 
-    el:'#app',
+  el:'#app',
 
-    data: {
-        dataSource: storageGet('data-source', 'db'),
-        skip: storageGet('skip', 0),
-        top: storageGet('top', 20),
-        entity: storageGet('entity') ? JSON.parse(storageGet('entity')) : undefined,
-        entities: [],
-        columns: [],
-        data: [],
-        rowDetails: undefined,
+  data: {
+    dataSource: storageGet('data-source', 'db'),
+    skip: storageGet('skip', 0),
+    top: storageGet('top', 20),
+    entity: storageGet('entity') ? JSON.parse(storageGet('entity')) : undefined,
+    entities: [],
+    columns: [],
+    data: [],
+    rowDetails: {},
+    rowKey: storageGet('rowKey')
+  },
+
+  watch: {
+    dataSource: (v) => { storageSet('data-source', v);  vue.fetchEntities() },
+    skip: (v) => { storageSet('skip', v); if (vue.entity)  vue.fetchData() },
+    top:  (v) => { storageSet('top',  v); if (vue.entity)  vue.fetchData() },
+  },
+
+  methods: {
+
+    async fetchEntities () {
+      let url = `/Entities`
+      if (vue.dataSource === 'db')  url += `?dataSource=db`
+      const {data} = await GET(url)
+      vue.entities = data.value
+      const entity = vue.entity && vue.entities.find(e => e.name === vue.entity.name)
+      if (entity) { // restore selection from previous fetch
+        vue.columns = entity.columns
+        await vue.fetchData(entity)
+      } else {
+        vue.entity = undefined
+        vue.columns = []
+        vue.data = []
+        vue.rowDetails = {}
+      }
     },
 
-    watch: {
-        dataSource: (v) => { storageSet('data-source', v);    viewer.fetchEntities() },
-        skip: (v) => { storageSet('skip', v); if (viewer.entity)  viewer.fetchData() },
-        top:  (v) => { storageSet('top',  v); if (viewer.entity)  viewer.fetchData() },
+    async inspectEntity (eve) {
+      const entity = vue.entity = vue.entities [eve.currentTarget.rowIndex-1]
+      storageSet('entity', JSON.stringify(entity))
+      vue.columns = vue.entities.find(e => e.name === entity.name).columns
+      return await this.fetchData()
     },
 
-    methods: {
+    async fetchData () {
+      let url = `/Data?entity=${vue.entity.name}&$skip=${vue.skip}&$top=${vue.top}`
+      if (vue.dataSource === 'db')  url += `&dataSource=db`
+      const {data} = await GET(url)
+      vue.data = data.value.map(d => d.record.map(r => r.data))
+      const row = vue.data.find(data => vue._makeRowKey(data) === vue.rowKey)
+      if (row)  vue._setRowDetails(row)
+      else vue.rowDetails = {}
+    },
 
-        async fetchEntities () {
-            let url = `/Entities`
-            if (viewer.dataSource === 'db')  url += `?dataSource=db`
-            const {data} = await GET(url)
-            viewer.entities = data.value
-            const entity = viewer.entity && viewer.entities.find(e => e.name === viewer.entity.name)
-            if (entity) { // restore selection from previous fetch
-                viewer.columns = entity.columns
-                await viewer.fetchData(entity)
-            } else {
-                viewer.entity = undefined
-                viewer.columns = []
-                viewer.data = []
-                viewer.rowDetails = {}
-            }
-        },
+    inspectRow (eve) {
+      vue.rowDetails = {}
+      const selectedRow = eve.currentTarget.rowIndex-1
+      vue.rowKey = vue._makeRowKey(vue.data[selectedRow])
+      storageSet('rowKey', vue.rowKey)
+      vue._setRowDetails(vue.data[selectedRow])
+    },
 
-        async inspectEntity (eve) {
-            const entity = viewer.entity = viewer.entities [eve.currentTarget.rowIndex-1]
-            storageSet('entity', JSON.stringify(entity))
-            viewer.columns = viewer.entities.find(e => e.name === entity.name).columns
-            return await this.fetchData()
-        },
+    _setRowDetails(row) {
+      vue.rowDetails = {}
+      row.forEach((line, colIndex) => {
+        vue.rowDetails[vue.columns[colIndex].name] = line
+      })
+    },
 
-        async fetchData () {
-            let url = `/Data?entity=${viewer.entity.name}&$skip=${viewer.skip}&$top=${viewer.top}`
-            if (viewer.dataSource === 'db')  url += `&dataSource=db`
-            const {data} = await GET(url)
-            viewer.data = data.value.map(d => d.record.map(r => r.data))
-            viewer.rowDetails = undefined
-        },
+    _makeRowKey(row) {
+      // to identify a row, build a key string out of all key columns' values
+      return row
+        .filter((_, colIndex) => vue.columns[colIndex] && vue.columns[colIndex].isKey)
+        .reduce(((prev, next) => prev += next), '')
+    },
 
-        inspectRow (eve) {
-            viewer.rowDetails = {}
-            const selectedRow = eve.currentTarget.rowIndex-1
-            viewer.data[selectedRow].forEach((line, colIndex) => {
-                viewer.rowDetails[viewer.columns[colIndex].name] = line
-            })
-        },
-
+    isActiveRow(row) {
+      return vue._makeRowKey(row) === vue.rowKey
     }
+
+  }
 })
 
-viewer.fetchEntities()
+vue.fetchEntities()
