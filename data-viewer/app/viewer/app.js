@@ -14,6 +14,7 @@ const vue = new Vue ({
   el:'#app',
 
   data: {
+    error: undefined,
     dataSource: storageGet('data-source', 'db'),
     skip: storageGet('skip', 0),
     top: storageGet('top', 20),
@@ -61,19 +62,30 @@ const vue = new Vue ({
     async fetchData () {
       let url = `/Data?entity=${vue.entity.name}&$skip=${vue.skip}&$top=${vue.top}`
       if (vue.dataSource === 'db')  url += `&dataSource=db`
-      const {data} = await GET(url)
 
-      // sort data along column order
-      const columnIndexes = {}
-      vue.columns.forEach((col, i) => columnIndexes[col.name] = i)
-      vue.data = data.value.map(d => d.record
-        .sort((r1, r2) => columnIndexes[r1.column] - columnIndexes[r2.column])
-        .map(r => r.data)
-      )
+      try {
+        const {data} = await GET(url)
+        // sort data along column order
+        const columnIndexes = {}
+        vue.columns.forEach((col, i) => columnIndexes[col.name] = i)
+        vue.data = data.value.map(d => d.record
+          .sort((r1, r2) => columnIndexes[r1.column] - columnIndexes[r2.column])
+          .map(r => r.data)
+        )
+        const row = vue.data.find(data => vue._makeRowKey(data) === vue.rowKey)
+        if (row)  vue._setRowDetails(row)
+        else vue.rowDetails = {}
+        vue.error = undefined
+      } catch (err) {
+        if (err.response?.data?.error) {
+          vue.error = err.response?.data?.error
+        } else {
+          vue.error = err
+        }
+        vue.data = []
+        vue.rowDetails = {}
+      }
 
-      const row = vue.data.find(data => vue._makeRowKey(data) === vue.rowKey)
-      if (row)  vue._setRowDetails(row)
-      else vue.rowDetails = {}
     },
 
     inspectRow (eve) {
