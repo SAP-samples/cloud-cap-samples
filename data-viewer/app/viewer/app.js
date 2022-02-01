@@ -9,11 +9,9 @@ const columnKeysFirst = (c1, c2) => {
   return 0 // retain natural order of normal columns
 }
 
-const vue = new Vue ({
+const vue = Vue.createApp ({
 
-  el:'#app',
-
-  data: {
+  data() { return {
     error: undefined,
     dataSource: storageGet('data-source', 'db'),
     skip: storageGet('skip', 0),
@@ -24,7 +22,7 @@ const vue = new Vue ({
     data: [],
     rowDetails: {},
     rowKey: storageGet('rowKey')
-  },
+  }},
 
   watch: {
     dataSource: (v) => { storageSet('data-source', v);  vue.fetchEntities() },
@@ -77,13 +75,13 @@ const vue = new Vue ({
         else vue.rowDetails = {}
         vue.error = undefined
       } catch (err) {
-        if (err.response?.data?.error) {
-          vue.error = err.response?.data?.error
-        } else {
-          vue.error = err
-        }
         vue.data = []
         vue.rowDetails = {}
+        if (err.response?.data?.error) {
+          vue.error = err.response.data.error
+        } else {
+          vue.error = { code:err.code, message:err.message }
+        }
       }
 
     },
@@ -116,5 +114,6 @@ const vue = new Vue ({
 
   }
 })
+.mount('#app')
 
 vue.fetchEntities()
