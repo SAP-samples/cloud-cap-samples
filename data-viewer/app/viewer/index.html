@@ -25,6 +25,7 @@
     .not-sidebar-sub {  max-height: 40vh; overflow-y: scroll; }
     .horizontal label { display: inline; }
     .horizontal input { width: initial; display: inline; }
+    .error { color: red; }
   </style>
 </head>
 
@@ -61,7 +62,7 @@
         <label for="top">Top:</label>
         <input id="top" v-model.lazy="top" title="No. of entries to read" type="number" min="0">
       </div>
-      <div v-if="entity" class="not-sidebar-main">
+      <div v-if="data" class="not-sidebar-main">
         <table id='data' class="hovering striped-table condensed">
           <thead>
             <th v-for="col in columns" :title="col.type" :class="[col.isKey ? 'key' : 'not-key']">{{ col.name }} </th>
@@ -70,6 +71,9 @@
             <td v-for="d in row" :title="d">{{ d }}</td>
           </tr>
         </table>
+      </div>
+      <div v-if="error" class="not-sidebar-main error">
+        Error: {{ error.code }} &ndash; {{ error.message }}
       </div>
       <p></p>
       <div v-if="rowDetails"  class="not-sidebar-sub">
