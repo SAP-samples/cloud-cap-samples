@@ -2,12 +2,19 @@
 const GET = (url) => axios.get('/-data'+url)
 const storageGet = (key, def) => localStorage.getItem('data-viewer:'+key) || def
 const storageSet = (key, val) => localStorage.setItem('data-viewer:'+key, val)
+const columnKeysFirst = (c1, c2) => {
+  if (c1.isKey  && !c2.isKey) return -1
+  if (!c1.isKey && c2.isKey) return 1
+  if (c1.isKey && c2.isKey) return c1.name.localeCompare(c2.name)
+  return 0 // retain natural order of normal columns
+}
 
 const vue = new Vue ({
 
   el:'#app',
 
   data: {
+    error: undefined,
     dataSource: storageGet('data-source', 'db'),
     skip: storageGet('skip', 0),
     top: storageGet('top', 20),
@@ -32,6 +39,7 @@ const vue = new Vue ({
       if (vue.dataSource === 'db')  url += `?dataSource=db`
       const {data} = await GET(url)
       vue.entities = data.value
+      vue.entities.forEach(entity => entity.columns.sort(columnKeysFirst))
       const entity = vue.entity && vue.entities.find(e => e.name === vue.entity.name)
       if (entity) { // restore selection from previous fetch
         vue.columns = entity.columns
@@ -54,11 +62,30 @@ const vue = new Vue ({
     async fetchData () {
       let url = `/Data?entity=${vue.entity.name}&$skip=${vue.skip}&$top=${vue.top}`
       if (vue.dataSource === 'db')  url += `&dataSource=db`
-      const {data} = await GET(url)
-      vue.data = data.value.map(d => d.record.map(r => r.data))
-      const row = vue.data.find(data => vue._makeRowKey(data) === vue.rowKey)
-      if (row)  vue._setRowDetails(row)
-      else vue.rowDetails = {}
+
+      try {
+        const {data} = await GET(url)
+        // sort data along column order
+        const columnIndexes = {}
+        vue.columns.forEach((col, i) => columnIndexes[col.name] = i)
+        vue.data = data.value.map(d => d.record
+          .sort((r1, r2) => columnIndexes[r1.column] - columnIndexes[r2.column])
+          .map(r => r.data)
+        )
+        const row = vue.data.find(data => vue._makeRowKey(data) === vue.rowKey)
+        if (row)  vue._setRowDetails(row)
+        else vue.rowDetails = {}
+        vue.error = undefined
+      } catch (err) {
+        if (err.response?.data?.error) {
+          vue.error = err.response?.data?.error
+        } else {
+          vue.error = err
+        }
+        vue.data = []
+        vue.rowDetails = {}
+      }
+
     },
 
     inspectRow (eve) {
