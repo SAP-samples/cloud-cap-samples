@@ -7,13 +7,14 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <style>
+    th { position: sticky; top:0; z-index: 2; background-color: white; }
     .noscroll { overflow: hidden; }
     .hovering tr:hover td { background: #ebeefc; cursor: pointer; }
     .highlight { background: #ebeefc !important; }
     .rating-stars { color:teal }
     .succeeded { color:teal }
     .failed { color:red }
-    .condensed { max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .condensed { max-width: 100px; text-overflow: ellipsis; white-space: nowrap; }
     .key { font-weight: bold }
     .not-key { font-weight: lighter;}
     .with-sidebar { display: flex; flex-wrap: wrap; gap: 1rem; }
