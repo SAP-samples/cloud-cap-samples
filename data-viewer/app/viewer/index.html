@@ -5,7 +5,9 @@
   <title>Data Browser</title>
   <link rel="stylesheet" href="https://unpkg.com/primitive-ui/dist/css/main.css">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="app.js" defer></script>
+
   <style>
     th { position: sticky; top:0; z-index: 2; background-color: white; }
     .noscroll { overflow: hidden; }
@@ -32,7 +34,7 @@
 <body class="noscroll">
 <div id='app' class="full-container">
 
-  <h1> {{ document.title }}{{ entity ? ' &ndash; ' + entity.name : '' }}</h1>
+  <h1>Data Browser &ndash; {{ entity ? entity.name : '' }}</h1>
 
   <div class="with-sidebar">
     <div class="sidebar">
@@ -73,7 +75,7 @@
         </table>
       </div>
       <div v-if="error" class="not-sidebar-main error">
-        Error: {{ error.code }} &ndash; {{ error.message }}
+        Error: {{ error.code ? error.code + ' &ndash; ' + error.message : error.message }}
       </div>
       <p></p>
       <div v-if="rowDetails"  class="not-sidebar-sub">
@@ -90,5 +92,4 @@
 </div>
 </body>
 
-<script src="app.js"></script>
 </html>
