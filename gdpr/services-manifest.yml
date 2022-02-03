@@ -1,0 +1,20 @@
+---
+create-services:
+  - name:       gdpr-logs         # > for kibana
+    broker:     application-logs
+    plan:       standard
+  - name:       gdpr-hdi          # > hana
+    broker:     hana
+    plan:       hdi-shared
+  - name:       gdpr-auditlog     # > audit log sink
+    broker:     auditlog
+    plan:       standard
+  # gdpr-pdm needs to exist before creating gdpr-uaa for authorization grant
+  - name:       gdpr-pdm          # > personal data manager
+    broker:     personal-data-manager-service
+    plan:       standard
+    parameters: ./.pdm/pdm-instance-config.json
+  - name:       gdpr-uaa          # > uaa for authentication
+    broker:     xsuaa
+    plan:       application
+    parameters: xs-security.json

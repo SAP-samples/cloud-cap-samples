@@ -1,0 +1,26 @@
+{
+  "build": {
+    "target": "gen",
+    "tasks": [{
+        "for": "hana",
+        "src": "db",
+        "options": {
+          "model": [
+            "db",
+            "srv"
+          ]
+        }
+      },
+      {
+        "for": "node-cf",
+        "src": "srv",
+        "options": {
+          "model": [
+            "db",
+            "srv"
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "fullyQualifiedApplicationName": "capire-gdpr",
+  "fullyQualifiedModuleName": "gdpr-srv",
+  "applicationTitle": "Capire GDPR Sample App",
+  "applicationTitleKey": "Capire GDPR Sample App",
+  "applicationURL": "https://capire-gdpr-srv.cfapps.eu10.hana.ondemand.com",
+  "endPoints": [{
+    "type": "odatav4",
+    "serviceName": "PDMService",
+    "serviceURI": "/pdm",
+    "serviceTitle": "Capire GDPR Sample App PDM Service",
+    "serviceTitleKey": "Capire GDPR Sample App PDM Service",
+    "hasGdprV4Annotations": true,
+    "cacheControl": "no-cache"
+  }]
+}
