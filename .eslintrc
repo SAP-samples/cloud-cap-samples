@@ -8,7 +8,7 @@
         "mocha": true
     },
     "parserOptions": {
-        "ecmaVersion": 2018
+        "ecmaVersion": 2020
     },
     "globals": {
         "SELECT": true,
@@ -22,6 +22,7 @@
     "rules": {
         "no-console": "off",
         "require-atomic-updates": "off",
-        "require-await":"warn"
+        "require-await":"warn",
+        "no-unused-vars": ["warn", { "argsIgnorePattern": "_" }]
     }
 }
