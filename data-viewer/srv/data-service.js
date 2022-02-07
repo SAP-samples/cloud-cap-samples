@@ -31,7 +31,7 @@ class DataService extends cds.ApplicationService { init(){
     if (!entity)  return req.reject(404, 'No such entity: ' + entityName)
 
     const query = SELECT.from(entity)
-    query.SELECT.limit = req.query.SELECT.limit  // use $skip / $top from request
+    query.SELECT.limit = req.query.SELECT.limit  // forward $skip / $top
 
     const dataSource = findDataSource(dataSourceName, entityName)
     const res = await dataSource.run(query)
