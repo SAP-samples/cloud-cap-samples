@@ -1,7 +1,7 @@
 /**
  * Exposes data + entity metadata
  */
-//@requires:'admin'
+@requires:'authenticated-user'
 service DataService @( path:'-data' ) {
 
   /**
