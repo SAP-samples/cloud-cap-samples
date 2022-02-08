@@ -40,10 +40,6 @@ annotate GDPRService.Orders with @(UI : {
     Title          : {
       Value : OrderNo,
       Label : 'Order number'
-    // },
-    // Description    : {
-    //   Value : createdBy,
-    //   Label : 'Created by'
     }
   },
   Identification       : [
@@ -54,10 +50,6 @@ annotate GDPRService.Orders with @(UI : {
     {
       Value : createdAt,
       Label : 'Created at'
-    // },
-    // {
-    //   Value : OrderNo,
-    //   Label : 'Order number'
     }
   ],
   HeaderFacets         : [
