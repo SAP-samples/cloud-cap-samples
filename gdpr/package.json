@@ -36,7 +36,10 @@
     },
     "features": {
       "audit_personal_data": true,
-      "fiori_preview": true
+      "fiori_preview": true,
+      "[production]": {
+        "kibana_formatter": true
+      }
     },
     "hana": {
       "deploy-format": "hdbtable"

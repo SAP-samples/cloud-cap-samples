@@ -32,3 +32,4 @@ create roles for Audit Log Viewer Service and Personal Data Manager, and assign 
 - clarify annotation `EntitySemantics`, which differs between audit logging (`Other`) and personal data manager (`LegalGround`)
 - annotations for order items Fiori preview app
   + `Products` has `@cds.persistence.skip:'always'`
+- how to reuse intial data from `common`?

@@ -1,9 +1,5 @@
 /*
  * workaround to avoid approuter et al. setup
- *
- * DO NOT USE FOR PRODUCTION!
- * - no token validation
- * - no xsappname check
  */
 
 const jwt = require('jsonwebtoken')
@@ -12,7 +8,13 @@ const tenant = process.env.VCAP_SERVICES
   : 'anonymous'
 
 module.exports = (req, res, next) => {
-  // decode JWT coming from Personal Data Manager
+  /*
+   * decode JWT coming from Personal Data Manager
+   *
+   * DO NOT USE FOR PRODUCTION!
+   * - no token validation
+   * - no xsappname check
+   */
   const bearer = req.headers.authorization && req.headers.authorization.split('Bearer ')[1]
   if (bearer) {
     const { client_id: id, zid: tenant, scope: roles } = jwt.decode(bearer)
@@ -31,8 +33,7 @@ module.exports = (req, res, next) => {
     req.user = {
       id,
       tenant,
-      // is: role => role !== 'PersonalDataManagerUser'
-      is: role => true
+      is: role => role !== 'PersonalDataManagerUser'
     }
     return next()
   }

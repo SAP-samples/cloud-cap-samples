@@ -25,5 +25,6 @@ entity CustomerPostalAddresses : cuid, managed {
   customer : Association to Customers;
   street   : String(128);
   town     : String(128);
+  @assert.integrity : false
   country  : Country;
 };
