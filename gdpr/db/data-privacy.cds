@@ -8,7 +8,7 @@ annotate bookshop.Customers with @PersonalData : {
 } 
 {
   ID           @PersonalData.FieldSemantics : 'DataSubjectID';
-  emailAddress @PersonalData.IsPotentiallyPersonal;
+  email        @PersonalData.IsPotentiallyPersonal;
   firstName    @PersonalData.IsPotentiallyPersonal;
   lastName     @PersonalData.IsPotentiallyPersonal;
   creditCardNo @PersonalData.IsPotentiallySensitive;
