@@ -32,6 +32,27 @@ describe('Consuming Services locally', () => {
             })
         })
     }).where(`name like`, 'E%')
+    if (cds.version >= '5.9.0') {
+      expect(authors).to.containSubset([
+        {
+          name: 'Emily Brontë',
+          books: [
+            {
+              title: 'Wuthering Heights',
+              currency: { name: 'British Pound', symbol: '£' },
+            },
+          ],
+        },
+        {
+          name: 'Edgar Allen Poe',
+          books: [
+            { title: 'The Raven', currency: { name: 'US Dollar', symbol: '$' } },
+            { title: 'Eleonora', currency: { name: 'US Dollar', symbol: '$' } },
+          ],
+        },
+      ])
+      return
+    }
     expect(authors).to.containSubset([
       {
         name: 'Emily Brontë',
