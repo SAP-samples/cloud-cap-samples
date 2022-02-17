@@ -35,7 +35,7 @@ describe('Hierarchical Data', ()=>{
   ))
 
 	it ('supports nested reads', async()=>{
-		if (cds.version >= '5.9.0') {
+		if (require('semver').gte(cds.version, '5.9.0')) {
 			expect (await
 				SELECT.one.from (Cats, c=>{
 					c.ID, c.name.as('parent'), c.children (c=>{
@@ -65,7 +65,7 @@ describe('Hierarchical Data', ()=>{
 	})
 
 	it ('supports deeply nested reads', async()=>{
-		if (cds.version >= '5.9.0') {
+		if (require('semver').gte(cds.version, '5.9.0')) {
 			expect (await SELECT.one.from (Cats, c=>{
 				c.ID, c.name, c.children (
 					c => { c.name },
