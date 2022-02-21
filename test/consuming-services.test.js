@@ -32,7 +32,7 @@ describe('Consuming Services locally', () => {
             })
         })
     }).where(`name like`, 'E%')
-    if (cds.version >= '5.9.0') {
+    if (require('semver').gte(cds.version, '5.9.0')) {
       expect(authors).to.containSubset([
         {
           name: 'Emily Brontë',
