@@ -85,3 +85,15 @@ Content-Type: application/json
 
 GET {{server}}/cds/admin/$csn
 ###
+
+POST {{server}}/cds/admin
+Content-Type: application/json
+Authorization: Basic alice:in wonderland
+
+{ "INSERT": {
+  "into": "Books",
+  "entries": [{
+    "title": "The Black Cat",
+    "author": { "ID": 150 }
+  }]
+}}
