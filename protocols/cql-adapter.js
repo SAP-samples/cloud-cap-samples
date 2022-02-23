@@ -36,7 +36,7 @@ const CQLAdapter = function() { return express.Router()
   .use ('/:srv', (req,res,next) => {
     cds.context = {req} //> should go to auth middleware (?)
     let srv = cds.service.paths['/'+req.params.srv]; if (!srv) return next()
-    let cqn = is_cqn(req.body) ? req.body : cds.parse.cql(req.body)
+    let cqn = is_string(req.body) ? CQL(req.body) : req.body
     srv.run(cqn) .then (r => res.json(r)) .catch (next)
   })
 
@@ -56,4 +56,3 @@ cds.on('served', ()=> cds.app
 
 const is_array = Array.isArray
 const is_string = x => typeof x === 'string'
-const is_cqn = x => x.SELECT || x.INSERT || x.UPDATE || x.DELETE
