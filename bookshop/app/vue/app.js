@@ -3,14 +3,14 @@ const $ = sel => document.querySelector(sel)
 const GET = (url) => axios.get('/browse'+url)
 const POST = (cmd,data) => axios.post('/browse'+cmd,data)
 
-const books = new Vue ({
+const books = Vue.createApp ({
 
-    el:'#app',
-
-    data: {
+    data() {
+      return {
         list: [],
         book: undefined,
         order: { quantity:1, succeeded:'', failed:'' }
+      }
     },
 
     methods: {
@@ -42,7 +42,7 @@ const books = new Vue ({
         }
 
     }
-})
+}).mount("#app")
 
 // initially fill list of books
 books.fetch()

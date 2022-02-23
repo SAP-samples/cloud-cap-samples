@@ -8,6 +8,7 @@
     "@capire/bookstore": "./bookstore",
     "@capire/bookshop": "./bookshop",
     "@capire/common": "./common",
+    "@capire/data-viewer": "./data-viewer",
     "@capire/fiori": "./fiori",
     "@capire/hello": "./hello",
     "@capire/media": "./media",
@@ -19,10 +20,8 @@
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
-    "sqlite3": "^5"
-  },
-  "overrides": {
-    "tar": "^4.4.18"
+    "semver": "^7",
+    "sqlite3": "npm:@mendix/sqlite3@^5"
   },
   "scripts": {
     "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",

@@ -6,6 +6,9 @@
     "start": "cds serve srv/world.cds",
     "start:ts": "cds-ts serve srv/world.cds"
   },
+  "dependencies": {
+    "@sap/cds": "^5.0.4"
+  },
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.6",

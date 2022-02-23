@@ -2,8 +2,14 @@
   "name": "@capire/bookshop",
   "version": "1.0.0",
   "description": "A simple self-contained bookshop service.",
+  "files": [
+    "app",
+    "srv",
+    "db",
+    "index.cds",
+    "index.js"
+  ],
   "dependencies": {
-    "@capire/common": "*",
     "@sap/cds": "^5.0.4",
     "express": "^4.17.1",
     "passport": "0.4.1"
