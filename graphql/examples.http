@@ -1,1 +1,7 @@
-GET http://localhost:4007/graphql?query={AdminService{Books{title,chapters{number,title}}}}
+# GraphQL
+GET http://localhost:4007/graphql?query={BookshopService{Books{title,author{name},chapters{number,title}}}}
+
+###
+
+# OData
+GET http://localhost:4007/bookshop/Books?$select=title&$expand=author($select=name),chapters($select=number,title)

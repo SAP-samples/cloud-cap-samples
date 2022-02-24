@@ -2,7 +2,7 @@
 2. paste into left field:
     ```graphql
     {
-      AdminService {
+      BookshopService {
         Books {
           title
           chapters {
