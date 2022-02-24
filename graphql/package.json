@@ -11,6 +11,11 @@
   "cds": {
     "features": {
       "graphql": true
+    },
+    "requires": {
+      "auth": {
+        "kind": "dummy-auth"
+      }
     }
   }
 }
