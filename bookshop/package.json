@@ -10,7 +10,7 @@
     "index.js"
   ],
   "dependencies": {
-    "@sap/cds": "file:/Users/d031150/SAPDevelop/cdx/dev/cds",
+    "@sap/cds": "^5",
     "@sap/cds-mtx": "^2",
     "@sap/xssec": "^3",
     "express": "^4.17.1",
@@ -25,15 +25,20 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "hana-mt"
+        "kind": "sql"
       },
-      "auth": {
-        "kind": "xsuaa"
-      },
-      "approuter": {
-        "kind": "cloudfoundry"
-      },
-      "multitenancy": true
+      "[production]": {
+        "db": {
+          "kind": "hana-mt"
+        },
+        "auth": {
+          "kind": "xsuaa"
+        },
+        "multitenancy": true,
+        "approuter": {
+          "kind": "cloudfoundry"
+        }
+      }
     },
     "mtx": {
       "element-prefix": "Z_",

@@ -11,11 +11,18 @@
         .rating-stars { color:teal }
         .succeeded { color:teal }
         .failed { color:red }
+        .user {text-align: end; color: grey;}
     </style>
 </head>
 
 <body class="small-container", style="margin-top: 70px;">
 <div id='app'>
+
+    <div v-if="user.ID && user.ID !== 'anonymous'" class="user">
+        <div>User: {{ user.ID }}</div>
+        <div>Locale: {{ user.locale }}</div>
+        <div>Tenant: {{ user.tenant }}</div>
+    </div>
 
     <h1> Capire Books </h1>
 

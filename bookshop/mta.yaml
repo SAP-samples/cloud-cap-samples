@@ -9,7 +9,6 @@ build-parameters:
   before-all:
     - builder: custom
       commands:
-        - npm ci
         - npx -p @sap/cds-dk cds build --production
 
 modules:
