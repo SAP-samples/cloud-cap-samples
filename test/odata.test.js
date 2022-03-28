@@ -1,7 +1,6 @@
 const cds = require('@sap/cds/lib')
-const { GET, expect } = cds.test ('@capire/bookshop')
-if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
-else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
+const { GET, expect, axios } = cds.test ('@capire/bookshop')
+axios.defaults.auth = { username: 'alice', password: 'admin' }
 
 describe('OData Protocol', () => {
 
@@ -75,4 +74,19 @@ describe('OData Protocol', () => {
       { ID: 271, title: 'Catweazle' },
     ])
   })
+})
+
+describe('Misc', () => {
+
+  it('serves user info', async () => {
+    {
+      const { data } = await GET (`/user/Me`)
+      expect(data).to.containSubset({ ID: 'alice', locale:'en', tenant: null })
+    }
+    {
+      const { data } = await GET (`/user/Me`, {auth: { username: 'joe' }})
+      expect(data).to.containSubset({ ID: 'joe', locale:'en', tenant: null })
+    }
+  })
+
 })
