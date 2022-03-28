@@ -8,7 +8,7 @@
         "i18n": "i18n/i18n.properties",
         "dataSources": {
             "AdminService": {
-                "uri": "/admin/",
+                "uri": "admin/",
                 "type": "OData",
                 "settings": {
                     "odataVersion": "4.0"
