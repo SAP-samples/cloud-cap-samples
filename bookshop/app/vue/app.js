@@ -44,9 +44,9 @@ const books = Vue.createApp ({
 
         async fetchUserInfo() {
             try {
-                books.user = (await axios.get('/user/Me')).data
-                if (!books.user.ID)  books.user.ID = 'anonymous'
-            } catch (err) { books.user = {}; books.user.ID = err.message }
+                const { data } = await axios.get('/user/me')
+                books.user = data
+            } catch (err) { books.user = { id: err.message } }
         }
     }
 }).mount("#app")
