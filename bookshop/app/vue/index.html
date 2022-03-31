@@ -19,7 +19,7 @@
 <div id='app'>
 
     <div v-if="user" class="user">
-        <div>User: {{ user.ID || 'anonymous' }}</div>
+        <div>User: {{ user.id || 'anonymous' }}</div>
         <div>Locale: {{ user.locale }}</div>
         <div v-if="user.tenant">Tenant: {{ user.tenant }}</div>
     </div>
