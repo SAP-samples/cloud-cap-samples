@@ -20,7 +20,7 @@ describe('Local NPM registry', () => {
 
   after(() => { registry.kill() })
 
-  for (const mod of ['bookshop','fiori','orders','reviews']) {
+  for (const mod of ['bookshop', 'data-viewer', 'fiori','orders','reviews']) {
     it(`should serve ${mod}`, async () => {
       const resp = await axios.get(`/@capire/${mod}`)
       expect(resp.data).to.containSubset({name: `@capire/${mod}`, versions:{}})
