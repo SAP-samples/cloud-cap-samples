@@ -16,7 +16,8 @@ app.use('/-/:tarball', (req,res,next) => {
   console.debug ('GET', req.params)
   try {
     const { tarball } = req.params
-    const [, pkg ] = /^\w+-(\w+)/.exec(tarball)
+    const pkgFull = tarball.substring(0, tarball.lastIndexOf('-'))
+    const [, pkg ] = /^\w+-(.+)/.exec(pkgFull)
     fs.lstat(tarball,(err => {
       if (err) console.debug (`npm pack ../${pkg}`)
       if (err) exec(`npm pack ../${pkg}`,{cwd},next)
@@ -31,7 +32,7 @@ app.use('/-/:tarball', (req,res,next) => {
 app.use('/-', express.static(__dirname))
 
 app.get('/*', (req,res)=>{
-  const urlRegex = /^\/(@\w+)\/(\w+)/
+  const urlRegex = /^\/(@[\w-]+)\/(.+)/
   const url = decodeURIComponent(req.url)
   console.debug ('GET',url)
   try {
