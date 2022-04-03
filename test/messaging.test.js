@@ -4,7 +4,7 @@ const _model = '@capire/reviews'
 if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
 else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
 
-describe('Messaging', ()=>{
+describe('cap/samples - Messaging', ()=>{
 
     it ('should bootstrap sqlite in-memory db', async()=>{
         const db = await cds.deploy (_model) .to ('sqlite::memory:')
