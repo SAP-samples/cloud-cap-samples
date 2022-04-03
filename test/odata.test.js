@@ -2,7 +2,7 @@ const cds = require('@sap/cds/lib')
 const { GET, expect, axios } = cds.test ('@capire/bookshop')
 axios.defaults.auth = { username: 'alice', password: 'admin' }
 
-describe('OData Protocol', () => {
+describe('cap/samples - Bookshop APIs', () => {
 
 
   it('serves $metadata documents in v4', async () => {
@@ -74,9 +74,6 @@ describe('OData Protocol', () => {
       { ID: 271, title: 'Catweazle' },
     ])
   })
-})
-
-describe('Misc', () => {
 
   it('serves user info', async () => {
     {

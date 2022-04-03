@@ -6,7 +6,7 @@ const { resolve } = require('path')
 const verbose = process.env.CDS_TEST_VERBOSE
 // ||true
 
-describe('Local NPM registry', () => {
+describe('cap/samples - Local NPM registry', () => {
   let registry
   let axios
   const cwd = resolve(__dirname, '..')
