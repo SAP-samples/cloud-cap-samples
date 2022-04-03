@@ -13,7 +13,7 @@ const model = cds.compile.to.csn (`
 const {Categories:Cats} = model.definitions
 
 
-describe('Hierarchical Data', ()=>{
+describe('cap/samples - Hierarchical Data', ()=>{
 
 	before ('bootstrap sqlite in-memory db...', async()=>{
 		await cds.deploy (model) .to ('sqlite::memory:')

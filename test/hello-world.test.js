@@ -1,7 +1,7 @@
 const cds = require('@sap/cds/lib')
 const { GET, expect } = cds.test (__dirname+'/../hello')
 
-describe('Hello world!', () => {
+describe('cap/samples - Hello world!', () => {
 
   it('should say hello with class impl', async () => {
     const {data} = await GET `/say/hello(to='world')`
