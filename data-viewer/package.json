@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A generic browser for data",
   "dependencies": {
-    "@sap/cds": "^5.0.4"
+    "@sap/cds": ">=5.0.4"
   },
   "files": [
     "app",

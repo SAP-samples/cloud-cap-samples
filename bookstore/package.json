@@ -7,7 +7,7 @@
     "@capire/orders": "*",
     "@capire/common": "*",
     "@capire/data-viewer": "*",
-    "@sap/cds": "^5",
+    "@sap/cds": ">=5",
     "express": "^4.17.1"
   },
   "cds": {
