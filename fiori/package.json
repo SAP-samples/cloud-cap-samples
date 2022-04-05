@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "dependencies": {
     "@capire/bookstore": "*",
-    "@sap/cds": "^5",
+    "@sap/cds": ">=5",
     "express": "^4.17.1",
-    "passport": "^0.4.1"
+    "passport": ">=0.4.1"
   },
   "scripts": {
     "start": "cds run --in-memory?",
