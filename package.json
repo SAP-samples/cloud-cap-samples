@@ -14,7 +14,7 @@
     "@capire/media": "./media",
     "@capire/orders": "./orders",
     "@capire/reviews": "./reviews",
-    "@sap/cds": "^5.5.3"
+    "@sap/cds": ">=5.5.3"
   },
   "devDependencies": {
     "chai": "^4.3.4",
