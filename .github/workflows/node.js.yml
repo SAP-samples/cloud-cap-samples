@@ -19,9 +19,9 @@ jobs:
 
     steps:
       - uses: actions/setup-node@v3
-      - uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
+      - uses: actions/checkout@v3
       - run: npx --yes npm ci
       - run: npx --yes npm ls
       - run: npm -s run mocha
