@@ -22,6 +22,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
-      - run: npx --yes npm ci
-      - run: npm run mocha -s
-      - run: npm run jest -s
+      - run: npx --yes npm@8 ci
+      - run: npx --yes npm@8 ls
+      - run: npm -s run mocha
+      - run: npm -s run jest --silent
