@@ -15,14 +15,15 @@ jobs:
 
     strategy:
       matrix:
-        node: [16.x, 14.x, 12.x]
+        node: [ 16.x ]
+        # node: [ 16.x, 14.x, 12.x ]
 
     steps:
-      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
-      - run: npx --yes npm@8 install
-      - run: npx --yes npm@8 ls
+      - run: npm ci
+      - run: npm ls
       - run: npm -s run mocha
       - run: npm -s run jest --silent
