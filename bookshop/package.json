@@ -21,8 +21,6 @@
   },
   "cds": {
     "requires": {
-      "extensibility": true,
-      "-toggles": true,
       "db": {
         "kind": "sql"
       }
