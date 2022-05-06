@@ -25,25 +25,23 @@ GET {{server}}/browse/ListOfBooks?
 
 ### ------------------------------------------------------------------------
 # Fetch Authors as admin
-GET {{server}}/admin/Authors?
-  # &$select=name,dateOfBirth,placeOfBirth
-  # &$expand=books($select=title;$expand=currency)
-  # &$filter=ID eq 101
-  # &sap-language=de
-Authorization: Basic alice:
+GET {{server}}/admin/Authors(307)
 
 ### ------------------------------------------------------------------------
 # Create Author
 POST {{server}}/admin/Authors
 Content-Type: application/json;IEEE754Compatible=true
-Authorization: Basic alice:
 
 {
-  "ID": 112,
-  "name": "Shakespeeeeere",
-  "age": 22
+  "ID": 317,
+  "name": "Vitaly",
+  "placeOfDeath": "",
+  "placeOfBirth": ""
 }
 
+### ------------------------------------------------------------------------
+# Fetch Books as admin
+GET {{server}}/admin/Books
 
 ### ------------------------------------------------------------------------
 # Create book
@@ -52,12 +50,12 @@ Content-Type: application/json;IEEE754Compatible=true
 Authorization: Basic alice:
 
 {
-  "ID": 2,
-  "title": "Poems : Pocket Poets",
+  "ID": 13,
+  "title": "Deh3",
   "descr": "The Everyman's Library Pocket Poets hardcover series is popular for its compact size and reasonable price which does not compromise content. Poems: Bronte contains poems that demonstrate a sensibility elemental in its force with an imaginative discipline and flexibility of the highest order. Also included are an Editor's Note and an index of first lines.",
   "author": { "ID": 101 },
   "genre": { "ID": 12 },
-  "stock": 5,
+  "stock": 100,
   "price": "12.05",
   "currency": { "code": "USD" }
 }
