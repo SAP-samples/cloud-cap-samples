@@ -2,7 +2,7 @@ async function run() {
   debugger
   while (true) {}
   process.exit()
-  1.substring()
+  //1.substring()
   let res = await cds.read(SELECT.one`title`.from(`Books`).where(`ID=201`))
   let { title } = res
   const data = req.data
