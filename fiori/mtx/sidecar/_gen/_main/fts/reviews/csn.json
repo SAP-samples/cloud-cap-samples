@@ -1,0 +1,11 @@
+{
+  "requires": [
+    "../../srv/csn.json"
+  ],
+  "definitions": {},
+  "meta": {
+    "creator": "CDS Compiler v3.0.0",
+    "flavor": "parsed"
+  },
+  "$version": "2.0"
+}

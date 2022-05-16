@@ -1,0 +1,12 @@
+{
+  "cds": {
+    "requires": {
+      "model-provider": "in-sidecar",
+      "extensibility": false,
+      "multitenancy": false
+    }
+  },
+  "engines": {
+    "node": ">=14.15.0"
+  }
+}

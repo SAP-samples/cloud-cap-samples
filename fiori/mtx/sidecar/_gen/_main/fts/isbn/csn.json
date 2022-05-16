@@ -1,0 +1,42 @@
+{
+  "requires": [
+    "../../srv/csn.json"
+  ],
+  "definitions": {},
+  "extensions": [
+    {
+      "annotate": "CatalogService.Books",
+      "@UI.LineItem": [
+        {
+          "...": {
+            "Value": {
+              "=": "author"
+            }
+          }
+        },
+        {
+          "Value": {
+            "=": "rating"
+          }
+        },
+        {
+          "...": true
+        }
+      ]
+    },
+    {
+      "extend": "sap.capire.bookshop.Books",
+      "elements": {
+        "isbn": {
+          "@title": "ISBN",
+          "type": "cds.String"
+        }
+      }
+    }
+  ],
+  "meta": {
+    "creator": "CDS Compiler v3.0.0",
+    "flavor": "parsed"
+  },
+  "$version": "2.0"
+}
