@@ -1,0 +1,25 @@
+#
+#  Example requests to ModelProviderService in sidecar...
+#
+@mps = http://localhost:4005/-/cds/model-provider
+
+### ------------------------------------------------------------------------
+POST {{mps}}/getCsn
+Content-Type: application/json
+# Authorization: Basic xi:
+
+{}
+
+### ------------------------------------------------------------------------
+POST {{mps}}/getCsn
+Content-Type: application/json
+Authorization: Basic xi:
+
+{ "for": "java", "toggles": ["*"] }
+
+### ------------------------------------------------------------------------
+POST {{mps}}/getEdmx
+Content-Type: application/json
+Authorization: Basic xi:
+
+{ "service": "CatalogService", "for": "java", "flavor": "v2" }

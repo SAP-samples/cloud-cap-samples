@@ -1,0 +1,9 @@
+{
+  "cds": {
+    "requires": {
+      "model-provider": "in-sidecar",
+      "extensibility": false,
+      "multitenancy": false
+    }
+  }
+}

@@ -35,9 +35,16 @@
           "kind": "enterprise-messaging-shared"
         }
       },
-      "db": {
-        "kind": "sql"
+
+      "[with-sidecar]": {
+        "model-provider": "from-sidecar"
       },
+      "toggles": true,
+      "extensions": false,
+      "extensibility": false,
+      "multitenancy": false,
+
+      "db": "sql",
       "db-ext": {
         "[development]": {
           "model": "db/sqlite"
@@ -45,9 +52,6 @@
         "[production]": {
           "model": "db/hana"
         }
-      },
-      "hana": {
-        "deploy-format": "hdbtable"
       }
     }
   }
