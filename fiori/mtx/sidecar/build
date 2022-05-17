@@ -21,7 +21,7 @@
   } catch {}
 
   const exec = require('util').promisify (require('child_process').exec)
-  const resources_tar = path.resolve(__dirname,'gen/_main/resources.tar')
+  const resources_tar = path.resolve(__dirname,'gen/_main/resources.tgz')
   const resources = [ 'db/data', 'db/src', 'app/_i18n' ] .filter (exists)
   tasks.push (exec(`tar czvf ${resources_tar} ${resources.join(' ')}`,{ cwd:main }))
 
