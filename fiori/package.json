@@ -13,9 +13,7 @@
   },
   "cds": {
     "requires": {
-      "auth": {
-        "kind": "dummy-auth"
-      },
+      "auth": "mocked",
       "ReviewsService": {
         "kind": "odata",
         "model": "@capire/reviews"

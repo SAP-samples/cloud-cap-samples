@@ -31,7 +31,7 @@
       }
     },
     "cds.xt.ModelProviderService": {
-      "@source": "../../../../../cds/srv/model-provider.cds",
+      "@source": "@sap/cds/srv/model-provider.cds",
       "kind": "service",
       "@protocol": "rest",
       "@requires": [
