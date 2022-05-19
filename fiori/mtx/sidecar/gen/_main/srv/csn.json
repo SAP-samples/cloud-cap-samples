@@ -6022,32 +6022,6 @@
       }
     }
   },
-  "$sources": [
-    "/Users/daniel/cap/dev/cap/samples/fiori/app/common.cds",
-    "/Users/daniel/cap/dev/cap/samples/fiori/app/services.cds",
-    "/Users/daniel/cap/dev/cap/samples/reviews/index.cds",
-    "/Users/daniel/cap/dev/cap/samples/orders/index.cds",
-    "/Users/daniel/cap/dev/cds/srv/model-provider.cds",
-    "/Users/daniel/cap/dev/cap/samples/fiori/db/sqlite/index.cds",
-    "/Users/daniel/cap/dev/cap/samples/bookstore/index.cds",
-    "/Users/daniel/cap/dev/cap/samples/common/index.cds",
-    "/Users/daniel/cap/dev/cap/samples/fiori/app/admin-authors/fiori-service.cds",
-    "/Users/daniel/cap/dev/cap/samples/fiori/app/admin-books/fiori-service.cds",
-    "/Users/daniel/cap/dev/cap/samples/fiori/app/browse/fiori-service.cds",
-    "/Users/daniel/cap/dev/cap/samples/bookstore/srv/mashup.cds",
-    "/Users/daniel/cap/dev/cap/samples/reviews/srv/reviews-service.cds",
-    "/Users/daniel/cap/dev/cap/samples/orders/srv/orders-service.cds",
-    "/Users/daniel/cap/dev/cap/samples/orders/db/schema.cds",
-    "/Users/daniel/cap/dev/cap/samples/bookshop/index.cds",
-    "/Users/daniel/cap/dev/cds/common.cds",
-    "/Users/daniel/cap/dev/cap/samples/orders/app/fiori.cds",
-    "/Users/daniel/cap/dev/cap/samples/data-viewer/index.cds",
-    "/Users/daniel/cap/dev/cap/samples/reviews/db/schema.cds",
-    "/Users/daniel/cap/dev/cap/samples/bookshop/db/schema.cds",
-    "/Users/daniel/cap/dev/cap/samples/bookshop/srv/cat-service.cds",
-    "/Users/daniel/cap/dev/cap/samples/bookshop/srv/admin-service.cds",
-    "/Users/daniel/cap/dev/cap/samples/data-viewer/srv/data-service.cds"
-  ],
   "meta": {
     "creator": "CDS Compiler v3.0.0",
     "flavor": "inferred"

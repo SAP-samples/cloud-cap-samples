@@ -1,9 +1,11 @@
 {
   "cds": {
     "requires": {
-      "model-provider": "in-sidecar",
-      "extensibility": false,
-      "multitenancy": false
+      "model-provider": "in-sidecar"
     }
+  },
+  "dependencies": {
+    "@sap/cds-mtxs": "*",
+    "express": "*"
   }
 }
