@@ -21,9 +21,10 @@
   },
   "cds": {
     "requires": {
-      "db": {
-        "kind": "sql"
-      }
+      "[mt]": {
+        "multitenancy": true
+      },
+      "db": "sql"
     }
   }
 }
