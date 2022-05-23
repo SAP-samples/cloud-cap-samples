@@ -5,7 +5,7 @@
     }
   },
   "dependencies": {
-    "@sap/cds-mtxs": "*",
+    "@sap/cds-mt": "*",
     "express": "*"
   }
 }

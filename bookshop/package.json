@@ -22,7 +22,7 @@
   "cds": {
     "requires": {
       "[mt]": {
-        "multitenancy": true
+        "multitenancy": "base"
       },
       "db": "sql"
     }
