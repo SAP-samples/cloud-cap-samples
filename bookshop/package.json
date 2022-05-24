@@ -22,7 +22,12 @@
   "cds": {
     "requires": {
       "[mt]": {
-        "multitenancy": "base"
+        "--multitenancy": "btp-saas-provisioning",
+        "multitenancy": true,
+        "btp-saas-provisioning": true,
+        "saas-deployment": false,
+        "extensibility": false,
+        "model-provider": true
       },
       "db": "sql"
     }
