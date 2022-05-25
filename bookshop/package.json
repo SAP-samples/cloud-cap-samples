@@ -24,10 +24,10 @@
       "[mt]": {
         "--multitenancy": "btp-saas-provisioning",
         "multitenancy": true,
-        "btp-saas-provisioning": true,
+        "btp-saas-provisioning": false,
         "saas-deployment": false,
         "extensibility": false,
-        "model-provider": true
+        "model-provider": false
       },
       "db": "sql"
     }
