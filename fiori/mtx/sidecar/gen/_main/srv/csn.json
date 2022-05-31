@@ -1,0 +1,6034 @@
+{
+  "definitions": {
+    "cds.xt.CSN": {
+      "kind": "type",
+      "@open": true,
+      "elements": {}
+    },
+    "cds.xt.TAR": {
+      "kind": "type",
+      "type": "cds.LargeBinary"
+    },
+    "cds.xt.XML": {
+      "kind": "type",
+      "type": "cds.LargeString"
+    },
+    "cds.xt.Locale": {
+      "kind": "type",
+      "type": "cds.String"
+    },
+    "cds.xt.TenantID": {
+      "kind": "type",
+      "type": "cds.String"
+    },
+    "cds.xt.CSNConsumer": {
+      "kind": "type",
+      "type": "cds.String",
+      "enum": {
+        "nodejs": {},
+        "java": {}
+      }
+    },
+    "cds.xt.ModelProviderService": {
+      "@source": "@sap/cds/srv/model-provider.cds",
+      "kind": "service",
+      "@protocol": "rest",
+      "@requires": [
+        "internal-user"
+      ],
+      "@path": "/-/cds/model-provider"
+    },
+    "cds.xt.ModelProviderService.getCsn": {
+      "kind": "action",
+      "params": {
+        "tenant": {
+          "type": "cds.xt.TenantID"
+        },
+        "toggles": {
+          "items": {
+            "type": "cds.String"
+          }
+        },
+        "for": {
+          "@cds.java.name": "runtime",
+          "type": "cds.xt.CSNConsumer"
+        }
+      },
+      "returns": {
+        "type": "cds.xt.CSN"
+      }
+    },
+    "cds.xt.ModelProviderService.getExtCsn": {
+      "kind": "action",
+      "params": {
+        "tenant": {
+          "type": "cds.xt.TenantID"
+        },
+        "toggles": {
+          "items": {
+            "type": "cds.String"
+          }
+        },
+        "for": {
+          "@cds.java.name": "runtime",
+          "type": "cds.xt.CSNConsumer"
+        }
+      },
+      "returns": {
+        "type": "cds.xt.CSN"
+      }
+    },
+    "cds.xt.ModelProviderService.getEdmx": {
+      "kind": "action",
+      "params": {
+        "tenant": {
+          "type": "cds.xt.TenantID"
+        },
+        "toggles": {
+          "items": {
+            "type": "cds.String"
+          }
+        },
+        "service": {
+          "type": "cds.String"
+        },
+        "locale": {
+          "type": "cds.xt.Locale"
+        },
+        "flavor": {
+          "type": "cds.String"
+        },
+        "for": {
+          "@cds.java.name": "runtime",
+          "type": "cds.xt.CSNConsumer"
+        }
+      },
+      "returns": {
+        "type": "cds.xt.XML"
+      }
+    },
+    "cds.xt.ModelProviderService.isExtended": {
+      "kind": "action",
+      "params": {
+        "tenant": {
+          "type": "cds.xt.TenantID"
+        }
+      },
+      "returns": {
+        "type": "cds.Boolean"
+      }
+    },
+    "cds.xt.ModelProviderService.getExtensions": {
+      "kind": "action",
+      "params": {
+        "tenant": {
+          "type": "cds.xt.TenantID"
+        }
+      },
+      "returns": {
+        "type": "cds.xt.CSN"
+      }
+    },
+    "cds.xt.ModelProviderService.getResources": {
+      "kind": "action",
+      "returns": {
+        "type": "cds.xt.TAR"
+      }
+    },
+    "cds.xt.ModelProviderService.getExtResources": {
+      "kind": "action",
+      "returns": {
+        "type": "cds.xt.TAR"
+      }
+    },
+    "sap.common.countries": {
+      "kind": "context"
+    },
+    "sap.common.countries.Regions": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "key": true,
+          "type": "cds.String",
+          "length": 5
+        },
+        "children": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.countries.Regions",
+          "on": [
+            {
+              "ref": [
+                "children",
+                "_parent"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self",
+                "code"
+              ]
+            }
+          ]
+        },
+        "cities": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.countries.Cities",
+          "on": [
+            {
+              "ref": [
+                "cities",
+                "region"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "_parent": {
+          "type": "cds.String",
+          "length": 11
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.countries.Regions.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.countries.Regions.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.countries.Cities": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "key": true,
+          "type": "cds.String",
+          "length": 11
+        },
+        "region": {
+          "type": "cds.Association",
+          "target": "sap.common.countries.Regions",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "districts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.countries.Districts",
+          "on": [
+            {
+              "ref": [
+                "districts",
+                "city"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.countries.Cities.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.countries.Cities.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.countries.Districts": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "key": true,
+          "type": "cds.String",
+          "length": 11
+        },
+        "city": {
+          "type": "cds.Association",
+          "target": "sap.common.countries.Cities",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.countries.Districts.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.countries.Districts.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "AdminService.Languages": {
+      "kind": "entity",
+      "@readonly": true,
+      "@Common.SemanticKey": [
+        {
+          "=": "code"
+        }
+      ],
+      "@Identification": [
+        {
+          "Value": {
+            "=": "code"
+          }
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "name"
+        },
+        {
+          "=": "descr"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "code"
+          }
+        },
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.TypeName": "{i18n>Language}",
+      "@UI.HeaderInfo.TypeNamePlural": "{i18n>Languages}",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "name"
+      },
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "descr"
+      },
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Details}",
+          "Target": "@UI.FieldGroup#Details"
+        }
+      ],
+      "@UI.FieldGroup#Details.Data": [
+        {
+          "Value": {
+            "=": "code"
+          }
+        },
+        {
+          "Value": {
+            "=": "name"
+          }
+        },
+        {
+          "Value": {
+            "=": "descr"
+          }
+        }
+      ],
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.common.Languages"
+          ]
+        }
+      },
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@Common.Text": {
+            "=": "name"
+          },
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "AdminService.Languages.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "AdminService.Languages.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "ReviewsService": {
+      "@source": "../reviews/srv/reviews-service.cds",
+      "kind": "service",
+      "@restrict": [
+        {
+          "grant": "like",
+          "to": "identified-user"
+        },
+        {
+          "grant": "unlike",
+          "to": "identified-user",
+          "where": "user=$user",
+          "_where": "[{\"ref\":[\"user\"]},\"=\",{\"ref\":[\"$user\"]}]"
+        }
+      ]
+    },
+    "ReviewsService.Reviews": {
+      "kind": "entity",
+      "@restrict": [
+        {
+          "grant": "READ",
+          "to": "any"
+        },
+        {
+          "grant": "CREATE",
+          "to": "authenticated-user"
+        },
+        {
+          "grant": "UPDATE",
+          "to": "authenticated-user",
+          "where": "reviewer=$user",
+          "_where": "[{\"ref\":[\"reviewer\"]},\"=\",{\"ref\":[\"$user\"]}]"
+        },
+        {
+          "grant": "DELETE",
+          "to": "admin"
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.capire.reviews.Reviews"
+          ]
+        },
+        "excluding": [
+          "likes"
+        ]
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "subject": {
+          "@mandatory": true,
+          "type": "sap.capire.reviews.ReviewedSubject",
+          "length": 111
+        },
+        "reviewer": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@title": "{i18n>UserID}",
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "rating": {
+          "@assert.range": true,
+          "type": "sap.capire.reviews.Rating"
+        },
+        "title": {
+          "@mandatory": true,
+          "type": "cds.String",
+          "length": 111
+        },
+        "text": {
+          "type": "cds.String",
+          "length": 1111
+        },
+        "date": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "type": "cds.DateTime"
+        },
+        "liked": {
+          "type": "cds.Integer",
+          "default": {
+            "val": 0
+          }
+        }
+      }
+    },
+    "ReviewsService.like": {
+      "kind": "action",
+      "params": {
+        "review": {
+          "type": {
+            "ref": [
+              "ReviewsService.Reviews",
+              "ID"
+            ]
+          }
+        }
+      }
+    },
+    "ReviewsService.unlike": {
+      "kind": "action",
+      "params": {
+        "review": {
+          "type": {
+            "ref": [
+              "ReviewsService.Reviews",
+              "ID"
+            ]
+          }
+        }
+      }
+    },
+    "ReviewsService.reviewed": {
+      "kind": "event",
+      "elements": {
+        "subject": {
+          "@mandatory": true,
+          "type": {
+            "ref": [
+              "ReviewsService.Reviews",
+              "subject"
+            ]
+          },
+          "length": 111
+        },
+        "count": {
+          "type": "cds.Integer"
+        },
+        "rating": {
+          "type": "cds.Decimal"
+        }
+      }
+    },
+    "OrdersService": {
+      "@source": "../orders/srv/orders-service.cds",
+      "kind": "service"
+    },
+    "OrdersService.Orders": {
+      "kind": "entity",
+      "@odata.draft.enabled": true,
+      "@UI.SelectionFields": [
+        {
+          "=": "createdAt"
+        },
+        {
+          "=": "createdBy"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "OrderNo"
+          },
+          "Label": "OrderNo"
+        },
+        {
+          "Value": {
+            "=": "buyer"
+          },
+          "Label": "Customer"
+        },
+        {
+          "Value": {
+            "=": "createdAt"
+          },
+          "Label": "Date"
+        }
+      ],
+      "@UI.HeaderInfo.TypeName": "Order",
+      "@UI.HeaderInfo.TypeNamePlural": "Orders",
+      "@UI.HeaderInfo.Title.Label": "Order number ",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "OrderNo"
+      },
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "createdBy"
+      },
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "createdBy"
+          },
+          "Label": "Customer"
+        },
+        {
+          "Value": {
+            "=": "createdAt"
+          },
+          "Label": "Date"
+        },
+        {
+          "Value": {
+            "=": "OrderNo"
+          }
+        }
+      ],
+      "@UI.HeaderFacets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Created}",
+          "Target": "@UI.FieldGroup#Created"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Modified}",
+          "Target": "@UI.FieldGroup#Modified"
+        }
+      ],
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Details}",
+          "Target": "@UI.FieldGroup#Details"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>OrderItems}",
+          "Target": "Items/@UI.LineItem"
+        }
+      ],
+      "@UI.FieldGroup#Details.Data": [
+        {
+          "Value": {
+            "=": "currency.code"
+          },
+          "Label": "Currency"
+        }
+      ],
+      "@UI.FieldGroup#Created.Data": [
+        {
+          "Value": {
+            "=": "createdBy"
+          }
+        },
+        {
+          "Value": {
+            "=": "createdAt"
+          }
+        }
+      ],
+      "@UI.FieldGroup#Modified.Data": [
+        {
+          "Value": {
+            "=": "modifiedBy"
+          }
+        },
+        {
+          "Value": {
+            "=": "modifiedAt"
+          }
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.capire.orders.Orders"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "createdAt": {
+          "@UI.HiddenFilter": false,
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "createdBy": {
+          "@UI.HiddenFilter": false,
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "modifiedBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@cds.on.update": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "OrderNo": {
+          "@title": "Order Number",
+          "type": "cds.String"
+        },
+        "Items": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "targetAspect": {
+            "elements": {
+              "ID": {
+                "key": true,
+                "type": "cds.UUID"
+              },
+              "product": {
+                "type": "cds.Association",
+                "target": "sap.capire.orders.Products",
+                "keys": [
+                  {
+                    "ref": [
+                      "ID"
+                    ]
+                  }
+                ]
+              },
+              "quantity": {
+                "type": "cds.Integer"
+              },
+              "title": {
+                "type": "cds.String"
+              },
+              "price": {
+                "type": "cds.Double"
+              },
+              "book": {
+                "type": "cds.Association",
+                "target": "sap.capire.bookshop.Books",
+                "on": [
+                  {
+                    "ref": [
+                      "product",
+                      "ID"
+                    ]
+                  },
+                  "=",
+                  {
+                    "ref": [
+                      "book",
+                      "ID"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "target": "OrdersService.Orders.Items",
+          "on": [
+            {
+              "ref": [
+                "Items",
+                "up_"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "buyer": {
+          "@title": "{i18n>UserID}",
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "currency": {
+          "@title": "{i18n>Currency}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "OrdersService.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.capire.orders.Orders": {
+      "kind": "entity",
+      "includes": [
+        "cuid",
+        "managed"
+      ],
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "createdBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "modifiedBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@cds.on.update": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "OrderNo": {
+          "@title": "Order Number",
+          "type": "cds.String"
+        },
+        "Items": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "targetAspect": {
+            "elements": {
+              "ID": {
+                "key": true,
+                "type": "cds.UUID"
+              },
+              "product": {
+                "type": "cds.Association",
+                "target": "sap.capire.orders.Products",
+                "keys": [
+                  {
+                    "ref": [
+                      "ID"
+                    ]
+                  }
+                ]
+              },
+              "quantity": {
+                "type": "cds.Integer"
+              },
+              "title": {
+                "type": "cds.String"
+              },
+              "price": {
+                "type": "cds.Double"
+              },
+              "book": {
+                "type": "cds.Association",
+                "target": "sap.capire.bookshop.Books",
+                "on": [
+                  {
+                    "ref": [
+                      "product",
+                      "ID"
+                    ]
+                  },
+                  "=",
+                  {
+                    "ref": [
+                      "book",
+                      "ID"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "target": "sap.capire.orders.Orders.Items",
+          "on": [
+            {
+              "ref": [
+                "Items",
+                "up_"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "buyer": {
+          "@title": "{i18n>UserID}",
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "currency": {
+          "@title": "{i18n>Currency}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "sap.common.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.capire.orders.Products": {
+      "kind": "entity",
+      "@cds.persistence.skip": "always",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.String"
+        }
+      }
+    },
+    "Language": {
+      "kind": "type",
+      "@title": "{i18n>Language}",
+      "@description": "{i18n>LanguageCode.Description}",
+      "type": "cds.Association",
+      "target": "sap.common.Languages",
+      "keys": [
+        {
+          "ref": [
+            "code"
+          ]
+        }
+      ]
+    },
+    "Currency": {
+      "kind": "type",
+      "@title": "{i18n>Currency}",
+      "@description": "{i18n>CurrencyCode.Description}",
+      "type": "cds.Association",
+      "target": "sap.common.Currencies",
+      "keys": [
+        {
+          "ref": [
+            "code"
+          ]
+        }
+      ]
+    },
+    "Country": {
+      "kind": "type",
+      "@title": "{i18n>Country}",
+      "@description": "{i18n>CountryCode.Description}",
+      "type": "cds.Association",
+      "target": "sap.common.Countries",
+      "keys": [
+        {
+          "ref": [
+            "code"
+          ]
+        }
+      ]
+    },
+    "sap.common": {
+      "kind": "context"
+    },
+    "sap.common.Locale": {
+      "kind": "type",
+      "@title": "{i18n>LanguageCode}",
+      "type": "cds.String",
+      "length": 14
+    },
+    "sap.common.Languages": {
+      "kind": "entity",
+      "@Common.SemanticKey": [
+        {
+          "=": "code"
+        }
+      ],
+      "@Identification": [
+        {
+          "Value": {
+            "=": "code"
+          }
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "name"
+        },
+        {
+          "=": "descr"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "code"
+          }
+        },
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.TypeName": "{i18n>Language}",
+      "@UI.HeaderInfo.TypeNamePlural": "{i18n>Languages}",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "name"
+      },
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "descr"
+      },
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Details}",
+          "Target": "@UI.FieldGroup#Details"
+        }
+      ],
+      "@UI.FieldGroup#Details.Data": [
+        {
+          "Value": {
+            "=": "code"
+          }
+        },
+        {
+          "Value": {
+            "=": "name"
+          }
+        },
+        {
+          "Value": {
+            "=": "descr"
+          }
+        }
+      ],
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@Common.Text": {
+            "=": "name"
+          },
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.Languages.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.Languages.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.Countries": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@title": "{i18n>CountryCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "regions": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.countries.Regions",
+          "on": [
+            {
+              "ref": [
+                "regions",
+                "_parent"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self",
+                "code"
+              ]
+            }
+          ]
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.Countries.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.Countries.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.Currencies": {
+      "kind": "entity",
+      "@Common.SemanticKey": [
+        {
+          "=": "code"
+        }
+      ],
+      "@Identification": [
+        {
+          "Value": {
+            "=": "code"
+          }
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "name"
+        },
+        {
+          "=": "descr"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "descr"
+          }
+        },
+        {
+          "Value": {
+            "=": "symbol"
+          }
+        },
+        {
+          "Value": {
+            "=": "code"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.TypeName": "{i18n>Currency}",
+      "@UI.HeaderInfo.TypeNamePlural": "{i18n>Currencies}",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "descr"
+      },
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "code"
+      },
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Details}",
+          "Target": "@UI.FieldGroup#Details"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Extended}",
+          "Target": "@UI.FieldGroup#Extended"
+        }
+      ],
+      "@UI.FieldGroup#Details.Data": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        },
+        {
+          "Value": {
+            "=": "symbol"
+          }
+        },
+        {
+          "Value": {
+            "=": "code"
+          }
+        },
+        {
+          "Value": {
+            "=": "descr"
+          }
+        }
+      ],
+      "@UI.FieldGroup#Extended.Data": [
+        {
+          "Value": {
+            "=": "numcode"
+          }
+        },
+        {
+          "Value": {
+            "=": "minor"
+          }
+        },
+        {
+          "Value": {
+            "=": "exponent"
+          }
+        }
+      ],
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "symbol": {
+          "@title": "{i18n>CurrencySymbol}",
+          "type": "cds.String",
+          "length": 5
+        },
+        "numcode": {
+          "@title": "{i18n>NumCode}",
+          "type": "cds.Integer"
+        },
+        "exponent": {
+          "@title": "{i18n>Exponent}",
+          "type": "cds.Integer"
+        },
+        "minor": {
+          "@title": "{i18n>MinorUnit}",
+          "type": "cds.String"
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.CodeList": {
+      "kind": "aspect",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        }
+      }
+    },
+    "cuid": {
+      "kind": "aspect",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        }
+      }
+    },
+    "managed": {
+      "kind": "aspect",
+      "elements": {
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "createdBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "modifiedBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@cds.on.update": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        }
+      }
+    },
+    "temporal": {
+      "kind": "aspect",
+      "elements": {
+        "validFrom": {
+          "@cds.valid.from": true,
+          "type": "cds.Timestamp"
+        },
+        "validTo": {
+          "@cds.valid.to": true,
+          "type": "cds.Timestamp"
+        }
+      }
+    },
+    "User": {
+      "kind": "type",
+      "@title": "{i18n>UserID}",
+      "@description": "{i18n>UserID.Description}",
+      "type": "cds.String",
+      "length": 255
+    },
+    "extensible": {
+      "kind": "aspect",
+      "elements": {
+        "extensions__": {
+          "@cds.api.ignore": true,
+          "type": "cds.String"
+        }
+      }
+    },
+    "sap.capire.reviews.ReviewedSubject": {
+      "kind": "type",
+      "type": "cds.String",
+      "length": 111
+    },
+    "sap.capire.reviews.Reviews": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "subject": {
+          "type": "sap.capire.reviews.ReviewedSubject",
+          "length": 111
+        },
+        "reviewer": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@title": "{i18n>UserID}",
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "rating": {
+          "type": "sap.capire.reviews.Rating"
+        },
+        "title": {
+          "type": "cds.String",
+          "length": 111
+        },
+        "text": {
+          "type": "cds.String",
+          "length": 1111
+        },
+        "date": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "type": "cds.DateTime"
+        },
+        "likes": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.capire.reviews.Likes",
+          "on": [
+            {
+              "ref": [
+                "likes",
+                "review"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "liked": {
+          "type": "cds.Integer",
+          "default": {
+            "val": 0
+          }
+        }
+      }
+    },
+    "sap.capire.reviews.Rating": {
+      "kind": "type",
+      "type": "cds.Integer",
+      "enum": {
+        "Best": {
+          "val": 5
+        },
+        "Good": {
+          "val": 4
+        },
+        "Avg": {
+          "val": 3
+        },
+        "Poor": {
+          "val": 2
+        },
+        "Worst": {
+          "val": 1
+        }
+      }
+    },
+    "sap.capire.reviews.Likes": {
+      "kind": "entity",
+      "elements": {
+        "review": {
+          "key": true,
+          "type": "cds.Association",
+          "target": "sap.capire.reviews.Reviews",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "user": {
+          "@title": "{i18n>UserID}",
+          "@description": "{i18n>UserID.Description}",
+          "key": true,
+          "type": "User",
+          "length": 255
+        }
+      }
+    },
+    "sap.capire.bookshop.Books": {
+      "kind": "entity",
+      "@Common.SemanticKey": [
+        {
+          "=": "ID"
+        }
+      ],
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "title"
+          }
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "ID"
+        },
+        {
+          "=": "author_ID"
+        },
+        {
+          "=": "price"
+        },
+        {
+          "=": "currency_code"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "ID"
+          },
+          "Label": "{i18n>Title}"
+        },
+        {
+          "Value": {
+            "=": "author.ID"
+          },
+          "Label": "{i18n>Author}"
+        },
+        {
+          "Value": {
+            "=": "genre.name"
+          }
+        },
+        {
+          "Value": {
+            "=": "stock"
+          }
+        },
+        {
+          "Value": {
+            "=": "price"
+          }
+        },
+        {
+          "Value": {
+            "=": "currency.symbol"
+          },
+          "Label": " "
+        }
+      ],
+      "@UI.HeaderInfo.TypeName": "{i18n>Book}",
+      "@UI.HeaderInfo.TypeNamePlural": "{i18n>Books}",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "title"
+      },
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "author.name"
+      },
+      "@fiori.draft.enabled": true,
+      "includes": [
+        "managed"
+      ],
+      "elements": {
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "createdBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "modifiedBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@cds.on.update": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "ID": {
+          "@Common.SemanticObject": "Books",
+          "@Common.Text": {
+            "=": "title"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "@title": "{i18n>ID}",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "title": {
+          "@title": "{i18n>Title}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 111
+        },
+        "descr": {
+          "@UI.MultiLineText": true,
+          "localized": true,
+          "type": "cds.String",
+          "length": 1111
+        },
+        "author": {
+          "@ValueList.entity": "Authors",
+          "@title": "{i18n>Author}",
+          "@Common.Text": {
+            "=": "author.name"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "type": "cds.Association",
+          "target": "sap.capire.bookshop.Authors",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "genre": {
+          "@title": "{i18n>Genre}",
+          "@Common.Text": {
+            "=": "genre.name"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "type": "cds.Association",
+          "target": "sap.capire.bookshop.Genres",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "stock": {
+          "@title": "{i18n>Stock}",
+          "type": "cds.Integer"
+        },
+        "price": {
+          "@title": "{i18n>Price}",
+          "@Measures.ISOCurrency": {
+            "=": "currency_code"
+          },
+          "type": "cds.Decimal"
+        },
+        "currency": {
+          "@title": "{i18n>Currency}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "sap.common.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "image": {
+          "@Core.MediaType": "image/png",
+          "type": "cds.LargeBinary"
+        },
+        "reviews": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "ReviewsService.Reviews",
+          "on": [
+            {
+              "ref": [
+                "reviews",
+                "subject"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self",
+                "ID"
+              ]
+            }
+          ]
+        },
+        "rating": {
+          "type": "cds.Decimal"
+        },
+        "numberOfReviews": {
+          "type": "cds.Integer"
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.capire.bookshop.Books.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.capire.bookshop.Books.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.capire.bookshop.Authors": {
+      "kind": "entity",
+      "@Common.SemanticKey": [
+        {
+          "=": "ID"
+        }
+      ],
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "name"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "ID"
+          }
+        },
+        {
+          "Value": {
+            "=": "dateOfBirth"
+          }
+        },
+        {
+          "Value": {
+            "=": "dateOfDeath"
+          }
+        },
+        {
+          "Value": {
+            "=": "placeOfBirth"
+          }
+        },
+        {
+          "Value": {
+            "=": "placeOfDeath"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.TypeName": "{i18n>Author}",
+      "@UI.HeaderInfo.TypeNamePlural": "{i18n>Authors}",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "name"
+      },
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "dateOfBirth"
+      },
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Target": "books/@UI.LineItem"
+        }
+      ],
+      "includes": [
+        "managed"
+      ],
+      "elements": {
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "createdBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "modifiedBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@cds.on.update": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "ID": {
+          "@Common.SemanticObject": "Authors",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "@title": "{i18n>ID}",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "type": "cds.String",
+          "length": 111
+        },
+        "dateOfBirth": {
+          "@title": "{i18n>DateOfBirth}",
+          "type": "cds.Date"
+        },
+        "dateOfDeath": {
+          "@title": "{i18n>DateOfDeath}",
+          "type": "cds.Date"
+        },
+        "placeOfBirth": {
+          "@title": "{i18n>PlaceOfBirth}",
+          "type": "cds.String"
+        },
+        "placeOfDeath": {
+          "@title": "{i18n>PlaceOfDeath}",
+          "type": "cds.String"
+        },
+        "books": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.capire.bookshop.Books",
+          "on": [
+            {
+              "ref": [
+                "books",
+                "author"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "age": {
+          "@Core.Computed": true,
+          "virtual": true,
+          "type": "cds.Integer"
+        },
+        "lifetime": {
+          "@Core.Computed": true,
+          "virtual": true,
+          "type": "cds.String"
+        }
+      }
+    },
+    "sap.capire.bookshop.Genres": {
+      "kind": "entity",
+      "@Common.SemanticKey": [
+        {
+          "=": "name"
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "name"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        },
+        {
+          "Value": {
+            "=": "parent.name"
+          },
+          "Label": "Main Genre"
+        }
+      ],
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.TypeName": "{i18n>Genre}",
+      "@UI.HeaderInfo.TypeNamePlural": "{i18n>Genres}",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "name"
+      },
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "ID"
+      },
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>SubGenres}",
+          "Target": "children/@UI.LineItem"
+        }
+      ],
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Genre}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "ID": {
+          "@title": "{i18n>ID}",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "parent": {
+          "type": "cds.Association",
+          "target": "sap.capire.bookshop.Genres",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "children": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.capire.bookshop.Genres",
+          "on": [
+            {
+              "ref": [
+                "children",
+                "parent"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.capire.bookshop.Genres.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.capire.bookshop.Genres.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService": {
+      "@source": "../bookshop/srv/cat-service.cds",
+      "kind": "service",
+      "@path": "/browse",
+      "@requires": "authenticated-user"
+    },
+    "CatalogService.ListOfBooks": {
+      "kind": "entity",
+      "@readonly": true,
+      "@UI.HeaderInfo.TypeName": "Book",
+      "@UI.HeaderInfo.TypeNamePlural": "Books",
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "author"
+      },
+      "@UI.HeaderFacets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Description}",
+          "Target": "@UI.FieldGroup#Descr"
+        }
+      ],
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Details}",
+          "Target": "@UI.FieldGroup#Price"
+        }
+      ],
+      "@UI.FieldGroup#Descr.Data": [
+        {
+          "Value": {
+            "=": "descr"
+          }
+        }
+      ],
+      "@UI.FieldGroup#Price.Data": [
+        {
+          "Value": {
+            "=": "price"
+          }
+        },
+        {
+          "Value": {
+            "=": "currency.symbol"
+          },
+          "Label": "{i18n>Currency}"
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "ID"
+        },
+        {
+          "=": "price"
+        },
+        {
+          "=": "currency_code"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "ID"
+          },
+          "Label": "{i18n>Title}"
+        },
+        {
+          "Value": {
+            "=": "author"
+          },
+          "Label": "{i18n>Author}"
+        },
+        {
+          "Value": {
+            "=": "genre.name"
+          }
+        },
+        {
+          "Value": {
+            "=": "price"
+          }
+        },
+        {
+          "Value": {
+            "=": "currency.symbol"
+          },
+          "Label": " "
+        }
+      ],
+      "@Common.SemanticKey": [
+        {
+          "=": "ID"
+        }
+      ],
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "title"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "title"
+      },
+      "@fiori.draft.enabled": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "CatalogService.Books"
+          ]
+        },
+        "excluding": [
+          "descr"
+        ]
+      },
+      "elements": {
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "ID": {
+          "@Common.SemanticObject": "Books",
+          "@Common.Text": {
+            "=": "title"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "@title": "{i18n>ID}",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "title": {
+          "@title": "{i18n>Title}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 111
+        },
+        "author": {
+          "@title": "{i18n>Name}",
+          "type": "cds.String",
+          "length": 111
+        },
+        "genre": {
+          "@title": "{i18n>Genre}",
+          "@Common.Text": {
+            "=": "genre.name"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "type": "cds.Association",
+          "target": "CatalogService.Genres",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "stock": {
+          "@title": "{i18n>Stock}",
+          "type": "cds.Integer"
+        },
+        "price": {
+          "@title": "{i18n>Price}",
+          "@Measures.ISOCurrency": {
+            "=": "currency_code"
+          },
+          "type": "cds.Decimal"
+        },
+        "currency": {
+          "@title": "{i18n>Currency}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "CatalogService.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "image": {
+          "@Core.MediaType": "image/png",
+          "type": "cds.LargeBinary"
+        },
+        "reviews": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.Reviews",
+          "on": [
+            {
+              "ref": [
+                "reviews",
+                "subject"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self",
+                "ID"
+              ]
+            }
+          ]
+        },
+        "rating": {
+          "type": "cds.Decimal"
+        },
+        "numberOfReviews": {
+          "type": "cds.Integer"
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.Books.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "CatalogService.Books.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.Books": {
+      "kind": "entity",
+      "@readonly": true,
+      "@UI.HeaderInfo.TypeName": "Book",
+      "@UI.HeaderInfo.TypeNamePlural": "Books",
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "author"
+      },
+      "@UI.HeaderFacets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Description}",
+          "Target": "@UI.FieldGroup#Descr"
+        }
+      ],
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Details}",
+          "Target": "@UI.FieldGroup#Price"
+        }
+      ],
+      "@UI.FieldGroup#Descr.Data": [
+        {
+          "Value": {
+            "=": "descr"
+          }
+        }
+      ],
+      "@UI.FieldGroup#Price.Data": [
+        {
+          "Value": {
+            "=": "price"
+          }
+        },
+        {
+          "Value": {
+            "=": "currency.symbol"
+          },
+          "Label": "{i18n>Currency}"
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "ID"
+        },
+        {
+          "=": "price"
+        },
+        {
+          "=": "currency_code"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "ID"
+          },
+          "Label": "{i18n>Title}"
+        },
+        {
+          "Value": {
+            "=": "author"
+          },
+          "Label": "{i18n>Author}"
+        },
+        {
+          "Value": {
+            "=": "genre.name"
+          }
+        },
+        {
+          "Value": {
+            "=": "price"
+          }
+        },
+        {
+          "Value": {
+            "=": "currency.symbol"
+          },
+          "Label": " "
+        }
+      ],
+      "@Common.SemanticKey": [
+        {
+          "=": "ID"
+        }
+      ],
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "title"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "title"
+      },
+      "@fiori.draft.enabled": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.capire.bookshop.Books"
+          ]
+        },
+        "columns": [
+          "*",
+          {
+            "ref": [
+              "author",
+              "name"
+            ],
+            "as": "author"
+          }
+        ],
+        "excluding": [
+          "createdBy",
+          "modifiedBy"
+        ]
+      },
+      "elements": {
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "ID": {
+          "@Common.SemanticObject": "Books",
+          "@Common.Text": {
+            "=": "title"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "@title": "{i18n>ID}",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "title": {
+          "@title": "{i18n>Title}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 111
+        },
+        "descr": {
+          "@UI.MultiLineText": true,
+          "localized": true,
+          "type": "cds.String",
+          "length": 1111
+        },
+        "author": {
+          "@title": "{i18n>Name}",
+          "type": "cds.String",
+          "length": 111
+        },
+        "genre": {
+          "@title": "{i18n>Genre}",
+          "@Common.Text": {
+            "=": "genre.name"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "type": "cds.Association",
+          "target": "CatalogService.Genres",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "stock": {
+          "@title": "{i18n>Stock}",
+          "type": "cds.Integer"
+        },
+        "price": {
+          "@title": "{i18n>Price}",
+          "@Measures.ISOCurrency": {
+            "=": "currency_code"
+          },
+          "type": "cds.Decimal"
+        },
+        "currency": {
+          "@title": "{i18n>Currency}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "CatalogService.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "image": {
+          "@Core.MediaType": "image/png",
+          "type": "cds.LargeBinary"
+        },
+        "reviews": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.Reviews",
+          "on": [
+            {
+              "ref": [
+                "reviews",
+                "subject"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self",
+                "ID"
+              ]
+            }
+          ]
+        },
+        "rating": {
+          "type": "cds.Decimal"
+        },
+        "numberOfReviews": {
+          "type": "cds.Integer"
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.Books.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "CatalogService.Books.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.submitOrder": {
+      "kind": "action",
+      "@requires": "authenticated-user",
+      "params": {
+        "book": {
+          "@Common.SemanticObject": "Books",
+          "@Common.Text": {
+            "=": "title"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "@title": "{i18n>ID}",
+          "type": {
+            "ref": [
+              "CatalogService.Books",
+              "ID"
+            ]
+          }
+        },
+        "quantity": {
+          "type": "cds.Integer"
+        }
+      },
+      "returns": {
+        "elements": {
+          "stock": {
+            "type": "cds.Integer"
+          }
+        }
+      }
+    },
+    "CatalogService.OrderedBook": {
+      "kind": "event",
+      "elements": {
+        "book": {
+          "@Common.SemanticObject": "Books",
+          "@Common.Text": {
+            "=": "title"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "@title": "{i18n>ID}",
+          "type": {
+            "ref": [
+              "CatalogService.Books",
+              "ID"
+            ]
+          }
+        },
+        "quantity": {
+          "type": "cds.Integer"
+        },
+        "buyer": {
+          "type": "cds.String"
+        }
+      }
+    },
+    "AdminService": {
+      "@source": "../bookshop/srv/admin-service.cds",
+      "kind": "service",
+      "@requires": "admin"
+    },
+    "AdminService.Books": {
+      "kind": "entity",
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>General}",
+          "Target": "@UI.FieldGroup#General"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Translations}",
+          "Target": "texts/@UI.LineItem"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Details}",
+          "Target": "@UI.FieldGroup#Details"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Admin}",
+          "Target": "@UI.FieldGroup#Admin"
+        }
+      ],
+      "@UI.FieldGroup#General.Data": [
+        {
+          "Value": {
+            "=": "title"
+          }
+        },
+        {
+          "Value": {
+            "=": "author_ID"
+          }
+        },
+        {
+          "Value": {
+            "=": "genre_ID"
+          }
+        },
+        {
+          "Value": {
+            "=": "descr"
+          }
+        }
+      ],
+      "@UI.FieldGroup#Details.Data": [
+        {
+          "Value": {
+            "=": "stock"
+          }
+        },
+        {
+          "Value": {
+            "=": "price"
+          }
+        },
+        {
+          "Value": {
+            "=": "currency_code"
+          },
+          "Label": "{i18n>Currency}"
+        }
+      ],
+      "@UI.FieldGroup#Admin.Data": [
+        {
+          "Value": {
+            "=": "createdBy"
+          }
+        },
+        {
+          "Value": {
+            "=": "createdAt"
+          }
+        },
+        {
+          "Value": {
+            "=": "modifiedBy"
+          }
+        },
+        {
+          "Value": {
+            "=": "modifiedAt"
+          }
+        }
+      ],
+      "@odata.draft.enabled": true,
+      "@Common.SemanticKey": [
+        {
+          "=": "ID"
+        }
+      ],
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "title"
+          }
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "ID"
+        },
+        {
+          "=": "author_ID"
+        },
+        {
+          "=": "price"
+        },
+        {
+          "=": "currency_code"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "ID"
+          },
+          "Label": "{i18n>Title}"
+        },
+        {
+          "Value": {
+            "=": "author.ID"
+          },
+          "Label": "{i18n>Author}"
+        },
+        {
+          "Value": {
+            "=": "genre.name"
+          }
+        },
+        {
+          "Value": {
+            "=": "stock"
+          }
+        },
+        {
+          "Value": {
+            "=": "price"
+          }
+        },
+        {
+          "Value": {
+            "=": "currency.symbol"
+          },
+          "Label": " "
+        }
+      ],
+      "@UI.HeaderInfo.TypeName": "{i18n>Book}",
+      "@UI.HeaderInfo.TypeNamePlural": "{i18n>Books}",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "title"
+      },
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "author.name"
+      },
+      "@fiori.draft.enabled": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.capire.bookshop.Books"
+          ]
+        }
+      },
+      "elements": {
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "createdBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "modifiedBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@cds.on.update": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "ID": {
+          "@Core.Computed": true,
+          "@Common.SemanticObject": "Books",
+          "@Common.Text": {
+            "=": "title"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "@title": "{i18n>ID}",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "title": {
+          "@title": "{i18n>Title}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 111
+        },
+        "descr": {
+          "@UI.MultiLineText": true,
+          "localized": true,
+          "type": "cds.String",
+          "length": 1111
+        },
+        "author": {
+          "@ValueList.entity": "Authors",
+          "@title": "{i18n>Author}",
+          "@Common.Text": {
+            "=": "author.name"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "type": "cds.Association",
+          "target": "AdminService.Authors",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "genre": {
+          "@title": "{i18n>Genre}",
+          "@Common.Text": {
+            "=": "genre.name"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "type": "cds.Association",
+          "target": "AdminService.Genres",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "stock": {
+          "@title": "{i18n>Stock}",
+          "type": "cds.Integer"
+        },
+        "price": {
+          "@title": "{i18n>Price}",
+          "@Measures.ISOCurrency": {
+            "=": "currency_code"
+          },
+          "type": "cds.Decimal"
+        },
+        "currency": {
+          "@title": "{i18n>Currency}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "AdminService.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "image": {
+          "@Core.MediaType": "image/png",
+          "type": "cds.LargeBinary"
+        },
+        "reviews": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "AdminService.Reviews",
+          "on": [
+            {
+              "ref": [
+                "reviews",
+                "subject"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self",
+                "ID"
+              ]
+            }
+          ]
+        },
+        "rating": {
+          "type": "cds.Decimal"
+        },
+        "numberOfReviews": {
+          "type": "cds.Integer"
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "AdminService.Books.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "AdminService.Books.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "AdminService.Authors": {
+      "kind": "entity",
+      "@odata.draft.enabled": true,
+      "@UI.HeaderInfo.TypeName": "Author",
+      "@UI.HeaderInfo.TypeNamePlural": "Authors",
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "lifetime"
+      },
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Details}",
+          "Target": "@UI.FieldGroup#Details"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Books}",
+          "Target": "books/@UI.LineItem"
+        }
+      ],
+      "@UI.FieldGroup#Details.Data": [
+        {
+          "Value": {
+            "=": "placeOfBirth"
+          }
+        },
+        {
+          "Value": {
+            "=": "placeOfDeath"
+          }
+        },
+        {
+          "Value": {
+            "=": "dateOfBirth"
+          }
+        },
+        {
+          "Value": {
+            "=": "dateOfDeath"
+          }
+        },
+        {
+          "Value": {
+            "=": "age"
+          },
+          "Label": "{i18n>Age}"
+        }
+      ],
+      "@Common.SemanticKey": [
+        {
+          "=": "ID"
+        }
+      ],
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "name"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "ID"
+          }
+        },
+        {
+          "Value": {
+            "=": "dateOfBirth"
+          }
+        },
+        {
+          "Value": {
+            "=": "dateOfDeath"
+          }
+        },
+        {
+          "Value": {
+            "=": "placeOfBirth"
+          }
+        },
+        {
+          "Value": {
+            "=": "placeOfDeath"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "name"
+      },
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.capire.bookshop.Authors"
+          ]
+        },
+        "columns": [
+          "*",
+          {
+            "xpr": [
+              {
+                "func": "strftime",
+                "args": [
+                  {
+                    "val": "%Y"
+                  },
+                  {
+                    "ref": [
+                      "dateOfDeath"
+                    ]
+                  }
+                ]
+              },
+              "-",
+              {
+                "func": "strftime",
+                "args": [
+                  {
+                    "val": "%Y"
+                  },
+                  {
+                    "ref": [
+                      "dateOfBirth"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "as": "age",
+            "cast": {
+              "type": "cds.Integer"
+            }
+          },
+          {
+            "xpr": [
+              {
+                "func": "strftime",
+                "args": [
+                  {
+                    "val": "%Y"
+                  },
+                  {
+                    "ref": [
+                      "dateOfBirth"
+                    ]
+                  }
+                ]
+              },
+              "||",
+              {
+                "val": " – "
+              },
+              "||",
+              {
+                "func": "strftime",
+                "args": [
+                  {
+                    "val": "%Y"
+                  },
+                  {
+                    "ref": [
+                      "dateOfDeath"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "as": "lifetime",
+            "cast": {
+              "type": "cds.String"
+            }
+          }
+        ]
+      },
+      "elements": {
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "createdBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "modifiedBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@cds.on.update": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "ID": {
+          "@Core.Computed": true,
+          "@Common.SemanticObject": "Authors",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "@title": "{i18n>ID}",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "type": "cds.String",
+          "length": 111
+        },
+        "dateOfBirth": {
+          "@title": "{i18n>DateOfBirth}",
+          "type": "cds.Date"
+        },
+        "dateOfDeath": {
+          "@title": "{i18n>DateOfDeath}",
+          "type": "cds.Date"
+        },
+        "placeOfBirth": {
+          "@title": "{i18n>PlaceOfBirth}",
+          "type": "cds.String"
+        },
+        "placeOfDeath": {
+          "@title": "{i18n>PlaceOfDeath}",
+          "type": "cds.String"
+        },
+        "books": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "AdminService.Books",
+          "on": [
+            {
+              "ref": [
+                "books",
+                "author"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "age": {
+          "@Core.Computed": true,
+          "type": "cds.Integer"
+        },
+        "lifetime": {
+          "@Core.Computed": true,
+          "type": "cds.String"
+        }
+      }
+    },
+    "DataService": {
+      "@source": "../data-viewer/srv/data-service.cds",
+      "kind": "service",
+      "@requires": "authenticated-user",
+      "@path": "-data"
+    },
+    "DataService.Entities": {
+      "kind": "entity",
+      "elements": {
+        "name": {
+          "key": true,
+          "type": "cds.String"
+        },
+        "columns": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "targetAspect": {
+            "elements": {
+              "name": {
+                "type": "cds.String"
+              },
+              "type": {
+                "type": "cds.String"
+              },
+              "isKey": {
+                "type": "cds.Boolean"
+              }
+            }
+          },
+          "target": "DataService.Entities.columns",
+          "on": [
+            {
+              "ref": [
+                "columns",
+                "up_"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "DataService.Data": {
+      "kind": "entity",
+      "elements": {
+        "record": {
+          "items": {
+            "elements": {
+              "column": {
+                "type": "cds.String"
+              },
+              "data": {
+                "type": "cds.String"
+              }
+            }
+          }
+        }
+      }
+    },
+    "sap.common.countries.Regions.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "key": true,
+          "type": "cds.String",
+          "length": 5
+        }
+      }
+    },
+    "sap.common.countries.Cities.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "key": true,
+          "type": "cds.String",
+          "length": 11
+        }
+      }
+    },
+    "sap.common.countries.Districts.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "key": true,
+          "type": "cds.String",
+          "length": 11
+        }
+      }
+    },
+    "sap.capire.orders.Orders.Items": {
+      "kind": "entity",
+      "elements": {
+        "up_": {
+          "key": true,
+          "type": "cds.Association",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "target": "sap.capire.orders.Orders",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ],
+          "notNull": true
+        },
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "product": {
+          "type": "cds.Association",
+          "target": "sap.capire.orders.Products",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "quantity": {
+          "type": "cds.Integer"
+        },
+        "title": {
+          "type": "cds.String"
+        },
+        "price": {
+          "type": "cds.Double"
+        },
+        "book": {
+          "type": "cds.Association",
+          "target": "sap.capire.bookshop.Books",
+          "on": [
+            {
+              "ref": [
+                "product",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "book",
+                "ID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.Languages.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "@Common.Text": {
+            "=": "name"
+          },
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        }
+      }
+    },
+    "sap.common.Countries.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>CountryCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        }
+      }
+    },
+    "sap.common.Currencies.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        }
+      }
+    },
+    "sap.capire.bookshop.Books.texts": {
+      "kind": "entity",
+      "@assert.unique.locale": [
+        {
+          "=": "locale"
+        },
+        {
+          "=": "ID"
+        }
+      ],
+      "elements": {
+        "ID_texts": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "ID": {
+          "@Common.SemanticObject": "Books",
+          "@Common.Text": {
+            "=": "title"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "@title": "{i18n>ID}",
+          "type": "cds.Integer"
+        },
+        "title": {
+          "@title": "{i18n>Title}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 111
+        },
+        "descr": {
+          "@UI.MultiLineText": true,
+          "localized": null,
+          "type": "cds.String",
+          "length": 1111
+        }
+      }
+    },
+    "sap.capire.bookshop.Genres.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Genre}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "ID": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>ID}",
+          "key": true,
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "DataService.Entities.columns": {
+      "kind": "entity",
+      "elements": {
+        "up_": {
+          "key": true,
+          "type": "cds.Association",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "target": "DataService.Entities",
+          "keys": [
+            {
+              "ref": [
+                "name"
+              ]
+            }
+          ],
+          "notNull": true
+        },
+        "name": {
+          "type": "cds.String"
+        },
+        "type": {
+          "type": "cds.String"
+        },
+        "isKey": {
+          "type": "cds.Boolean"
+        }
+      }
+    },
+    "AdminService.Languages.texts": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@odata.draft.enabled": false,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.common.Languages.texts"
+          ]
+        }
+      },
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "@Common.Text": {
+            "=": "name"
+          },
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        }
+      }
+    },
+    "OrdersService.Orders.Items": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "product_ID"
+          },
+          "Label": "Product ID"
+        },
+        {
+          "Value": {
+            "=": "title"
+          },
+          "Label": "Product Title"
+        },
+        {
+          "Value": {
+            "=": "price"
+          },
+          "Label": "Unit Price"
+        },
+        {
+          "Value": {
+            "=": "quantity"
+          },
+          "Label": "Quantity"
+        }
+      ],
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "quantity"
+          },
+          "Label": "Quantity"
+        },
+        {
+          "Value": {
+            "=": "title"
+          },
+          "Label": "Product"
+        },
+        {
+          "Value": {
+            "=": "price"
+          },
+          "Label": "Unit Price"
+        }
+      ],
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>OrderItems}",
+          "Target": "@UI.Identification"
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.capire.orders.Orders.Items"
+          ]
+        }
+      },
+      "elements": {
+        "up_": {
+          "key": true,
+          "type": "cds.Association",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          },
+          "target": "OrdersService.Orders",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ],
+          "notNull": true
+        },
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "product": {
+          "type": "cds.Association",
+          "target": "sap.capire.orders.Products",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "quantity": {
+          "@Common.FieldControl": {
+            "#": "Mandatory"
+          },
+          "type": "cds.Integer"
+        },
+        "title": {
+          "type": "cds.String"
+        },
+        "price": {
+          "type": "cds.Double"
+        },
+        "book": {
+          "type": "cds.Association",
+          "target": "sap.capire.bookshop.Books",
+          "on": [
+            {
+              "ref": [
+                "product",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "book",
+                "ID"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "OrdersService.Currencies": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@Common.SemanticKey": [
+        {
+          "=": "code"
+        }
+      ],
+      "@Identification": [
+        {
+          "Value": {
+            "=": "code"
+          }
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "name"
+        },
+        {
+          "=": "descr"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "descr"
+          }
+        },
+        {
+          "Value": {
+            "=": "symbol"
+          }
+        },
+        {
+          "Value": {
+            "=": "code"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.TypeName": "{i18n>Currency}",
+      "@UI.HeaderInfo.TypeNamePlural": "{i18n>Currencies}",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "descr"
+      },
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "code"
+      },
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Details}",
+          "Target": "@UI.FieldGroup#Details"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Extended}",
+          "Target": "@UI.FieldGroup#Extended"
+        }
+      ],
+      "@UI.FieldGroup#Details.Data": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        },
+        {
+          "Value": {
+            "=": "symbol"
+          }
+        },
+        {
+          "Value": {
+            "=": "code"
+          }
+        },
+        {
+          "Value": {
+            "=": "descr"
+          }
+        }
+      ],
+      "@UI.FieldGroup#Extended.Data": [
+        {
+          "Value": {
+            "=": "numcode"
+          }
+        },
+        {
+          "Value": {
+            "=": "minor"
+          }
+        },
+        {
+          "Value": {
+            "=": "exponent"
+          }
+        }
+      ],
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.common.Currencies"
+          ]
+        }
+      },
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "symbol": {
+          "@title": "{i18n>CurrencySymbol}",
+          "type": "cds.String",
+          "length": 5
+        },
+        "numcode": {
+          "@title": "{i18n>NumCode}",
+          "type": "cds.Integer"
+        },
+        "exponent": {
+          "@title": "{i18n>Exponent}",
+          "type": "cds.Integer"
+        },
+        "minor": {
+          "@title": "{i18n>MinorUnit}",
+          "type": "cds.String"
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "OrdersService.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "OrdersService.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.Genres": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@Common.SemanticKey": [
+        {
+          "=": "name"
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "name"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        },
+        {
+          "Value": {
+            "=": "parent.name"
+          },
+          "Label": "Main Genre"
+        }
+      ],
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.TypeName": "{i18n>Genre}",
+      "@UI.HeaderInfo.TypeNamePlural": "{i18n>Genres}",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "name"
+      },
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "ID"
+      },
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>SubGenres}",
+          "Target": "children/@UI.LineItem"
+        }
+      ],
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@cds.odata.valuelist": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.capire.bookshop.Genres"
+          ]
+        }
+      },
+      "elements": {
+        "name": {
+          "@title": "{i18n>Genre}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "ID": {
+          "@title": "{i18n>ID}",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "parent": {
+          "type": "cds.Association",
+          "target": "CatalogService.Genres",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "children": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.Genres",
+          "on": [
+            {
+              "ref": [
+                "children",
+                "parent"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.Genres.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "CatalogService.Genres.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.Currencies": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@Common.SemanticKey": [
+        {
+          "=": "code"
+        }
+      ],
+      "@Identification": [
+        {
+          "Value": {
+            "=": "code"
+          }
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "name"
+        },
+        {
+          "=": "descr"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "descr"
+          }
+        },
+        {
+          "Value": {
+            "=": "symbol"
+          }
+        },
+        {
+          "Value": {
+            "=": "code"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.TypeName": "{i18n>Currency}",
+      "@UI.HeaderInfo.TypeNamePlural": "{i18n>Currencies}",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "descr"
+      },
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "code"
+      },
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Details}",
+          "Target": "@UI.FieldGroup#Details"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Extended}",
+          "Target": "@UI.FieldGroup#Extended"
+        }
+      ],
+      "@UI.FieldGroup#Details.Data": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        },
+        {
+          "Value": {
+            "=": "symbol"
+          }
+        },
+        {
+          "Value": {
+            "=": "code"
+          }
+        },
+        {
+          "Value": {
+            "=": "descr"
+          }
+        }
+      ],
+      "@UI.FieldGroup#Extended.Data": [
+        {
+          "Value": {
+            "=": "numcode"
+          }
+        },
+        {
+          "Value": {
+            "=": "minor"
+          }
+        },
+        {
+          "Value": {
+            "=": "exponent"
+          }
+        }
+      ],
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.common.Currencies"
+          ]
+        }
+      },
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "symbol": {
+          "@title": "{i18n>CurrencySymbol}",
+          "type": "cds.String",
+          "length": 5
+        },
+        "numcode": {
+          "@title": "{i18n>NumCode}",
+          "type": "cds.Integer"
+        },
+        "exponent": {
+          "@title": "{i18n>Exponent}",
+          "type": "cds.Integer"
+        },
+        "minor": {
+          "@title": "{i18n>MinorUnit}",
+          "type": "cds.String"
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "CatalogService.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.Reviews": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@restrict": [
+        {
+          "grant": "READ",
+          "to": "any"
+        },
+        {
+          "grant": "CREATE",
+          "to": "authenticated-user"
+        },
+        {
+          "grant": "UPDATE",
+          "to": "authenticated-user",
+          "where": "reviewer=$user",
+          "_where": "[{\"ref\":[\"reviewer\"]},\"=\",{\"ref\":[\"$user\"]}]"
+        },
+        {
+          "grant": "DELETE",
+          "to": "admin"
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "ReviewsService.Reviews"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "subject": {
+          "@mandatory": true,
+          "type": "sap.capire.reviews.ReviewedSubject",
+          "length": 111
+        },
+        "reviewer": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@title": "{i18n>UserID}",
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "rating": {
+          "@assert.range": true,
+          "type": "sap.capire.reviews.Rating"
+        },
+        "title": {
+          "@mandatory": true,
+          "type": "cds.String",
+          "length": 111
+        },
+        "text": {
+          "type": "cds.String",
+          "length": 1111
+        },
+        "date": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "type": "cds.DateTime"
+        },
+        "liked": {
+          "type": "cds.Integer",
+          "default": {
+            "val": 0
+          }
+        }
+      }
+    },
+    "CatalogService.Books.texts": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@assert.unique.locale": [
+        {
+          "=": "locale"
+        },
+        {
+          "=": "ID"
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.capire.bookshop.Books.texts"
+          ]
+        }
+      },
+      "elements": {
+        "ID_texts": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "ID": {
+          "@Common.SemanticObject": "Books",
+          "@Common.Text": {
+            "=": "title"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "@title": "{i18n>ID}",
+          "type": "cds.Integer"
+        },
+        "title": {
+          "@title": "{i18n>Title}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 111
+        },
+        "descr": {
+          "@UI.MultiLineText": true,
+          "localized": null,
+          "type": "cds.String",
+          "length": 1111
+        }
+      }
+    },
+    "AdminService.Genres": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@Common.SemanticKey": [
+        {
+          "=": "name"
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "name"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        },
+        {
+          "Value": {
+            "=": "parent.name"
+          },
+          "Label": "Main Genre"
+        }
+      ],
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.TypeName": "{i18n>Genre}",
+      "@UI.HeaderInfo.TypeNamePlural": "{i18n>Genres}",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "name"
+      },
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "ID"
+      },
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>SubGenres}",
+          "Target": "children/@UI.LineItem"
+        }
+      ],
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@cds.odata.valuelist": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.capire.bookshop.Genres"
+          ]
+        }
+      },
+      "elements": {
+        "name": {
+          "@title": "{i18n>Genre}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "ID": {
+          "@title": "{i18n>ID}",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "parent": {
+          "type": "cds.Association",
+          "target": "AdminService.Genres",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "children": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "AdminService.Genres",
+          "on": [
+            {
+              "ref": [
+                "children",
+                "parent"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "AdminService.Genres.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "AdminService.Genres.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "ID"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "AdminService.Currencies": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@Common.SemanticKey": [
+        {
+          "=": "code"
+        }
+      ],
+      "@Identification": [
+        {
+          "Value": {
+            "=": "code"
+          }
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "name"
+        },
+        {
+          "=": "descr"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "descr"
+          }
+        },
+        {
+          "Value": {
+            "=": "symbol"
+          }
+        },
+        {
+          "Value": {
+            "=": "code"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.TypeName": "{i18n>Currency}",
+      "@UI.HeaderInfo.TypeNamePlural": "{i18n>Currencies}",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "descr"
+      },
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "code"
+      },
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Details}",
+          "Target": "@UI.FieldGroup#Details"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "{i18n>Extended}",
+          "Target": "@UI.FieldGroup#Extended"
+        }
+      ],
+      "@UI.FieldGroup#Details.Data": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        },
+        {
+          "Value": {
+            "=": "symbol"
+          }
+        },
+        {
+          "Value": {
+            "=": "code"
+          }
+        },
+        {
+          "Value": {
+            "=": "descr"
+          }
+        }
+      ],
+      "@UI.FieldGroup#Extended.Data": [
+        {
+          "Value": {
+            "=": "numcode"
+          }
+        },
+        {
+          "Value": {
+            "=": "minor"
+          }
+        },
+        {
+          "Value": {
+            "=": "exponent"
+          }
+        }
+      ],
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.common.Currencies"
+          ]
+        }
+      },
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "symbol": {
+          "@title": "{i18n>CurrencySymbol}",
+          "type": "cds.String",
+          "length": 5
+        },
+        "numcode": {
+          "@title": "{i18n>NumCode}",
+          "type": "cds.Integer"
+        },
+        "exponent": {
+          "@title": "{i18n>Exponent}",
+          "type": "cds.Integer"
+        },
+        "minor": {
+          "@title": "{i18n>MinorUnit}",
+          "type": "cds.String"
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "AdminService.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "AdminService.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "AdminService.Reviews": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@restrict": [
+        {
+          "grant": "READ",
+          "to": "any"
+        },
+        {
+          "grant": "CREATE",
+          "to": "authenticated-user"
+        },
+        {
+          "grant": "UPDATE",
+          "to": "authenticated-user",
+          "where": "reviewer=$user",
+          "_where": "[{\"ref\":[\"reviewer\"]},\"=\",{\"ref\":[\"$user\"]}]"
+        },
+        {
+          "grant": "DELETE",
+          "to": "admin"
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "ReviewsService.Reviews"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "subject": {
+          "@mandatory": true,
+          "type": "sap.capire.reviews.ReviewedSubject",
+          "length": 111
+        },
+        "reviewer": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@title": "{i18n>UserID}",
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "rating": {
+          "@assert.range": true,
+          "type": "sap.capire.reviews.Rating"
+        },
+        "title": {
+          "@mandatory": true,
+          "type": "cds.String",
+          "length": 111
+        },
+        "text": {
+          "type": "cds.String",
+          "length": 1111
+        },
+        "date": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "type": "cds.DateTime"
+        },
+        "liked": {
+          "type": "cds.Integer",
+          "default": {
+            "val": 0
+          }
+        }
+      }
+    },
+    "AdminService.Books.texts": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "title"
+          }
+        }
+      ],
+      "@UI.SelectionFields": [
+        {
+          "=": "locale"
+        },
+        {
+          "=": "title"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "Value": {
+            "=": "locale"
+          },
+          "Label": "Locale"
+        },
+        {
+          "Value": {
+            "=": "title"
+          },
+          "Label": "Title"
+        },
+        {
+          "Value": {
+            "=": "descr"
+          },
+          "Label": "Description"
+        }
+      ],
+      "@assert.unique.locale": [
+        {
+          "=": "locale"
+        },
+        {
+          "=": "ID"
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.capire.bookshop.Books.texts"
+          ]
+        }
+      },
+      "elements": {
+        "ID_texts": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "locale": {
+          "@ValueList.entity": "Languages",
+          "@Common.ValueListWithFixedValues": true,
+          "@title": "{i18n>LanguageCode}",
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "ID": {
+          "@Common.SemanticObject": "Books",
+          "@Common.Text": {
+            "=": "title"
+          },
+          "@Common.TextArrangement": {
+            "#": "TextOnly"
+          },
+          "@title": "{i18n>ID}",
+          "type": "cds.Integer"
+        },
+        "title": {
+          "@title": "{i18n>Title}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 111
+        },
+        "descr": {
+          "@UI.MultiLineText": true,
+          "localized": null,
+          "type": "cds.String",
+          "length": 1111
+        }
+      }
+    },
+    "OrdersService.Currencies.texts": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@odata.draft.enabled": false,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.common.Currencies.texts"
+          ]
+        }
+      },
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        }
+      }
+    },
+    "CatalogService.Genres.texts": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@odata.draft.enabled": false,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.capire.bookshop.Genres.texts"
+          ]
+        }
+      },
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Genre}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "ID": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>ID}",
+          "key": true,
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "CatalogService.Currencies.texts": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@odata.draft.enabled": false,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.common.Currencies.texts"
+          ]
+        }
+      },
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        }
+      }
+    },
+    "AdminService.Genres.texts": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@odata.draft.enabled": false,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.capire.bookshop.Genres.texts"
+          ]
+        }
+      },
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Genre}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "ID": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>ID}",
+          "key": true,
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "AdminService.Currencies.texts": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@odata.draft.enabled": false,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.common.Currencies.texts"
+          ]
+        }
+      },
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        }
+      }
+    }
+  },
+  "meta": {
+    "creator": "CDS Compiler v3.0.0",
+    "flavor": "inferred"
+  },
+  "$version": "2.0"
+}

@@ -1,0 +1,11 @@
+{
+  "cds": {
+    "requires": {
+      "model-provider": "in-sidecar"
+    }
+  },
+  "dependencies": {
+    "@sap/cds-mt": "*",
+    "express": "*"
+  }
+}

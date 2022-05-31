@@ -1,0 +1,150 @@
+{
+  "definitions": {
+    "cds.xt.CSN": {
+      "kind": "type",
+      "@open": true,
+      "elements": {}
+    },
+    "cds.xt.TAR": {
+      "kind": "type",
+      "type": "cds.LargeBinary"
+    },
+    "cds.xt.XML": {
+      "kind": "type",
+      "type": "cds.LargeString"
+    },
+    "cds.xt.Locale": {
+      "kind": "type",
+      "type": "cds.String"
+    },
+    "cds.xt.TenantID": {
+      "kind": "type",
+      "type": "cds.String"
+    },
+    "cds.xt.CSNConsumer": {
+      "kind": "type",
+      "type": "cds.String",
+      "enum": {
+        "nodejs": {},
+        "java": {}
+      }
+    },
+    "cds.xt.ModelProviderService": {
+      "@source": "@sap/cds/srv/model-provider.cds",
+      "kind": "service",
+      "@protocol": "rest",
+      "@requires": [
+        "internal-user"
+      ],
+      "@path": "/-/cds/model-provider"
+    },
+    "cds.xt.ModelProviderService.getCsn": {
+      "kind": "action",
+      "params": {
+        "tenant": {
+          "type": "cds.xt.TenantID"
+        },
+        "toggles": {
+          "items": {
+            "type": "cds.String"
+          }
+        },
+        "for": {
+          "@cds.java.name": "runtime",
+          "type": "cds.xt.CSNConsumer"
+        }
+      },
+      "returns": {
+        "type": "cds.xt.CSN"
+      }
+    },
+    "cds.xt.ModelProviderService.getExtCsn": {
+      "kind": "action",
+      "params": {
+        "tenant": {
+          "type": "cds.xt.TenantID"
+        },
+        "toggles": {
+          "items": {
+            "type": "cds.String"
+          }
+        },
+        "for": {
+          "@cds.java.name": "runtime",
+          "type": "cds.xt.CSNConsumer"
+        }
+      },
+      "returns": {
+        "type": "cds.xt.CSN"
+      }
+    },
+    "cds.xt.ModelProviderService.getEdmx": {
+      "kind": "action",
+      "params": {
+        "tenant": {
+          "type": "cds.xt.TenantID"
+        },
+        "toggles": {
+          "items": {
+            "type": "cds.String"
+          }
+        },
+        "service": {
+          "type": "cds.String"
+        },
+        "locale": {
+          "type": "cds.xt.Locale"
+        },
+        "flavor": {
+          "type": "cds.String"
+        },
+        "for": {
+          "@cds.java.name": "runtime",
+          "type": "cds.xt.CSNConsumer"
+        }
+      },
+      "returns": {
+        "type": "cds.xt.XML"
+      }
+    },
+    "cds.xt.ModelProviderService.isExtended": {
+      "kind": "action",
+      "params": {
+        "tenant": {
+          "type": "cds.xt.TenantID"
+        }
+      },
+      "returns": {
+        "type": "cds.Boolean"
+      }
+    },
+    "cds.xt.ModelProviderService.getExtensions": {
+      "kind": "action",
+      "params": {
+        "tenant": {
+          "type": "cds.xt.TenantID"
+        }
+      },
+      "returns": {
+        "type": "cds.xt.CSN"
+      }
+    },
+    "cds.xt.ModelProviderService.getResources": {
+      "kind": "action",
+      "returns": {
+        "type": "cds.xt.TAR"
+      }
+    },
+    "cds.xt.ModelProviderService.getExtResources": {
+      "kind": "action",
+      "returns": {
+        "type": "cds.xt.TAR"
+      }
+    }
+  },
+  "meta": {
+    "creator": "CDS Compiler v3.0.0",
+    "flavor": "inferred"
+  },
+  "$version": "2.0"
+}

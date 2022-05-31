@@ -7,3 +7,7 @@ using from './admin-books/fiori-service';
 using from './browse/fiori-service';
 using from './common';
 using from '@capire/bookstore/srv/mashup';
+
+annotate CatalogService with @requires: 'authenticated-user';
+//> this is required to enforce authenticated users with assigned features on $metadata requests
+//> REVISIT: Why do subsequent read requests cause a login?

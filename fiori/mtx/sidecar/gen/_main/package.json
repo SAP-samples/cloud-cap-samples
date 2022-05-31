@@ -13,7 +13,7 @@
   },
   "cds": {
     "requires": {
-      "db": "sql",
+      "auth": "mocked",
       "ReviewsService": {
         "kind": "odata",
         "model": "@capire/reviews"
@@ -33,16 +33,14 @@
           "kind": "enterprise-messaging-shared"
         }
       },
-
-      "[mtx]": {
-        "toggles": true,
-        "extensions": false,
-        "extensibility": false,
-        "multitenancy": false,
-        "[sidecar]": {
-          "model-provider": "from-sidecar"
-        }
+      "[with-sidecar]": {
+        "model-provider": "from-sidecar"
       },
+      "toggles": true,
+      "extensions": false,
+      "extensibility": false,
+      "multitenancy": false,
+      "db": "sql",
       "db-ext": {
         "[development]": {
           "model": "db/sqlite"
@@ -52,5 +50,8 @@
         }
       }
     }
+  },
+  "engines": {
+    "node": ">=14.15.0"
   }
 }

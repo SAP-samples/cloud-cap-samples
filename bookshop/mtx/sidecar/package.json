@@ -1,0 +1,17 @@
+{
+  "cds": {
+    "requires": {
+      "multitenancy": "saas-deployment",
+      "model-provider": "in-sidecar",
+      "db": {
+        "kind": "sqlite", "credentials": {
+          "url": "../../sqlite.db"
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@sap/cds-mt": "*",
+    "express": "*"
+  }
+}
