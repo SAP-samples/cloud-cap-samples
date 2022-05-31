@@ -6,7 +6,7 @@
 #   body to a POST request
 #
 
-POST {{server}}/cds/admin
+POST {{server}}/cql/admin
 Content-Type: application/json
 
 {"SELECT": { "from": { "ref": ["Books"] }}}
@@ -17,7 +17,7 @@ Content-Type: application/json
 #   Alternatively you can pass a CQL string as plain/text body
 #
 
-POST {{server}}/cds/admin
+POST {{server}}/cql/admin
 Content-Type: text/plain
 
 SELECT from Authors {
@@ -37,10 +37,10 @@ order by name asc
 #   Simple REST-style URLs as supported as well
 #
 
-GET {{server}}/cds/admin/Books
+GET {{server}}/cql/admin/Books
 ###
 
-GET {{server}}/cds/admin/Books/201
+GET {{server}}/cql/admin/Books/201
 ###
 
 
@@ -49,13 +49,13 @@ GET {{server}}/cds/admin/Books/201
 #   text body, or with projections sent as application/json array
 #
 
-GET {{server}}/cds/admin/Books order by stock desc
+GET {{server}}/cql/admin/Books order by stock desc
 ###
 
-GET {{server}}/cds/admin/Books { title as book, stock } order by stock desc
+GET {{server}}/cql/admin/Books { title as book, stock } order by stock desc
 ###
 
-GET {{server}}/cds/admin/Authors/101
+GET {{server}}/cql/admin/Authors/101
 Content-Type: text/plain
 Accept-Language: fr
 
@@ -72,7 +72,7 @@ order by name asc
 ###
 
 
-GET {{server}}/cds/admin/Books/201
+GET {{server}}/cql/admin/Books/201
 Content-Type: application/json
 
 [ "title", "stock" ]
@@ -83,10 +83,10 @@ Content-Type: application/json
 #   CQL adaptor also provides access to the underlying CSN schema
 #
 
-GET {{server}}/cds/admin/$csn
+GET {{server}}/cql/admin/$csn
 ###
 
-POST {{server}}/cds/admin
+POST {{server}}/cql/admin
 Content-Type: application/json
 Authorization: Basic alice:in wonderland
 
