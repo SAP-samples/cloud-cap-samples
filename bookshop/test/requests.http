@@ -16,9 +16,9 @@ GET {{server}}/browse/$metadata
 
 ### ------------------------------------------------------------------------
 # Browse Books as any user
-GET {{server}}/browse/Books?
+GET {{server}}/browse/ListOfBooks?
   # &$select=title,stock
-  # &$expand=currency
+  &$expand=genre
   # &sap-language=de
 {{me}}
 

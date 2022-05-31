@@ -1,9 +1,48 @@
 const cds = require('@sap/cds/lib')
-const { GET, expect } = cds.test ('@capire/bookshop')
-if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
-else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
+const { GET, expect, axios } = cds.test ('@capire/bookshop')
+axios.defaults.auth = { username: 'alice', password: 'admin' }
 
-describe('OData Protocol', () => {
+describe('cap/samples - Bookshop APIs', () => {
+
+  // Genres
+  const Drama = {
+    "name": "Drama",
+    "descr": null,
+    "ID": 11,
+    "parent_ID": 10
+  }
+  const Mystery = {
+    "name": "Mystery",
+    "descr": null,
+    "ID": 16,
+    "parent_ID": 10
+  }
+  const Fantasy = {
+    "name": "Fantasy",
+    "descr": null,
+    "ID": 13,
+    "parent_ID": 10
+  }
+
+  // Currencies
+  const GBP = {
+    "name": "British Pound",
+    "descr": null,
+    "code": "GBP",
+    "symbol": "£"
+  }
+  const USD = {
+    "name": "US Dollar",
+    "descr": null,
+    "code": "USD",
+    "symbol": "$"
+  }
+  const JPY = {
+    "name": "Yen",
+    "descr": null,
+    "code": "JPY",
+    "symbol": "¥"
+  }
 
 
   it('serves $metadata documents in v4', async () => {
@@ -15,6 +54,16 @@ describe('OData Protocol', () => {
     })
     expect(data).to.contain('<EntitySet Name="Books" EntityType="CatalogService.Books">')
     expect(data).to.contain('<Annotation Term="Common.Label" String="Currency"/>')
+  })
+
+  it('serves ListOfBooks?$expand=genre,currency', async () => {
+    const { data } = await GET `/browse/ListOfBooks ${{
+      params: { $search: 'Po', $select: `title,author`, $expand:`genre,currency` },
+    }}`
+    expect(data.value).to.eql([
+      { ID: 251, title: 'The Raven', author: 'Edgar Allen Poe', genre:Mystery, currency:USD  },
+      { ID: 252, title: 'Eleonora', author: 'Edgar Allen Poe', genre:Mystery, currency:USD  },
+    ])
   })
 
   it('supports $search in multiple fields', async () => {
@@ -75,4 +124,16 @@ describe('OData Protocol', () => {
       { ID: 271, title: 'Catweazle' },
     ])
   })
+
+  it('serves user info', async () => {
+    {
+      const { data } = await GET (`/user/me`)
+      expect(data).to.containSubset({ id: 'alice', locale:'en', tenant: null })
+    }
+    {
+      const { data } = await GET (`/user/me`, {auth: { username: 'joe' }})
+      expect(data).to.containSubset({ id: 'joe', locale:'en', tenant: null })
+    }
+  })
+
 })

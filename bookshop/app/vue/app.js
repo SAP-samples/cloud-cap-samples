@@ -9,7 +9,8 @@ const books = Vue.createApp ({
       return {
         list: [],
         book: undefined,
-        order: { quantity:1, succeeded:'', failed:'' }
+        order: { quantity:1, succeeded:'', failed:'' },
+        user: undefined
       }
     },
 
@@ -37,12 +38,30 @@ const books = Vue.createApp ({
                 book.stock = res.data.stock
                 books.order = { quantity, succeeded: `Successfully ordered ${quantity} item(s).` }
             } catch (e) {
-                books.order = { quantity, failed: e.response.data.error.message }
+                books.order = { quantity, failed: e.response.data.error ? e.response.data.error.message : e.response.data }
             }
-        }
+        },
 
+        async login() {
+            try {
+                const { data:user } = await axios.post('/user/login',{})
+                if (user.id !== 'anonymous') books.user = user
+            } catch (err) { books.user = { id: err.message } }
+        },
+
+        async getUserInfo() {
+            try {
+                const { data:user } = await axios.get('/user/me')
+                if (user.id !== 'anonymous') books.user = user
+            } catch (err) { books.user = { id: err.message } }
+        },
     }
 }).mount("#app")
 
-// initially fill list of books
-books.fetch()
+books.getUserInfo()
+books.fetch() // initially fill list of books
+
+document.addEventListener('keydown', (event) => {
+    // hide user info on request
+    if (event.key === 'u')  books.user = undefined
+})

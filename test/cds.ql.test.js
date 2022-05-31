@@ -81,6 +81,8 @@ describe('cds.ql → cqn', () => {
       .to.eql(SELECT('Foo','Boo').from('Bar'))
       .to.eql(SELECT(['Foo','Boo']).from('Bar'))
       .to.eql(SELECT `Bar` .columns `Foo, Boo`)
+      .to.eql(SELECT `Bar` .columns `{ Foo, Boo }`)
+      .to.eql(SELECT `Bar` .columns ('{ Foo, Boo }'))
       .to.eql(SELECT `Bar` .columns ('Foo','Boo'))
       .to.eql(SELECT `Bar` .columns (['Foo','Boo']))
       .to.eql(SELECT.from `Bar` .columns ('Foo','Boo'))

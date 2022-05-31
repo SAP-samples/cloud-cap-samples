@@ -11,11 +11,24 @@
         .rating-stars { color:teal }
         .succeeded { color:teal }
         .failed { color:red }
+        .user {text-align: end; color: grey;}
     </style>
 </head>
 
 <body class="small-container", style="margin-top: 70px;">
 <div id='app'>
+
+    <form class="user" @submit.prevent="login">
+        <div v-if="user">
+            <div v-if="user.tenant">Tenant: {{ user.tenant }}</div>
+            <div> User: {{ user.id }}</div>
+            <div>Locale: {{ user.locale }}</div>
+        </div>
+        <div v-else>
+            <input type="submit" value="Login" class="muted-button">
+            <!-- <a href="/user/login()">Login</a> -->
+        </div>
+    </form>
 
     <h1> Capire Books </h1>
 

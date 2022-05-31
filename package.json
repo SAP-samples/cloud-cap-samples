@@ -14,14 +14,14 @@
     "@capire/media": "./media",
     "@capire/orders": "./orders",
     "@capire/reviews": "./reviews",
-    "@sap/cds": "^5.5.3"
+    "@sap/cds": ">=5.5.3"
   },
   "devDependencies": {
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
     "semver": "^7",
-    "sqlite3": "npm:@mendix/sqlite3@^5"
+    "sqlite3": "^5"
   },
   "scripts": {
     "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",
