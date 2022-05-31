@@ -1,4 +1,5 @@
 import cds from '@sap/cds'
+
 export default class UserService extends cds.Service { init(){
   this.on('READ', 'me', ({ tenant, user, locale }) => ({ id: user.id, locale, tenant }))
   this.on('login', (req) => {
