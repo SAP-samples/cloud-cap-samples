@@ -4,7 +4,7 @@
  * currencies, if not obtained through @capire/common.
  */
 
-module.exports = async (db)=>{
+export default async (db)=>{
 
   const has_common = db.model.definitions['sap.common.Currencies'].elements.numcode
   if (has_common) return
