@@ -2,7 +2,7 @@ import cds from '@sap/cds'
 
 export class CatalogService extends cds.ApplicationService { init(){
 
-  const { Books } = cds.entities ('sap.capire.bookshop')
+  const { Books } = this.entities ('sap.capire.bookshop')
 
   // Reduce stock of ordered books if available stock suffices
   this.on ('submitOrder', async req => {
