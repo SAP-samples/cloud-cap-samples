@@ -1,8 +1,8 @@
-const express = require('express')
 const cds = require('@sap/cds/lib')
+const express = require('express')
 
-
-module.exports = exports = function() { return express.Router()
+/** The actual protocol adapter as a plain express middleware */
+const CQLAdapter = module.exports = exports = function() { return express.Router()
 
   .use (express.json()) //> for application/json -> cqn
   .use (express.text()) //> for text/plain -> cql -> cqn
@@ -26,23 +26,18 @@ module.exports = exports = function() { return express.Router()
 
 /** Following are convenience variants for CQL requests */
 const slugs = express.Router()
-/**
- * Returns CSN in response to $csn requests
- */
 .get ('/:srv/\\$csn', (req,res,next) => {
+  // Returns CSN in response to $csn requests
   let srv = cds.service.paths['/'+req.params.srv]; if (!srv) return next()
   let csn = !cds.minify ? cds.model : cds.minify (cds.model, { service: srv.name })
   res.json (csn)
 })
-
-/**
- * Prepares CQN in req.body from REST-style convenience request formats:
- * GET /Books
- * GET /Books/201
- * GET /Books order by stock desc
- * GET /Books { title as book, stock } order by stock desc
- */
 .get ('/:srv/:entity/:id?(%20:tail)?', (req,_,next) => {
+  // Prepares CQN in req.body from REST-style convenience request formats:
+  // GET /Books
+  // GET /Books/201
+  // GET /Books order by stock desc
+  // GET /Books { title as book, stock } order by stock desc
   let { entity, id, tail } = req.params, q = SELECT.from(entity,id)
   if (is_array(req.body)) q.columns(req.body)
   if (is_string(req.body)) tail = req.body
@@ -61,9 +56,6 @@ const is_string = x => typeof x === 'string'
 
 /** cds.plugin facade */
 exports.activate = ()=>{
-  const CQLAdapter = require('./cql-adapter')
-  cds.on('bootstrap', ()=> cds.app.use ('/cql', new CQLAdapter))
-  cds.on('listening', ()=>console.log(`\nTry out the requests in`, {file:
-    cds.utils.local(__dirname+'/test.http')
-  }))
+  cds.on('bootstrap', (app) => app.use ('/cql', new CQLAdapter))
+  cds.on('listening', () => console.log(`\nTry out the requests in`, { file: cds.utils.local(__dirname+'/test.http') })) // for demos only
 }

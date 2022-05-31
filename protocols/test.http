@@ -55,7 +55,7 @@ GET {{server}}/cql/admin/Books order by stock desc
 GET {{server}}/cql/admin/Books { title as book, stock } order by stock desc
 ###
 
-GET {{server}}/cql/admin/Authors/101
+GET {{server}}/cql/admin/Authors
 Content-Type: text/plain
 Accept-Language: fr
 
@@ -64,10 +64,13 @@ Accept-Language: fr
   books {
     title,
     stock,
-    currency { * }
+    currency {
+      code,
+      symbol
+    }
   }
 }
-where name like '%Bro%'
+where name like '%Ed%'
 order by name asc
 ###
 
