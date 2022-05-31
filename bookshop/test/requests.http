@@ -26,10 +26,10 @@ GET {{server}}/browse/ListOfBooks?
 ### ------------------------------------------------------------------------
 # Fetch Authors as admin
 GET {{server}}/admin/Authors?
-  # &$select=name,dateOfBirth,placeOfBirth
-  # &$expand=books($select=title;$expand=currency)
-  # &$filter=ID eq 101
-  # &sap-language=de
+  &$select=name,dateOfBirth,placeOfBirth
+  &$expand=books($select=title;$expand=currency)
+  &$filter=ID eq 101
+  &sap-language=de
 Authorization: Basic alice:
 
 ### ------------------------------------------------------------------------
