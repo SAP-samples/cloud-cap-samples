@@ -1,5 +1,4 @@
 {
-  "namespace": "cds.xt",
   "definitions": {
     "cds.xt.CSN": {
       "kind": "type",
@@ -51,6 +50,7 @@
           }
         },
         "for": {
+          "@cds.java.name": "runtime",
           "type": "cds.xt.CSNConsumer"
         }
       },
@@ -70,6 +70,7 @@
           }
         },
         "for": {
+          "@cds.java.name": "runtime",
           "type": "cds.xt.CSNConsumer"
         }
       },
@@ -98,6 +99,7 @@
           "type": "cds.String"
         },
         "for": {
+          "@cds.java.name": "runtime",
           "type": "cds.xt.CSNConsumer"
         }
       },

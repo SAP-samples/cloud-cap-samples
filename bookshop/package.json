@@ -21,15 +21,15 @@
   },
   "cds": {
     "requires": {
-      "[mt]": {
-        "--multitenancy": "btp-saas-provisioning",
-        "multitenancy": true,
-        "btp-saas-provisioning": false,
-        "saas-deployment": false,
-        "extensibility": false,
-        "model-provider": false
-      },
-      "db": "sql"
+      "db": "sql",
+      "[mtx]": {
+        "multitenancy": "saas-deployment",
+        "[sidecar]": {
+          "deployment-service": "from-sidecar",
+          "model-provider": "from-sidecar",
+          "db": "sqlite"
+        }
+      }
     }
   }
 }

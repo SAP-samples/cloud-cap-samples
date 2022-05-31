@@ -3,6 +3,36 @@
     "../../srv/csn.json"
   ],
   "definitions": {},
+  "extensions": [
+    {
+      "annotate": "CatalogService.Books",
+      "@UI.LineItem": [
+        {
+          "...": {
+            "Value": {
+              "=": "author"
+            }
+          }
+        },
+        {
+          "Value": {
+            "=": "rating"
+          }
+        },
+        {
+          "...": true
+        }
+      ]
+    },
+    {
+      "annotate": "CatalogService.Books",
+      "elements": {
+        "rating": {
+          "@title": "Rating"
+        }
+      }
+    }
+  ],
   "meta": {
     "creator": "CDS Compiler v3.0.0",
     "flavor": "parsed"

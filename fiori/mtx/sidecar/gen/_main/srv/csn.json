@@ -50,6 +50,7 @@
           }
         },
         "for": {
+          "@cds.java.name": "runtime",
           "type": "cds.xt.CSNConsumer"
         }
       },
@@ -69,6 +70,7 @@
           }
         },
         "for": {
+          "@cds.java.name": "runtime",
           "type": "cds.xt.CSNConsumer"
         }
       },
@@ -97,6 +99,7 @@
           "type": "cds.String"
         },
         "for": {
+          "@cds.java.name": "runtime",
           "type": "cds.xt.CSNConsumer"
         }
       },
@@ -2632,7 +2635,8 @@
     "CatalogService": {
       "@source": "../bookshop/srv/cat-service.cds",
       "kind": "service",
-      "@path": "/browse"
+      "@path": "/browse",
+      "@requires": "authenticated-user"
     },
     "CatalogService.ListOfBooks": {
       "kind": "entity",
