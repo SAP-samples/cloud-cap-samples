@@ -93,18 +93,18 @@ jobs:
       - name: backend tests
         run: npm run test
 
-      - uses: 5monkeys/cobertura-action@master
-        name: Get srv test coverage
-        with:
-          path: coverage/cobertura-coverage.xml
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          minimum_coverage: 80
+      # - uses: 5monkeys/cobertura-action@master
+      #   name: Get srv test coverage
+      #   with:
+      #     path: coverage/cobertura-coverage.xml
+      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+      #     minimum_coverage: 80
 
-      - name: Publish Test Report srv
-        uses: mikepenz/action-junit-report@v2
-        if: always() # always run even if the previous step fails
-        with:
-          report_paths: 'test-results.xml'
+      # - name: Publish Test Report srv
+      #   uses: mikepenz/action-junit-report@v2
+      #   if: always() # always run even if the previous step fails
+      #   with:
+      #     report_paths: 'test-results.xml'
 
 
       - uses: actions/upload-artifact@v2
