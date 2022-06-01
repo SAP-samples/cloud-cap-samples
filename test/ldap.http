@@ -1,0 +1,5 @@
+### Test Login
+POST http://localhost:4004/ldaplogin
+content-type: application/json
+
+{"username": "test-user", "password": "123456"}
