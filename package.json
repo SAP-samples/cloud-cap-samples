@@ -1,6 +1,6 @@
 {
   "name": "@quadrio/db2-cap-samples",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "private": true,
   "description": "DB2 Version CAP flight demo scenario",
   "license": "SAP SAMPLE CODE LICENSE",
@@ -64,6 +64,11 @@
   "eslintIgnore": [
     "admin.js"
   ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "standard": {
     "ignore": [
       "**/load/*.js",
