@@ -22,7 +22,7 @@
     "test:mocha": "npx mocha --timeout 20000",
     "load:data": "NODE_ENV=production npx @quadrio/cds-dbm load -v csv",
     "deploy:db2": "NODE_ENV=production npx @quadrio/cds-dbm deploy",
-    "start-container": "npm run deploy:db2 && npm run start:hybrid",
+    "start-container": "NODE_ENV=test npm run deploy:db2 && cds deploy --to sqlite npm run start:hybrid",
     "loadtest:ci": "./k6 run ./test/load/admin.js --vus 100 --duration 20s --summary-export=load-performance.json -e LOAD_TEST_USER=test -e LOAD_TEST_PASSWORD=test -e LOAD_TEST_URL=http://localhost:4004",
     "loadtest:local": "k6 run ./test/load/admin.js --vus 100 --duration 20s --summary-export=load-performance.json -e LOAD_TEST_USER=test -e LOAD_TEST_PASSWORD=test -e LOAD_TEST_URL=http://localhost:4004",
     "loadtest:with-server": "start-server-and-test start:test http://localhost:4004 loadtest:ci"
@@ -110,7 +110,10 @@
         ]
       },
       "db": {
-        "kind": "sql"
+        "kind": "sqlite",
+        "credentials": {
+          "database": "sqlite.db"
+        }
       },
       "[production]": {
         "db": {
