@@ -2,6 +2,76 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.21.0 (2022-06-01)
+
+
+### Features
+
+* **ldap:** add ldap test ([344b558](https://github.com/QuadriO/db2-cap-samples/commit/344b558dcb4bd74e6460b13cf0236b40cd6e6b22))
+* **package:** deploy sqlite ([8ae9792](https://github.com/QuadriO/db2-cap-samples/commit/8ae979285bcbf3895f31d21cc642b7d71cbc6ab2))
+* **version:** add standard versioning ([18fef28](https://github.com/QuadriO/db2-cap-samples/commit/18fef289da95941be9487651d65cc69e17fff4ac))
+
+
+### Bug Fixes
+
+* app crashes if SELECT results in null ([#298](https://github.com/QuadriO/db2-cap-samples/issues/298)) ([077453b](https://github.com/QuadriO/db2-cap-samples/commit/077453ba7b5ad5b9bac1a8f8149f8d0bddc19925))
+* **data:** remove sample data ([8bf53c5](https://github.com/QuadriO/db2-cap-samples/commit/8bf53c55d60ca0c6b8fd396d857311593b1a093f))
+* **dockerfile:** remove additional / ([b0e7f5f](https://github.com/QuadriO/db2-cap-samples/commit/b0e7f5f9a938dbcf84d750a4b7b805288b389b87))
+* **package:** add hybrid conf ([d848cab](https://github.com/QuadriO/db2-cap-samples/commit/d848cab362c85c9b4831d0135c8f3d089eb03585))
+* **package:** fix start-container script ([929fdd2](https://github.com/QuadriO/db2-cap-samples/commit/929fdd295eca018aef898751059602c1c6480ff9))
+
+
+### Build System
+
+* **docker:** add build args ([1e197e2](https://github.com/QuadriO/db2-cap-samples/commit/1e197e22cefdfe4fe89dd9d64a91876a841b40d4))
+* **dockerfile:** remove chmod ([38d3238](https://github.com/QuadriO/db2-cap-samples/commit/38d3238f768ba8908c9a19f1e19ca2d41907d37b))
+* **docker:** fix ci ([bdb9ff4](https://github.com/QuadriO/db2-cap-samples/commit/bdb9ff4c38d6cfb6a1708e800336983f1c41dec7))
+* **docker:** remove app build ([2db6189](https://github.com/QuadriO/db2-cap-samples/commit/2db618983b5f41039bf0a4d486dc9f957ba4c252))
+* **docker:** remove app build ([dcdc19c](https://github.com/QuadriO/db2-cap-samples/commit/dcdc19cbb39b4cce49fd6755481b5bf423a20887))
+* **package:** run test ([41f850c](https://github.com/QuadriO/db2-cap-samples/commit/41f850c74e1dab8322ddeaeef23fbf9d3398818f))
+
+
+### CI
+
+* **commit:** remove some checks ([152f439](https://github.com/QuadriO/db2-cap-samples/commit/152f439a8688ee9ed061bf418503416918dd2246))
+* **keys:** remove keys ([d20fa28](https://github.com/QuadriO/db2-cap-samples/commit/d20fa2888fb97c9a0fbd36a791010f31504ab422))
+* **release:** add release ([e369b83](https://github.com/QuadriO/db2-cap-samples/commit/e369b8312163660c481af2a1cded75c2b6b78acc))
+* **release:** update release flow ([edbba9f](https://github.com/QuadriO/db2-cap-samples/commit/edbba9fd7b53f77378d2e855f88f9c89344d9eb9))
+* **roles:** add roles for oidc ([1e4937e](https://github.com/QuadriO/db2-cap-samples/commit/1e4937e5250a6b7cca2e62f0a9f206b628445b70))
+* **ui:** remove ui test for now ([1311e75](https://github.com/QuadriO/db2-cap-samples/commit/1311e75549e342a92f6ea850f824faa5e1e5e373))
+
+
+### Others
+
+* **release:** 1.0.1 ([16f3ca1](https://github.com/QuadriO/db2-cap-samples/commit/16f3ca162672f0df06bdf2856b3fcdcd52186feb))
+* **release:** 1.0.2 ([3ff17c5](https://github.com/QuadriO/db2-cap-samples/commit/3ff17c5bf20f1d79b2b6b768a1707b74053845dc))
+* **release:** 1.1.0 ([65bfc44](https://github.com/QuadriO/db2-cap-samples/commit/65bfc4483266b5a848de5e795be618729de018fc))
+* **release:** 1.10.0 ([c870ca9](https://github.com/QuadriO/db2-cap-samples/commit/c870ca9d8069d1e4f055ffdf48d18a3e1383c664))
+* **release:** 1.11.0 ([02fbf2a](https://github.com/QuadriO/db2-cap-samples/commit/02fbf2acca2b0f9b6a5be61c07daa86be42844dc))
+* **release:** 1.12.0 ([be2010a](https://github.com/QuadriO/db2-cap-samples/commit/be2010ad2e3c815ffb489bf2a77e08ad203b1513))
+* **release:** 1.13.0 ([8d590c4](https://github.com/QuadriO/db2-cap-samples/commit/8d590c4545f037585651e836abecedf95187e36e))
+* **release:** 1.14.0 ([f7da2bf](https://github.com/QuadriO/db2-cap-samples/commit/f7da2bf5cbfc0edab4878fbcd11c56104f4812b9))
+* **release:** 1.15.0 ([3ae530a](https://github.com/QuadriO/db2-cap-samples/commit/3ae530afa6d21946c66920a446b26e35a0e274b0))
+* **release:** 1.16.0 ([21e2aa2](https://github.com/QuadriO/db2-cap-samples/commit/21e2aa29a38dfc693b7a2c266d6c40c148dd07a6))
+* **release:** 1.17.0 ([5bb46d1](https://github.com/QuadriO/db2-cap-samples/commit/5bb46d19be0b57dbba944a0cc281ee59b13454cc))
+* **release:** 1.18.0 ([f42d1c3](https://github.com/QuadriO/db2-cap-samples/commit/f42d1c3953035e8a14831a9393f4dc4b03f6c994))
+* **release:** 1.19.0 ([9e9691b](https://github.com/QuadriO/db2-cap-samples/commit/9e9691bca6fff33b108b030972978a8ad5ca5280))
+* **release:** 1.2.0 ([9fc1bad](https://github.com/QuadriO/db2-cap-samples/commit/9fc1bad49bcb99e2bdacb2f899ccb9b63c0ab28a))
+* **release:** 1.20.0 ([0bf7085](https://github.com/QuadriO/db2-cap-samples/commit/0bf70855e3dd55bbe27a514d8b3722ddcf37a7c3))
+* **release:** 1.3.0 ([cc3c792](https://github.com/QuadriO/db2-cap-samples/commit/cc3c79250b101556a9cb919089bf0d98c063c4b7))
+* **release:** 1.4.0 ([f1fcd61](https://github.com/QuadriO/db2-cap-samples/commit/f1fcd61376aec33cff0697894f4d6887bd60b634))
+* **release:** 1.5.0 ([d2d9697](https://github.com/QuadriO/db2-cap-samples/commit/d2d969786e017a0a8febbac11d6d1d55e42e5309))
+* **release:** 1.6.0 ([fed508b](https://github.com/QuadriO/db2-cap-samples/commit/fed508b2b0d0d4c19d3b68e537cd01259775a768))
+* **release:** 1.7.0 ([8b7adae](https://github.com/QuadriO/db2-cap-samples/commit/8b7adae064a0bfe6b8b18f02f50cef7fa4c4137f))
+* **release:** 1.8.0 ([b46212f](https://github.com/QuadriO/db2-cap-samples/commit/b46212f4c46abf266c00b111d2c68d95100f17c4))
+* **release:** 1.9.0 ([b36b6cf](https://github.com/QuadriO/db2-cap-samples/commit/b36b6cfa285a4af0a99bb808959e5c4d41c01db2))
+
+
+### Docs
+
+* **recap:** add documentation ([b108fa9](https://github.com/QuadriO/db2-cap-samples/commit/b108fa97a4bd503e770dccc24b0dc3b497dc64e9))
+* **recap:** add recap documentation ([7dcd8d5](https://github.com/QuadriO/db2-cap-samples/commit/7dcd8d58c5962b1122505c14bc0a8437abd6bd75))
+
 ## 1.20.0 (2022-06-01)
 
 
