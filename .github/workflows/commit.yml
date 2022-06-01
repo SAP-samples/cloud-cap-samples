@@ -11,7 +11,7 @@ env:
   PACKAGE_GITHUB_REGISTRY_TOKEN: ${{ secrets.PAT }}
 
 jobs:
-  test:
+  ui-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,25 +35,6 @@ jobs:
       - name: app npm ci
         run: |
           cd app/travel_processor && npm ci
-
-      - name: lint
-        run: npm run lint
-
-      - name: backend tests
-        run: npm run test
-
-      - uses: 5monkeys/cobertura-action@master
-        name: Get srv test coverage
-        with:
-          path: coverage/cobertura-coverage.xml
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          minimum_coverage: 80
-
-      - name: Publish Test Report srv
-        uses: mikepenz/action-junit-report@v2
-        if: always() # always run even if the previous step fails
-        with:
-          report_paths: 'test-results.xml'
 
       - name: Setup latest chrome version
         run: |
@@ -79,11 +60,58 @@ jobs:
         with:
           name: reports
           path: |
-            reports/
-            test-results.xml
-            coverage/cobertura-coverage.xml
             app/coverage/cobertura-coverage.xml
             app/coverage/lcov-report/
             app/test/reports/
             app/test/screenshots/
             app/test/allure-report/
+
+  srv-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Branch name as environment Variable
+        run: echo "BRANCH=${GITHUB_REF##*/}"  >> $GITHUB_ENV
+
+      - name: npm ci
+        run: |
+          npm ci
+
+      - name: lint
+        run: npm run lint
+
+      - name: backend tests
+        run: npm run test
+
+      - uses: 5monkeys/cobertura-action@master
+        name: Get srv test coverage
+        with:
+          path: coverage/cobertura-coverage.xml
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          minimum_coverage: 80
+
+      - name: Publish Test Report srv
+        uses: mikepenz/action-junit-report@v2
+        if: always() # always run even if the previous step fails
+        with:
+          report_paths: 'test-results.xml'
+
+
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: reports
+          path: |
+            reports/
+            test-results.xml
+            coverage/cobertura-coverage.xml
