@@ -1,0 +1,4 @@
+code;name;criticality;fieldControl;createDeleteHidden;insertDeleteRestriction
+O;Open;2;7;0;1
+A;Accepted;3;1;1;0
+X;Canceled;0;7;1;0

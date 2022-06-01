@@ -1,0 +1,411 @@
+---
+- name: Create Ec2 instances
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create EC2 Block
+      block:
+        - name: Launch ec2 instances
+          tags: create_ec2
+          amazon.aws.ec2_instance:
+            key_name: cap-samples
+            security_group: cap-samples
+            instance_type: t3.medium
+            image_id: ami-0ee8244746ec5d6d4
+            wait: yes
+            wait_timeout: 500
+            count: 1
+            tags:
+              name: podman
+              os: ubuntu
+            network:
+              assign_public_ip: yes
+            volumes:
+              - device_name: /dev/sda1
+                ebs:
+                  volume_size: 128
+                  delete_on_termination: true
+          register: ec2
+          delegate_to: localhost
+
+      # By specifying never on the tag of this block,
+      # I let this block to run only when explicitely being called
+      tags: ['never', 'ec2-create']
+
+    # Block is a Group of Tasks combined together
+    - name: Get Info Block
+      block:
+        - name: Get Running instance Info
+
+          ec2_instance_info:
+            filters:
+              instance-state-name: ['running']
+          register: ec2
+        - name: Print info
+          debug: var="ec2.instances"
+        - name: Add instance to host group
+          add_host:
+            hostname: '{{ item.public_ip_address }}'
+            groupname: launched
+          loop: '{{ ec2.instances }}'
+
+      # By specifying always on the tag,
+      # I let this block to run all the time by module_default
+      # this is for security to net create ec2 instances accidentally
+      tags: ['always', 'getinfoonly']
+
+- name: Install podman
+  hosts: launched
+  remote_user: ubuntu
+  become: yes
+  vars_files:
+    - ./external_vars.yml
+  tasks:
+    # - name: installing podman
+    #   package:
+    #     name: 'podman'
+    #     state: present
+    #     update_cache: yes
+
+    # - name: installing webhook
+    #   package:
+    #     name: 'webhook'
+    #     state: present
+
+    # - name: installing python3-pip
+    #   package:
+    #     name: 'python3-pip'
+    #     state: present
+
+    # - name: installing cockpit
+    #   package:
+    #     name: 'cockpit'
+    #     state: present
+
+    # - name: installing cockpit-podman
+    #   package:
+    #     name: 'cockpit-podman'
+    #     state: present
+
+    # - name: Create a directory scripts if it does not exist
+    #   ansible.builtin.file:
+    #     path: /opt/scripts
+    #     state: directory
+    #     mode: '0755'
+    #     owner: ubuntu
+    #     group: ubuntu
+
+    # - name: Create a directory hooks if it does not exist
+    #   ansible.builtin.file:
+    #     path: /opt/hooks
+    #     state: directory
+    #     mode: '0755'
+    #     owner: ubuntu
+    #     group: ubuntu
+
+    # - name: Create a directory tmp if it does not exist
+    #   ansible.builtin.file:
+    #     path: /home/ubuntu/tmp
+    #     state: directory
+    #     mode: '0755'
+    #     owner: ubuntu
+    #     group: ubuntu
+
+    # - name: Create a directory npm if it does not exist
+    #   ansible.builtin.file:
+    #     path: /opt/npm
+    #     state: directory
+    #     mode: '0755'
+    #     owner: ubuntu
+    #     group: ubuntu
+
+    # - name: Create a directory npm/data if it does not exist
+    #   ansible.builtin.file:
+    #     path: /opt/npm/data
+    #     state: directory
+    #     mode: '0755'
+    #     owner: ubuntu
+    #     group: ubuntu
+
+    # - name: Create a directory npm/ssl if it does not exist
+    #   ansible.builtin.file:
+    #     path: /opt/npm/ssl
+    #     state: directory
+    #     mode: '0755'
+    #     owner: ubuntu
+    #     group: ubuntu
+
+    # - name: Create a directory npm/db if it does not exist
+    #   ansible.builtin.file:
+    #     path: /opt/npm/db
+    #     state: directory
+    #     mode: '0755'
+    #     owner: ubuntu
+    #     group: ubuntu
+
+    # - name: Create a directory ldap if it does not exist
+    #   ansible.builtin.file:
+    #     path: /opt/ldap
+    #     state: directory
+    #     mode: '0755'
+    #     owner: ubuntu
+    #     group: ubuntu
+
+    # - name: Create a directory ldap/lib if it does not exist
+    #   ansible.builtin.file:
+    #     path: /opt/ldap/lib
+    #     state: directory
+    #     mode: '0755'
+    #     owner: ubuntu
+    #     group: ubuntu
+
+    # - name: Create a directory ldap/lib if it does not exist
+    #   ansible.builtin.file:
+    #     path: /opt/ldap/conf
+    #     state: directory
+    #     mode: '0755'
+    #     owner: ubuntu
+    #     group: ubuntu
+
+    # - name: Create a directory var/db2ce if it does not exist
+    #   ansible.builtin.file:
+    #     path: /var/db2ce
+    #     state: directory
+    #     mode: '0755'
+    #     owner: ubuntu
+    #     group: ubuntu
+
+    # - name: Create a directory /home/ubuntu/.config/systemd/user/ if it does not exist
+    #   ansible.builtin.file:
+    #     path: /home/ubuntu/.config/systemd/user/
+    #     state: directory
+    #     mode: '0755'
+    #     owner: ubuntu
+    #     group: ubuntu
+
+    # - name: Copy webhook configuration file
+    #   copy:
+    #     src: ../.aws/hooks.json
+    #     dest: /opt/hooks/hooks.json
+    #     owner: ubuntu
+    #     group: ubuntu
+    #     mode: 0755
+
+    # - name: Copy hydra configuration file
+    #   copy:
+    #     src: ../.aws/hydra.yml
+    #     dest: /opt/scripts/hydra.yml
+    #     owner: ubuntu
+    #     group: ubuntu
+    #     mode: 0755
+
+    # - name: Copy redeployment script
+    #   copy:
+    #     src: ../.aws/redeployment.sh
+    #     dest: /opt/scripts/redeployment.sh
+    #     owner: ubuntu
+    #     group: ubuntu
+    #     mode: 0777
+
+    # - name: Copy webhook service configuration
+    #   copy:
+    #     src: ../.aws/webhook.service
+    #     dest: /etc/systemd/system/webhook.service
+    #     owner: ubuntu
+    #     group: ubuntu
+    #     mode: 0755
+
+    # - name: Copy podman-restart service configuration
+    #   copy:
+    #     src: ../.aws/podman-restart.service
+    #     dest: /etc/systemd/system/podman-restart.service
+    #     owner: ubuntu
+    #     group: ubuntu
+    #     mode: 0755
+
+    # - name: Copy container-CAP-SAMPLES service configuration
+    #   copy:
+    #     src: ../.aws/container-CAP-SAMPLES.service
+    #     dest: /home/ubuntu/.config/systemd/user/container-CAP-SAMPLES.service
+    #     owner: ubuntu
+    #     group: ubuntu
+    #     mode: 0755
+
+    # - name: Copy docker-compose file
+    #   copy:
+    #     src: ../.aws/docker-compose.yml
+    #     dest: /opt/scripts/docker-compose.yml
+    #     owner: ubuntu
+    #     group: ubuntu
+    #     mode: 0755
+
+    # - name: Copy .cdsrc.json configuration file
+    #   copy:
+    #     src: ../.aws/.cdsrc.json
+    #     dest: /home/ubuntu/tmp/.cdsrc.json
+    #     owner: ubuntu
+    #     group: ubuntu
+    #     mode: 0755
+
+    # - name: Replace localhost with domain in .cdsrc.json
+    #   ansible.builtin.replace:
+    #     path: /home/ubuntu/tmp/.cdsrc.json
+    #     regexp: 'localhost'
+    #     replace: '{{ domain }}'
+
+    # - name: Replace domain in hydra.yml
+    #   ansible.builtin.replace:
+    #     path: /opt/scripts/hydra.yml
+    #     regexp: 'localhost'
+    #     replace: '{{ domain }}'
+
+    # - name: Replace hydra secret in hydra.yml
+    #   ansible.builtin.replace:
+    #     path: /opt/scripts/hydra.yml
+    #     regexp: 'youReallyNeedToChangeThis'
+    #     replace: '{{ hydra_secret }}'
+
+    # - name: Replace SecretPassword with db2_password in .cdsrc.json
+    #   ansible.builtin.replace:
+    #     path: /home/ubuntu/tmp/.cdsrc.json
+    #     regexp: 'SecretPassword'
+    #     replace: '{{ db2_password }}'
+
+    # - name: Replace oidcsecret with oidc_secret in .cdsrc.json
+    #   ansible.builtin.replace:
+    #     path: /home/ubuntu/tmp/.cdsrc.json
+    #     regexp: 'oidcsecret'
+    #     replace: '{{ oidc_secret }}'
+
+    # - name: Replace ldapsecret with ldap_secret in .cdsrc.json
+    #   ansible.builtin.replace:
+    #     path: /home/ubuntu/tmp/.cdsrc.json
+    #     regexp: 'ldapsecret'
+    #     replace: '{{ ldap_secret }}'
+
+    # - name: Copy db2 configuration file
+    #   copy:
+    #     src: ../.aws/.env_list
+    #     dest: /var/db2ce/.env_list
+    #     owner: ubuntu
+    #     group: ubuntu
+    #     mode: 0755
+
+    - name: Replace ldapsecret with ldap_secret in .cdsrc.json
+      ansible.builtin.replace:
+        path: /var/db2ce/.env_list
+        regexp: 'SecretPassword'
+        replace: '{{ db2_password }}'
+
+    # - name: Set password for user ubuntu
+    #   user:
+    #     name: ubuntu
+    #     password: "{{ system_password | password_hash('sha512') }}"
+
+    # - name: Install podman-compose
+    #   pip:
+    #     name:
+    #       - https://github.com/containers/podman-compose/archive/devel.tar.gz
+
+    # - name: Allow lower ports rootless
+    #   lineinfile:
+    #     path: /etc/sysctl.conf
+    #     line: net.ipv4.ip_unprivileged_port_start=80
+
+    # - name: Start podman-compose
+    #   ansible.builtin.command: sudo podman-compose -f /opt/scripts/docker-compose.yml up -d
+
+    # - name: Check if ubuntu lingers
+    #   stat: path=/var/lib/systemd/linger/ubuntu
+    #   register: linger
+
+    # - name: Enable linger for ubuntu
+    #   command: loginctl enable-linger ubuntu
+    #   when: not linger.stat.exists
+
+    # - name: Enable service webhook
+    #   ansible.builtin.systemd:
+    #     name: webhook
+    #     state: started
+    #     daemon_reload: yes
+    #     enabled: yes
+
+    # - name: Enable service podman-restart
+    #   ansible.builtin.systemd:
+    #     name: podman-restart
+    #     state: started
+    #     daemon_reload: yes
+    #     enabled: yes
+
+    # - name: Enable service container-CAP-SAMPLES
+    #   become: false
+    #   ansible.builtin.systemd:
+    #     name: container-CAP-SAMPLES
+    #     state: started
+    #     daemon_reload: yes
+    #     enabled: yes
+    #     scope: user
+
+    - name: Run db2 container
+      containers.podman.podman_container:
+        name: db2server
+        image: docker.io/ibmcom/db2
+        state: started
+        restart_policy: always
+        privileged: true
+        env_file: /var/db2ce/.env_list
+        volume: /var/db2ce:/database
+        publish : 50000:50000
+
+
+    - name: Run ldap container
+      containers.podman.podman_container:
+        name: ldap
+        image: docker.io/osixia/openldap:1.5.0
+        state: started
+        restart_policy: always
+        env:
+          LDAP_ORGANISATION: '{{ ldap_organisation }}'
+          LDAP_DOMAIN: '{{ domain }}'
+          LDAP_ADMIN_PASSWORD: '{{ ldap_admin_password }}'
+        volumes:
+          - /opt/ldap/lib:/var/lib/ldap
+          - /opt/ldap/conf:/etc/ldap/slapd.d
+        publish : 389:389
+
+    - name: Create OIDC client configuration
+      ansible.builtin.command: |
+        sudo podman-compose -f /opt/scripts/docker-compose.yml exec hydra \
+          hydra clients create \
+          --endpoint http://hydra:4445 \
+          --id db2-cap-samples \
+          --secret {{ oidc_secret }} \
+          --grant-types authorization_code,refresh_token \
+          --response-types code,id_token \
+          --scope openid,offline \
+          --name DB2 CAP Samples Login \
+          --token-endpoint-auth-method client_secret_post \
+          --tos-uri https://quadrio.de/impressum \
+          --policy-uri https://quadrio.de/datenschutz \
+          --callbacks https://{{ domain }}/callback \
+          --post-logout-callbacks https://{{ domain }}/login \
+          --logo-uri https://quadrio.de/wp-content/uploads/2019/06/Quadrio_Logo_CMYK_lang-min.png
+
+
+    - name: Create OIDC codespace client configuration
+      ansible.builtin.command: |
+        sudo podman-compose -f /opt/scripts/docker-compose.yml exec hydra \
+          hydra clients create \
+          --endpoint http://hydra:4445 \
+          --id codespace-client \
+          --secret {{ oidc_secret }}  \
+          --grant-types authorization_code,refresh_token \
+          --response-types code,id_token \
+          --scope openid,offline \
+          --name Login Codespace \
+          --callbacks http://localhost:4004/callback \
+          --post-logout-callbacks http://localhost:4004/login \
+          --token-endpoint-auth-method client_secret_post \
+          --tos-uri https://quadrio.de/impressum \
+          --policy-uri https://quadrio.de/datenschutz \
+          --logo-uri https://quadrio.de/wp-content/uploads/2019/06/Quadrio_Logo_CMYK_lang-min.png

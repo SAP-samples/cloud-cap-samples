@@ -1,0 +1,14 @@
+code;symbol;name;descr;numcode;minor;exponent
+EUR;€;Euro;European Euro;978;Cent;2
+USD;$;US Dollar;United States Dollar;840;Cent;2
+CAD;$;Canadian Dollar;Canadian Dollar;124;Cent;2
+AUD;$;Australian Dollar;Australian Dollar;036;Cent;2
+GBP;£;British Pound;Great Britain Pound;826;Penny;2
+ILS;₪;Shekel;Israeli New Shekel;376;Agorat;2
+INR;₹;Rupee;Indian Rupee;356;Paise;2
+QAR;﷼;Riyal;Katar Riyal;356;Dirham;2
+SAR;﷼;Riyal;Saudi Riyal;682;Halala;2
+JPY;¥;Yen;Japanese Yen;392;Sen;2
+CNY;¥;Yuan;Chinese Yuan Renminbi;156;Jiao;1
+SGD;S$;Singapore Dollar;Singapore Dollar;702;Cent;2
+ZAR;R;Rand;South African Rand;710;Cent;2

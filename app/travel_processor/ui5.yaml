@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+specVersion: "2.6"
+metadata:
+  name: sap.fe.cap.travel
+type: application
+
+server:
+  customMiddleware:
+    - name: ui5-middleware-simpleproxy
+      mountPath: /processor
+      afterMiddleware: compression
+      configuration:
+        baseUri: http://localhost:4004/processor
+        username: admin # dummy credentials for local testing
+        password: admin # dummy credentials for local testing

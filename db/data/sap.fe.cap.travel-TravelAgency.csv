@@ -1,0 +1,51 @@
+AgencyID;Name;Street;PostalCode;City;CountryCode_code;PhoneNumber;EMailAddress;WebAddress
+070001;Sunshine Travel;134 West Street;54323;Rochester;US;+1 901-632-5620;info@sunshine-travel.sap;http://www.sunshine-travel.sap
+070002;Fly High;Berliner Allee 11;40880;Duesseldorf;DE;+49 2102 69555;info@flyhigh.sap;http://www.flyhigh.sap
+070003;Happy Hopping;Calvinstr. 36;13467;Berlin;DE;+49 30-8853-0;info@haphop.sap;http://www.haphop.sap
+070004;Pink Panther;Auf der Schanz 54;65936;Frankfurt;DE;+49 69-467653-0;info@pinkpanther.sap;http://www.pinkpanther.sap
+070005;Your Choice;Gustav-Jung-Str. 425;90455;Nuernberg;DE;+49 9256-4548-0;info@yc.sap;http://www.yc.sap
+070006;Bella Italia;Via Marconi 123;00139;Roma;IT;+39 6 893546721;info@tours.it/Adventure/;http://www.tours.it/Adventure/
+070007;Hot Socks Travel;224 Balnagask Rd;8053;Sydney;AU;+61 2 2004 5000;info@hst.co.au;http://www.hst.co.au
+070008;Burns Nuclear;14 Science Park Drive;118228;Singapore;SG;+65 777-5566;info@burns-burns-burns.sg;http://www.burns-burns-burns.sg
+070009;Honauer Reisen GmbH;Baumgarten 8;4212;Neumarkt;AT;+43 7941 8903;info@honauer.at;http://www.honauer.at
+070010;Travel from Walldorf;Altonaer Str. 24;10557;Berlin;DE;+49 30-622860;info@travel-from-walldorf;http://www.travel-from-walldorf
+070011;Voyager Enterprises;Gustavslundsvaegen 151;70563;Stockholm;SE;+46 8/ 587 70000;info@starfleet.ufp;http://www.starfleet.ufp
+070012;Ben McCloskey Ltd.;74 Court Oak Rd;B17 9TN;Birmingham;GB;+44 121 365-2251;info@ben-mcCloskey.co.uk;http://www.ben-mcCloskey.co.uk
+070013;Pillepalle Trips;Gorki Park 4;8008;Zuerich;CH;+41 1 345-5321;info@pi-pa-tri.sap;http://www.pi-pa-tri.sap
+070014;Kangeroos;Lancaster drive 435;20001;London;GB;+44 171-2937638;info@hopp.sap;http://www.hopp.sap
+070015;Bavarian Castle;Pilnizerstr. 241;01069;Dresden;DE;+49 98-32832732;info@neu.schwanstein.sap;http://www.neu.schwanstein.sap
+070016;Ali's Bazar;45, Mac Arthur Boulevard;19113;Boston;US;+1 508-692-5200;info@ali.sap;http://www.ali.sap
+070017;Super Agency;50 Cranworth St;G12 8AG;Glasgow;GB;+44 141 711-5643;info@super.sap;http://www.super.sap
+070018;Wang Chong;Gagarine Park;150021;Moscow;RU;+7 3287-213321;info@wang.chong.sap;http://www.wang.chong.sap
+070019;Around the World;An der Breiten Wiese 122;30625;Hannover;DE;+49 511-347589-0;info@atw.sap;http://www.atw.sap
+070020;No Return;Wahnheider Str. 57;51105;Koeln;DE;+49 221-5689-100;info@bye-bye.sap;http://www.bye-bye.sap
+070021;Special Agency Peru;Triberger Str. 42;70569;Stuttgart;DE;+49 711-7100;info@sap.com;http://www.sap.com
+070022;Caribian Dreams;Deichstrasse 45;26721;Emden;DE;+49 2670-8560-0;info@cuba-libre.sap;http://www.cuba-libre.sap
+070023;Asia By Plane;6-9 Iidabashi 7-chome;102-0072;Tokyo;JP;+81 3-3239-3501;info@asia-by-plane.co.jp;http://www.asia-by-plane.co.jp
+070024;Everywhere;Regensburger Platz 23;81679;Muenchen;DE;+49 89-2499239;info@everywhere.sap;http://www.everywhere.sap
+070025;Happy Holiday;Rastenburger Str. 12;28779;Bremen;DE;+49 3266-288817;info@haphol.sap;http://www.haphol.sap
+070026;No Name;Schwalbenweg 43;52078;Aachen;DE;+49 241-77729;info@nn.sap;http://www.nn.sap
+070027;Fly Low;Chemnitzer Str. 42;01187;Dresden;DE;+49 351-5423-00;info@fly-low.sap;http://www.fly-low.sap
+070028;Aussie Travel;Queens Road;M8 7RYP;Manchester;GB;+44 161 2052000;info@down-under.sap;http://www.down-under.sap
+070029;Up 'n' Away;Nackenbergerstr. 92;30625;Hannover;DE;+49 511 403266-0;info@una.sap;http://www.una.sap
+070030;Trans World Travel;100 Industrial Drive;60804;Chicago;US;+1 708-454-8723;info@twt.sap;http://www.twt.sap
+070031;Bright Side of Life;340 State Street;30432;San Francisco;US;+1 415-454-9877;info@ruebennase.sap;http://www.ruebennase.sap
+070032;Sunny, Sunny, Sunny;1300 State Street;19003;Philadelphia;US;+1 215-090-7659;info@s3.sap;http://www.s3.sap
+070033;Fly & Smile;Zeppelinstr. 17;60318;Frankfurt;DE;+49 69-99-0;info@fly-and-smile.sap;http://www.fly-and-smile.sap
+070034;Supercheap;1400, Washington Circle;30439;Los Angeles;US;+1 251-369-2510;info@supercheap.sap;http://www.supercheap.sap
+070035;Hitchhiker;21 Rue de Moselle;92132;Issy-les-Moulineaux;FR;+33 1-405-555-888;info@42.sap;http://www.42.sap
+070036;Fly Now, Pay Later;100 Madison;11012;New York;US;+1 512 343-8543;info@fn-pl.sap;http://www.fn-pl.sap
+070037;Real Weird Vacation;949 5th Street;V6T 1Z4;Vancouver;CA;+1 604 827-8024;info@reweva.sap;http://www.reweva.sap
+070038;Cap Travels Ltd.;10 Mandela St;2128;Johannesburg;ZA;+27 11 886-8981;info@cap-travels.co.za;http://www.cap-travels.co.za
+070039;Rainy, Stormy, Cloudy;Lindenstr. 462;70563;Stuttgart;DE;+49 711-7992-00;info@windy.sap/rsc/;http://www.windy.sap/rsc/
+070040;Women only;Kirchstr. 53;55124;Mainz;DE;+49 6131-543-00;info@women-only.sap;http://www.women-only.sap
+070041;Maxitrip;Flugfeld 17;65128;Wiesbaden;DE;+49 611-55 66 77;info@maxitrip.sap;http://www.maxitrip.sap
+070042;The Ultimate Answer;Manchester Rd 20;AB1 1SA;Avon;GB;+44 934-66799;info@thulan.sap;http://www.thulan.sap
+070043;Intertravel;Michigan Ave;60154;Chicago;US;+1 788 798-6555;info@intertravel.sap;http://www.intertravel.sap
+070044;Ultimate Goal;300 Peach tree street Sou;01069;Atlanta;US;+1 874-654-6686;info@ultimate-goal.sap;http://www.ultimate-goal.sap
+070045;Submit and Return;20890 East Central Ave;30987;Palo Alto;US;+1 652 645-5236;info@sar.sap;http://www.sar.sap
+070046;Hendrik's;1200 Industrial Drive;60153;Chicago;US;+1 08-924-9884;info@essen.sap/150596;http://www.essen.sap/150596
+070047;All British Air Planes;224 Tomato Lane;08965;Vineland;US;+44 609-896-Moore;info@abap.sap;http://www.abap.sap
+070048;Rocky Horror Tours;789 Santa Monica Blvd.;08934;Santa Monica;US;+1 64351-6455-654;info@frank.furter.sap;http://www.frank.furter.sap
+070049;Miles and More;777 Arlington Blvd.;46515;Elkhart;US;+1 646 867-6888;info@mam.sap;http://www.mam.sap
+070050;Not Only By Bike;Saalburgstr. 765;60385;Frankfurt;DE;+49 69 465789-0;info@nobb.sap;http://www.nobb.sap

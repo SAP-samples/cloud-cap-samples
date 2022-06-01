@@ -1,0 +1,43 @@
+{
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.reviewer",
+      "description": "reviewer"
+    },
+    {
+      "name": "$XSAPPNAME.processor",
+      "description": "processor"
+    },
+    {
+      "name": "$XSAPPNAME.admin",
+      "description": "admin"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "reviewer",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.reviewer"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "processor",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.processor"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "admin",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.admin"
+      ],
+      "attribute-references": []
+    }
+  ]
+}

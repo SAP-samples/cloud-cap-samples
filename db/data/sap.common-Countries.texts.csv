@@ -1,0 +1,88 @@
+code;locale;name;descr
+AU;de;Australien;Commonwealth Australien
+CA;de;Kanada;Canada
+CN;de;China;Volksrepublik China
+FR;de;Frankreich;Republik Frankreich
+DE;de;Deutschland;Bundesrepublik Deutschland
+IN;de;Indien;Republik Indien
+IL;de;Israel;Staat Israel
+MM;de;Myanmar;Republik der Union Myanmar
+GB;de;Vereinigtes Königreich;Vereinigtes Königreich Großbritannien und Nordirland
+US;de;Vereinigte Staaten;Vereinigte Staaten von Amerika
+EU;de;Europäische Union;Europäische Union
+IT;de;Italien;Italien
+SG;de;Singapur;Singapur
+AT;de;Österreich;Österreich
+SE;de;Schweden;Schweden
+CH;de;Schweiz;Schweiz
+RU;de;Russland;Russland
+JP;de;Japan;Japan
+ZA;de;Südafrika;Südafrika
+ES;de;Spanien;Spanien
+BE;de;Belgien;Belgien
+SI;de;Slowenien;Slowenien
+NL;de;Niederlande;Niederlande
+MX;de;Mexiko;Mexiko
+BR;de;Brasilien;Brasilien
+CU;de;Kuba;Kuba
+ZW;de;Simbabwe;Simbabwe
+MY;de;Malaysia;Malaysia
+TH;de;Thailand;Thailand
+AU;fr;Australie;Commonwealth d'Australie
+CA;fr;Canada;Canada
+CN;fr;Chine;République populaire de Chine (RPC)
+FR;fr;France;République française
+DE;fr;Allemagne;République fédérale d'Allemagne
+IN;fr;Inde;République de l'Inde
+IL;fr;Israël;État d'Israël
+MM;fr;Birmanie;République de l'Union du Myanmar
+GB;fr;Royaume-Uni;Royaume-Uni et Irlande du Nord
+US;fr;États-Unis;États-Unis d'Amérique (États-Unis)
+EU;fr;Union Européenne;Union Européenne
+IT;fr;Italie;Italie
+SG;fr;Singapour;Singapour
+AT;fr;Autriche;Autriche
+SE;fr;Suède;Suède
+CH;fr;Suisse;Suisse
+RU;fr;Russie;Russie
+JP;fr;Japon;Japon
+ZA;fr;Afrique du Sud;Afrique du Sud
+ES;fr;Espagne;Espagne
+BE;fr;Belgique;Belgique
+SI;fr;Slovénie;Slovénie
+NL;fr;Pays-Bas;Pays-Bas
+MX;fr;Mexique;Mexique
+BR;fr;Brésil;Brésil
+CU;fr;Cuba;Cuba
+ZW;fr;Zimbabwe;Zimbabwe
+MY;fr;Malaisie;Malaisie
+TH;fr;Thaïlande;Thaïlande
+AU;en;Australie;Commonwealth d'Australie
+CA;en;Canada;Canada
+CN;en;China;People's Republic of China (PRC)
+FR;en;France;French Republic
+DE;en;Germany;Federal Republic of Germany
+IN;en;India;Republic of India
+IL;en;Israel;State of Israel
+MM;en;Myanmar;Republic of the Union of Myanmar
+GB;en;United Kingdom;United Kingdom of Great Britain and Northern Ireland
+US;en;United States;United States of America (USA)
+EU;en;European Union;European Union
+IT;en;Italy;Italy
+SG;en;Singapore;Singapore
+AT;en;Austria;Austria
+SE;en;Sweden;Sweden
+CH;en;Switzerland;Switzerland
+RU;en;Russia;Russia
+JP;en;Japan;Japan
+ZA;en;South Africa;South Africa
+ES;en;Spain;Spain
+BE;en;Belgium;Belgium
+SI;en;Slovenia;Slovenia
+NL;en;Netherlands;Netherlands
+MX;en;Mexico;Mexico
+BR;en;Brazil;Brazil
+CU;en;Cuba;Cuba
+ZW;en;Zimbabwe;Zimbabwe
+MY;en;Malaysia;Malaysia
+TH;en;Thailand;Thailand

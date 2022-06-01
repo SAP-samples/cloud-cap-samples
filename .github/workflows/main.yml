@@ -1,0 +1,46 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: 4_Main Versioning
+
+on:
+  push:
+    branches: ['main']
+    tags-ignore:
+      - 'v*'
+
+env:
+  PACKAGE_GITHUB_REGISTRY_TOKEN: ${{ secrets.PAT }}
+
+jobs:
+  versioning:
+    if: "!contains(github.event.head_commit.author.name, 'GitHub Actions Version Bot')"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ssh-key: '${{ secrets.COMMIT_KEY }}'
+          fetch-depth: 100
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Branch name as environment Variable
+        run: echo "BRANCH=${GITHUB_REF##*/}"  >> $GITHUB_ENV
+
+      - name: Configure committer
+        run: |
+          git config user.name "GitHub Actions Version Bot"
+          git config user.email "<>"
+
+      - name: Install Standard Version
+        run: |
+          npx standard-version
+
+      - name: Push tags
+        run: |
+          git push
+          git push --tags

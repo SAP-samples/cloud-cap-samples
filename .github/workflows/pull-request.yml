@@ -1,0 +1,179 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: 3_Pull Request Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  PACKAGE_GITHUB_REGISTRY_TOKEN: ${{ secrets.PAT }}
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Declare commit hash variable
+        id: vars
+        shell: bash
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
+      - name: Set branch name as environment Variable
+        run: echo "BRANCH=${GITHUB_REF##*/}"  >> $GITHUB_ENV
+
+      - name: Install everything
+        run: |
+          npm ci
+
+      - name: Install k6
+        run: |
+          curl https://github.com/loadimpact/k6/releases/download/v0.26.2/k6-v0.26.2-linux64.tar.gz -L | tar xvz --strip-components 1
+
+      - name: Start server and run k6 load test against db2
+        env:
+          LOAD_TEST_USER: bewilligungsstelle@quadrio-dev-foerderlotse.de
+          LOAD_TEST_PASSWORD: ''
+          LOAD_TEST_URL: http://localhost:4004
+        run: |
+          npm run loadtest:with-server
+
+      # - name: Dynamic Application Security Scan
+      #   uses: zaproxy/action-full-scan@v0.3.0
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     docker_name: 'owasp/zap2docker-stable'
+      #     target: 'https://sc-schwielochsee.de/'
+      # cmd_options: '-a -J gl-dast-report.json'
+
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: reports
+          path: |
+            load-performance.json
+            load-test-result.html
+
+  npm-audit-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - uses: oke-py/npm-audit-action@v2
+        with:
+          audit_level: moderate
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          production_flag: true
+          create_issues: false
+          create_pr_comments: true
+          dedupe_issues: true
+
+  vulnerability-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Run Trivy vulnerability scanner in IaC mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'config'
+          hide-progress: false
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          scan-ref: 'Dockerfile'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          hide-progress: false
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH'
+          skip-dirs: '/node_modules,/app/node_modules,/appt/test/node_modules'
+
+  license-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Check licenses
+        run: |
+          npx github:rahxam/license-checker --production --json --excludePrivatePackages --omitVersion --excludePackages='
+          ;@sap/approuter;@sap/e2e-trace;big-integer;buffers;@sap/audit-logging;@sap/logging;@sap/xsenv;@sap/xssec;tweetnacl;@sap/eslint-plugin-cds;
+          ' --onlyAllow='MIT;ISC;Python-2.0;Apache-2.0;BSD;Artistic-2.0;new BSD;Simplified BSD;CC-BY-4.0;CC0-1.0;CC-BY-3.0;BSD-like;(MIT AND Zlib);MIT/X11;Apache;THE DERIVED BEER-WARE LICENSE;BSD Zero Clause License;Custom: https://tools.hana.ondemand.com/developer-license-3;Custom: https://cap.cloud.sap;Custom: https://www.sap.com/products/hana.html;'
+          cd app
+          npx github:rahxam/license-checker --production --json --excludePrivatePackages --omitVersion --excludePackages='
+          ;@sap/approuter;big-integer;kiss-cloud-navigator-ui;@sap/e2e-trace;@sap/audit-logging;@sap/logging;@sap/xsenv;@sap/xssec;tweetnacl;
+          ' --onlyAllow='MIT;ISC;Python-2.0;Apache-2.0;BSD;Artistic-2.0;new BSD;Simplified BSD;CC-BY-4.0;CC0-1.0;CC-BY-3.0;BSD-like;(MIT AND Zlib);MIT/X11;Apache;THE DERIVED BEER-WARE LICENSE;BSD Zero Clause License;Custom: https://tools.hana.ondemand.com/developer-license-3;Custom: https://cap.cloud.sap;Custom: https://www.sap.com/products/hana.html;'
+
+  secret-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Check for secrets
+        uses: zricethezav/gitleaks-action@master
+
+  sast-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Run Static Application Security Scan
+        id: njsscan
+        uses: ajinabraham/njsscan-action@master
+        with:
+          args: '.'

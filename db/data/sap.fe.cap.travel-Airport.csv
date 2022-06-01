@@ -1,0 +1,48 @@
+AirportID;Name;City;CountryCode_code
+FRA;Frankfurt Airport;Frankfurt/Main;DE
+HAM;Hamburg Airport;Hamburg;DE
+MUC;Munich Airport;Munich;DE
+SXF;Berlin Schönefeld Airport;Berlin;DE
+THF;Berlin Tempelhof Airport;Berlin;DE
+TXL;Berlin Tegel Airport;Berlin;DE
+CDG;Charles de Gaulle Airport;Paris;FR
+ORY;Orly Airport;Paris;FR
+VIE;Vienna International Airport;Vienna;AT
+ZRH;Zürich Airport;Zurich;CH
+RTM;Rotterdam The Hague Airport;Rotterdam;NL
+FCO;Leonardo da Vinci–Fiumicino Airport;Rome;IT
+VCE;Venice Marco Polo Airport;Venice;IT
+LCY;London City Airport;London;GB
+LGW;Gatwick Airport;London;GB
+LHR;Heathrow Airport;London;GB
+MAD;Adolfo Suárez Madrid–Barajas Airport;Madrid;ES
+VKO;Vnukovo International Airport;Moscow;RU
+SVO;Sheremetyevo International Airport;Moscow;RU
+JFK;John F. Kennedy International Airport;New York City, New York;US
+BNA;Nashville International Airport;Nashville, Tennessee;US
+BOS;Logan International Airport;Boston, Massachusetts;US
+ELP;El Paso International Airport;El Paso, Texas;US
+DEN;Denver International Airport;Denver, Colorado;US
+HOU;William P. Hobby Airport;Houston, Texas;US
+LAS;McCarran International Airport;Las Vegas, Nevada;US
+LAX;Los Angeles International Airport;Los Angeles, California;US
+MCI;Kansas City International Airport;Kansas City, Missouri;US
+MIA;Miami International Airport;Miami, Florida;US
+SFO;San Francisco International Airport;San Francisco, California;US
+EWR;Newark Liberty International Airport;Newark, New Jersey;US
+YOW;Ottawa Macdonald–Cartier Int. Airport;Ottawa, Ontario;CA
+ACA;General Juan N. Álvarez Int. Airport;Acapulco, Guerrero;MX
+GIG;Rio de Janeiro–Galeão Int. Airport;Rio de Janeiro;BR
+HAV;José Martí International Airport;Havana;CU
+ASP;Alice Springs Airport;Alice Springs, Northern Territory;AU
+ACE;Lanzarote Airport;Lanzarote, Canary Islands;ES
+HRE;Harare International Airport;Harare;ZW
+GCJ;Grand Central Airport;Johannesburg;ZA
+NRT;Narita International Airport;Tokyo, Honshu;JP
+ITM;Osaka International Airport;Osaka, Honshu;JP
+KIX;Kansai International Airport;Osaka, Honshu;JP
+HIJ;Hiroshima Airport;Hiroshima, Honshu;JP
+SIN;Singapore Changi Airport;Singapore;SG
+KUL;Kuala Lumpur International Airport;Kuala Lumpur;MY
+HKG;Hong Kong International Airport;Hongkong;CN
+BKK;Suvarnabhumi Airport;Bangkok;TH

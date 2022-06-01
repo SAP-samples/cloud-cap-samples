@@ -5,8 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "bookshop",
-      "command": "npx cds watch bookshop",
+      "name": "cds watch",
+      "command": "npx cds watch",
+      "env": {
+        "DEBUG": "sqlite"
+      },
       "type": "node-terminal",
       "request": "launch",
       "skipFiles": [
@@ -16,28 +19,6 @@
         "**/cds/lib/req/cls.js",
         "**/odata-v4/okra/**"
       ]
-    },
-    {
-      "name": "Fiori App",
-      "command": "npx cds watch fiori",
-      "type": "node-terminal",
-      "request": "launch",
-      "skipFiles": [
-        "<node_internals>/**",
-        "**/node_modules/**",
-        "**/cds/lib/lazy.js",
-        "**/cds/lib/req/cls.js",
-        "**/odata-v4/okra/**"
-      ]
-    }
-  ],
-  "inputs": [
-    {
-      "type": "pickString",
-      "id": "sample",
-      "description": "Which sample do you want to start?",
-      "options": [ "bookshop", "fiori", "reviews", "reviews" ],
-      "default": "bookshop"
     }
   ]
 }

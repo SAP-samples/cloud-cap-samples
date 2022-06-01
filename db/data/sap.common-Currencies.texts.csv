@@ -1,0 +1,40 @@
+code;locale;name;descr
+EUR;de;Euro;European Euro
+USD;de;US-Dollar;United States Dollar
+CAD;de;Kanadischer Dollar;Kanadischer Dollar
+AUD;de;Australischer Dollar;Australischer Dollar
+GBP;de;Pfund;Britische Pfund
+ILS;de;Schekel;Israelische Schekel
+INR;de;Rupie;Indische Rupie
+QAR;de;RiYal;Riyal (Katar)
+SAR;de;RiYal;Riyal (Saudi Arabien)
+JPY;de;Yen;Japanische Yen
+CNY;de;Renminbi Yuan;Chinesische Renminbi Yuan
+SGD;de;Singapurischer Dollar;Singapurischer Dollar
+ZAR;de;Rand;Südafrikanische Rand
+EUR;fr;euro;de la Zone euro
+USD;fr;dollar;dollar des États-Unis
+CAD;fr;dollar canadien;dollar canadien
+AUD;fr;dollar australien;dollar australien
+GBP;fr;livre sterling;pound sterling
+ILS;fr;Shekel;shekel israelien
+INR;fr;Roupie;Roupie
+QAR;fr;Rial;Rial
+SAR;fr;Riyal;Riyal
+JPY;fr;Yen;Yen
+CNY;fr;yuan renminbi;yuan renminbi
+SGD;fr;Singapour Dollar;Singapour Dollar
+ZAR;fr;Rand;Rand
+EUR;en;euro;euro
+USD;en;dollar;US dollar
+CAD;en;canadien dollar;canadien dollar
+AUD;en;australien dollar;australien dollar
+GBP;en;pound sterling;pound sterling
+ILS;en;Shekel;shekel
+INR;en;Rupie;indian rupie
+QAR;en;Riyal;qatar riyal
+SAR;en;Riyal;saudi arabian Riyal
+JPY;en;Yen;japanese yen
+CNY;en;Yuan;chinese yuan
+SGD;en;Singapore dollar;Singapore dollar
+ZAR;en;Rand;south african rand

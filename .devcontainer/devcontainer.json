@@ -1,0 +1,121 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.202.5/containers/javascript-node
+{
+  "name": "Node.js",
+  "runArgs": ["--init"],
+  "build": {
+    "dockerfile": "Dockerfile",
+    // Update 'VARIANT' to pick a Node version: 16, 14, 12.
+    // Append -bullseye or -buster to pin to an OS version.
+    // Use -bullseye variants on local arm64/Apple Silicon.
+    "args": { "VARIANT": "16" }
+  },
+
+  // Set *default* container specific settings.json values on container create.
+  "settings": {
+    "files.exclude": {
+      ".reuse/**": true,
+      "LICENSES/**": true
+    },
+    "debug.javascript.terminalOptions": {
+      "skipFiles": [
+        "<node_internals>/**",
+        "**/cds/lib/lazy.js",
+        "**/cds/lib/req/cls.js",
+        "**/odata-v4/okra/**"
+      ]
+    },
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay",
+    "standard.autoFixOnSave": true,
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "numso.prettier-standard-vscode",
+    "[xml]": {
+      "editor.defaultFormatter": "DotJoshJohnson.xml"
+    },
+    "gitlens.defaultDateFormat": "DD.MM.YYYY HH:mm",
+    "gitlens.defaultDateShortFormat": "DD.MM.YYYY",
+    "gitlens.defaultTimeFormat": "HH:mm",
+    "gitlens.currentLine.enabled": false,
+    "git.autofetch": true,
+    "sqltools.useNodeRuntime": true,
+    "standard.enableGlobally": true,
+    "debug.javascript.autoAttachSmartPattern": [
+      "${workspaceFolder}/**",
+      "**/$KNOWN_TOOLS$/**"
+    ],
+    "sqltools.connections": [
+      {
+        "previewLimit": 50,
+        "driver": "SQLite",
+        "name": "Local SQLite",
+        "database": "sqlite.db"
+      }
+    ],
+    "[cds]": {
+      "editor.defaultFormatter": "SAPSE.vscode-cds"
+    }
+  },
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "IronGeek.vscode-env",
+    "github.vscode-pull-request-github",
+    "cschleiden.vscode-github-actions",
+    "eamodio.gitlens",
+    "davidanson.vscode-markdownlint",
+    "eg2.vscode-npm-script",
+    "christian-kohler.npm-intellisense",
+    "esbenp.prettier-vscode",
+    "numso.prettier-standard-vscode",
+    "mechatroner.rainbow-csv",
+    "humao.rest-client",
+    "sapse.vscode-cds",
+    // "sapse.sap-ux-annotation-modeler-extension",
+    "alexcvzz.vscode-sqlite",
+    "standard.vscode-standard",
+    "dotjoshjohnson.xml",
+    "SAPOS.yeoman-ui",
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-sqlite",
+    "jgclark.vscode-todo-highlight",
+    "naumovs.color-highlight",
+    "redhat.vscode-yaml",
+    "streetsidesoftware.code-spell-checker",
+    "formulahendry.auto-rename-tag",
+    "ChakrounAnas.turbo-console-log",
+    "chrmarti.regex",
+    "ionutvmi.path-autocomplete",
+    "volkerdobler.insertnums",
+    "meganrogge.template-string-converter",
+		"hbenl.vscode-mocha-test-adapter",
+		"sdras.night-owl",
+		"vsls-contrib.codetour"
+  ],
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [4004, 4005, 5000, 8080],
+
+  "portsAttributes": {
+    "4004": {
+      "label": "CAP",
+      "onAutoForward": "notify"
+    },
+    "4444": {
+      "label": "Registry",
+      "onAutoForward": "notify"
+    }
+  },
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "bash ./.devcontainer/postCreateCommand.sh",
+
+  // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "node",
+  "features": {
+    // "git": "os-provided",
+    // "github-cli": "latest",
+    // "python": "3.10",
+    // "java": "lts"
+  }
+}

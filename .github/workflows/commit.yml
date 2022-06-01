@@ -1,0 +1,85 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: 1_Commit Tests
+
+on:
+  push:
+    branches-ignore: ['main']
+
+env:
+  PACKAGE_GITHUB_REGISTRY_TOKEN: ${{ secrets.PAT }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Branch name as environment Variable
+        run: echo "BRANCH=${GITHUB_REF##*/}"  >> $GITHUB_ENV
+
+      - name: npm ci
+        run: |
+          npm ci
+
+      - name: lint
+        run: npm run lint
+
+      - name: backend tests
+        run: npm run test
+
+      - uses: 5monkeys/cobertura-action@master
+        name: Get srv test coverage
+        with:
+          path: coverage/cobertura-coverage.xml
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          minimum_coverage: 80
+
+      - name: Publish Test Report srv
+        uses: mikepenz/action-junit-report@v2
+        if: always() # always run even if the previous step fails
+        with:
+          report_paths: 'test-results.xml'
+
+      - name: Setup latest chrome version
+        run: |
+          sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo bash -c "echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' >> /etc/apt/sources.list.d/google-chrome.list"
+          sudo apt-get update -y
+          sudo apt-get -y install google-chrome-stable
+          google-chrome --version
+
+      - name: UI tests
+        run: |
+          cd app/test
+          npm run test-ui
+
+      - name: Publish Test Report UI
+        uses: mikepenz/action-junit-report@v2
+        if: always() # always run even if the previous step fails
+        with:
+          report_paths: 'app/test/reports/junit/*.xml'
+
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: reports
+          path: |
+            reports/
+            test-results.xml
+            coverage/cobertura-coverage.xml
+            app/coverage/cobertura-coverage.xml
+            app/coverage/lcov-report/
+            app/test/reports/
+            app/test/screenshots/
+            app/test/allure-report/

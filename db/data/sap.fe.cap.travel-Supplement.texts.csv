@@ -1,0 +1,169 @@
+SupplementID;locale;Description
+BV-0001;de;Heiße Schokolade
+BV-0002;de;Alkoholfreier Champagner
+BV-0003;de;Cola
+BV-0004;de;Orangenlimonade
+BV-0005;de;Apfelsaft
+BV-0006;de;Birnensaft
+BV-0007;de;Mango-Saft
+BV-0008;de;Zitronenlimonade
+BV-0009;de;Tomatensaft
+ML-0001;de;Schwarzwälder Kirschtorte
+ML-0002;de;Schokoladenkuchen
+ML-0003;de;Apfelkuchen
+ML-0004;de;Birnenkuchen
+ML-0005;de;Schöner Salat
+ML-0006;de;Pariser Salat
+ML-0007;de;Hamburger Salat mit Eiern
+ML-0008;de;Wachtel mit französischem Salat und Schwarzwälder Kirschtorte
+ML-0009;de;Ente auf Salat
+ML-0010;de;Carpaccio
+ML-0011;de;Saisonaler Salat
+ML-0012;de;Hamburger Salat mit frischen Shrimps
+ML-0013;de;Wachtel
+ML-0014;de;Wiener Schnitzel
+ML-0015;de;Schweineschnitzel
+ML-0016;de;Schnitzel mit Pfeffersoße
+ML-0017;de;Hähnchen und Pommes frites
+ML-0018;de;Putenschnitzel
+ML-0019;de;Bayerische Ente
+ML-0020;de;Schweinshaxe
+ML-0021;de;Rinderfilet
+ML-0022;de;Forelle Au Bleu
+ML-0023;de;Forelle Meuniere
+ML-0024;de;Seeteufel
+ML-0025;de;Seezunge
+ML-0026;de;Mini gebratene Seezunge
+ML-0027;de;Lachs in Sauce Béarnaise
+ML-0028;de;Lachs-Lasagne
+ML-0029;de;Schokoladeneis
+ML-0030;de;Vanilleeis
+ML-0031;de;Vanilleeis mit heißen Kirschen
+ML-0032;de;Vanilleeis mit heißen Himbeeren
+ML-0033;de;Apfelstrudel
+ML-0034;de;Himbeersorbet
+ML-0035;de;Erdbeer-Sorbet
+ML-0036;de;Zitronen-Sorbet
+LU-0001;de;Extra-Gepäck 5 kg
+LU-0002;de;Gepäcktransport vom Flughafen zum Hotel
+LU-0003;de;Gepäcktransport von zu Hause und zurück
+LU-0004;de;Sperrige Güter wie Sportgeräte
+BV-0010;de;Spaßbrühe
+LU-0005;de;Kleine Handtasche
+EX-0001;de;Besondere Wünsche
+EX-0003;de;Flugzeugmodell
+EX-0004;de;Beisring
+LU-0006;de;Alufolie
+LU-0007;de;Behälter
+BV-0001;en;Hot Chocolate
+BV-0002;en;Non-alcoholic champagne
+BV-0003;en;Cola
+BV-0004;en;Orange Lemonade
+BV-0005;en;Apple Juice
+BV-0006;en;Pear Juice
+BV-0007;en;Mango Juice
+BV-0008;en;Lemon Lilmonade
+BV-0009;en;Tomato Juice
+ML-0001;en;Black Forest Cherry Torte
+ML-0002;en;Chocolate Cake
+ML-0003;en;Apple Pie
+ML-0004;en;Pear Cake
+ML-0005;en;Beautiful salad
+ML-0006;en;Parisian salad
+ML-0007;en;Hamburg salad with eggs
+ML-0008;en;Guard with French salad and black forests cherry peat
+ML-0009;en;Duke with salad
+ML-0010;en;Carpaccio
+ML-0011;en;Seasonal salad
+ML-0012;en;Hamburg salad with fresh shrimps
+ML-0013;en;Guard
+ML-0014;en;Wiener Schnitzel
+ML-0015;en;Pork schnitzel
+ML-0016;en;Sweet schnitzel with pepper sauce
+ML-0017;en;Chicken and French fries
+ML-0018;en;Turkey schnitzel
+ML-0019;en;Bavarian duck
+ML-0020;en;Pork Hood
+ML-0021;en;Fillet of beef
+ML-0022;en;Trout Au Bleu
+ML-0023;en;Trout Meuniere
+ML-0024;en;Far Fur
+ML-0025;en;Sole
+ML-0026;en;Mini fried sole
+ML-0027;en;Salmon in Béarnaise sauce
+ML-0028;en;Salmon lasagna
+ML-0029;en;Chocolate Ice Cream
+ML-0030;en;Vanilla Ice Cream
+ML-0031;en;Vanilla rice with hot cherries
+ML-0032;en;Vanilla rice with hot raspberries
+ML-0033;en;Apple strudel
+ML-0034;en;Raspberry Sorbet
+ML-0035;en;Strawberry Sorbet
+ML-0036;en;Lemon Sorbet
+LU-0001;en;Extra luggage 5 kg
+LU-0002;en;Baggage transport from the airport to the hotel
+LU-0003;en;Baggage transport from home and back
+LU-0004;en;Blocked goods such as sports appliances
+BV-0010;en;Fun Broth
+LU-0005;en;Small purse
+EX-0001;en;Special Requirements
+EX-0003;en;Arrival Time
+EX-0004;en;Beisring
+LU-0006;en;Alu Foil
+LU-0007;en;Container
+BV-0001;fr;Chocolat chaud
+BV-0002;fr;Champagne sans alcool
+BV-0003;fr;Cola
+BV-0004;fr;Orangenlimonade
+BV-0005;fr;Jus de pomme
+BV-0006;fr;Jus de poire
+BV-0007;fr;Jus de Mangog
+BV-0008;fr;citron limonade
+BV-0009;fr;Jus de tomate
+ML-0001;fr;Église noire
+ML-0002;fr;Cuisine de chocolat
+ML-0003;fr;Cannes à pommes
+ML-0004;fr;Bouchon de poison
+ML-0005;fr;Belle salade
+ML-0006;fr;Salat de Paris
+ML-0007;fr;Salat de Hambourg avec des œufs
+ML-0008;fr;Corps avec sel français et tiroir noir
+ML-0009;fr;Entre sur sel
+ML-0010;fr;Carlocio
+ML-0011;fr;Salat saisonnier
+ML-0012;fr;Salat de Hambourg avec des shrimps frais
+ML-0013;fr;Caisse à claire-voie
+ML-0014;fr;Wiener Schnitzel
+ML-0015;fr;Indice de porc
+ML-0016;fr;Coupe avec poignée
+ML-0017;fr;Hâteaux et pommes frites
+ML-0018;fr;Section de puce
+ML-0019;fr;Ent. Bavière
+ML-0020;fr;Tiroirs de porc
+ML-0021;fr;Filet bovin
+ML-0022;fr;Trout Au Bleu
+ML-0023;fr;Trout Meuniere
+ML-0024;fr;Ampoule de mer
+ML-0025;fr;Sole
+ML-0026;fr;Mini fried sole
+ML-0027;fr;saumon en sauce Béarnaise
+ML-0028;fr;Lasz du saumon
+ML-0029;fr;Crise du chocolat
+ML-0030;fr;Vanilie
+ML-0031;fr;Vanillez avec cerises
+ML-0032;fr;Vanillez avec des framboises baptisées
+ML-0033;fr;Structure de pommes
+ML-0034;fr;Trait de framboise
+ML-0035;fr;Sorbet de Fraise
+ML-0036;fr;Sorbet de Citron
+LU-0001;fr;Bagage supplémentaire 5 kg
+LU-0002;fr;Transport de bagages de l'aéroport à l'hôtel
+LU-0003;fr;Transport de bagages d'un domicile à l'autre et retour
+LU-0004;fr;Marchandises volumineuses telles que les appareils sportifs
+BV-0010;fr;Équipement de spectacle
+LU-0005;fr;Petite sac à main
+EX-0001;fr;Vos souhaits particuliers
+EX-0003;fr;Heure d'arrivée
+EX-0004;fr;Beisring
+LU-0006;fr;Feuille d'aluminium
+LU-0007;fr;Conteneur

@@ -1,0 +1,50 @@
+SupplementID;Price;Type_code;Description;CurrencyCode_code
+BV-0001;2.30;BV;Hot Chocolate;EUR
+BV-0002;7.50;BV;Alcohol free Champagne;EUR
+BV-0003;3.50;BV;Coke;EUR
+BV-0004;3.50;BV;Orange Lemonade;EUR
+BV-0005;3.50;BV;Apple Juice;EUR
+BV-0006;3.50;BV;Pear Juice;EUR
+BV-0007;3.50;BV;Mango Juice;EUR
+BV-0008;3.50;BV;Lemon Lemonade;EUR
+BV-0009;4.50;BV;Tomato Juice;EUR
+ML-0001;3.00;ML;Black Forest Cake;EUR
+ML-0002;2.00;ML;Chocolate Cake;EUR
+ML-0003;1.50;ML;Apple Pie;EUR
+ML-0004;1.50;ML;Pear Pie;EUR
+ML-0005;8.00;ML;Nice Salad;EUR
+ML-0006;9.00;ML;Paris Salad;EUR
+ML-0007;12.00;ML;Hamburg Salad with Eggs;EUR
+ML-0008;25.00;ML;Quail with French Salad and Black Forest Cake;EUR
+ML-0009;13.00;ML;Duck on Lettuce;EUR
+ML-0010;5.00;ML;Carpaccio;EUR
+ML-0011;7.00;ML;Seasonal Salad;EUR
+ML-0012;16.00;ML;Hamburg Salad with Fresh Shrimps;EUR
+ML-0013;17.00;ML;Quail;EUR
+ML-0014;14.00;ML;Wiener Schnitzel;EUR
+ML-0015;13.00;ML;Pork Schnitzel;EUR
+ML-0016;14.00;ML;Schnitzel with Pepper Sauce;EUR
+ML-0017;11.00;ML;Chicken and French Fries;EUR
+ML-0018;12.00;ML;Turkey Steak;EUR
+ML-0019;15.00;ML;Bavarian Duck;EUR
+ML-0020;14.00;ML;Knuckle of Pork;EUR
+ML-0021;22.00;ML;Fillet of Beef;EUR
+ML-0022;21.00;ML;Trout Au Bleu;EUR
+ML-0023;20.00;ML;Trout Meuniere;EUR
+ML-0024;17.00;ML;Monkfish;EUR
+ML-0025;12.00;ML;Sole;EUR
+ML-0026;6.00;ML;Mini Fried Sole;EUR
+ML-0027;14.00;ML;Salmon in a Bearnaise Sauce;EUR
+ML-0028;15.00;ML;Salmon Lasagne;EUR
+ML-0029;3.00;ML;Chocolate Ice Cream;EUR
+ML-0030;2.50;ML;Vanilla Ice Cream;EUR
+ML-0031;4.50;ML;Vanilla Ice Cream with Hot Cherries;EUR
+ML-0032;4.50;ML;Vanilla Ice Cream with Hot Raspberries;EUR
+ML-0033;4.00;ML;Apple Strudel;EUR
+ML-0034;4.00;ML;Raspberry Sorbet;EUR
+ML-0035;4.00;ML;Strawberry Sorbet;EUR
+ML-0036;4.00;ML;Lemon Sorbet;EUR
+LU-0001;40.00;LU;Extra baggage 5 kgs;EUR
+LU-0002;15.00;LU;Luggage transfer from airport to hotel;EUR
+LU-0003;75.00;LU;Luggage pickup from home and return;EUR
+LU-0004;80.00;LU;Bulky goods like sports equipment;EUR

@@ -1,52 +1,144 @@
 {
-  "name": "@capire/samples",
-  "version": "2.0.0",
-  "description": "A monorepo with several samples for CAP.",
-  "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
-  "author": "daniel.hutzel@sap.com",
-  "dependencies": {
-    "@capire/bookstore": "./bookstore",
-    "@capire/bookshop": "./bookshop",
-    "@capire/common": "./common",
-    "@capire/data-viewer": "./data-viewer",
-    "@capire/fiori": "./fiori",
-    "@capire/hello": "./hello",
-    "@capire/media": "./media",
-    "@capire/orders": "./orders",
-    "@capire/reviews": "./reviews",
-    "@sap/cds": ">=5.5.3"
-  },
-  "devDependencies": {
-    "chai": "^4.3.4",
-    "chai-as-promised": "^7.1.1",
-    "chai-subset": "^1.6.0",
-    "semver": "^7",
-    "sqlite3": "^5"
+  "name": "@quadrio/db2-cap-samples",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DB2 Version CAP flight demo scenario",
+  "license": "SAP SAMPLE CODE LICENSE",
+  "repository": "https://github.com/QuadriO/db2-cap-samples",
+  "engines": {
+    "node": ">=16"
   },
   "scripts": {
-    "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",
-    "registry": "node .registry/server.js",
-    "bookshop": "cds watch bookshop",
-    "fiori": "cds watch fiori",
-    "hello": "cds watch hello",
-    "media": "cds watch media",
-    "mocha": "npx mocha || echo",
-    "jest": "npx jest",
-    "start": "cds watch fiori",
-    "test": "npm run jest -- --silent",
-    "test:hello": "cd hello && npm test"
+    "commit": "git-cz",
+    "release": "standard-version",
+    "ansible": "ansible-playbook ansible/ec2-creation.yml",
+    "ansible:create": "ansible-playbook -t ec2-create ansible/ec2-creation.yml",
+    "lint": "npx eslint .",
+    "start": "cds run",
+    "watch": "cds watch",
+    "test": "jest",
+    "test:mocha": "npx mocha --timeout 20000",
+    "deploy:db2": "NODE_ENV=production npx @quadrio/cds-dbm deploy",
+    "start-container": "node copy-env.js && npm run deploy:db2 && npm run start"
+  },
+  "dependencies": {
+    "@quadrio/cds-db2": "^0.0.27",
+    "@quadrio/cds-dbm": "^0.0.41",
+    "@sap/cds": ">=5.4.5",
+    "@sap/xssec": "^3.2.7",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "express": "^4",
+    "express-session": "^1.17.3",
+    "hdb": "^0.19.1",
+    "helmet": "^5.1.0",
+    "luxon": "^2.4.0",
+    "passport": "^0.5.3",
+    "passport-http": "^0.3.0",
+    "passport-ldapauth": "^3.0.1",
+    "passport-openidconnect": "^0.1.1",
+    "rate-limiter-flexible": "^2.3.7"
+  },
+  "devDependencies": {
+    "@sap/ux-specification": "^1.96.0",
+    "chai": "^4.3.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-subset": "^1.6.0",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
+    "jest": "^27.1.0",
+    "prettier": "^2.6.2",
+    "prettier-config-standard": "^5.0.0",
+    "qunit": "^2.9.3",
+    "sqlite3": "^5",
+    "standard-version": "^9.3.2"
+  },
+  "standard": {
+    "ignore": [
+      "**/load/*.js",
+      "**/static/**/*.js",
+      "**/dist/**/*.js"
+    ],
+    "globals": [
+      "SELECT",
+      "INSERT",
+      "UPDATE",
+      "DELETE",
+      "CREATE",
+      "DROP",
+      "cds",
+      "browser",
+      "$",
+      "sap",
+      "it",
+      "expect",
+      "describe"
+    ]
+  },
+  "cds": {
+    "migrations": {
+      "db": {
+        "deploy": {
+          "tmpFile": "tmp/_autodeploy.json",
+          "undeployFile": "db/undeploy.json"
+        }
+      }
+    },
+    "requires": {
+      "db2": {
+        "dialect": "plain",
+        "impl": "@quadrio/cds-db2",
+        "model": [
+          "srv"
+        ]
+      },
+      "db": {
+        "kind": "sql"
+      },
+      "[production]": {
+        "db": {
+          "kind": "db2"
+        },
+        "auth": {
+          "impl": "srv/auth.js"
+        }
+      },
+      "[development]": {
+        "auth": {
+          "kind": "dummy-auth",
+          "users": {
+            "rose": {
+              "password": "rose",
+              "roles": []
+            },
+            "martha": {
+              "password": "martha",
+              "roles": [
+                "reviewer"
+              ]
+            },
+            "amy": {
+              "password": "amy",
+              "roles": [
+                "processor"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "log": {
+      "service": true
+    },
+    "features": {
+      "preserve_computed": true
+    }
   },
   "jest": {
     "testEnvironment": "node",
-    "testTimeout": 20000,
-    "testMatch": [
-      "**/*.test.js"
-    ]
+    "testTimeout": 20000
   },
-  "mocha": {
-    "recursive": true,
-    "parallel": true
-  },
-  "license": "SAP SAMPLE CODE LICENSE",
-  "private": true
+  "sapux": [
+    "app/travel_processor"
+  ]
 }

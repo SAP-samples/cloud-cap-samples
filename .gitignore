@@ -1,19 +1,43 @@
-.gen/
-_out/
-dist/
-edmx/
+# CAP sflight
+_out
+*.db
+connection.properties
+default-*.json
+schema.sql
 gen/
-mta_archives/
 node_modules/
 target/
+.reloadtrigger
 
-.DS_Store
-*.log
+# Web IDE, App Studio
+.che/
+.gen/
+
+# MTA
+*_mta_build_tmp
 *.mtar
-connection.properties
-default-env.json
-packages/messageBox
-reviews/msg-box
-reviews/db/test.db
+mta_archives/
+/Makefile_*.mta
 
-*.openapi3.json
+# Other
+.DS_Store
+.npmrc
+*.orig
+*.log
+
+*.flattened-pom.xml
+
+srv/src/main/resources/edmx/**
+dist/
+/app/resources/
+/app/router/package-lock.json
+
+
+# IDEs
+.idea
+*.iml
+.project
+.settings
+.classpath
+# .vscode/*
+# IMPORTANT: Do not exclude .vscode please!

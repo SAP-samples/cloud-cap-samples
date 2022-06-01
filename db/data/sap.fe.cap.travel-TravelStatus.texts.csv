@@ -1,0 +1,13 @@
+code;locale;name
+O;en;Open
+A;en;Accepted
+X;en;Canceled
+O;de;Offen
+A;de;Genehmigt
+X;de;Abgelehnt
+O;fr;Ouverte
+A;fr;Acceptée
+X;fr;Rejetée
+O;it;Apri
+A;it;Accettata
+X;it;Rifiutata

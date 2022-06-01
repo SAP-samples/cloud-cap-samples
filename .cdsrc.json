@@ -1,0 +1,6 @@
+{
+	"sql": {
+		"dialect": "plain"
+	},
+	"secret": "secret"
+}
