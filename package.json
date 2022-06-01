@@ -1,6 +1,6 @@
 {
   "name": "@quadrio/db2-cap-samples",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "private": true,
   "description": "DB2 Version CAP flight demo scenario",
   "license": "SAP SAMPLE CODE LICENSE",
