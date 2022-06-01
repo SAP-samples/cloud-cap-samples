@@ -409,3 +409,9 @@
           --tos-uri https://quadrio.de/impressum \
           --policy-uri https://quadrio.de/datenschutz \
           --logo-uri https://quadrio.de/wp-content/uploads/2019/06/Quadrio_Logo_CMYK_lang-min.png
+
+
+
+    - name: Create OIDC client configuration
+      ansible.builtin.command: |
+        /opt/scripts/redeployment.sh latest

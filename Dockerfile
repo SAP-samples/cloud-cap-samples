@@ -58,7 +58,6 @@ RUN useradd -d /db2-cap-samples -m -s /bin/bash samples
 COPY . .
 
 RUN chown -R samples /db2-cap-samples
-RUN chown -R samples "/tmp/.npm"
 
 USER samples
 
