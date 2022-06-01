@@ -207,21 +207,21 @@
         group: ubuntu
         mode: 0777
 
-    - name: Copy auth file
-      copy:
-        src: ../.aws/auth.json
-        dest: /home/ubuntu/auth.json
-        owner: ubuntu
-        group: ubuntu
-        mode: 0777
+    # - name: Copy auth file
+    #   copy:
+    #     src: ../.aws/auth.json
+    #     dest: /home/ubuntu/auth.json
+    #     owner: ubuntu
+    #     group: ubuntu
+    #     mode: 0777
 
-    - name: Copy webhook service configuration
-      copy:
-        src: ../.aws/webhook.service
-        dest: /etc/systemd/system/webhook.service
-        owner: ubuntu
-        group: ubuntu
-        mode: 0755
+    # - name: Copy webhook service configuration
+    #   copy:
+    #     src: ../.aws/webhook.service
+    #     dest: /etc/systemd/system/webhook.service
+    #     owner: ubuntu
+    #     group: ubuntu
+    #     mode: 0755
 
     # - name: Copy podman-restart service configuration
     #   copy:
@@ -247,25 +247,25 @@
     #     group: ubuntu
     #     mode: 0755
 
-    # - name: Copy .cdsrc.json configuration file
-    #   copy:
-    #     src: ../.aws/.cdsrc.json
-    #     dest: /home/ubuntu/tmp/.cdsrc.json
-    #     owner: ubuntu
-    #     group: ubuntu
-    #     mode: 0755
+    - name: Copy .cdsrc.json configuration file
+      copy:
+        src: ../.aws/.cdsrc.json
+        dest: /home/ubuntu/tmp/.cdsrc.json
+        owner: ubuntu
+        group: ubuntu
+        mode: 0755
 
-    # - name: Replace localhost with domain in .cdsrc.json
-    #   ansible.builtin.replace:
-    #     path: /home/ubuntu/tmp/.cdsrc.json
-    #     regexp: 'localhost'
-    #     replace: '{{ domain }}'
-
-    - name: Replace pat_token with pat_token in auth.json
+    - name: Replace localhost with domain in .cdsrc.json
       ansible.builtin.replace:
-        path: /home/ubuntu/auth.json
-        regexp: 'pat_token'
-        replace: '{{ pat_token }}'
+        path: /home/ubuntu/tmp/.cdsrc.json
+        regexp: 'localhost'
+        replace: '{{ domain }}'
+
+    # - name: Replace pat_token with pat_token in auth.json
+    #   ansible.builtin.replace:
+    #     path: /home/ubuntu/auth.json
+    #     regexp: 'pat_token'
+    #     replace: '{{ pat_token }}'
 
     # - name: Replace domain in hydra.yml
     #   ansible.builtin.replace:
@@ -279,23 +279,23 @@
     #     regexp: 'youReallyNeedToChangeThis'
     #     replace: '{{ hydra_secret }}'
 
-    # - name: Replace SecretPassword with db2_password in .cdsrc.json
-    #   ansible.builtin.replace:
-    #     path: /home/ubuntu/tmp/.cdsrc.json
-    #     regexp: 'SecretPassword'
-    #     replace: '{{ db2_password }}'
+    - name: Replace SecretPassword with db2_password in .cdsrc.json
+      ansible.builtin.replace:
+        path: /home/ubuntu/tmp/.cdsrc.json
+        regexp: 'SecretPassword'
+        replace: '{{ db2_password }}'
 
-    # - name: Replace oidcsecret with oidc_secret in .cdsrc.json
-    #   ansible.builtin.replace:
-    #     path: /home/ubuntu/tmp/.cdsrc.json
-    #     regexp: 'oidcsecret'
-    #     replace: '{{ oidc_secret }}'
+    - name: Replace oidcsecret with oidc_secret in .cdsrc.json
+      ansible.builtin.replace:
+        path: /home/ubuntu/tmp/.cdsrc.json
+        regexp: 'oidcsecret'
+        replace: '{{ oidc_secret }}'
 
-    # - name: Replace ldapsecret with ldap_secret in .cdsrc.json
-    #   ansible.builtin.replace:
-    #     path: /home/ubuntu/tmp/.cdsrc.json
-    #     regexp: 'ldapsecret'
-    #     replace: '{{ ldap_secret }}'
+    - name: Replace ldapsecret with ldap_secret in .cdsrc.json
+      ansible.builtin.replace:
+        path: /home/ubuntu/tmp/.cdsrc.json
+        regexp: 'ldapsecret'
+        replace: '{{ ldap_secret }}'
 
     # - name: Copy db2 configuration file
     #   copy:
@@ -337,12 +337,12 @@
     #   command: loginctl enable-linger ubuntu
     #   when: not linger.stat.exists
 
-    - name: Enable service webhook
-      ansible.builtin.systemd:
-        name: webhook
-        state: started
-        daemon_reload: yes
-        enabled: yes
+    # - name: Enable service webhook
+    #   ansible.builtin.systemd:
+    #     name: webhook
+    #     state: started
+    #     daemon_reload: yes
+    #     enabled: yes
 
     # - name: Enable service podman-restart
     #   ansible.builtin.systemd:

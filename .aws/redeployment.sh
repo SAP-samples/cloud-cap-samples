@@ -21,7 +21,7 @@ redeploy_container()
   podman rm CAP-SAMPLES
 
   echo "Start containter CAP-SAMPLES"
-  podman run -d -p 8080:4004 --restart=on-failure:10 --name=CAP-SAMPLES \
+  podman run -d -p 4004:4004 --restart=on-failure:10 --name=CAP-SAMPLES \
     --volume /home/ubuntu/tmp/.cdsrc.json:/db2-cap-samples/.cdsrc-private.json \
     ghcr.io/quadrio/db2-cap-samples:$VERSION
 }

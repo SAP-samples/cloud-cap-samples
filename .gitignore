@@ -41,3 +41,4 @@ dist/
 .classpath
 # .vscode/*
 # IMPORTANT: Do not exclude .vscode please!
+.cdsrc-private.json
