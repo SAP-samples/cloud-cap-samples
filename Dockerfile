@@ -45,12 +45,12 @@ RUN echo -e '[epel]\nname=Extra Packages for Enterprise Linux $releasever - $bas
     && microdnf install --nodocs -y --enablerepo=nodesource \
         --enablerepo=centos-8-baseos --enablerepo=centos-8-appstream \
       gcc-c++ make nodejs \
-    && microdnf clean all -y && rm -rf /var/cache/yum \
+    && microdnf clean all -y && rm -rf /var/cache/yum
 
 
 # Run a healtchcheck every 12 seconds, starting 120 seconds after boot
-# HEALTHCHECK --interval=12s --timeout=12s --start-period=120s \
-#  CMD node /db2-cap-samples/.aws/healthcheck.js
+HEALTHCHECK --interval=12s --timeout=12s --start-period=120s \
+ CMD node /db2-cap-samples/.aws/healthcheck.js
 
 # Add runtime user
 RUN useradd -d /db2-cap-samples -m -s /bin/bash samples
