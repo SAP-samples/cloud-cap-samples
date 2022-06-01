@@ -47,7 +47,7 @@ jobs:
       - name: UI tests
         run: |
           cd app/travel_processor
-          npm run test
+#          npm run test
 
       - name: Publish Test Report UI
         uses: mikepenz/action-junit-report@v2
