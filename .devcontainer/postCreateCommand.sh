@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 npm ci
+cd app/travel_processor/
+npm ci
 
 cp .devcontainer/.bash_aliases ~/.bash_aliases
 

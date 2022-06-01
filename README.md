@@ -69,21 +69,19 @@ Allow access to the following ports:
  10. Register a new domain with the hoster of your choice and create the following subdomains. Set for the main and the subdomains an A record with the IP of your server
     - cockpit.db2-cap-samples.de
     - login.db2-cap-samples.de
-    - consume.db2-cap-samples.de
     - auth.db2-cap-samples.de
     - proxy.db2-cap-samples.de
     - webhook.db2-cap-samples.de
 
- 11. Login to [nginx proxy](http://db2-cap-samples.de:81/login) and add new proxy hosts
+ 11. Login to [nginx proxy](http://ec2-52-41-239-91.us-west-2.compute.amazonaws.com:81/login) and add new proxy hosts
     - Initial user: admin@example.com
     - Initial password: changeme
-    - cockpit.db2-cap-samples.de Port: 9090
     - login.db2-cap-samples.de Port: 4443
-    - consume.db2-cap-samples.de Port: 55555
     - auth.db2-cap-samples.de  Port: 4444
-    - proxy.db2-cap-samples.de Port: 81
     - db2-cap-samples.de Port: 4004
     - webhook.db2-cap-samples.de Port: 9000
+    - proxy.db2-cap-samples.de Port: 81
+    - cockpit.db2-cap-samples.de Port: 9090
 
  12. Set a new Github Action secret `DEPLOY_WEBHOOK_URL`: https://webhook.db2-cap-samples/hooks/redeployment?secret=fancySecret
  13. Create a new Github Action secret `PAT` with your Personal Access Token

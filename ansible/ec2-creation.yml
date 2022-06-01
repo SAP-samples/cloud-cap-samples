@@ -418,15 +418,15 @@
           --logo-uri https://quadrio.de/wp-content/uploads/2019/06/Quadrio_Logo_CMYK_lang-min.png
 
 
-    - name: Start application
-      ansible.builtin.command: |
-        /opt/scripts/redeployment.sh latest
+    # - name: Start application
+    #   ansible.builtin.command: |
+    #     /opt/scripts/redeployment.sh latest
 
-    - name: Enable service container-CAP-SAMPLES
-      become: false
-      ansible.builtin.systemd:
-        name: container-CAP-SAMPLES
-        state: started
-        daemon_reload: yes
-        enabled: yes
-        scope: user
+    # - name: Enable service container-CAP-SAMPLES
+    #   become: false
+    #   ansible.builtin.systemd:
+    #     name: container-CAP-SAMPLES
+    #     state: started
+    #     daemon_reload: yes
+    #     enabled: yes
+    #     scope: user
