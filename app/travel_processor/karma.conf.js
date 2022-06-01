@@ -15,6 +15,13 @@ module.exports = async (config) => {
   }
 
   config.set({
+
+    customLaunchers: {
+      Chrome_without_security: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
     frameworks: ['ui5'],
     logLevel: 'INFO', // log errors only. Change to "DEBUG" for more verbosity
     proxies: {
@@ -25,7 +32,7 @@ module.exports = async (config) => {
     },
     plugins: [...config.plugins, await capMiddleware],
     middleware: ['cap-proxy'],
-    browsers: config.ci ? ['ChromeHeadless'] : ['Chrome'],
+    browsers: ['Chrome_without_security'],
     singleRun: config.ci || config.singleRun || false,
     browserNoActivityTimeout: 180000,
     browserDisconnectTimeout: 120000

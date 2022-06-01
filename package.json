@@ -14,13 +14,17 @@
     "ansible": "ansible-playbook ansible/ec2-creation.yml",
     "ansible:create": "ansible-playbook -t ec2-create ansible/ec2-creation.yml",
     "lint": "npx eslint .",
-    "start": "cds run",
     "watch": "cds watch",
+    "start": "cds run",
+    "start:test": "cds run --profile development",
     "test": "jest",
     "test:mocha": "npx mocha --timeout 20000",
     "load:data": "npx @quadrio/cds-dbm load -v csv",
     "deploy:db2": "NODE_ENV=production npx @quadrio/cds-dbm deploy",
-    "start-container": "node copy-env.js && npm run deploy:db2 && npm run load:data && npm run start"
+    "start-container": "node copy-env.js && npm run deploy:db2 && npm run load:data && npm run start",
+    "loadtest:ci": "./k6 run ./test/load/admin.js --vus 100 --duration 20s --summary-export=load-performance.json -e LOAD_TEST_USER=test -e LOAD_TEST_PASSWORD=test -e LOAD_TEST_URL=http://localhost:4004",
+    "loadtest:local": "k6 run ./test/load/admin.js --vus 100 --duration 20s --summary-export=load-performance.json -e LOAD_TEST_USER=test -e LOAD_TEST_PASSWORD=test -e LOAD_TEST_URL=http://localhost:4004",
+    "loadtest:with-server": "start-server-and-test start:test http://localhost:4004 loadtest:ci"
   },
   "dependencies": {
     "@quadrio/cds-db2": "^0.0.27",
@@ -28,6 +32,7 @@
     "@sap/cds": ">=5.4.5",
     "@sap/xssec": "^3.2.7",
     "body-parser": "^1.20.0",
+    "cds-swagger-ui-express": "^0.4.0",
     "cookie-parser": "^1.4.6",
     "express": "^4",
     "express-session": "^1.17.3",
@@ -53,8 +58,12 @@
     "prettier-config-standard": "^5.0.0",
     "qunit": "^2.9.3",
     "sqlite3": "^5",
-    "standard-version": "^9.3.2"
+    "standard-version": "^9.3.2",
+    "start-server-and-test": "^1.14.0"
   },
+  "eslintIgnore": [
+    "admin.js"
+  ],
   "standard": {
     "ignore": [
       "**/load/*.js",

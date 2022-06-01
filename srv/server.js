@@ -68,15 +68,15 @@ const registerHelmet = function (app) {
     directives['default-src'].push('https://cdn.jsdelivr.net')
   }
 
-  // app.use(
-  //   helmet({
-  //     contentSecurityPolicy: {
-  //       useDefaults: true,
-  //       directives
-  //     },
-  //     crossOriginEmbedderPolicy: false
-  //   })
-  // )
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives
+      },
+      crossOriginEmbedderPolicy: false
+    })
+  )
 }
 
 const registerSession = function (app) {
@@ -156,35 +156,35 @@ const checkIpRateLimit = async function (req, res) {
   }
 }
 
-const persistUserInDb = async function (user) {
-  const exists = await SELECT.one
-    .from('Users')
-    .where({ ID: user.id })
-    .columns(['ID'])
+// const persistUserInDb = async function (user) {
+//   const exists = await SELECT.one
+//     .from('Users')
+//     .where({ ID: user.id })
+//     .columns(['ID'])
 
-  let type = 'user'
-  if (user.roles.includes('authority')) {
-    type = 'authority'
-  } else if (user.roles.includes('approver')) {
-    type = 'approver'
-  }
+//   let type = 'user'
+//   if (user.roles.includes('authority')) {
+//     type = 'authority'
+//   } else if (user.roles.includes('approver')) {
+//     type = 'approver'
+//   }
 
-  const dbUser = {
-    ID: user.id,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    title: user.title ? user.title : '',
-    email: user.email,
-    type
-  }
+//   const dbUser = {
+//     ID: user.id,
+//     firstName: user.firstName,
+//     lastName: user.lastName,
+//     title: user.title ? user.title : '',
+//     email: user.email,
+//     type
+//   }
 
-  if (exists) {
-    return await UPDATE('Users')
-      .set(dbUser)
-      .where({ ID: user.id })
-  }
-  return INSERT.into('Users').entries(dbUser)
-}
+//   if (exists) {
+//     return await UPDATE('Users')
+//       .set(dbUser)
+//       .where({ ID: user.id })
+//   }
+//   return INSERT.into('Users').entries(dbUser)
+// }
 
 const loginOidc = async function (req, res, user) {
   LOG.info('OIDC Login success', user)
@@ -392,7 +392,7 @@ const registerAuthentication = function (app) {
     return res.redirect(`${req.session.loginStrategy}login`) // njsscan-ignore: express_open_redirect
   })
 
-  app.get('/loginerror', (req, _res) => {
+  app.get('/loginerror', (req) => {
     LOG.error('Login error', req.session.messages)
   })
 }
