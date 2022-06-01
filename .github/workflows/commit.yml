@@ -32,6 +32,10 @@ jobs:
         run: |
           npm ci
 
+      - name: app npm ci
+        run: |
+          cd app/travel_processor && npm ci
+
       - name: lint
         run: npm run lint
 
@@ -61,8 +65,8 @@ jobs:
 
       - name: UI tests
         run: |
-          cd app/test
-          npm run test-ui
+          cd app/travel_processor
+          npm run test
 
       - name: Publish Test Report UI
         uses: mikepenz/action-junit-report@v2

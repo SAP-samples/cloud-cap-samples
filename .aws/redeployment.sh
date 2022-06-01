@@ -22,8 +22,8 @@ redeploy_container()
 
   echo "Start containter CAP-SAMPLES"
   podman run -d -p 8080:4004 --restart=on-failure:10 --name=CAP-SAMPLES \
-    --env SECRETFILE=/run/secrets/env \
-    --secret env ghcr.io/quadrio/db2-cap-samples:$VERSION
+    --volume /home/ubuntu/tmp/.cdsrc.json:/db2-cap-samples/.cdsrc-private.json \
+    ghcr.io/quadrio/db2-cap-samples:$VERSION
 }
 
 redeploy_container $1

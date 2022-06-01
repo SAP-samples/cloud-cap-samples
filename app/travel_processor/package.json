@@ -7,11 +7,9 @@
     "npm": ">=7"
   },
   "scripts": {
-    "build": "ui5 build preload --clean-dest --config ui5-deploy.yaml --include-task=generateManifestBundle generateCachebusterInfo",
+    "build": "ui5 build preload --clean-dest --config ui5-deploy.yaml --include-task=generateManifestBundle generateCachebusterInfo  --dest ../dist/travel_processor",
     "start": "ui5 serve",
-    "test": "npm run test:node && npm run test:java",
-    "test:java": "karma start --server=java",
-    "test:node": "karma start --server=node"
+    "test": "karma start --server=node"
   },
   "keywords": [
     "ui5",

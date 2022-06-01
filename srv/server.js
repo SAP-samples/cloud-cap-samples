@@ -46,12 +46,12 @@ const registerHelmet = function (app) {
       "'unsafe-eval'",
       "'unsafe-inline'",
       "'self'",
-      'https://sapui5.hana.ondemand.com',
+      'https://ui5.sap.com',
       'https://unpkg.com'
     ],
     'default-src': [
       "'self'",
-      'https://sapui5.hana.ondemand.com',
+      'https://ui5.sap.com',
       'https://unpkg.com'
     ]
   }
@@ -68,15 +68,15 @@ const registerHelmet = function (app) {
     directives['default-src'].push('https://cdn.jsdelivr.net')
   }
 
-  app.use(
-    helmet({
-      contentSecurityPolicy: {
-        useDefaults: true,
-        directives
-      },
-      crossOriginEmbedderPolicy: false
-    })
-  )
+  // app.use(
+  //   helmet({
+  //     contentSecurityPolicy: {
+  //       useDefaults: true,
+  //       directives
+  //     },
+  //     crossOriginEmbedderPolicy: false
+  //   })
+  // )
 }
 
 const registerSession = function (app) {
@@ -99,6 +99,7 @@ const registerSession = function (app) {
     },
     name: 'db2-cap-samples-session'
   }
+
   app.use(session(sess)) // njsscan-ignore: cookie_session_no_secure, cookie_session_no_samesite
 }
 
@@ -231,9 +232,9 @@ const registerOidc = function (app) {
         profile.attr = {}
         profile.idToken = idToken
         profile.roles = uiProfile?._json?.roles
-        profile.firstName = profile.name.givenName
-        profile.lastName = profile.name.familyName
-        profile.email = profile.emails[0].value
+        profile.firstName = profile.name?.givenName
+        profile.lastName = profile.name?.familyName
+        // profile.email = profile.emails[0].value
         profile.title = uiProfile?._json?.title
         profile.attr.bpNumber = profile.bpNumber = uiProfile?._json?.bpNumber
         profile.attr.type = profile.type = uiProfile?._json?.roles
@@ -406,11 +407,11 @@ module.exports = (o) => {
   ) {
     o.index = (_req, res) => {
       if (cds.env.oidc) {
-        return res.redirect('travel_processor/')
+        return res.redirect('travel_processor/webapp/')
       }
       return res.redirect('config/')
     }
-    o.static = './app/dist'
+    o.static = './app'
   }
   return cds.server(o) // > delegate to default server.js
 }

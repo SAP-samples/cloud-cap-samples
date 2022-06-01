@@ -291,11 +291,11 @@
     #     group: ubuntu
     #     mode: 0755
 
-    - name: Replace ldapsecret with ldap_secret in .cdsrc.json
-      ansible.builtin.replace:
-        path: /var/db2ce/.env_list
-        regexp: 'SecretPassword'
-        replace: '{{ db2_password }}'
+    # - name: Replace ldapsecret with ldap_secret in .cdsrc.json
+    #   ansible.builtin.replace:
+    #     path: /var/db2ce/.env_list
+    #     regexp: 'SecretPassword'
+    #     replace: '{{ db2_password }}'
 
     # - name: Set password for user ubuntu
     #   user:
@@ -346,50 +346,50 @@
     #     enabled: yes
     #     scope: user
 
-    - name: Run db2 container
-      containers.podman.podman_container:
-        name: db2server
-        image: docker.io/ibmcom/db2
-        state: started
-        restart_policy: always
-        privileged: true
-        env_file: /var/db2ce/.env_list
-        volume: /var/db2ce:/database
-        publish : 50000:50000
+    # - name: Run db2 container
+    #   containers.podman.podman_container:
+    #     name: db2server
+    #     image: docker.io/ibmcom/db2
+    #     state: started
+    #     restart_policy: always
+    #     privileged: true
+    #     env_file: /var/db2ce/.env_list
+    #     volume: /var/db2ce:/database
+    #     publish : 50000:50000
 
 
-    - name: Run ldap container
-      containers.podman.podman_container:
-        name: ldap
-        image: docker.io/osixia/openldap:1.5.0
-        state: started
-        restart_policy: always
-        env:
-          LDAP_ORGANISATION: '{{ ldap_organisation }}'
-          LDAP_DOMAIN: '{{ domain }}'
-          LDAP_ADMIN_PASSWORD: '{{ ldap_admin_password }}'
-        volumes:
-          - /opt/ldap/lib:/var/lib/ldap
-          - /opt/ldap/conf:/etc/ldap/slapd.d
-        publish : 389:389
+    # - name: Run ldap container
+    #   containers.podman.podman_container:
+    #     name: ldap
+    #     image: docker.io/osixia/openldap:1.5.0
+    #     state: started
+    #     restart_policy: always
+    #     env:
+    #       LDAP_ORGANISATION: '{{ ldap_organisation }}'
+    #       LDAP_DOMAIN: '{{ domain }}'
+    #       LDAP_ADMIN_PASSWORD: '{{ ldap_admin_password }}'
+    #     volumes:
+    #       - /opt/ldap/lib:/var/lib/ldap
+    #       - /opt/ldap/conf:/etc/ldap/slapd.d
+    #     publish : 389:389
 
-    - name: Create OIDC client configuration
-      ansible.builtin.command: |
-        sudo podman-compose -f /opt/scripts/docker-compose.yml exec hydra \
-          hydra clients create \
-          --endpoint http://hydra:4445 \
-          --id db2-cap-samples \
-          --secret {{ oidc_secret }} \
-          --grant-types authorization_code,refresh_token \
-          --response-types code,id_token \
-          --scope openid,offline \
-          --name DB2 CAP Samples Login \
-          --token-endpoint-auth-method client_secret_post \
-          --tos-uri https://quadrio.de/impressum \
-          --policy-uri https://quadrio.de/datenschutz \
-          --callbacks https://{{ domain }}/callback \
-          --post-logout-callbacks https://{{ domain }}/login \
-          --logo-uri https://quadrio.de/wp-content/uploads/2019/06/Quadrio_Logo_CMYK_lang-min.png
+    # - name: Create OIDC client configuration
+    #   ansible.builtin.command: |
+    #     sudo podman-compose -f /opt/scripts/docker-compose.yml exec hydra \
+    #       hydra clients create \
+    #       --endpoint http://hydra:4445 \
+    #       --id db2-cap-samples \
+    #       --secret {{ oidc_secret }} \
+    #       --grant-types authorization_code,refresh_token \
+    #       --response-types code,id_token \
+    #       --scope openid,offline \
+    #       --name DB2 CAP Samples Login \
+    #       --token-endpoint-auth-method client_secret_post \
+    #       --tos-uri https://quadrio.de/impressum \
+    #       --policy-uri https://quadrio.de/datenschutz \
+    #       --callbacks https://{{ domain }}/callback \
+    #       --post-logout-callbacks https://{{ domain }}/login \
+    #       --logo-uri https://quadrio.de/wp-content/uploads/2019/06/Quadrio_Logo_CMYK_lang-min.png
 
 
     - name: Create OIDC codespace client configuration

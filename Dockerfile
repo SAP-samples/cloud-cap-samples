@@ -55,14 +55,16 @@ HEALTHCHECK --interval=12s --timeout=12s --start-period=120s \
 # Add runtime user
 RUN useradd -d /db2-cap-samples -m -s /bin/bash samples
 
-
-
 COPY . .
 
 RUN chown -R samples /db2-cap-samples
 RUN chown -R samples "/tmp/.npm"
 
 USER samples
+
+
+RUN npm run ci
+RUN cd app && npm run ci && npm run build
 
 RUN rm -Rf .git || echo "Not found"
 RUN rm -R .devcontainer || echo "Not found"

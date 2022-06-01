@@ -18,8 +18,9 @@
     "watch": "cds watch",
     "test": "jest",
     "test:mocha": "npx mocha --timeout 20000",
+    "load:data": "npx @quadrio/cds-dbm load -v csv",
     "deploy:db2": "NODE_ENV=production npx @quadrio/cds-dbm deploy",
-    "start-container": "node copy-env.js && npm run deploy:db2 && npm run start"
+    "start-container": "node copy-env.js && npm run deploy:db2 && npm run load:data && npm run start"
   },
   "dependencies": {
     "@quadrio/cds-db2": "^0.0.27",
@@ -33,6 +34,7 @@
     "hdb": "^0.19.1",
     "helmet": "^5.1.0",
     "luxon": "^2.4.0",
+    "memorystore": "^1.6.7",
     "passport": "^0.5.3",
     "passport-http": "^0.3.0",
     "passport-ldapauth": "^3.0.1",
