@@ -41,8 +41,10 @@
             filters:
               instance-state-name: ['running']
           register: ec2
+
         - name: Print info
           debug: var="ec2.instances"
+
         - name: Add instance to host group
           add_host:
             hostname: '{{ item.public_ip_address }}'

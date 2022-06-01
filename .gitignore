@@ -42,3 +42,5 @@ dist/
 # .vscode/*
 # IMPORTANT: Do not exclude .vscode please!
 .cdsrc-private.json
+
+ansible/external_vars.yml

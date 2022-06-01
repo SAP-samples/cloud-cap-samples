@@ -1,0 +1,9 @@
+db2_password: SecretDb2Password
+system_password: SecretPassword
+domain: db2-cap-samples.de
+hydra_secret: youReallyNeedToChangeThis
+oidc_secret: oidcsecret
+ldap_secret: ldapsecret
+ldap_organisation: db2-cap-samples
+ldap_admin_password: ldapadminsecret
+pat_token: <xpat token here>
