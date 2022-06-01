@@ -236,8 +236,8 @@ const registerOidc = function (app) {
         profile.lastName = profile.name?.familyName
         // profile.email = profile.emails[0].value
         profile.title = uiProfile?._json?.title
-        profile.attr.bpNumber = profile.bpNumber = uiProfile?._json?.bpNumber
-        profile.attr.type = profile.type = uiProfile?._json?.roles
+
+        profile.roles = ['processor']
 
         return cb(null, profile)
       }
