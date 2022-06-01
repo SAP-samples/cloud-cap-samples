@@ -19,7 +19,7 @@
         },
         "dataSources": {
             "mainService": {
-                "uri": "processor/",
+                "uri": "/processor/",
                 "type": "OData",
                 "settings": {
                     "odataVersion": "4.0"
