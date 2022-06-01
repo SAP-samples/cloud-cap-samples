@@ -1,0 +1,61 @@
+name: 7_Stage 3 Deployment
+
+on:
+  release:
+    types: ['released']
+
+env:
+  PACKAGE_GITHUB_REGISTRY_TOKEN: ${{ secrets.PAT }}
+  REGISTRY: ghcr.io
+  IMAGE_NAME: quadrio/db2-cap-samples
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Declare commit hash variable
+        id: vars
+        shell: bash
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
+      - name: Set latest tag on docker image
+        uses: flownative/action-docker-publish-semver@master
+        with:
+          tag_ref: ${{ github.event.release.tag_name }}
+          tag_latest: 'yes'
+          tag_custom: sha-${{ steps.vars.outputs.sha_short }}
+
+          source_image_name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          source_registry_username: ${{ github.repository_owner }}
+          source_registry_password: ${{ secrets.GITHUB_TOKEN }}
+          source_registry_endpoint: ${{ env.REGISTRY }}
+
+          target_image_name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          target_registry_username: ${{ github.repository_owner }}
+          target_registry_password: ${{ secrets.GITHUB_TOKEN }}
+          target_registry_endpoint: ${{ env.REGISTRY }}
+
+      # - name: Delete old package version
+      #   uses: actions/delete-package-versions@v1
+      #   with:
+      #     package-name: ${{ env.IMAGE_NAME }}
+      # - name: Sign and push docker image
+      #   uses: sudo-bot/action-docker-sign@latest
+      #   with:
+      #     image-ref: "docker.io/botsudo/action-docker-compose:latest"
+      #     # Example: 51f9a39f3db4ddaaf9174fca69f41fb01a04a4dfb5125ef115feecb93d19efa6
+      #     private-key-id: "${{ secrets.DOCKER_PRIVATE_KEY_ID }}"
+      #     # The contents from: ~/.docker/trust/private/51f9a39f3db4ddaaf9174fca69f41fb01a04a4dfb5125ef115feecb93d19efa6.key)
+      #     private-key: ${{ secrets.DOCKER_PRIVATE_KEY }}
+      #     # Example: myPassw0rdChangeMeReplaceMe
+      #     private-key-passphrase: ${{ secrets.DOCKER_PRIVATE_KEY_PASSPHRASE }}
+      - name: Deploy docker container webhook
+        uses: joelwmale/webhook-action@master
+        env:
+          WEBHOOK_URL: ${{ secrets.DEPLOY_WEBHOOK_URL  }}
+          data: '{ "version": "sha-${{ steps.vars.outputs.sha_short }}"}'
