@@ -199,21 +199,29 @@
     #     group: ubuntu
     #     mode: 0755
 
-    # - name: Copy redeployment script
-    #   copy:
-    #     src: ../.aws/redeployment.sh
-    #     dest: /opt/scripts/redeployment.sh
-    #     owner: ubuntu
-    #     group: ubuntu
-    #     mode: 0777
+    - name: Copy redeployment script
+      copy:
+        src: ../.aws/redeployment.sh
+        dest: /opt/scripts/redeployment.sh
+        owner: ubuntu
+        group: ubuntu
+        mode: 0777
 
-    # - name: Copy webhook service configuration
-    #   copy:
-    #     src: ../.aws/webhook.service
-    #     dest: /etc/systemd/system/webhook.service
-    #     owner: ubuntu
-    #     group: ubuntu
-    #     mode: 0755
+    - name: Copy auth file
+      copy:
+        src: ../.aws/auth.json
+        dest: /home/ubuntu/auth.json
+        owner: ubuntu
+        group: ubuntu
+        mode: 0777
+
+    - name: Copy webhook service configuration
+      copy:
+        src: ../.aws/webhook.service
+        dest: /etc/systemd/system/webhook.service
+        owner: ubuntu
+        group: ubuntu
+        mode: 0755
 
     # - name: Copy podman-restart service configuration
     #   copy:
@@ -252,6 +260,12 @@
     #     path: /home/ubuntu/tmp/.cdsrc.json
     #     regexp: 'localhost'
     #     replace: '{{ domain }}'
+
+    - name: Replace pat_token with pat_token in auth.json
+      ansible.builtin.replace:
+        path: /home/ubuntu/auth.json
+        regexp: 'pat_token'
+        replace: '{{ pat_token }}'
 
     # - name: Replace domain in hydra.yml
     #   ansible.builtin.replace:
@@ -323,12 +337,12 @@
     #   command: loginctl enable-linger ubuntu
     #   when: not linger.stat.exists
 
-    # - name: Enable service webhook
-    #   ansible.builtin.systemd:
-    #     name: webhook
-    #     state: started
-    #     daemon_reload: yes
-    #     enabled: yes
+    - name: Enable service webhook
+      ansible.builtin.systemd:
+        name: webhook
+        state: started
+        daemon_reload: yes
+        enabled: yes
 
     # - name: Enable service podman-restart
     #   ansible.builtin.systemd:
@@ -336,15 +350,6 @@
     #     state: started
     #     daemon_reload: yes
     #     enabled: yes
-
-    # - name: Enable service container-CAP-SAMPLES
-    #   become: false
-    #   ansible.builtin.systemd:
-    #     name: container-CAP-SAMPLES
-    #     state: started
-    #     daemon_reload: yes
-    #     enabled: yes
-    #     scope: user
 
     # - name: Run db2 container
     #   containers.podman.podman_container:
@@ -392,26 +397,34 @@
     #       --logo-uri https://quadrio.de/wp-content/uploads/2019/06/Quadrio_Logo_CMYK_lang-min.png
 
 
-    - name: Create OIDC codespace client configuration
-      ansible.builtin.command: |
-        sudo podman-compose -f /opt/scripts/docker-compose.yml exec hydra \
-          hydra clients create \
-          --endpoint http://hydra:4445 \
-          --id codespace-client \
-          --secret {{ oidc_secret }}  \
-          --grant-types authorization_code,refresh_token \
-          --response-types code,id_token \
-          --scope openid,offline \
-          --name Login Codespace \
-          --callbacks http://localhost:4004/callback \
-          --post-logout-callbacks http://localhost:4004/login \
-          --token-endpoint-auth-method client_secret_post \
-          --tos-uri https://quadrio.de/impressum \
-          --policy-uri https://quadrio.de/datenschutz \
-          --logo-uri https://quadrio.de/wp-content/uploads/2019/06/Quadrio_Logo_CMYK_lang-min.png
+    # - name: Create OIDC codespace client configuration
+    #   ansible.builtin.command: |
+    #     sudo podman-compose -f /opt/scripts/docker-compose.yml exec hydra \
+    #       hydra clients create \
+    #       --endpoint http://hydra:4445 \
+    #       --id codespace-client \
+    #       --secret {{ oidc_secret }}  \
+    #       --grant-types authorization_code,refresh_token \
+    #       --response-types code,id_token \
+    #       --scope openid,offline \
+    #       --name Login Codespace \
+    #       --callbacks http://localhost:4004/callback \
+    #       --post-logout-callbacks http://localhost:4004/login \
+    #       --token-endpoint-auth-method client_secret_post \
+    #       --tos-uri https://quadrio.de/impressum \
+    #       --policy-uri https://quadrio.de/datenschutz \
+    #       --logo-uri https://quadrio.de/wp-content/uploads/2019/06/Quadrio_Logo_CMYK_lang-min.png
 
 
+    # - name: Start application
+    #   ansible.builtin.command: |
+    #     /opt/scripts/redeployment.sh latest
 
-    - name: Create OIDC client configuration
-      ansible.builtin.command: |
-        /opt/scripts/redeployment.sh latest
+    # - name: Enable service container-CAP-SAMPLES
+    #   become: false
+    #   ansible.builtin.systemd:
+    #     name: container-CAP-SAMPLES
+    #     state: started
+    #     daemon_reload: yes
+    #     enabled: yes
+    #     scope: user

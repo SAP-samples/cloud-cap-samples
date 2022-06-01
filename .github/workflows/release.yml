@@ -10,7 +10,7 @@ env:
   IMAGE_NAME: quadrio/db2-cap-samples
 
 jobs:
-  docker:
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
