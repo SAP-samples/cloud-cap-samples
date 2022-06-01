@@ -77,3 +77,5 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            PACKAGE_GITHUB_REGISTRY_TOKEN=${{ secrets.PACKAGE_GITHUB_REGISTRY_TOKEN}}
