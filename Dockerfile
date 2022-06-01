@@ -63,7 +63,7 @@ USER samples
 
 
 RUN npm run ci
-RUN cd app && npm run ci && npm run build
+# RUN cd app/travel_processor && npm run ci && npm run build
 
 RUN rm -Rf .git || echo "Not found"
 RUN rm -R .devcontainer || echo "Not found"
