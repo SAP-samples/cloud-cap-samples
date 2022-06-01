@@ -1,4 +1,4 @@
-name: 7_Stage 3 Deployment
+name: 5_Deployment
 
 on:
   release:
