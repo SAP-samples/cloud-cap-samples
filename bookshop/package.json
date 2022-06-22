@@ -22,13 +22,16 @@
   },
   "cds": {
     "requires": {
-      "-extensibility": true,
       "multitenancy": true,
-      "toggles": true,
-      "-deployment-service": "from-sidecar",
-      "-model-provider": "from-sidecar",
-      "-db": "sqlite",
-      "-btp-saas-provisioning": false
+      "[ignored]": {
+        "extensibility": true,
+        "toggles": true,
+        "deployment-service": "from-sidecar",
+        "model-provider": "from-sidecar",
+        "db": "sqlite",
+        "btp-saas-provisioning": false,
+        "-": 11
+      }
     }
   }
 }
