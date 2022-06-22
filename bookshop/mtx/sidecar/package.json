@@ -1,7 +1,7 @@
 {
   "cds": {
     "requires": {
-      "multitenancy": "saas-deployment",
+      "multitenancy": true,
       "model-provider": "in-sidecar",
       "db": {
         "kind": "sqlite", "credentials": {
