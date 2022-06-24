@@ -1,0 +1,31 @@
+---
+applications:
+# -----------------------------------------------------------------------------------
+# HANA Database Content Deployer App
+# -----------------------------------------------------------------------------------
+- name: gdpr-db-deployer
+  path: gen/db
+  no-route: true
+  health-check-type: process
+  memory: 256M
+  buildpack: nodejs_buildpack
+  services:
+  - gdpr-logs
+  - gdpr-hdi
+# -----------------------------------------------------------------------------------
+# Backend Service
+# -----------------------------------------------------------------------------------
+- name: gdpr-srv
+  path: gen/srv
+  memory: 256M
+  buildpack: nodejs_buildpack
+  routes:
+  - route: capire-gdpr-srv.cfapps.eu10.hana.ondemand.com
+  services:
+  - gdpr-logs
+  - gdpr-hdi
+  - gdpr-uaa
+  - gdpr-auditlog
+  # binding with parameters not yet supported -> binding done manually in .etc/deploy.sh
+  #- name: gdpr-pdm
+  #  parameters: ./pdm-binding-config.json

@@ -1,0 +1,8 @@
+{
+  "xs-security": {
+    "xsappname": "capire-gdpr",
+    "authorities": ["$ACCEPT_GRANTED_AUTHORITIES"]
+  },
+  "fullyQualifiedApplicationName": "capire-gdpr",
+  "appConsentServiceEnabled": true
+}

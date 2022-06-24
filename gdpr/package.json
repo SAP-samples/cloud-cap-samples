@@ -1,0 +1,48 @@
+{
+  "name": "@capire/gdpr",
+  "version": "0.0.1",
+  "dependencies": {
+    "@capire/orders": "../orders",
+    "@sap/audit-logging": "^5.1.0",
+    "@sap/cds": "^5.7",
+    "express": "^4.17.1",
+    "hdb": "^0.19.0"
+  },
+  "scripts": {
+    "build": "rm -rf gen && cds build --production",
+    "deploy": "sh .etc/deploy.sh",
+    "undeploy": "sh .etc/undeploy.sh",
+    "start": "cds run"
+  },
+  "cds": {
+    "requires": {
+      "auth": {
+        "__comment__": "workaround to avoid approuter et al. setup",
+        "impl": "srv/auth.js"
+      },
+      "audit-log": {
+        "[development]": {
+          "credentials": {
+            "logToConsole": true
+          }
+        }
+      },
+      "db": {
+        "kind": "sql"
+      },
+      "uaa": {
+        "kind": "xsuaa"
+      }
+    },
+    "features": {
+      "audit_personal_data": true,
+      "fiori_preview": true,
+      "[production]": {
+        "kibana_formatter": true
+      }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
+    }
+  }
+}
