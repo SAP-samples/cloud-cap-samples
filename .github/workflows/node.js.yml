@@ -11,18 +11,18 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node: [ 16.x, 14.x, 12.x ]
+        node-version: [16.x, 14.x, 12.x]
 
     steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node }}
-      - uses: actions/checkout@v3
-      - run: npx --yes npm ci
-      - run: npx --yes npm ls
-      - run: npm -s run mocha
-      - run: npm -s run jest --silent
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - run: npm test
