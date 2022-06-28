@@ -1,10 +1,28 @@
 {
   "cds": {
     "requires": {
-      "multitenancy": true,
-      "model-provider": "in-sidecar",
-      "db": {
-        "kind": "sqlite", "credentials": {
+      "-extensibility-service": {
+        "foo": true
+      },
+      "-cds.xt.SaasProvisioningService": true,
+      "-cds.xt.DeploymentService": true,
+      "-cds.xt.ExtensibilityService": true,
+      "cds.xt.ModelProviderService": "in-sidecar",
+      "-cds.xt.ModelProviderService": true,
+      "-cds.xt.ModelProviderService": "rest",
+      "-cds.xt.ModelProviderService": { "kind": "rest" },
+      "-cds.xt.ModelProviderService": {
+        "kind": "rest",
+        "-credentials": {
+          "url": "http://localhost:4004/-/cds/model-provider",
+          "username": "xi",
+          "password": "whatever"
+        }
+      },
+      "db": "sql",
+      "-db": {
+        "kind": "sqlite",
+        "credentials": {
           "url": "../../sqlite.db"
         }
       }

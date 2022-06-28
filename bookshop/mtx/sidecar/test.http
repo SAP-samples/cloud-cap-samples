@@ -23,10 +23,11 @@ Authorization: Basic xi:
 
 
 
-PUT {{server}}/-/cds/saas-provisioning/t1
+PUT {{server}}/-/cds/saas-provisioning/tenant/t1
 Content-Type: application/json
 Authorization: Basic xi:
 
 {
+  "subscribedTenantId": "t1"
 }
 ###

@@ -1,6 +1,6 @@
-import cds from '@sap/cds'
+const cds = require('@sap/cds')
 
-export default cds.service.impl (function(){
+module.exports = cds.service.impl (function(){
   this.before ('NEW','Authors', genid)
   this.before ('NEW','Books', genid)
 })

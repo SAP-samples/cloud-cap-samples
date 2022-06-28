@@ -1,6 +1,6 @@
-import cds from '@sap/cds'
+const cds = require('@sap/cds')
 
-export class CatalogService extends cds.ApplicationService { init(){
+class CatalogService extends cds.ApplicationService { init(){
 
   const { Books } = this.entities ('sap.capire.bookshop')
 
@@ -24,3 +24,5 @@ export class CatalogService extends cds.ApplicationService { init(){
 
   return super.init()
 }}
+
+module.exports = { CatalogService }

@@ -2,7 +2,6 @@
   "name": "@capire/bookshop",
   "version": "1.0.0",
   "description": "A simple self-contained bookshop service.",
-  "type": "module",
   "files": [
     "app",
     "srv",
@@ -22,13 +21,22 @@
   },
   "cds": {
     "requires": {
-      "multitenancy": true,
+      "-multitenancy": true,
+      "-extensibility": true,
+      "toggles": true,
+      "-cds.xt.SaasProvisioningService": false,
+      "-cds.xt.DeploymentService": false,
+      "db": "sql",
       "[ignored]": {
+        "db": "sqlite",
+        "model-provider": "from-sidecar",
+        "cds.xt.DeploymentService": { "kind": "rest" },
+        "cds.xt.ModelProviderService": { "kind": "rest" },
+        "saas-provisioning": {
+          "model": "@sap/cds-mtxs/srv/cf/saas-provisioning-service"
+        },
         "extensibility": true,
         "toggles": true,
-        "deployment-service": "from-sidecar",
-        "model-provider": "from-sidecar",
-        "db": "sqlite",
         "btp-saas-provisioning": false,
         "-": 11
       }

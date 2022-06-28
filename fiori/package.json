@@ -34,8 +34,8 @@
         }
       },
 
+      "toggles": true,
       "[mtx]": {
-        "toggles": true,
         "extensions": false,
         "extensibility": false,
         "multitenancy": false,
