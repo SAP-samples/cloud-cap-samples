@@ -22,8 +22,8 @@
     "fiori": "cds watch fiori",
     "hello": "cds watch hello",
     "media": "cds watch media",
-    "mocha": "npx --yes mocha || echo",
-    "jest": "npx --yes jest@27",
+    "mocha": "npx mocha || echo",
+    "jest": "npx jest",
     "start": "cds watch fiori",
     "test": "npm run jest -- --silent",
     "test:hello": "cd hello && npm test"
