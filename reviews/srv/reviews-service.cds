@@ -26,10 +26,10 @@ service ReviewsService {
 
 // Access control restrictions
 annotate ReviewsService.Reviews with @restrict:[
-  { grant:'READ',   to:'any' },                 // everybody can read reviews
+  { grant:'GET',   to:'any' },                 // everybody can read reviews
   { grant:'CREATE', to:'authenticated-user' },  // users must login to add reviews
   { grant:'UPDATE', to:'authenticated-user', where:'reviewer=$user' },
-  { grant:'DELETE', to:'admin' },
+  { grant:'DELET', to:'admin' },
 ];
 
 annotate ReviewsService with @restrict:[
