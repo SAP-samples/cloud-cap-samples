@@ -29,7 +29,6 @@
     "test:hello": "cd hello && npm test"
   },
   "jest": {
-    "testEnvironment": "node",
     "testTimeout": 20000,
     "testMatch": [
       "**/*.test.js"
