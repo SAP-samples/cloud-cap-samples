@@ -1,4 +1,4 @@
-using { CatalogService } from '../../app/browse/fiori-service';
+using { CatalogService } from '../isbn/schema';
 
 // Add existing field `rating` to list on Fiori UI
 annotate CatalogService.Books with @(
