@@ -35,6 +35,18 @@
       },
 
       "toggles": true,
+      "cds.xt.ModelProviderService": "from-sidecar",
+      "auth": {
+        "users": {
+          "carol": { "tenant": "t1" },
+          "erin":  { "tenant": "t2" },
+          "fred": { "tenant": "t1", "features":[] }
+        },
+        "tenants": {
+          "t1": { "features": ["isbn"] },
+          "t2": { "features": "*" }
+        }
+      },
       "[mtx]": {
         "extensions": false,
         "extensibility": false,

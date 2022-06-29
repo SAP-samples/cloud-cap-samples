@@ -1,11 +1,14 @@
 {
   "cds": {
     "requires": {
-      "model-provider": "in-sidecar"
+      "cds.xt.ModelProviderService": "in-sidecar",
+      "cds.xt.DeploymentService": true,
+      "cds.xt.ExtensibilityService": true,
+      "cds.xt.SaasProvisioningService": true
     }
   },
   "dependencies": {
-    "@sap/cds-mt": "*",
+    "@sap/cds-mtxs": "*",
     "express": "*"
   }
 }
