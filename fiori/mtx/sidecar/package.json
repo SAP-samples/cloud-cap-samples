@@ -6,9 +6,11 @@
   },
   "cds": {
     "requires": {
-      "cds.xt.ModelProviderService": "in-sidecar",
-      "[development]": { "auth": "dummy" }
+      "cds.xt.ModelProviderService": "in-sidecar"
     },
-    "server": { "port": 4005 }
+    "[development]": {
+      "requires": { "auth": "dummy" },
+      "server": { "port": 4005 }
+    }
   }
 }
