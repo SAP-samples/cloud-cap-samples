@@ -1,16 +1,14 @@
 {
+  "dependencies": {
+    "@sap/cds-mt": "*",
+    "express": "*"
+  },
   "cds": {
     "requires": {
-      "-extensibility-service": {
-        "foo": true
-      },
-      "-cds.xt.SaasProvisioningService": true,
-      "-cds.xt.DeploymentService": true,
-      "-cds.xt.ExtensibilityService": true,
+      "cds.xt.SaasProvisioningService": true,
+      "cds.xt.DeploymentService": true,
+      "cds.xt.ExtensibilityService": true,
       "cds.xt.ModelProviderService": "in-sidecar",
-      "-cds.xt.ModelProviderService": true,
-      "-cds.xt.ModelProviderService": "rest",
-      "-cds.xt.ModelProviderService": { "kind": "rest" },
       "-cds.xt.ModelProviderService": {
         "kind": "rest",
         "-credentials": {
@@ -27,9 +25,5 @@
         }
       }
     }
-  },
-  "dependencies": {
-    "@sap/cds-mt": "*",
-    "express": "*"
   }
 }

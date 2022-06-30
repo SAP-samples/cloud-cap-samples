@@ -21,25 +21,10 @@
   },
   "cds": {
     "requires": {
-      "-multitenancy": true,
+      "multitenancy": true,
       "-extensibility": true,
-      "toggles": true,
-      "-cds.xt.SaasProvisioningService": false,
-      "-cds.xt.DeploymentService": false,
-      "db": "sql",
-      "[ignored]": {
-        "db": "sqlite",
-        "model-provider": "from-sidecar",
-        "cds.xt.DeploymentService": { "kind": "rest" },
-        "cds.xt.ModelProviderService": { "kind": "rest" },
-        "saas-provisioning": {
-          "model": "@sap/cds-mtxs/srv/cf/saas-provisioning-service"
-        },
-        "extensibility": true,
-        "toggles": true,
-        "btp-saas-provisioning": false,
-        "-": 11
-      }
+      "-toggles": true,
+      "db": "sqlite"
     }
   }
 }

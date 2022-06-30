@@ -1,14 +1,14 @@
 {
-  "cds": {
-    "requires": {
-      "cds.xt.ModelProviderService": "in-sidecar",
-      "cds.xt.DeploymentService": true,
-      "cds.xt.ExtensibilityService": true,
-      "cds.xt.SaasProvisioningService": true
-    }
-  },
+  "name": "mtx-sidecar", "version": "0.0.0",
   "dependencies": {
     "@sap/cds-mtxs": "*",
     "express": "*"
+  },
+  "cds": {
+    "requires": {
+      "cds.xt.ModelProviderService": "in-sidecar",
+      "[development]": { "auth": "dummy" }
+    },
+    "server": { "port": 4005 }
   }
 }
