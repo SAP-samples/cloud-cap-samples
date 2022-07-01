@@ -1,0 +1,62 @@
+@main = http://localhost:4004
+@sidecar = http://localhost:4005
+@me = Authorization: Basic {{$processEnv USER}}:
+
+
+
+POST {{main}}/-/cds/deployment/subscribe
+Content-Type: application/json
+Authorization: Basic yves:
+
+{
+  "tenant": "t1"
+}
+###
+
+POST {{main}}/-/cds/deployment/subscribe
+Content-Type: application/json
+Authorization: Basic yves:
+
+{
+  "tenant": "t2"
+}
+###
+
+POST {{sidecar}}/-/cds/deployment/subscribe
+Content-Type: application/json
+Authorization: Basic yves:
+
+{
+  "tenant": "t1"
+}
+###
+
+POST {{sidecar}}/-/cds/deployment/subscribe
+Content-Type: application/json
+Authorization: Basic yves:
+
+{
+  "tenant": "t2"
+}
+###
+
+
+
+PUT {{sidecar}}/-/cds/saas-provisioning/tenant/t1
+Content-Type: application/json
+Authorization: Basic yves:
+
+{
+  "subscribedTenantId": "t1"
+}
+###
+
+
+PUT {{sidecar}}/-/cds/saas-provisioning/tenant/t2
+Content-Type: application/json
+Authorization: Basic yves:
+
+{
+  "subscribedTenantId": "t2"
+}
+###

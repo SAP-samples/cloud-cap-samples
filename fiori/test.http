@@ -6,20 +6,17 @@
 ### ------------------------------------------------------------------------
 POST {{sidecar}}/getCsn
 Content-Type: application/json
-# Authorization: Basic xi:
 
 {}
 
 ### ------------------------------------------------------------------------
 POST {{sidecar}}/getCsn
 Content-Type: application/json
-Authorization: Basic xi:
 
 { "for": "java", "toggles": ["*"] }
 
 ### ------------------------------------------------------------------------
 POST {{sidecar}}/getEdmx
 Content-Type: application/json
-Authorization: Basic xi:
 
 { "service": "CatalogService", "for": "java", "flavor": "v2" }

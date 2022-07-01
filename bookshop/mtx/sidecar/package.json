@@ -1,29 +1,36 @@
 {
+  "name": "mtx-sidecar", "version": "0.0.0",
   "dependencies": {
-    "@sap/cds-mt": "*",
+    "@sap/cds-mtxs": "*",
     "express": "*"
   },
   "cds": {
     "requires": {
-      "cds.xt.SaasProvisioningService": true,
-      "cds.xt.DeploymentService": true,
-      "cds.xt.ExtensibilityService": true,
       "cds.xt.ModelProviderService": "in-sidecar",
-      "-cds.xt.ModelProviderService": {
-        "kind": "rest",
-        "-credentials": {
-          "url": "http://localhost:4004/-/cds/model-provider",
-          "username": "xi",
-          "password": "whatever"
-        }
-      },
-      "db": "sql",
-      "-db": {
+      "cds.xt.SaasProvisioningService": true,
+      "-cds.xt.DeploymentService": true,
+      "-cds.xt.ExtensibilityService": true,
+      "multitenancy": true,
+      "db": {
         "kind": "sqlite",
         "credentials": {
           "url": "../../sqlite.db"
         }
+      },
+      "[mps-from-main]": {
+        "cds.xt.ModelProviderService": {
+          "kind": "rest",
+          "-credentials": {
+            "url": "http://localhost:4004/-/cds/model-provider",
+            "username": "yves",
+            "password": "whatever"
+          }
+        }
       }
+    },
+    "[development]": {
+      "requires": { "auth": "dummy" },
+      "server": { "port": 4005 }
     }
   }
 }
