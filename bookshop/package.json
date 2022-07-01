@@ -10,6 +10,7 @@
     "index.js"
   ],
   "dependencies": {
+    "@sap/cds-mtxs": "*",
     "@sap/cds": ">=5.9",
     "express": "^4.17.1",
     "passport": ">=0.4.1"
@@ -25,7 +26,7 @@
       "multitenancy": true,
       "-extensibility": true,
       "-toggles": true,
-      "-db": "sqlite"
+      "db": "sqlite"
     }
   }
 }
