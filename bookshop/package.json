@@ -23,10 +23,10 @@
   "cds": {
     "requires": {
       "-cds.xt.DeploymentService": false,
-      "multitenancy": true,
+      "-multitenancy": true,
       "-extensibility": true,
       "-toggles": true,
-      "db": "sqlite"
+      "-db": "sqlite"
     }
   }
 }
