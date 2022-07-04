@@ -104,7 +104,7 @@
     },
     {
       "file": "fiori/app/services.cds",
-      "description": "### Annotations for SAP Fiori Elements\n\n- [Adds an SAP Fiori elements application](https://cap.cloud.sap/docs/guides/fiori/) to bookstore, thereby introducing to:\n- [OData Annotations](https://cap.cloud.sap/docs/guides/fiori#adding-odata-annotations) in `.cds` files\n- Support for [Fiori Draft](https://cap.cloud.sap/docs/guides/fiori#draft)\n- Support for [Value Helps](https://cap.cloud.sap/docs/guides/fiori#value-help)\n- Serving SAP Fiori apps locally\n",
+      "description": "### Annotations for SAP Fiori Elements\n\nAdds an SAP Fiori elements application to bookstore, thereby introducing:\n- OData Annotations in `.cds` files\n- Support for Fiori Draft\n- Support for Value Helps\n- Serving SAP Fiori apps locally\n\nSee the [Serving Fiori UIs](https://cap.cloud.sap/docs/advanced/fiori) documentation for more information.",
       "line": 1,
       "selection": {
         "start": {
