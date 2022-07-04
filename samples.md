@@ -69,15 +69,17 @@ Each sub directory essentially is an individual npm package arranged in an [all-
 
 ## [@capire/fiori](fiori)
 
-- [Adds an SAP Fiori elements application](https://cap.cloud.sap/docs/guides/fiori/) to bookstore, thereby introducing to:
-- [OData Annotations](https://cap.cloud.sap/docs/guides/fiori#adding-odata-annotations) in `.cds` files
-- Support for [Fiori Draft](https://cap.cloud.sap/docs/guides/fiori#draft)
-- Support for [Value Helps](https://cap.cloud.sap/docs/guides/fiori#value-help)
+- Adds an SAP Fiori elements application to bookstore, thereby introducing:
+- OData Annotations in `.cds` files
+- Support for Fiori Draft
+- Support for Value Helps
 - Serving SAP Fiori apps locally
 - Fiori Elements V2
   - OData V2 using CDS OData V2 Adapter Proxy
   - List Report (type `TreeTable`)
   - `@sap.hierarchy` annotations
+
+See the [Serving Fiori UIs](https://cap.cloud.sap/docs/advanced/fiori) documentation for more information.
 
 <br>
 
