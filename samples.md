@@ -85,4 +85,4 @@ See the [Serving Fiori UIs](https://cap.cloud.sap/docs/advanced/fiori) documenta
 
 # All-in-one Monorepo
 
-Each sample sub directory essentially is a standard npm package, some with standard npm dependencies to other samples. The root folder's [package.json](package.json) has local links to the sub folders, such that an `npm install` populates a local `node_modules` folder acts like a local npm registry to the individual sample packages.
+Each sample sub directory essentially is a standard npm package, some with standard npm dependencies to other samples. The root folder's [package.json](package.json) has local links to the sub folders, such that an `npm install` populates a local `node_modules` folder and acts like a local npm registry to the individual sample packages.
