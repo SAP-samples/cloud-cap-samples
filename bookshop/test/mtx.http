@@ -22,6 +22,27 @@ Authorization: Basic yves:
 }
 ###
 
+
+POST {{main}}/-/cds/deployment/upgrade
+Content-Type: application/json
+Authorization: Basic yves:
+
+{
+  "tenant": "t1"
+}
+###
+
+
+POST {{sidecar}}/-/cds/model-provider/getCsn
+Content-Type: application/json
+Authorization: Basic yves:
+
+{
+  "tenant": "t1"
+}
+###
+
+
 POST {{sidecar}}/-/cds/deployment/subscribe
 Content-Type: application/json
 Authorization: Basic yves:

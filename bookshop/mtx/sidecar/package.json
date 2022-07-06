@@ -8,22 +8,13 @@
     "requires": {
       "cds.xt.ModelProviderService": "in-sidecar",
       "cds.xt.SaasProvisioningService": true,
-      "-cds.xt.DeploymentService": true,
-      "-cds.xt.ExtensibilityService": true,
-      "multitenancy": true,
-      "db": {
-        "kind": "sqlite",
-        "credentials": {
-          "url": "../../sqlite.db"
-        }
-      },
-      "[mps-from-main]": {
-        "cds.xt.ModelProviderService": {
-          "kind": "rest",
-          "-credentials": {
-            "url": "http://localhost:4004/-/cds/model-provider",
-            "username": "yves",
-            "password": "whatever"
+      "cds.xt.DeploymentService": true,
+      "cds.xt.ExtensibilityService": true,
+      "[development]": {
+        "db": {
+          "kind": "sqlite",
+          "credentials": {
+            "url": "../../sqlite.db"
           }
         }
       }

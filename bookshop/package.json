@@ -22,8 +22,8 @@
   },
   "cds": {
     "requires": {
+      "-multitenancy": "true",
       "-cds.xt.DeploymentService": false,
-      "-multitenancy": true,
       "-extensibility": true,
       "-toggles": true,
       "-db": "sqlite"
