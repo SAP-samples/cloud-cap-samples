@@ -22,7 +22,7 @@
   },
   "cds": {
     "requires": {
-      "-multitenancy": "true",
+      "multitenancy": true,
       "-cds.xt.DeploymentService": false,
       "-extensibility": true,
       "-toggles": true,
