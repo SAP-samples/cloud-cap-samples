@@ -14,9 +14,6 @@
   },
   "cds": {
     "requires": {
-      "auth": {
-        "kind": "dummy-auth"
-      },
       "ReviewsService": {
         "kind": "odata",
         "model": "@capire/reviews"
