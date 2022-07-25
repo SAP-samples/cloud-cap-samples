@@ -18,3 +18,8 @@ reviews/msg-box
 reviews/db/test.db
 
 *.openapi3.json
+*.db
+
+!fiori-ext/node_modules/
+!fiori-ext/node_modules/@capire/
+!fiori-ext/node_modules/@capire/fiori/
