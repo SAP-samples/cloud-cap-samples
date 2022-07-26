@@ -1,0 +1,17 @@
+using from '..\admin-service';
+annotate entity AdminService.Authors with @extension.logic.insert : "async function run() {
+  //debugger
+  //while (true) {}
+  //process.exit()
+  //1.substring()
+  // let res = await specialselect
+  let res = await SELECT.one`title`.from(`Books`).where(`ID=201`)
+  let { title } = res
+  let Author = req.data
+  Author.modifiedBy = "Custom Event handler changed this!"
+  Author.placeOfDeath = " --- Somewhere over " + title + " --- create in Sandbox"
+  //await this.emit("createdAuthor", { Author })
+  return Author
+}
+run()
+"
