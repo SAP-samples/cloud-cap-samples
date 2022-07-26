@@ -36,7 +36,10 @@
         }
       },
       "db": {
-        "kind": "sql"
+        "kind": "sqlite",
+        "credentials": {
+          "database": "sqlite.db"
+        }
       },
       "db-ext": {
         "[development]": {

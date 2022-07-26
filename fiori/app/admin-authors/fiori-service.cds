@@ -39,7 +39,7 @@ annotate AdminService.Authors with @(UI : {
 
 // Workaround to avoid errors for unknown db-specific calculated fields above
 extend sap.capire.bookshop.Authors with {
-  virtual age      : Integer;
+  //virtual age      : Integer;
   virtual lifetime : String;
 }
 
