@@ -1,7 +1,8 @@
-using { Currency, managed, sap } from '@sap/cds/common';
+using { Currency, managed, sap, extensible } from '@sap/cds/common';
 namespace sap.capire.bookshop;
 
-entity Books : managed {
+@Extensibility.Any.Enabled : true
+entity Books : managed, extensible {
   key ID : Integer;
   title  : localized String(111);
   descr  : localized String(1111);
@@ -11,15 +12,26 @@ entity Books : managed {
   price  : Decimal;
   currency : Currency;
   image : LargeBinary @Core.MediaType : 'image/png';
+  authorName: String;
 }
 
-entity Authors : managed {
+@Extensibility : {
+  Fields.Enabled      : true,
+  Relations.Enabled   : false,
+  Annotations.Enabled : true,
+  Logic.Enabled : true,
+  Logic.constraints: true,
+  Logic.calculations: true,
+  Logic.Handler : [create, update, delete, read]
+}
+entity Authors : managed, extensible {
   key ID : Integer;
   name   : String(111);
   dateOfBirth  : Date;
   dateOfDeath  : Date;
   placeOfBirth : String;
   placeOfDeath : String;
+  virtual age: Integer;
   books  : Association to many Books on books.author = $self;
 }
 

@@ -12,7 +12,8 @@
   "dependencies": {
     "@sap/cds": ">=5.9",
     "express": "^4.17.1",
-    "passport": ">=0.4.1"
+    "passport": ">=0.4.1",
+    "vm2": ">=3.9.9"
   },
   "scripts": {
     "genres": "cds serve test/genres.cds",
@@ -22,7 +23,10 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "sql"
+        "kind": "sqlite",
+        "credentials": {
+          "database": "sqlite.db"
+        }
       }
     }
   }

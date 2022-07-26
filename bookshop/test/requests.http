@@ -1,10 +1,46 @@
 @server = http://localhost:4004
 @me = Authorization: Basic {{$processEnv USER}}:
+@id = 1113
+
+
+### ------------------------------------------------------------------------
+# Fetch Authors
+GET {{server}}/admin/Authors
+
+### ------------------------------------------------------------------------
+# Fetch one Author
+GET {{server}}/admin/Authors({{id}})
+
+### ------------------------------------------------------------------------
+# Create Author
+POST {{server}}/admin/Authors
+Content-Type: application/json;IEEE754Compatible=true
+
+{
+  "ID": {{id}},
+  "name": "Nick",
+  "placeOfBirth": "Somewhere",
+  "placeOfDeath": "over the Rainbox",
+  "dateOfBirth" : "1975-05-27"
+}
+
+### ------------------------------------------------------------------------
+# rename author via unbound action
+POST {{server}}/admin/renameAuthor
+Content-Type: application/json
+{{me}}
+
+{ "author":{{id}}, "newName":"Super Nick" }
 
 
 ### ------------------------------------------------------------------------
 # Get service info
-GET {{server}}/browse
+GET {{server}}/admin
+{{me}}
+
+### ------------------------------------------------------------------------
+# Get $metadata document
+GET {{server}}/admin/$metadata
 {{me}}
 
 
@@ -23,21 +59,8 @@ GET {{server}}/browse/ListOfBooks?
 {{me}}
 
 
-### ------------------------------------------------------------------------
-# Fetch Authors as admin
-GET {{server}}/admin/Authors(307)
 
-### ------------------------------------------------------------------------
-# Create Author
-POST {{server}}/admin/Authors
-Content-Type: application/json;IEEE754Compatible=true
 
-{
-  "ID": 317,
-  "name": "Vitaly",
-  "placeOfDeath": "",
-  "placeOfBirth": ""
-}
 
 ### ------------------------------------------------------------------------
 # Fetch Books as admin
@@ -50,12 +73,12 @@ Content-Type: application/json;IEEE754Compatible=true
 Authorization: Basic alice:
 
 {
-  "ID": 13,
-  "title": "Deh3",
+  "ID": 16,
+  "title": "Deh4",
   "descr": "The Everyman's Library Pocket Poets hardcover series is popular for its compact size and reasonable price which does not compromise content. Poems: Bronte contains poems that demonstrate a sensibility elemental in its force with an imaginative discipline and flexibility of the highest order. Also included are an Editor's Note and an index of first lines.",
   "author": { "ID": 101 },
   "genre": { "ID": 12 },
-  "stock": 100,
+  "stock": -100,
   "price": "12.05",
   "currency": { "code": "USD" }
 }
