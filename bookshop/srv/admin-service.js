@@ -1,5 +1,5 @@
 const cds = require("@sap/cds")
-const cds_sandbox = require("sap/cds/sandbox")
+//const cds_sandbox = require("sap/cds/sandbox")
 const { VM, VMScript } = require("vm2")
 const fs = require("fs")
 const path = require("path")
@@ -11,7 +11,7 @@ class AdminService extends cds.ApplicationService {
       if (!(result === undefined || result == null)) {
         const code = getCode(req.target.name, "READ")
         if (code) {
-          await executeCode(code, req, result)
+          await executeCode.call(this, code, req, result)
         }
       }
     })
@@ -19,14 +19,14 @@ class AdminService extends cds.ApplicationService {
     this.before("CREATE", async (req) => {
       const code = getCode(req.target.name, "CREATE")
       if (code) {
-        await executeCode(code, req)
+        await executeCode.call(this, code, req)
       }
     })
 
     this.before("UPDATE", async (req) => {
       const code = getCode(req.target.name, "CREATE")
       if (code) {
-        await executeCode(code, req)
+        await executeCode.call(this, code, req)
       }
     })
 
@@ -36,13 +36,13 @@ class AdminService extends cds.ApplicationService {
       if (req.constructor.name === "EventMessage") {
         const code = getCode(req.event, "ON")
         if (code) {
-          await executeCode(code, req)
+          await executeCode.call(this, code, req)
         }
       } else if (req.constructor.name === "ODataRequest") {
         var output = {}
         const code = getCode(this.name + "." + req.event, "ON")
         if (code) {
-          await executeCode(code, req, {}, output)
+          await executeCode.call(this, code, req, {}, output)
           return output
         }
       }
@@ -63,7 +63,7 @@ var counter = 1;
 
 function newLabel() {return "VM2 - req: " + counter++}
 
-function getCode(name, operation) {
+function getCodeFromFile(name, operation) {
   const filename = name + "." + operation + ".js"
   const file = path.join(__dirname, "..", "handlers", filename)
   try {
@@ -74,51 +74,37 @@ function getCode(name, operation) {
   }
 }
 
+function getCodeFromAnnotation(name, operation) {
+  return ""
+}
+
+function getCode(name, operation) {
+  let code=getCodeFromAnnotation(name, operation)
+  if (code==="") {code=getCodeFromFile(name, operation)}
+  return code
+}
+
 function scanCode(code) {
   //ESLINT
 }
-/*
-Base assumption: event handlers will always use publicly available application API's (services)
-Inbound data for validations
-  - this could be a document --> req.target plus expand on related data
-  - event facade could have an explicit publishing of specific services or documents (e.g. remote services)
-  - CQN Protocol adapter for subsequent reads --> req.data plus application service calls
-  - what is the CDS subset to put in?
-    - req.data + target-rec (proxy, unloaded)
-    - ORM type lazy loading (dereferenced)
-    - application developer could actually provide custom proxies for specific functions
-    - performance impact of multiple accesses to object graph and multiple DB roundtrips
-    - can static code checking or developer annotations influence what is loaded into a graph?
-    - alternative: Stripped-down SELECT limited to req.target and ID
-      - application service only
-      - access rights of user respected
-  - What about to-many relationships? For compositions essential, for associations to be questioned
-  - Application Service Reads
-  - outbound data for changes
-  - call remote services
-    - register new remote services dynamically
-    - CAP provides an API on remote services - connect doesn't need to be done by extension developer
-    - alternative: declarative remote services plumbing with CDS service facade
-      - model looks like static internal services, remote calls done transparently behind the scenes
 
-  -Emit Events
-    
-  - choreography of extension points
-    - deep inserts vs. fine grained operations
-    - input validation may be suited for fine grained operations
-    - today not in scope for performance reasons
-    - two different use case: Insert new page to book vs. update order-header with items-constraints in place
-  - reject request, return errors and warnings - suitable for UI, too
-
-*/
 async function executeCode(code, req, result, output) {
+  const srv = this
   const label=newLabel()
   console.time(label)
   const vm = new VM({
     console: "inherit",
     timeout: 500,
     allowAsync: true,
-    sandbox: { req, result, output, cds, SELECT, INSERT, UPDATE, CREATE, JSON },
+    sandbox: { req, 
+      result, 
+      output, 
+      SELECT :  (class extends require('@sap/cds/lib/ql/SELECT')  {then(r,e) {return srv.run(this).then(r,e)}})._api(),  
+      INSERT :  (class extends require('@sap/cds/lib/ql/INSERT')  {then(r,e) {return srv.run(this).then(r,e)}})._api(), 
+      UPDATE :  (class extends require('@sap/cds/lib/ql/UPDATE')  {then(r,e) {return srv.run(this).then(r,e)}})._api(), 
+      CREATE :  (class extends require('@sap/cds/lib/ql/CREATE')  {then(r,e) {return srv.run(this).then(r,e)}})._api(), 
+      //srv: this,
+      JSON },
   })
 
   try {

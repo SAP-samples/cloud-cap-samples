@@ -36,6 +36,7 @@ entity Authors : managed, extensible {
 
 extend Authors with {
   virtual age : Integer;
+  virtual exampleBook: String;
 }
 
 /**
@@ -46,4 +47,10 @@ entity Genres : sap.common.CodeList {
       parent   : Association to Genres;
       children : Composition of many Genres
                    on children.parent = $self;
+}
+
+entity Publishers: managed {
+  key ID: Integer;
+  name: String(111);
+
 }

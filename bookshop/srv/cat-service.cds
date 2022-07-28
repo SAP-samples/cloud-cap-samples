@@ -10,6 +10,8 @@ service CatalogService @(path:'/browse') {
     author.name as author
   } excluding { createdBy, modifiedBy };
 
+@readonly entity Publishers as projection on my.Publishers;
+
   @requires: 'authenticated-user'
   action submitOrder ( book: Books:ID, quantity: Integer ) returns { stock: Integer };
   event OrderedBook : { book: Books:ID; quantity: Integer; buyer: String };

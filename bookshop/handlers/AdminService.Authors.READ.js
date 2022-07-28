@@ -21,8 +21,21 @@ function getAge(from, to) {
   return year
 }
 
-const result_ = Array.isArray(result) ? result : [result]
-for (const row of result_) {
-  row.modifiedBy += " --- read in sandbox"
-  row.age = getAge(row.dateOfBirth, row.dateOfDeath)
+async function run() {
+  const result_ = Array.isArray(result) ? result : [result]
+  for (const row of result_) {
+    row.age = getAge(row.dateOfBirth, row.dateOfDeath)
+    let res = await SELECT.one`title`.from(`Books`).where({ author_ID: row.ID })
+    if (!res) {
+      res = {}
+    }
+    let { title } = res
+    if (!title) {
+      title = "no Books yet"
+    }
+    row.exampleBook = title
+    //let pub = await SELECT.one`name`.from(`sap_capire_bookshop_Publishers`)
+  }
 }
+
+run()
