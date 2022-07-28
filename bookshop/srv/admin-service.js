@@ -33,6 +33,8 @@ class AdminService extends cds.ApplicationService {
     this.on("*", async (req, next) => {
       if (!(req.target === undefined || req.target == null)) return next()
       //ToDo: check whether action or event is part of an extension
+      // DO NOT OVERWRITE EXISTING Action Implementations!
+      // evaluate: Can we augment action implementation with super.next?
       if (req.constructor.name === "EventMessage") {
         const code = getCode(req.event, "ON")
         if (code) {
@@ -63,6 +65,8 @@ var counter = 1;
 
 function newLabel() {return "VM2 - req: " + counter++}
 
+//should only work in local exection (cds watch)
+// alternative: Upon Bootstrapping, merge files into CSN
 function getCodeFromFile(name, operation) {
   const filename = name + "." + operation + ".js"
   const file = path.join(__dirname, "..", "handlers", filename)
@@ -74,6 +78,7 @@ function getCodeFromFile(name, operation) {
   }
 }
 
+//after push this should be the only thing that works
 function getCodeFromAnnotation(name, operation) {
   return ""
 }
@@ -96,9 +101,9 @@ async function executeCode(code, req, result, output) {
     console: "inherit",
     timeout: 500,
     allowAsync: true,
-    sandbox: { req, 
-      result, 
-      output, 
+    sandbox: { req, //todo: isolate req.data, req.reject, req.error, req.message
+      result, //important for READ
+      output, //used for Action Implementation
       SELECT :  (class extends require('@sap/cds/lib/ql/SELECT')  {then(r,e) {return srv.run(this).then(r,e)}})._api(),  
       INSERT :  (class extends require('@sap/cds/lib/ql/INSERT')  {then(r,e) {return srv.run(this).then(r,e)}})._api(), 
       UPDATE :  (class extends require('@sap/cds/lib/ql/UPDATE')  {then(r,e) {return srv.run(this).then(r,e)}})._api(), 
