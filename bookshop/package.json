@@ -22,6 +22,7 @@
   },
   "cds": {
     "requires": {
+      "code-extensibility" : true,
       "db": {
         "kind": "sqlite",
         "credentials": {
