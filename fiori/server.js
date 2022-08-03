@@ -6,3 +6,10 @@ const proxyOpts = global.it ? { target:'auto' } : {} // for tests, set 'auto' to
 cds.on('bootstrap', app => app.use(proxy(proxyOpts)))
 
 module.exports = require('@capire/bookstore/server.js')
+
+// For didactic reasons in capire, run below services embedded
+// TODO find a better way to switch this
+if (cds.requires.multitenancy) {
+  cds.requires.OrdersService = null
+  cds.requires.ReviewsService = null
+}
