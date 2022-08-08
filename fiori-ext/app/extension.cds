@@ -15,8 +15,8 @@ entity Z_SalesRegion: common.CodeList {
 
 // --- UI ---
 
-annotate orders.Orders : Z_priority with @title : '{i18n>Orders_priority_col}';
-annotate Z_SalesRegion : name       with @title : '{i18n>SalesRegion_name_col}';
+annotate orders.Orders : Z_priority with @title : 'Priority';
+annotate Z_SalesRegion : name       with @title : 'Sales Region';
 
 annotate OrdersService.Orders with @UI.LineItem : [
   ... up to { Value: OrderNo },
