@@ -1,4 +1,5 @@
 const cds = require('@sap/cds/lib')
+const {resolve} = require('path')
 const { expect } = cds.test
 const _model = '@capire/reviews'
 if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
@@ -7,6 +8,9 @@ else cds.User = cds.User.Privileged // hard core monkey patch for older cds rele
 const Reviews = 'sap.capire.reviews.Reviews'
 
 describe('cap/samples - Messaging', ()=>{
+
+    beforeAll(() => { cds.root = resolve(__dirname, '..') })
+    afterAll(() => { cds.root = process.cwd() })
 
     it ('should bootstrap sqlite in-memory db', async()=>{
         const db = await cds.deploy (_model) .to ('sqlite::memory:')
