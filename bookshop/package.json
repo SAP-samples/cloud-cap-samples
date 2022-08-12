@@ -21,9 +21,7 @@
   },
   "cds": {
     "requires": {
-      "db": {
-        "kind": "sql"
-      }
+      "db": "sql"
     }
   }
 }
