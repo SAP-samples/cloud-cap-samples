@@ -47,7 +47,20 @@
       },
       "multitenancy": true,
       "toggles": true,
-      "extensibility": true
+      "extensibility": true,
+      "cds.xt.ExtensibilityService": {
+        "extension-allowlist": [
+          {
+            "for": ["sap.capire.orders.Orders"],
+            "kind": "entity",
+            "new-fields": 2
+          },
+          {
+            "for": ["OrdersService"],
+            "new-entities": 2
+          }
+        ]
+      }
     },
     "hana": {
       "deploy-format": "hdbtable"
