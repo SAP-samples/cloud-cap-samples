@@ -1,9 +1,10 @@
 const cds = require('@sap/cds/lib')
-const { GET, POST, expect } = cds.test(__dirname+'/../bookshop')
-if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
-else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
 
 describe('cap/samples - Custom Handlers', () => {
+
+  const { GET, POST, expect } = cds.test(__dirname+'/../bookshop')
+  if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
+  else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
 
   it('should reject out-of-stock orders', async () => {
     await POST `/browse/submitOrder ${{ book: 201, quantity: 5 }}`

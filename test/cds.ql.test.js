@@ -1,20 +1,18 @@
-const cds = require('@sap/cds/lib')
-const { expect } = cds.test
-const { cdr } = cds.ql
-const Foo = { name: 'Foo' }
-const Books = { name: 'capire.bookshop.Books' }
-
-
-const STAR = cdr ? '*' : { ref: ['*'] }
-const skip = {to:{eql:()=>skip}}
-const srv = new cds.Service
-let cqn
-
-expect.plain = (cqn) => !cqn.SELECT.one && !cqn.SELECT.distinct ? expect(cqn) : skip
-expect.one = (cqn) => !cqn.SELECT.distinct ? expect(cqn) : skip
-
 describe('cds.ql → cqn', () => {
-  //
+
+  const cds = require('@sap/cds/lib')
+  const { expect } = cds.test
+  const { cdr } = cds.ql
+  const Foo = { name: 'Foo' }
+  const Books = { name: 'capire.bookshop.Books' }
+
+  const STAR = cdr ? '*' : { ref: ['*'] }
+  const skip = {to:{eql:()=>skip}}
+  const srv = new cds.Service
+  let cqn
+
+  expect.plain = (cqn) => !cqn.SELECT.one && !cqn.SELECT.distinct ? expect(cqn) : skip
+  expect.one = (cqn) => !cqn.SELECT.distinct ? expect(cqn) : skip
 
   describe.each(['SELECT', 'SELECT one', 'SELECT distinct'])(`%s...`, (each) => {
 
