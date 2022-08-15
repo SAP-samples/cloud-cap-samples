@@ -1,5 +1,4 @@
-using { sap.capire.orders, OrdersService, sap.common } from '@capire/fiori/';
-// using { sap.common } from '@sap/cds/common'; //> TODO this creates duplicated definitions
+using { sap.capire.orders, OrdersService, sap.common } from '@capire/fiori';
 
 namespace Z_bookshop.extension;
 
@@ -11,7 +10,6 @@ extend orders.Orders with {
 entity Z_SalesRegion: common.CodeList {
   key regionCode : String(11);
 }
-
 
 // --- UI ---
 
