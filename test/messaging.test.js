@@ -1,13 +1,13 @@
 const cds = require('@sap/cds/lib')
 const {resolve} = require('path')
-const { expect } = cds.test
-const _model = '@capire/reviews'
-if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
-else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
-
-const Reviews = 'sap.capire.reviews.Reviews'
 
 describe('cap/samples - Messaging', ()=>{
+
+    const { expect } = cds.test
+    const _model = '@capire/reviews'
+    const Reviews = 'sap.capire.reviews.Reviews'
+    if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
+    else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
 
     beforeAll(() => { cds.root = resolve(__dirname, '..') })
     afterAll(() => { cds.root = process.cwd() })

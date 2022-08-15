@@ -1,19 +1,17 @@
 const cds = require('@sap/cds/lib')
-const {expect} = cds.test
-
-// should become cds.compile(...) when cds5 is released
-const model = cds.compile.to.csn (`
-  entity Categories {
-    key ID   : Integer;
-    name     : String;
-    children : Composition of many Categories on children.parent = $self;
-    parent   : Association to Categories;
-  }
-`)
-const {Categories:Cats} = model.definitions
-
 
 describe('cap/samples - Hierarchical Data', ()=>{
+
+	const model = CDL`
+		entity Categories {
+			key ID   : Integer;
+			name     : String;
+			children : Composition of many Categories on children.parent = $self;
+			parent   : Association to Categories;
+		}
+	`
+	const {Categories:Cats} = model.definitions
+	const {expect} = cds.test
 
 	before ('bootstrap sqlite in-memory db...', async()=>{
 		await cds.deploy (model) .to ('sqlite::memory:')

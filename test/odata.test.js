@@ -1,8 +1,8 @@
 const cds = require('@sap/cds/lib')
-const { GET, expect, axios } = cds.test ('@capire/bookshop')
-axios.defaults.auth = { username: 'alice', password: 'admin' }
 
 describe('cap/samples - Bookshop APIs', () => {
+  const { GET, expect, axios } = cds.test ('@capire/bookshop')
+  axios.defaults.auth = { username: 'alice', password: 'admin' }
 
   // Genres
   const Drama = {
