@@ -14,7 +14,7 @@ describe('cap/samples - Consuming Services locally', () => {
     const AdminService = await cds.connect.to('AdminService')
     const { Authors } = AdminService.entities
     expect (await SELECT.from(Authors))
-    .to.eql(await SELECT.from('Authors'))
+    // .to.eql(await SELECT.from('Authors'))
     .to.eql(await AdminService.read(Authors))
     .to.eql(await AdminService.read('Authors'))
     .to.eql(await AdminService.run(SELECT.from(Authors)))

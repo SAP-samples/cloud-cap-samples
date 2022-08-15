@@ -4,6 +4,7 @@
   "dependencies": {
     "@capire/bookstore": "*",
     "@sap/cds": ">=5",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.0",
     "express": "^4.17.1",
     "passport": ">=0.4.1"
   },
@@ -13,9 +14,6 @@
   },
   "cds": {
     "requires": {
-      "auth": {
-        "kind": "dummy-auth"
-      },
       "ReviewsService": {
         "kind": "odata",
         "model": "@capire/reviews"
