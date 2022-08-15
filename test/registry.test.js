@@ -1,12 +1,14 @@
 
 const cds = require('@sap/cds/lib')
-const { expect } = cds.test
 const { fork } = require('child_process')
 const { resolve } = require('path')
 const verbose = process.env.CDS_TEST_VERBOSE
-// ||true
 
 describe('cap/samples - Local NPM registry', () => {
+
+  const { expect } = cds.test
+  // ||true
+
   let registry
   let axios
   const cwd = resolve(__dirname, '..')

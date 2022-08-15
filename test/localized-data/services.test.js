@@ -1,8 +1,8 @@
-const { GET, expect, cds } = require('@sap/cds/lib').test (__dirname)
-if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
-else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
-
 describe('cap/samples - Localized Data', () => {
+
+  const { GET, expect, cds } = require('@sap/cds/lib').test (__dirname)
+  if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
+  else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
 
   it('serves localized $metadata documents', async () => {
     const { data } = await GET`/browse/$metadata?sap-language=de`
