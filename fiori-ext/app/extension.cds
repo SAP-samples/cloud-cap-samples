@@ -1,4 +1,4 @@
-using { sap.capire.orders, OrdersService, sap.common } from '@capire/fiori';
+using { sap.capire.orders, OrdersService, sap.common } from '@capire/fiori/';
 // using { sap.common } from '@sap/cds/common'; //> TODO this creates duplicated definitions
 
 namespace Z_bookshop.extension;
