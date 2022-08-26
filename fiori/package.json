@@ -43,10 +43,10 @@
         "[production]": {
           "model": "db/hana"
         }
-      },
-      "hana": {
-        "deploy-format": "hdbtable"
       }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
     }
   }
 }
