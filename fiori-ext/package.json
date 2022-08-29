@@ -9,7 +9,8 @@
     "@sap/cds": "^6"
   },
   "devDependencies": {
-    "sqlite3": "^5.0.4"
+    "sqlite3": "^5.0.4",
+    "@sap/eslint-plugin-cds": "^2.5.0"
   },
   "scripts": {
     "start": "cds run"
@@ -18,7 +19,10 @@
     "extends": "@capire/fiori"
   },
   "eslintConfig": {
-    "extends": "eslint:recommended",
+    "extends": [
+      "eslint:recommended",
+      "plugin:@sap/cds/recommended"
+    ],
     "env": {
       "es2020": true,
       "node": true,

@@ -1,5 +1,8 @@
 {
-    "extends": "eslint:recommended",
+    "extends": [
+        "eslint:recommended",
+        "plugin:@sap/cds/recommended"
+    ],
     "env": {
         "browser": true,
         "es2022": true,
