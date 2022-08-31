@@ -19,6 +19,9 @@
     "node": "^16"
   },
   "cds": {
+    "features": {
+      "deploy_data_onconflict": "replace"
+    },
     "requires": {
       "ReviewsService": {
         "kind": "odata",
