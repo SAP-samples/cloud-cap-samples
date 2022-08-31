@@ -85,9 +85,6 @@
       "approuter": {
         "kind": "cloudfoundry"
       }
-    },
-    "hana": {
-      "deploy-format": "hdbtable"
     }
   }
 }
