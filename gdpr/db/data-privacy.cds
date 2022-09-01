@@ -26,6 +26,13 @@ annotate bookshop.CustomerPostalAddress with @PersonalData : {
   country  @PersonalData.IsPotentiallyPersonal;
 }
 
+annotate bookshop.Orders with @PersonalData.EntitySemantics : 'Other'
+{
+  ID              @PersonalData.FieldSemantics : 'ContractRelatedID';
+  Customer        @PersonalData.FieldSemantics : 'DataSubjectID';
+  personalComment @PersonalData.IsPotentiallyPersonal;
+}
+
 // annotations for Audit Log
 annotate bookshop.Customers with @AuditLog.Operation : {
   Read   : true,
@@ -34,7 +41,16 @@ annotate bookshop.Customers with @AuditLog.Operation : {
   Delete : true
 };
 
+// annotations for Audit Log
 annotate bookshop.CustomerPostalAddress with @AuditLog.Operation : {
+  Read   : true,
+  Insert : true,
+  Update : true,
+  Delete : true
+};
+
+// annotations for Audit Log
+annotate bookshop.Orders with @AuditLog.Operation : {
   Read   : true,
   Insert : true,
   Update : true,
