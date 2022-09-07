@@ -10,7 +10,7 @@
     "index.js"
   ],
   "dependencies": {
-    "@sap/cds": ">=5.9",
+    "@sap/cds": "^6.1.1",
     "express": "^4.17.1",
     "passport": ">=0.4.1"
   },
@@ -22,7 +22,10 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "sql"
+        "kind": "sqlite",
+        "credentials": {
+          "database": "sqlite.db"
+        }
       }
     }
   }
