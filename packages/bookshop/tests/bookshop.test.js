@@ -26,7 +26,8 @@ describe('Bookshop: OData Protocol Level Testing', () => {
 
   it('Get with select, expand and localized', async () => {
     const response = await request
-      .get('/browse/Books?$select=title,author&$expand=currency&sap-language=de')
+      .get('/browse/Books?$select=title,author&$expand=currency')
+      .set('Accept-Language', 'de')
       .expect('Content-Type', /^application\/json/)
       .expect(200)
 
