@@ -11,7 +11,8 @@ module.exports = async()=>{ // called by server.js
   const db = await cds.connect.to ('db')
 
   // reflect entity definitions used below...
-  const { Books } = db.entities ('sap.capire.bookshop')
+  //const { Books } = db.entities ('sap.capire.bookshop')
+  const { Books, Book } = require('../@types/sap/capire/bookshop')
 
   //
   // Delegate requests to read reviews to the ReviewsService
@@ -19,8 +20,8 @@ module.exports = async()=>{ // called by server.js
   //
   CatalogService.prepend (srv => srv.on ('READ', 'Books/reviews', (req) => {
     console.debug ('> delegating request to ReviewsService')
-    const [id] = req.params, { columns, limit } = req.query.SELECT
-    return ReviewsService.read ('Reviews',columns).limit(limit).where({subject:String(id)})
+    const [id] = req.params, { columns, limit } = 'SELECT' in req.query ? req.query.SELECT : {columns: [], limit: { rows: 0 }}
+    return ReviewsService.read ('Reviews',columns).limit(limit.rows).where({subject:String(id)})
   }))
 
   //
@@ -28,7 +29,7 @@ module.exports = async()=>{ // called by server.js
   //
   CatalogService.on ('OrderedBook', async (msg) => {
     const { book, quantity, buyer } = msg.data
-    const { title, price } = await db.tx(msg).read (Books, book, b => { b.title, b.price })
+    const { title, price } = await db.tx(msg).read ('Books').where('ID = ' + book.ID).columns((/** @type {Book} */ b) => { b.title, b.price })
     return OrdersService.tx(msg).create ('Orders').entries({
       OrderNo: 'Order at '+ (new Date).toLocaleString(),
       Items: [{ product:{ID:`${book}`}, title, price, quantity }],

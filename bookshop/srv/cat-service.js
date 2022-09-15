@@ -2,7 +2,8 @@ const cds = require('@sap/cds')
 
 class CatalogService extends cds.ApplicationService { init(){
 
-  const { Books } = this.entities ('sap.capire.bookshop')
+  //const { Books } = this.entities ('sap.capire.bookshop')
+  const { Books, Book } = require('../@types/sap/capire/bookshop')
 
   // Reduce stock of ordered books if available stock suffices
   this.on ('submitOrder', async req => {
