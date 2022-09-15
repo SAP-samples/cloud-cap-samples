@@ -5,9 +5,7 @@
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
   "dependencies": {
-    "@sap/cds": ">=5.5.3",
-    "@sap/eslint-plugin-cds": "file:../../SAPDevelop/CAP/Tools/dev/cds-lint",
-    "eslint-plugin-cloud-cap-samples": "file:.eslint"
+    "@sap/cds": ">=5.5.3"
   },
   "workspaces": [
     "./*/"
@@ -19,6 +17,10 @@
     "chai-subset": "^1.6.0",
     "semver": "^7",
     "sqlite3": "^5",
+    "@sap/eslint-plugin-cds": "^2.6.0",
+    "eslint-plugin-cloud-cap-samples": "file:.eslint"
+  },
+  "peerDependencies": {
     "eslint": "^7"
   },
   "scripts": {
