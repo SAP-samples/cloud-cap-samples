@@ -411,18 +411,69 @@ describe('cds.ql → cqn', () => {
         ]
       }})
 
-      expect (
-        SELECT.from(Foo).where({x:1,or:{y:2}})
-      ).to.eql (
-        CQL`SELECT from Foo where x=1 or y=2`
-      ).to.eql ({ SELECT: {
-        from: {ref:['Foo']},
-        where: [
-          {ref:['x']}, '=', {val:1},
-          'or',
-          {ref:['y']}, '=', {val:2}
-        ]
-      }})
+      const ql_with_groups_fix = !!cds.ql.Query.prototype.flat
+      if (ql_with_groups_fix) {
+
+        expect (
+          SELECT.from(Foo).where({x:1}).or({y:2}).and({z:3})
+        ).to.eql ({ SELECT: {
+          from: {ref:['Foo']},
+          where: [
+            {ref:['x']}, '=', {val:1},
+            'or',
+            {ref:['y']}, '=', {val:2},
+            'and',
+            {ref:['z']}, '=', {val:3},
+          ]
+        }})
+
+        expect (
+          SELECT.from(Foo).where({x:1,or:{y:2}}).and({z:3})
+        ).to.eql ({ SELECT: {
+          from: {ref:['Foo']},
+          where: [
+            {xpr:[
+              {ref:['x']}, '=', {val:1},
+              'or',
+              {ref:['y']}, '=', {val:2},
+            ]},
+            'and',
+            {ref:['z']}, '=', {val:3},
+          ]
+        }})
+
+        expect (
+          SELECT.from(Foo).where({a:1}).or({x:1,or:{y:2}}).and({z:3})
+        ).to.eql ({ SELECT: {
+          from: {ref:['Foo']},
+          where: [
+            {ref:['a']}, '=', {val:1},
+            'or',
+            {xpr:[
+              {ref:['x']}, '=', {val:1},
+              'or',
+              {ref:['y']}, '=', {val:2},
+            ]},
+            'and',
+            {ref:['z']}, '=', {val:3},
+          ]
+        }})
+
+        expect (
+          SELECT.from(Foo).where({x:1,or:{y:2}})
+        ).to.eql ({ SELECT: {
+          from: {ref:['Foo']},
+          where: [
+            {xpr:[
+              {ref:['x']}, '=', {val:1},
+              'or',
+              {ref:['y']}, '=', {val:2},
+            ]}
+          ]
+        }})
+
+      }
+
 
       expect (
         SELECT.from(Foo).where({x:1,and:{y:2}}).or({z:3})
