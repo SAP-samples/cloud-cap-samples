@@ -1,32 +1,37 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:@sap/cds/recommended",
-    "plugin:cloud-cap-samples/recommended"
-  ],
-  "plugins": [
-    "cloud-cap-samples"
-  ],
-  "env": {
-    "browser": true,
-    "es2022": true,
-    "node": true,
-    "jest": true,
-    "mocha": true
-  },
-  "globals": {
-    "SELECT": true,
-    "INSERT": true,
-    "UPDATE": true,
-    "DELETE": true,
-    "CREATE": true,
-    "DROP": true,
-    "cds": true
-  },
-  "rules": {
-    "no-console": "off",
-    "require-atomic-updates": "off",
-    "require-await":"warn",
-    "no-unused-vars": ["warn", { "argsIgnorePattern": "_" }]
-  }
+	"extends": [
+		"eslint:recommended",
+		"plugin:@sap/cds/recommended",
+		"plugin:cloud-cap-samples/recommended"
+	],
+	"plugins": [
+		"cloud-cap-samples"
+	],
+	"env": {
+		"browser": true,
+		"es2022": true,
+		"node": true,
+		"jest": true,
+		"mocha": true
+	},
+	"globals": {
+		"SELECT": true,
+		"INSERT": true,
+		"UPDATE": true,
+		"DELETE": true,
+		"CREATE": true,
+		"DROP": true,
+		"cds": true
+	},
+	"rules": {
+		"no-console": "off",
+		"require-atomic-updates": "off",
+		"require-await": "warn",
+		"no-unused-vars": [
+			"warn",
+			{
+				"argsIgnorePattern": "_"
+			}
+		]
+	}
 }

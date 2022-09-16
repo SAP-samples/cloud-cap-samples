@@ -15,13 +15,11 @@
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
+    "eslint": "^8.9",
     "semver": "^7",
     "sqlite3": "^5",
     "@sap/eslint-plugin-cds": "^2.6.0",
     "eslint-plugin-cloud-cap-samples": "file:.eslint"
-  },
-  "peerDependencies": {
-    "eslint": "^7"
   },
   "scripts": {
     "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",

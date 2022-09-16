@@ -1,4 +1,5 @@
 {
     "name": "eslint-plugin-cloud-cap-samples",
+    "description": "Contains shareable custom lint rules for this repository",
     "version": "1.0.0"
 }
