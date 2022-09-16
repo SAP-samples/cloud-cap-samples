@@ -27,11 +27,6 @@
         "no-console": "off",
         "require-atomic-updates": "off",
         "require-await": "warn",
-        "no-unused-vars": [
-            "warn",
-            {
-                "argsIgnorePattern": "_"
-            }
-        ]
+        "no-unused-vars": ["warn", { "argsIgnorePattern": "_" }]
     }
 }
