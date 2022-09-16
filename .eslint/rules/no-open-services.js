@@ -1,38 +1,30 @@
 module.exports = {
     meta: {
       docs: {
-        description: "Service without `@requires/restrict` should not expose fields `createdBy` and `modifiedBy`.",
+        description: "Service without `@requires/restrict` should not expose fields with personal data.",
         version: "1.0.0"
       },
       fixable: "code",
       model: "inferred"
     },
     create: function (context) {
+      const services = context.getModel().services;
+      const unprotectedServices = services.filter(s => !s["@requires"] && !s["@restrict"]).map(s => s.name)
+      if (!unprotectedServices.length) return
       return { entity: checkForExposedFields };
 
-      function checkForExposedFields(e) {
-        const services = context.getModel().services;
-        const unauthorizedServices = services
-          .map((s) => {
-            if (!s["@requires"] && !s["@restrict"]) {
-              return s.name;
-            }
-          })
-          .filter((item) => !!item);
-        const found = Object.keys(e.elements).find((r) => ["createdBy", "modifiedBy"].indexOf(r) >= 0);
-        const isUnauthorizedService = unauthorizedServices.some((r) => {
-          if (e.name.includes(r)) {
-            return true;
+      function checkForExposedFields(entity) {
+        const entityInUnprotectedService = unprotectedServices.some(service => entity.name.includes(service))
+        if (entityInUnprotectedService) {
+          const elements = Object.keys(entity.elements).filter((name) => ["createdBy", "modifiedBy"].includes(name))
+          for (let element of elements) {
+            context.report({
+              message: `Field '${element}' in '${entity.name}' exposes personal data. Remove field or add \`@restrict/requires\`.`,
+              node: context.getNode(entity),
+              file: entity.$location.file
+            })
           }
-          return false;
-        });
-        if (found && isUnauthorizedService) {
-          context.report({
-            message: `Danger - exposed field '${found}' with '${e.name}' Either remove these or add add \`@restrict/requires\`.`,
-            node: context.getNode(e),
-            file: e.$location.file
-          });
         }
       }
     }
-  };
+  }
