@@ -8,9 +8,8 @@ module.exports = {
       model: "inferred"
     },
     create: function (context) {
-      const services = context.getModel().services;
+      const services = context.getModel() ? context.getModel().services : [];
       const unprotectedServices = services.filter(s => !s["@requires"] && !s["@restrict"]).map(s => s.name)
-      if (!unprotectedServices.length) return
       return { entity: checkForExposedFields };
 
       function checkForExposedFields(entity) {
