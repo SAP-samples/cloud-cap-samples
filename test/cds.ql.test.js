@@ -411,7 +411,7 @@ describe('cds.ql → cqn', () => {
         ]
       }})
 
-      const ql_with_groups_fix = false
+      const ql_with_groups_fix = !!cds.ql.Query.prototype.flat
       if (ql_with_groups_fix) {
 
         expect (
@@ -460,7 +460,7 @@ describe('cds.ql → cqn', () => {
         }})
 
         expect (
-          SELECT.from(Foo).where({x:1,or:{y:2}})
+          { SELECT: SELECT.from(Foo).where({x:1,or:{y:2}}).SELECT }
         ).to.eql ({ SELECT: {
           from: {ref:['Foo']},
           where: [
