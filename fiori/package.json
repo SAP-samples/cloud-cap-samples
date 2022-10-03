@@ -43,7 +43,7 @@
         }
       },
       "db": {
-        "kind": "sql"
+        "kind": "sql-mt"
       },
       "db-ext": {
         "[development]": {
@@ -57,7 +57,9 @@
       "toggles": true,
       "extensibility": true,
       "cds.xt.ExtensibilityService": {
-        "element-prefix": ["x_"],
+        "element-prefix": [
+          "x_"
+        ],
         "extension-allowlist": [
           {
             "for": [
