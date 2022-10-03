@@ -18,4 +18,5 @@ reviews/msg-box
 reviews/db/test.db
 
 *.openapi3.json
+*.sqlite
 *.db
