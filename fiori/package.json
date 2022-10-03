@@ -57,14 +57,14 @@
       "toggles": true,
       "extensibility": true,
       "cds.xt.ExtensibilityService": {
-        "element-prefix": ["Z_"],
+        "element-prefix": ["x_"],
         "extension-allowlist": [
           {
             "for": [
-              "sap.capire.orders.Orders"
+              "sap.capire.orders"
             ],
             "kind": "entity",
-            "new-fields": 2
+            "new-fields": 3
           },
           {
             "for": [

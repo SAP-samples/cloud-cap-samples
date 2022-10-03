@@ -1,24 +1,25 @@
-using { sap.capire.orders, OrdersService, sap.common } from '@capire/fiori';
+using { OrdersService, sap, sap.capire.orders.Orders } from '@capire/fiori';
+namespace x_bookshop.extension;
 
-namespace Z_bookshop.extension;
-
-extend orders.Orders with {
-  Z_priority    : String @assert.range enum {high; medium; low} default 'medium' ;
-  Z_SalesRegion : Association to Z_SalesRegion;
+// Adding 2 new fields for Orders
+extend Orders with {
+  x_priority    : String @assert.range enum {high; medium; low} default 'medium' ;
+  x_salesRegion : Association to SalesRegion;
 }
 
-entity Z_SalesRegion: common.CodeList {
-  key regionCode : String(11);
+/** Value Help for x_salesRegion */
+entity SalesRegion : sap.common.CodeList {
+  key code : String(11);
 }
 
 // --- UI ---
 
-annotate orders.Orders : Z_priority with @title : 'Priority';
-annotate Z_SalesRegion : name       with @title : 'Sales Region';
+annotate Orders:x_priority with @title : 'Priority';
+annotate SalesRegion:name with @title : 'Sales Region';
 
 annotate OrdersService.Orders with @UI.LineItem : [
   ... up to { Value: OrderNo },
-  { Value : Z_priority },
-  { Value : Z_SalesRegion.name },
+  { Value : x_priority },
+  { Value : x_salesRegion.name },
   ...
 ];
