@@ -15,7 +15,7 @@ entity x_SalesRegion : sap.common.CodeList { // Value Help
 // Fiori Annotations
 
 annotate Orders:x_priority with @title: 'Priority';
-annotate SalesRegion:name with @title: 'Sales Region';
+annotate x_SalesRegion:name with @title: 'Sales Region';
 
 annotate OrdersService.Orders with @UI.LineItem: [
   ... up to { Value: OrderNo },
