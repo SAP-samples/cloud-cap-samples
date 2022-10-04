@@ -3,39 +3,6 @@
   "version": "1.0.0",
   "dependencies": {
     "@capire/common": "*",
-    "@sap/cds": ">=5",
-    "@sap/cds-mtxs": "^1"
-  },
-  "cds": {
-    "requires": {
-      "db": "sql-mt",
-      "multitenancy": true,
-      "toggles": true,
-      "extensibility": true,
-      "cds.xt.ExtensibilityService": {
-        "element-prefix": ["x_"],
-        "extension-allowlist": [
-          {
-            "for": ["sap.capire.orders"],
-            "kind": "entity",
-            "new-fields": 2
-          },
-          {
-            "for": ["OrdersService"],
-            "new-entities": 2
-          }
-        ]
-      },
-      "auth": {
-        "users": {
-          "bob": {
-            "tenant": "t1-ext",
-            "roles": [
-              "cds.ExtensionDeveloper"
-            ]
-          }
-        }
-      }
-    }
+    "@sap/cds": ">=5"
   }
 }
