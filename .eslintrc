@@ -1,14 +1,14 @@
 {
-    "extends": "eslint:recommended",
+    "extends": [
+        "eslint:recommended",
+        "plugin:@sap/cds/recommended"
+    ],
     "env": {
         "browser": true,
+        "es2022": true,
         "node": true,
-        "es6": true,
         "jest": true,
         "mocha": true
-    },
-    "parserOptions": {
-        "ecmaVersion": 2020
     },
     "globals": {
         "SELECT": true,

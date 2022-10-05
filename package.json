@@ -8,7 +8,15 @@
     "@sap/cds": ">=5.5.3"
   },
   "workspaces": [
-    "./*/"
+    "./bookshop",
+    "./bookstore",
+    "./common",
+    "./data-viewer",
+    "./fiori",
+    "./hello",
+    "./media",
+    "./orders",
+    "./reviews"
   ],
   "devDependencies": {
     "axios": "^0",

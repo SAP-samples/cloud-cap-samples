@@ -19,4 +19,4 @@ module.exports = cds.server
 
 // For didactic reasons in capire
 const { ReviewsService, OrdersService } = cds.requires
-if (!ReviewsService.credentials && !OrdersService.credentials) cds.requires.messaging = false
+if (!ReviewsService?.credentials && !OrdersService?.credentials) cds.requires.messaging = false

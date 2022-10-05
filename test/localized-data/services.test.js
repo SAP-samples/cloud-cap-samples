@@ -5,19 +5,8 @@ describe('cap/samples - Localized Data', () => {
   else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
 
   it('serves localized $metadata documents', async () => {
-    const { data } = await GET`/browse/$metadata?sap-language=de`
+    const { data } = await GET(`/browse/$metadata?sap-language=de`, { headers: { 'accept-language': 'de' }})
     expect(data).to.contain('<Annotation Term="Common.Label" String="Währung"/>')
-  })
-
-  it('supports sap-language param', async () => {
-    const { data } = await GET(`/browse/Books?$select=title,author` + '&sap-language=de')
-    expect(data.value).to.containSubset([
-      { title: 'Sturmhöhe', author: 'Emily Brontë' },
-      { title: 'Jane Eyre', author: 'Charlotte Brontë' },
-      { title: 'The Raven', author: 'Edgar Allen Poe' },
-      { title: 'Eleonora', author: 'Edgar Allen Poe' },
-      { title: 'Catweazle', author: 'Richard Carpenter' },
-    ])
   })
 
   it('supports accept-language header', async () => {

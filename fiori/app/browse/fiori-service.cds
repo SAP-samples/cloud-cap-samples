@@ -33,7 +33,7 @@ annotate CatalogService.Books with @(UI : {
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	Books Object Page
+//	Books List Page
 //
 annotate CatalogService.Books with @(UI : {
     SelectionFields : [
