@@ -20,7 +20,10 @@
     "node": "^16.15"
   },
   "eslintConfig": {
-    "extends": "eslint:recommended",
+    "extends": [
+      "eslint:recommended",
+      "plugin:@sap/cds/recommended"
+    ],
     "env": {
       "es2020": true,
       "node": true,
