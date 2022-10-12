@@ -17,10 +17,10 @@ describe('cap/samples - Bookshop APIs', () => {
     "ID": 16,
     "parent_ID": 10
   }
-  const Fantasy = {
-    "name": "Fantasy",
+  const Romance = {
+    "name": "Romance",
     "descr": null,
-    "ID": 13,
+    "ID": 15,
     "parent_ID": 10
   }
 
@@ -62,7 +62,7 @@ describe('cap/samples - Bookshop APIs', () => {
     }}`
     expect(data.value).to.eql([
       { ID: 251, title: 'The Raven', author: 'Edgar Allen Poe', genre:Mystery, currency:USD  },
-      { ID: 252, title: 'Eleonora', author: 'Edgar Allen Poe', genre:Mystery, currency:USD  },
+      { ID: 252, title: 'Eleonora', author: 'Edgar Allen Poe', genre:Romance, currency:USD  },
     ])
   })
 
