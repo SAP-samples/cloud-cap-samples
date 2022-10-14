@@ -13,6 +13,7 @@ entity Books : managed {
   image : LargeBinary @Core.MediaType : 'image/png';
 }
 
+
 entity Authors : managed {
   key ID : Integer;
   name   : String(111);
