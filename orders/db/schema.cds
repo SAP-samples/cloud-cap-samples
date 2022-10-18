@@ -2,7 +2,7 @@ using { Currency, User, managed, cuid } from '@sap/cds/common';
 namespace sap.capire.orders;
 
 entity Orders : cuid, managed {
-  OrderNo  : String @title:'Order Number'; //> readable key
+  OrderNo  : String(22) @title:'Order Number'; //> readable key
   Items    : Composition of many {
     key ID    : UUID;
     product   : Association to Products;

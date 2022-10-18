@@ -17,7 +17,7 @@ describe('cap/samples - Local NPM registry', () => {
     const env = Object.assign(process.env, {PORT:'0'})
     const res = await exec (resolve(cwd, '.registry/server.js'), {cwd, stdio: 'pipe', env})
     registry = res.cp
-    axios = require('axios').default.create ({ baseURL: res.url, validateStatus: (status)=>status<500 })
+    axios = require('axios').create ({ baseURL: res.url, validateStatus: (status)=>status<500 })
   })
 
   after(() => { registry.kill() })

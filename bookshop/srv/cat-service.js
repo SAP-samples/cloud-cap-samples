@@ -2,7 +2,8 @@ const cds = require('@sap/cds')
 
 class CatalogService extends cds.ApplicationService { init(){
 
-  const { Books } = this.entities ('sap.capire.bookshop')
+  const { Books } = cds.entities ('sap.capire.bookshop')
+  const { ListOfBooks } = this.entities
 
   // Reduce stock of ordered books if available stock suffices
   this.on ('submitOrder', async req => {
@@ -18,7 +19,7 @@ class CatalogService extends cds.ApplicationService { init(){
   })
 
   // Add some discount for overstocked books
-  this.after ('READ','ListOfBooks', each => {
+  this.after ('READ', ListOfBooks, each => {
     if (each.stock > 111) each.title += ` -- 11% discount!`
   })
 

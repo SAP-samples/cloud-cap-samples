@@ -2,12 +2,12 @@
  * Exposes data + entity metadata
  */
 @requires:'authenticated-user'
-service DataService @( path:'-data' ) {
+@odata service DataService @( path:'-data' ) {
 
   /**
    * Metadata like name and columns/elements
    */
-  entity Entities {
+  entity Entities @cds.persistence.skip {
     key name : String;
     columns: Composition of many {
       name :  String;
@@ -19,7 +19,7 @@ service DataService @( path:'-data' ) {
   /**
    * The actual data, organized by column name
    */
-  entity Data {
+  entity Data @cds.persistence.skip {
     record   : array of {
       column : String;
       data   : String;
