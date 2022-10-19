@@ -5,6 +5,14 @@ class OrdersService extends cds.ApplicationService {
   init(){
     const { 'Orders.Items':OrderItems } = this.entities
 
+    // fill itemCategory at runtime
+    this.before (['CREATE', 'UPDATE'], async req =>{
+      if(req.data.quantity > 500) {req.data.itemCategory = 'Large'}
+        else if (req.data.quantity > 100) {req.data.itemCategory = 'Medium'}
+        else    {req.data.itemCategory = 'Small'}
+    })   
+    //
+
     this.before ('UPDATE', 'Orders', async function(req) {
       const { ID, Items } = req.data
       if (Items) for (let { product_ID, quantity } of Items) {

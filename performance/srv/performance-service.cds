@@ -3,8 +3,8 @@ using { sap.capire.performance as my } from '../db/schema';
 service PerformanceService {
   entity OrdersHeaders as projection on my.OrdersHeaders;
   entity OrdersItems   as projection on my.OrdersItems;
-  entity Books      as projection on my.Books;
-  entity Authors      as projection on my.Authors;
+  entity Books         as projection on my.Books;
+  entity Authors       as projection on my.Authors;
 
 // static
 view OrdersItemsViewJoin as select 
@@ -66,7 +66,7 @@ from OrdersItems {*, Header.OrderNo, Header.buyer, Header.currency }
 where OrdersItems.price > 100;
 
 
-// TODO avoid CASE and/or JOIN: Denormalization of expensive complex structures, 
+// TODO avoid CASE -- Denormalization of expensive complex structures, 
 // calculate on write instead of read
 
 // CASE -> try to remodel to avoid CASE, if re-modelling is not possible, 
@@ -82,6 +82,14 @@ entity OrdersItemsCaseView as projection on OrdersItems {
 };
 
 
+extend my.OrdersItems with {
+    itemCategory: String enum{ Small; Medium; Large;};
+    // fill itemCategory at runtime in performance-service.js
+}
 
+entity OrdersItemsNoCaseView as projection on OrdersItems {
+    *,
+    itemCategory as category 
+};
 }
 
