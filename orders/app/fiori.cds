@@ -65,6 +65,7 @@ annotate OrdersService.Orders with @(
 ) {
 	createdAt @UI.HiddenFilter:false;
 	createdBy @UI.HiddenFilter:false;
+        ID        @UI.Hidden;
 };
 
 
