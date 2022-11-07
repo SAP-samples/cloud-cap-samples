@@ -4,6 +4,7 @@
 
 using { sap.capire.bookshop as my } from '@capire/bookstore';
 using { sap.common } from '@capire/common';
+using { sap.common.Currencies } from '@sap/cds/common';
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -25,7 +26,7 @@ annotate my.Books with @(
       { Value: genre.name },
       { Value: stock },
       { Value: price },
-      { Value: currency.symbol, Label: ' ' },
+      { Value: currency.symbol },
     ]
   }
 ) {
@@ -36,6 +37,10 @@ annotate my.Books with @(
   };
   author @ValueList.entity      : 'Authors';
 };
+
+annotate Currencies with {
+  symbol @Common.Label : '{i18n>Currency}';
+}
 
 ////////////////////////////////////////////////////////////////////////////
 //
