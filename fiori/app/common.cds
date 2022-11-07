@@ -65,7 +65,7 @@ annotate my.Books with {
   author @title: '{i18n>Author}'  @Common: { Text: author.name, TextArrangement: #TextOnly };
   price  @title: '{i18n>Price}'   @Measures.ISOCurrency : currency_code;
   stock  @title: '{i18n>Stock}';
-  descr  @UI.MultiLineText;
+  descr  @title: '{i18n>Description}'  @UI.MultiLineText;
 }
 
 ////////////////////////////////////////////////////////////////////////////
