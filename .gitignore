@@ -12,8 +12,11 @@ target/
 *.mtar
 connection.properties
 default-env.json
+.cdsrc-private.json
 packages/messageBox
 reviews/msg-box
 reviews/db/test.db
 
 *.openapi3.json
+*.sqlite
+*.db

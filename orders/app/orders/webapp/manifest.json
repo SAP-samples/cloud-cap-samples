@@ -3,8 +3,8 @@
 	"sap.app": {
 		"id": "orders",
 		"type": "application",
-		"title": "Order Books",
-		"description": "Sample Application",
+		"title": "Order Management",
+		"description": "CAP Sample Application",
 		"i18n": "i18n/i18n.properties",
 		"dataSources": {
 			"OrdersService": {

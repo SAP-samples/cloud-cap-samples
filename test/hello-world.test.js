@@ -1,7 +1,8 @@
 const cds = require('@sap/cds/lib')
-const { GET, expect } = cds.test (__dirname+'/../hello')
 
-describe('Hello world!', () => {
+describe('cap/samples - Hello world!', () => {
+
+  const { GET, expect } = cds.test (__dirname+'/../hello')
 
   it('should say hello with class impl', async () => {
     const {data} = await GET `/say/hello(to='world')`
@@ -9,8 +10,7 @@ describe('Hello world!', () => {
   })
 
   it('should say hello with another impl', async () => {
-    const cds = require ('@sap/cds')
-    cds.serve('say').from(cds.model)
+    await cds.serve('say').from(cds.model)
     .at('/say-again').in(cds.app)
     .with(srv => {
       srv.on('hello', (req) => `Hello again ${req.data.to}!`)

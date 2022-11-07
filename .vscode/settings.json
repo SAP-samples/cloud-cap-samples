@@ -13,5 +13,14 @@
       "**/cds/lib/req/cls.js",
       "**/odata-v4/okra/**"
     ]
-  }
+  },
+  "mochaExplorer.parallel": true,
+  "eslint.validate": [
+    "cds",
+    "csn",
+    "csv",
+    "csv (semicolon)",
+    "tsv",
+    "tab"
+  ]
 }

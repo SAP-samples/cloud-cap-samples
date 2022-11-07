@@ -1,28 +1,26 @@
-const cds = require('@sap/cds/lib')
-const { expect } = cds.test
-const { cdr } = cds.ql
-const Foo = { name: 'Foo' }
-const Books = { name: 'capire.bookshop.Books' }
-
-
-const STAR = cdr ? '*' : { ref: ['*'] }
-const skip = {to:{eql:()=>skip}}
-const srv = new cds.Service
-let cqn
-
-expect.plain = (cqn) => !cqn.SELECT.one && !cqn.SELECT.distinct ? expect(cqn) : skip
-expect.one = (cqn) => !cqn.SELECT.distinct ? expect(cqn) : skip
-
 describe('cds.ql → cqn', () => {
-  //
 
-  for (let each of ['SELECT', 'SELECT one', 'SELECT distinct']) {
+  const cds = require('@sap/cds/lib')
+  const { expect } = cds.test
+  const { cdr } = cds.ql
+  const Foo = { name: 'Foo' }
+  const Books = { name: 'capire.bookshop.Books' }
+
+  const STAR = cdr ? '*' : { ref: ['*'] }
+  const skip = {to:{eql:()=>skip}}
+  const srv = new cds.Service
+  let cqn
+
+  expect.plain = (cqn) => !cqn.SELECT.one && !cqn.SELECT.distinct ? expect(cqn) : skip
+  expect.one = (cqn) => !cqn.SELECT.distinct ? expect(cqn) : skip
+
+  describe.each(['SELECT', 'SELECT one', 'SELECT distinct'])(`%s...`, (each) => {
+
     let SELECT; beforeEach(()=> SELECT = (
       each === 'SELECT distinct' ? cds.ql.SELECT.distinct :
       each === 'SELECT one' ? cds.ql.SELECT.one :
       cds.ql.SELECT
     ))
-  describe(`${each}...`, () => {
 
     test(`from Foo`, () => {
       expect(cqn = SELECT `from Foo`)
@@ -81,6 +79,8 @@ describe('cds.ql → cqn', () => {
       .to.eql(SELECT('Foo','Boo').from('Bar'))
       .to.eql(SELECT(['Foo','Boo']).from('Bar'))
       .to.eql(SELECT `Bar` .columns `Foo, Boo`)
+      .to.eql(SELECT `Bar` .columns `{ Foo, Boo }`)
+      .to.eql(SELECT `Bar` .columns ('{ Foo, Boo }'))
       .to.eql(SELECT `Bar` .columns ('Foo','Boo'))
       .to.eql(SELECT `Bar` .columns (['Foo','Boo']))
       .to.eql(SELECT.from `Bar` .columns ('Foo','Boo'))
@@ -333,7 +333,7 @@ describe('cds.ql → cqn', () => {
       })
     })
 
-  })}
+  })
 
   describe ('SELECT where...', ()=>{
 
@@ -411,18 +411,67 @@ describe('cds.ql → cqn', () => {
         ]
       }})
 
-      expect (
-        SELECT.from(Foo).where({x:1,or:{y:2}})
-      ).to.eql (
-        CQL`SELECT from Foo where x=1 or y=2`
-      ).to.eql ({ SELECT: {
-        from: {ref:['Foo']},
-        where: [
-          {ref:['x']}, '=', {val:1},
-          'or',
-          {ref:['y']}, '=', {val:2}
-        ]
-      }})
+      const ql_with_groups_fix = !!cds.ql.Query.prototype.flat
+      if (ql_with_groups_fix) {
+
+        expect (
+          SELECT.from(Foo).where({x:1}).or({y:2}).and({z:3})
+        ).to.eql ({ SELECT: {
+          from: {ref:['Foo']},
+          where: [
+            {ref:['x']}, '=', {val:1},
+            'or',
+            {ref:['y']}, '=', {val:2},
+            'and',
+            {ref:['z']}, '=', {val:3},
+          ]
+        }})
+
+        expect (
+          SELECT.from(Foo).where({x:1,or:{y:2}}).and({z:3})
+        ).to.eql ({ SELECT: {
+          from: {ref:['Foo']},
+          where: [
+            {xpr:[
+              {ref:['x']}, '=', {val:1},
+              'or',
+              {ref:['y']}, '=', {val:2},
+            ]},
+            'and',
+            {ref:['z']}, '=', {val:3},
+          ]
+        }})
+
+        expect (
+          SELECT.from(Foo).where({a:1}).or({x:1,or:{y:2}}).and({z:3})
+        ).to.eql ({ SELECT: {
+          from: {ref:['Foo']},
+          where: [
+            {ref:['a']}, '=', {val:1},
+            'or',
+            {xpr:[
+              {ref:['x']}, '=', {val:1},
+              'or',
+              {ref:['y']}, '=', {val:2},
+            ]},
+            'and',
+            {ref:['z']}, '=', {val:3},
+          ]
+        }})
+
+        expect (
+          { SELECT: SELECT.from(Foo).where({x:1,or:{y:2}}).SELECT }
+        ).to.eql ({ SELECT: {
+          from: {ref:['Foo']},
+          where: [
+            {ref:['x']}, '=', {val:1},
+            'or',
+            {ref:['y']}, '=', {val:2},
+          ]
+        }})
+
+      }
+
 
       expect (
         SELECT.from(Foo).where({x:1,and:{y:2}}).or({z:3})
@@ -628,6 +677,34 @@ describe('cds.ql → cqn', () => {
     })
 
     //
+  })
+
+  describe(`SELECT for update`, () => {
+    beforeAll(() => {
+      delete cds.env.sql.lock_acquire_timeout
+    })
+
+    it('no wait', () => {
+      const q = SELECT.from('Foo').forUpdate()
+      expect(q.SELECT.forUpdate).eqls({})
+    })
+
+    it('specific wait', () => {
+      const q = SELECT.from('Foo').forUpdate({ wait: 1 })
+      expect(q.SELECT.forUpdate).eqls({ wait: 1 })
+    })
+
+    it('default wait', () => {
+      cds.env.sql.lock_acquire_timeout = 2
+      const q = SELECT.from('Foo').forUpdate()
+      expect(q.SELECT.forUpdate).eqls({ wait: 2 })
+    })
+
+    it('override default', () => {
+      cds.env.sql.lock_acquire_timeout = 1
+      const q = SELECT.from('Foo').forUpdate({ wait:-1 })
+      expect(q.SELECT.forUpdate).eqls({})
+    })
   })
 
   describe(`INSERT...`, () => {

@@ -1,14 +1,14 @@
 {
-    "extends": "eslint:recommended",
+    "extends": [
+        "eslint:recommended",
+        "plugin:@sap/cds/recommended"
+    ],
     "env": {
         "browser": true,
+        "es2022": true,
         "node": true,
-        "es6": true,
         "jest": true,
         "mocha": true
-    },
-    "parserOptions": {
-        "ecmaVersion": 2018
     },
     "globals": {
         "SELECT": true,
@@ -22,6 +22,7 @@
     "rules": {
         "no-console": "off",
         "require-atomic-updates": "off",
-        "require-await":"warn"
+        "require-await":"warn",
+        "no-unused-vars": ["warn", { "argsIgnorePattern": "_" }]
     }
 }

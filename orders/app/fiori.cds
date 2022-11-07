@@ -16,11 +16,12 @@ using { OrdersService } from '../srv/orders-service';
 @odata.draft.enabled
 annotate OrdersService.Orders with @(
 	UI: {
-		SelectionFields: [ createdAt, createdBy ],
+		SelectionFields: [ createdBy ],
 		LineItem: [
 			{Value: OrderNo, Label:'OrderNo'},
 			{Value: buyer, Label:'Customer'},
-			{Value: createdAt, Label:'Date'}
+			{Value: currency.symbol, Label:'Currency'},
+			{Value: createdAt, Label:'Date'},
 		],
 		HeaderInfo: {
 			TypeName: 'Order', TypeNamePlural: 'Orders',

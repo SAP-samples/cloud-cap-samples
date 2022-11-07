@@ -5,19 +5,32 @@
     <title> Capire Books </title>
     <link rel="stylesheet" href="https://unpkg.com/primitive-ui/dist/css/main.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
     <style>
         .hovering tr:hover td { color:cyan; background: #123; cursor: pointer; }
         .rating-stars { color:teal }
         .succeeded { color:teal }
         .failed { color:red }
+        .user {text-align: end; color: grey;}
     </style>
 </head>
 
 <body class="small-container", style="margin-top: 70px;">
 <div id='app'>
 
-    <h1> {{ document.title }} </h1>
+    <form class="user" @submit.prevent="login">
+        <div v-if="user">
+            <div v-if="user.tenant">Tenant: {{ user.tenant }}</div>
+            <div> User: {{ user.id }}</div>
+            <div>Locale: {{ user.locale }}</div>
+        </div>
+        <div v-else>
+            <input type="submit" value="Login" class="muted-button">
+            <!-- <a href="/user/login()">Login</a> -->
+        </div>
+    </form>
+
+    <h1> Capire Books </h1>
 
     <input type="text" placeholder="Search..." @input="search">
 

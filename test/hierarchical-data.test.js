@@ -1,19 +1,17 @@
 const cds = require('@sap/cds/lib')
-const {expect} = cds.test
 
-// should become cds.compile(...) when cds5 is released
-const model = cds.compile.to.csn (`
-  entity Categories {
-    key ID   : Integer;
-    name     : String;
-    children : Composition of many Categories on children.parent = $self;
-    parent   : Association to Categories;
-  }
-`)
-const {Categories:Cats} = model.definitions
+describe('cap/samples - Hierarchical Data', ()=>{
 
-
-describe('Hierarchical Data', ()=>{
+	const model = CDL`
+		entity Categories {
+			key ID   : Integer;
+			name     : String;
+			children : Composition of many Categories on children.parent = $self;
+			parent   : Association to Categories;
+		}
+	`
+	const {Categories:Cats} = model.definitions
+	const {expect} = cds.test
 
 	before ('bootstrap sqlite in-memory db...', async()=>{
 		await cds.deploy (model) .to ('sqlite::memory:')
@@ -35,6 +33,21 @@ describe('Hierarchical Data', ()=>{
   ))
 
 	it ('supports nested reads', async()=>{
+		if (require('semver').gte(cds.version, '5.9.0')) {
+			expect (await
+				SELECT.one.from (Cats, c=>{
+					c.ID, c.name.as('parent'), c.children (c=>{
+						c.name.as('child')
+					})
+				}) .where ({name:'Cat'})
+			) .to.eql (
+				{ ID:101, parent:'Cat', children:[
+					{ child:'Kitty' },
+					{ child:'Catwoman' },
+				]}
+			)
+			return
+		}
 		expect (await
 			SELECT.one.from (Cats, c=>{
 				c.ID, c.name.as('parent'), c.children (c=>{
@@ -50,6 +63,25 @@ describe('Hierarchical Data', ()=>{
 	})
 
 	it ('supports deeply nested reads', async()=>{
+		if (require('semver').gte(cds.version, '5.9.0')) {
+			expect (await SELECT.one.from (Cats, c=>{
+				c.ID, c.name, c.children (
+					c => { c.name },
+					{levels:3}
+				)
+			}) .where ({name:'Cat'})
+			) .to.eql (
+				{ ID:101, name:'Cat', children:[
+					{ name:'Kitty', children:[
+						{ name:'Kitty Cat', children:[
+							{ name:'Aristocat' }, ]},  // level 3
+						{ name:'Kitty Bat', children:[] }, ]},
+					{ name:'Catwoman', children:[
+						{ name:'Catalina', children:[] } ]},
+				]}
+			)
+			return
+		}
 		expect (await SELECT.one.from (Cats, c=>{
 			c.ID, c.name, c.children (
 				c => { c.name },
