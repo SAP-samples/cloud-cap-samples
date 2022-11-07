@@ -66,6 +66,7 @@ annotate my.Books with {
   price  @title: '{i18n>Price}'   @Measures.ISOCurrency : currency_code;
   stock  @title: '{i18n>Stock}';
   descr  @title: '{i18n>Description}'  @UI.MultiLineText;
+  image  @title: '{i18n>Image}';
 }
 
 ////////////////////////////////////////////////////////////////////////////
