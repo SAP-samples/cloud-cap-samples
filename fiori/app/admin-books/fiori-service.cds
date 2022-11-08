@@ -62,6 +62,11 @@ annotate AdminService.Books.texts with @(
 	}
 );
 
+annotate AdminService.Books.texts with {
+    ID       @UI.Hidden;
+    ID_texts @UI.Hidden;
+};
+
 // Add Value Help for Locales
 annotate AdminService.Books.texts {
 	locale @(
