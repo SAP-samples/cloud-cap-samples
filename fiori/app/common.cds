@@ -87,6 +87,10 @@ annotate my.Genres with @(
   }
 );
 
+annotate my.Genres with {
+  ID  @Common.Text : name  @Common.TextArrangement : #TextOnly;
+}
+
 ////////////////////////////////////////////////////////////////////////////
 //
 //	Genre Details
