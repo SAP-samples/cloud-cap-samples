@@ -12,7 +12,11 @@ using { sap.capire.bookshop.Books } from '@capire/bookshop';
 using { ReviewsService.Reviews } from '@capire/reviews';
 extend Books with {
   reviews : Composition of many Reviews on reviews.subject = $self.ID;
+
+  @Common.Label : '{i18n>Rating}'
   rating  : Decimal;
+
+  @Common.Label : '{i18n>NumberOfReviews}'
   numberOfReviews : Integer;
 }
 
