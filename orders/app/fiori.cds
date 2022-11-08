@@ -65,6 +65,7 @@ annotate OrdersService.Orders with @(
 ) {
 	createdAt @UI.HiddenFilter:false;
 	createdBy @UI.HiddenFilter:false;
+        ID        @UI.Hidden;
 };
 
 
@@ -90,4 +91,7 @@ annotate OrdersService.Orders.Items with @(
 	quantity @(
 		Common.FieldControl: #Mandatory
 	);
+        ID       @UI.Hidden;
+        up_      @UI.Hidden;
+
 };
