@@ -18,22 +18,22 @@ annotate OrdersService.Orders with @(
 	UI: {
 		SelectionFields: [ createdBy ],
 		LineItem: [
-			{Value: OrderNo, Label:'OrderNo'},
-			{Value: buyer, Label:'Customer'},
-			{Value: currency.symbol, Label:'Currency'},
-			{Value: createdAt, Label:'Date'},
+			{Value: OrderNo, Label:'{i18n>OrderNo}'},
+			{Value: buyer, Label:'{i18n>Customer}'},
+			{Value: currency.symbol, Label:'{i18n>Currency}'},
+			{Value: createdAt, Label:'{i18n>Date}'},
 		],
 		HeaderInfo: {
-			TypeName: 'Order', TypeNamePlural: 'Orders',
+			TypeName: '{i18n>Order}', TypeNamePlural: '{i18n>Orders}',
 			Title: {
-				Label: 'Order number ', //A label is possible but it is not considered on the ObjectPage yet
+				Label: '{i18n>OrderNo}', //A label is possible but it is not considered on the ObjectPage yet
 				Value: OrderNo
 			},
 			Description: {Value: createdBy}
 		},
 		Identification: [ //Is the main field group
-			{Value: createdBy, Label:'Customer'},
-			{Value: createdAt, Label:'Date'},
+			{Value: createdBy, Label:'{i18n>Customer}'},
+			{Value: createdAt, Label:'{i18n>Date}'},
 			{Value: OrderNo },
 		],
 		HeaderFacets: [
@@ -46,7 +46,7 @@ annotate OrdersService.Orders with @(
 		],
 		FieldGroup#Details: {
 			Data: [
-				{Value: currency.code, Label:'Currency'}
+				{Value: currency.code, Label:'{i18n>Currency}'}
 			]
 		},
 		FieldGroup#Created: {
@@ -73,15 +73,15 @@ annotate OrdersService.Orders with @(
 annotate OrdersService.Orders.Items with @(
 	UI: {
 		LineItem: [
-			{Value: product_ID, Label:'Product ID'},
-			{Value: title, Label:'Product Title'},
-			{Value: price, Label:'Unit Price'},
-			{Value: quantity, Label:'Quantity'},
+			{Value: product_ID, Label:'{i18n>ProductID}'},
+			{Value: title, Label:'{i18n>ProductTitle}'},
+			{Value: price, Label:'{i18n>UnitPrice}'},
+			{Value: quantity, Label:'{i18n>Quantity}'},
 		],
 		Identification: [ //Is the main field group
-			{Value: quantity, Label:'Quantity'},
-			{Value: title, Label:'Product'},
-			{Value: price, Label:'Unit Price'},
+			{Value: quantity, Label:'{i18n>Quantity}'},
+			{Value: title, Label:'{i18n>Product}'},
+			{Value: price, Label:'{i18n>UnitPrice}'},
 		],
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>OrderItems}', Target: '@UI.Identification'},
