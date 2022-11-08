@@ -52,9 +52,6 @@ annotate CatalogService.Books with @(UI : {
         },
         {Value : genre.name},
         {Value : price},
-        {
-            Value : currency.symbol,
-            Label : ' '
-        },
+        {Value : currency.symbol},
     ]
 }, );
