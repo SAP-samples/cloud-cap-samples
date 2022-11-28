@@ -1,0 +1,18 @@
+http://localhost:4004/loggers.html
+@body: = Content-Type: application/json\n\n
+
+###
+GET http://localhost:4004/log/Loggers
+
+###
+PUT http://localhost:4004/log/Logger/sqlite
+{{body:}} { "level": "debug" }
+
+###
+POST http://localhost:4004/log/debug(logger='sqlite')
+
+###
+POST http://localhost:4004/log/reset(logger='sqlite')
+
+### Dummy request to see sqlite debug output
+GET http://localhost:4004/sue/Dummy
