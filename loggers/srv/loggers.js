@@ -11,7 +11,7 @@ module.exports = class LogService extends cds.Service {
         const re = RegExp($search,'i')
         loggers = loggers.filter (l => re.test(l.id) || re.test(l.level))
       }
-      return loggers
+      return loggers.sort ((a,b) => a.id < b.id ? -1 : 1)
     })
 
     this.on('PUT','Logger', (req)=>{
