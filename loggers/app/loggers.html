@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> cds.log </title>
+  <link rel="stylesheet" href="https://unpkg.com/primitive-ui/dist/css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <style>
+    select { border-color: transparent; padding: 4px 12px; margin: 0px; }
+    button { padding: 2px 11px; margin: 0px 4px; font: 90% italic; }
+  </style>
+</head>
+
+<body class="small-container" , style="margin-top: 70px;">
+  <div id='app'>
+    <h1> Log Levels </h1>
+    <input type="text" placeholder="Search by ID or Log Level..." @input="fetch">
+    <table id='loggers'>
+      <thead>
+        <th> Module ID </th>
+        <th> Log Level </th>
+      </thead>
+      <tr v-for="each in list">
+        <td>{{ each.id }}</td>
+        <td><select v-bind:id="each.id" v-model="each.level" @change="set">
+            <option>SILENT</option>
+            <option>ERROR</option>
+            <option>WARN</option>
+            <option>INFO</option>
+            <option>DEBUG</option>
+            <option>TRACE</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    <h4>Log Format:</h4>
+    [ <button class="round-button" :class={'muted-button':!format.timestamp} @click="toggle_format" id="timestamp">Timestamp </button>
+    | <button class="round-button" :class={'muted-button':!format.level} @click="toggle_format" id="level">Log Level </button>
+    | <button class="round-button" :class={'muted-button':!format.tenant} @click="toggle_format" id="tenant">Tenant </button>
+    | <button class="round-button" :class={'muted-button':!format.reqid} @click="toggle_format" id="reqid">Request ID </button>
+    | <button class="round-button" :class={'muted-button':!format.id} @click="toggle_format" id="module">Logger ID </button>
+    ] - <i>log message ...</i>
+  </div>
+</body>
+
+<script>
+  axios.defaults.headers['Content-Type'] = 'application/json'
+  axios.defaults.baseURL = '/log'
+  const loggers = Vue.createApp({ el: '#app',
+  data() {
+      return {
+        format: { timestamp:false, level:false, tenant:false, reqid:false, id:true, },
+        list: [],
+      }
+    },
+    methods: {
+      async fetch (eve) {
+        this.list = (await axios.get (`/Loggers${
+          eve && eve.target.value ? `?$search=${eve.target.value}` : ''
+        }`)).data
+      },
+      async set (eve) {
+        const { id, value:level } = eve.target
+        await axios.put (`/Logger/${id}`, {id,level})
+      },
+      async toggle_format (eve) {
+        this.format[eve.target.id] = !this.format[eve.target.id]
+        await axios.post (`/format`, this.format)
+      },
+    },
+  }).mount('#app')
+  loggers.fetch() // initially fill list of loggers
+</script>
+
+</html>

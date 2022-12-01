@@ -128,11 +128,11 @@ describe('cap/samples - Bookshop APIs', () => {
   it('serves user info', async () => {
     {
       const { data } = await GET (`/user/me`)
-      expect(data).to.containSubset({ id: 'alice', locale:'en', tenant: null })
+      expect(data).to.containSubset({ id: 'alice', locale:'en' })
     }
     {
       const { data } = await GET (`/user/me`, {auth: { username: 'joe' }})
-      expect(data).to.containSubset({ id: 'joe', locale:'en', tenant: null })
+      expect(data).to.containSubset({ id: 'joe', locale:'en' })
     }
   })
 

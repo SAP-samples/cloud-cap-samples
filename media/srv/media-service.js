@@ -40,7 +40,7 @@ module.exports = srv => {
         req.reject(404, 'Media not found for the ID')
         return
       }
-      const decodedMedia = new Buffer(
+      const decodedMedia = Buffer.from(
         mediaObj.media.split(';base64,').pop(),
         'base64'
       )

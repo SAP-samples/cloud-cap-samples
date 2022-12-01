@@ -16,6 +16,7 @@
     "./hello",
     "./media",
     "./orders",
+    "./loggers",
     "./reviews"
   ],
   "devDependencies": {

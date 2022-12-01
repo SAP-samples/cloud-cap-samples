@@ -17,6 +17,7 @@
     "globals": {
         "SELECT": true,
         "INSERT": true,
+        "UPSERT": true,
         "UPDATE": true,
         "DELETE": true,
         "CREATE": true,
