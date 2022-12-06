@@ -42,6 +42,81 @@ entity Authors  {
 }
 
 
+entity Apples : cuid, managed { 
+  description  : String;
+  vendor       : association to one Vendor;
+  appleDetails : appleDetailsType;
+}
+
+entity Bananas : cuid, managed { 
+  description   : String;
+  vendor        : association to one Vendor;
+  bananaDetails : bananaDetailsType;
+}
+
+entity Cherries : cuid, managed {
+  description   : String;
+  vendor        : association to one Vendor;
+  cherryDetails : cherryDetailsType;
+}
+
+entity Mangos : cuid, managed {
+  description  : String;
+  vendor       : association to one Vendor;
+  mangoDetails : mangoDetailsType;
+}
+
+entity Vendor : cuid, managed { 
+  description  : String;
+}
+
+type appleDetailsType  : String;
+type bananaDetailsType : String;
+type cherryDetailsType : String;
+type mangoDetailsType  : String;
+
+entity Fruit : cuid, managed {
+    type          : String enum { apple; banana; cherry; mango };
+    description   : String;
+    vendor        : association to one Vendor;   
+    appleDetails  : composition of AppleDetails;
+    bananaDetails : composition of BananaDetails;
+    cherryDetails : composition of CherryDetails;
+    mangoDetails  : composition of MangoDetails; 
+}
+
+entity AppleDetails : cuid {
+  appleDetails : appleDetailsType;
+}
+
+entity BananaDetails : cuid {
+  bananaDetails : bananaDetailsType;
+}
+
+entity CherryDetails : cuid {
+  cherryDetails : cherryDetailsType;
+}
+
+entity MangoDetails : cuid {
+  mangoDetails : mangoDetailsType;
+}
+
+view Banana as select from Fruit
+{
+    type,
+    description,
+    vendor,
+    bananaDetails,
+}
+    where type = 'banana';
 
 
-
+aspect apple  { appleDetails  : appleDetailsType; };
+aspect banana { bananaDetails : bananaDetailsType;};
+aspect cherry { cherryDetails : cherryDetailsType;};
+aspect mango  { mangoDetails  : mangoDetailsType; };
+entity Fruit_2 : apple, banana, cherry, mango, cuid, managed {
+    type        : String enum { apple; banana; cherry; mango };
+    description : String;
+    vendor      : association to one Vendor;
+}
