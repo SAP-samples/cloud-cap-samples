@@ -62,6 +62,89 @@ Authorization: Basic alice:
   "currency": { "code": "USD" }
 }
 
+### ------------------------------------------------------------------------
+# Create multiple books in one JSON batch request
+# JSON batch request are only available in the NodeJS stack
+POST {{server}}/admin/$batch
+Content-Type: application/json;IEEE754Compatible=true
+Authorization: Basic alice:
+
+{
+  "requests": [
+    {
+      "id": "1",
+      "method": "POST",
+      "url": "Books",
+      "headers": {
+        "content-type": "application/json"
+      },
+      "body": {
+        "ID": 191,
+        "title": "The Dark Tower",
+        "author": {
+          "ID": 123
+        },
+        "genre": {
+          "ID": 13
+        },
+        "stock": 5,
+        "price": "9.99",
+        "currency": {
+          "code": "USD"
+        }
+      }
+    },
+    {
+      "id": "2",
+      "method": "POST",
+      "url": "Books",
+      "body": {
+        "ID": 192,
+        "title": "The Dark Tower II",
+        "author": {
+          "ID": 123
+        },
+        "genre": {
+          "ID": 13
+        },
+        "stock": 5,
+        "price": "9.99",
+        "currency": {
+          "code": "USD"
+        }
+      },
+      "headers": {
+        "content-type": "application/json"
+      }
+    },
+    {
+      "id": "3",
+      "method": "POST",
+      "url": "Books",
+      "body": {
+        "ID": 193,
+        "title": "The Dark Tower III",
+        "author": {
+          "ID": 123
+        },
+        "genre": {
+          "ID": 13
+        },
+        "stock": 7,
+        "price": "9.99",
+        "currency": {
+          "code": "USD"
+        }
+      },
+      "headers": {
+        "content-type": "application/json"
+      }
+    }
+  ]
+}
+
+
+
 
 ### ------------------------------------------------------------------------
 # Put image to books
