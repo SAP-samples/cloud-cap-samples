@@ -20,7 +20,7 @@ describe('cap/samples - Local NPM registry', () => {
     axios = require('axios').create ({ baseURL: res.url, validateStatus: (status)=>status<500 })
   })
 
-  after(() => { registry.kill() })
+  after(done => { registry.once('exit',done); registry.kill() })
 
   for (const mod of ['bookshop', 'data-viewer', 'fiori','orders','reviews']) {
     it(`should serve ${mod}`, async () => {
