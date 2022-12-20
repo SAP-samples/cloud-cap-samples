@@ -26,7 +26,8 @@
         "[production]": { "kind": "enterprise-messaging" }
       },
       "db": {
-        "kind": "sql"
+        "kind": "sql",
+        "schema_evolution": "auto"
       }
     },
     "log": { "service": true }

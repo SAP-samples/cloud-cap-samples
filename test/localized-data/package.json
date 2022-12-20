@@ -1,0 +1,10 @@
+{
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sql",
+        "schema_evolution": "auto"
+      }
+    }
+  }
+}
