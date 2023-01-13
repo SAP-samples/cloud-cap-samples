@@ -4,21 +4,21 @@
  * currencies, if not obtained through @capire/common.
  */
 
-module.exports = async (db)=>{
+module.exports = async (tx)=>{
 
-  const has_common = db.model.definitions['sap.common.Currencies'].elements.numcode
+  const has_common = tx.model.definitions['sap.common.Currencies']?.elements.numcode
   if (has_common) return
 
-  const already_filled = await db.exists('sap.common.Currencies',{code:'EUR'})
+  const already_filled = await tx.exists('sap.common.Currencies',{code:'EUR'})
   if (already_filled) return
 
-  await INSERT.into ('sap.common.Currencies') .columns (
-    'code','symbol','name'
+  await tx.run (INSERT.into ('sap.common.Currencies') .columns (
+    [ 'code', 'symbol', 'name' ]
   ) .rows (
-    [ 'EUR','€','Euro' ],
-    [ 'USD','$','US Dollar' ],
-    [ 'GBP','£','British Pound' ],
-    [ 'ILS','₪','Shekel' ],
-    [ 'JPY','¥','Yen' ],
-  )
+    [ 'EUR', '€', 'Euro' ],
+    [ 'USD', '$', 'US Dollar' ],
+    [ 'GBP', '£', 'British Pound' ],
+    [ 'ILS', '₪', 'Shekel' ],
+    [ 'JPY', '¥', 'Yen' ],
+  ))
 }
