@@ -16,21 +16,21 @@ describe('cap/samples - Hierarchical Data', ()=>{
 	before ('bootstrap sqlite in-memory db...', async()=>{
 		await cds.deploy (model) .to ('sqlite::memory:')
 		expect (cds.db) .to.exist
-    expect (cds.db.model) .to.exist
+		expect (cds.db.model) .to.exist
 	})
 
 	it ('supports deeply nested inserts', ()=> INSERT.into (Cats,
-    { ID:100, name:'Some Cats...', children:[
-      { ID:101, name:'Cat', children:[
-        { ID:102, name:'Kitty', children:[
-          { ID:103, name:'Kitty Cat', children:[
-            { ID:104, name:'Aristocat' } ]},
-          { ID:105, name:'Kitty Bat' } ]},
-        { ID:106, name:'Catwoman', children:[
-          { ID:107, name:'Catalina' } ]} ]},
-      { ID:108, name:'Catweazle' }
-    ]}
-  ))
+		{ ID:100, name:'Some Cats...', children:[
+			{ ID:101, name:'Cat', children:[
+				{ ID:102, name:'Kitty', children:[
+					{ ID:103, name:'Kitty Cat', children:[
+						{ ID:104, name:'Aristocat' } ]},
+					{ ID:105, name:'Kitty Bat' } ]},
+				{ ID:106, name:'Catwoman', children:[
+					{ ID:107, name:'Catalina' } ]} ]},
+			{ ID:108, name:'Catweazle' }
+		]}
+	))
 
 	it ('supports nested reads', async()=>{
 		if (require('semver').gte(cds.version, '5.9.0')) {
@@ -101,12 +101,12 @@ describe('cap/samples - Hierarchical Data', ()=>{
 	})
 
 	it ('supports cascaded deletes', async()=>{
-    const affectedRows = await DELETE.from (Cats) .where ({ID:[102,106]})
-    expect (affectedRows) .to.be.greaterThan (0)
+		const affectedRows = await DELETE.from (Cats) .where ({ID:[102,106]})
+		expect (affectedRows) .to.be.greaterThan (0)
 		const expected = [
-      { ID:100, name:'Some Cats...' },
-      { ID:101, name:'Cat' },
-      { ID:108, name:'Catweazle' }
+			{ ID:100, name:'Some Cats...' },
+			{ ID:101, name:'Cat' },
+			{ ID:108, name:'Catweazle' }
 		]
 		expect ( await SELECT`ID,name`.from(Cats) ).to.eql (expected)
 	})
