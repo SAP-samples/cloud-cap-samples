@@ -32,13 +32,12 @@
   },
   "scripts": {
     "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",
-    "registry": "node .registry/server.js",
     "bookshop": "cds watch bookshop",
     "fiori": "cds watch fiori",
     "hello": "cds watch hello",
     "media": "cds watch media",
-    "mocha": "npx mocha || echo",
-    "jest": "npx jest",
+    "mocha": "CDS_TEST_SILENT=y npx mocha",
+    "jest": "npx jest --silent",
     "start": "cds watch fiori",
     "test": "npm run jest -- --silent",
     "test:hello": "cd hello && npm test"
@@ -51,7 +50,8 @@
   },
   "mocha": {
     "recursive": true,
-    "parallel": true
+    "parallel": true,
+    "timeout": 6666
   },
   "license": "SAP SAMPLE CODE LICENSE",
   "private": true
