@@ -1,7 +1,11 @@
 {
     "extends": [
         "eslint:recommended",
-        "plugin:@sap/cds/recommended"
+        "plugin:@sap/cds/recommended",
+        "plugin:cloud-cap-samples/recommended"
+    ],
+    "plugins": [
+        "cloud-cap-samples"
     ],
     "env": {
         "browser": true,
@@ -23,7 +27,7 @@
     "rules": {
         "no-console": "off",
         "require-atomic-updates": "off",
-        "require-await":"warn",
+        "require-await": "warn",
         "no-unused-vars": ["warn", { "argsIgnorePattern": "_" }]
     }
 }
