@@ -20,6 +20,7 @@
     "./reviews"
   ],
   "devDependencies": {
+    "@sap/eslint-plugin-cds": "^2.6.1",
     "axios": "^1",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",

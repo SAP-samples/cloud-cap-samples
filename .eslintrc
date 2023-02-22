@@ -1,29 +1,31 @@
 {
-    "extends": [
-        "eslint:recommended",
-        "plugin:@sap/cds/recommended"
-    ],
-    "env": {
-        "browser": true,
-        "es2022": true,
-        "node": true,
-        "jest": true,
-        "mocha": true
-    },
-    "globals": {
-        "SELECT": true,
-        "INSERT": true,
-        "UPSERT": true,
-        "UPDATE": true,
-        "DELETE": true,
-        "CREATE": true,
-        "DROP": true,
-        "cds": true
-    },
-    "rules": {
-        "no-console": "off",
-        "require-atomic-updates": "off",
+  "extends": [
+    "plugin:@sap/cds/recommended",
+    "eslint:recommended"
+  ],
+  "env": {
+    "browser": true,
+    "es2022": true,
+    "node": true,
+    "jest": true,
+    "mocha": true
+  },
+  "globals": {
+    "SELECT": true,
+    "INSERT": true,
+    "UPSERT": true,
+    "UPDATE": true,
+    "DELETE": true,
+    "CREATE": true,
+    "DROP": true,
+    "CDL": true,
+    "CQL": true,
+    "cds": true
+  },
+  "rules": {
+    "no-console": "off",
+    "require-atomic-updates": "off",
         "require-await":"warn",
         "no-unused-vars": ["warn", { "argsIgnorePattern": "_" }]
-    }
+  }
 }
