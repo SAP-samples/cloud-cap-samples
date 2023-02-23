@@ -16,7 +16,7 @@
   },
   "mochaExplorer.debuggerConfig": "Debug Mocha Tests",
   "mochaExplorer.parallel": true,
-  "eslint.validate": [
+  "eslint.probe": [
     "cds",
     "csn",
     "csv",
