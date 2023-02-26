@@ -1,31 +1,30 @@
-const cds = require('./cds')
-const { expect } = cds.test (
-  'serve', 'AdminService', '--from', '@capire/bookshop,@capire/common', '--in-memory'
-).in(__dirname)
+const cds = require('@sap/cds/lib')
 
-describe('Consuming Services locally', () => {
-  //
-  it('bootrapped the database successfully', ()=>{
+describe('cap/samples - Consuming Services locally', () => {
+
+  const { expect } = cds.test ('@capire/bookshop')
+
+  it('bootstrapped the database successfully', ()=>{
     const { AdminService } = cds.services
     const { Authors } = AdminService.entities
-    expect(AdminService).not.to.be.undefined
-    expect(Authors).not.to.be.undefined
+    expect(AdminService).to.exist
+    expect(Authors).to.exist
   })
 
   it('supports targets as strings or reflected defs', async () => {
     const AdminService = await cds.connect.to('AdminService')
     const { Authors } = AdminService.entities
-    const _ = expect (await AdminService.read(Authors))
+    expect (await SELECT.from(Authors))
+    // .to.eql(await SELECT.from('Authors'))
+    .to.eql(await AdminService.read(Authors))
     .to.eql(await AdminService.read('Authors'))
     .to.eql(await AdminService.run(SELECT.from(Authors)))
-    // temporary workaround
-    if (cds.version >= '4.2.0')
-      _.to.eql(await AdminService.run(SELECT.from('Authors')))
+    .to.eql(await AdminService.run(SELECT.from('Authors')))
   })
 
   it('allows reading from local services using cds.ql', async () => {
     const AdminService = await cds.connect.to('AdminService')
-    const query = SELECT.from('Authors', (a) => {
+    const authors = await AdminService.read (`Authors`, a => {
       a.name,
         a.books((b) => {
           b.title,
@@ -34,15 +33,33 @@ describe('Consuming Services locally', () => {
             })
         })
     }).where(`name like`, 'E%')
-    // temporary workaround
-    if (cds.version < '4.2.0')
-      query.SELECT.from.ref[0] = 'AdminService.Authors'
-    const authors = await AdminService.run(query)
+    if (require('semver').gte(cds.version, '5.9.0')) {
+      expect(authors).to.containSubset([
+        {
+          name: 'Emily Brontë',
+          books: [
+            {
+              title: 'Wuthering Heights',
+              currency: { name: 'British Pound', symbol: '£' },
+            },
+          ],
+        },
+        {
+          name: 'Edgar Allen Poe',
+          books: [
+            { title: 'The Raven', currency: { name: 'US Dollar', symbol: '$' } },
+            { title: 'Eleonora', currency: { name: 'US Dollar', symbol: '$' } },
+          ],
+        },
+      ])
+      return
+    }
     expect(authors).to.containSubset([
       {
         name: 'Emily Brontë',
         books: [
           {
+            ID: 201,
             title: 'Wuthering Heights',
             currency: { name: 'British Pound', symbol: '£' },
           },
@@ -51,8 +68,8 @@ describe('Consuming Services locally', () => {
       {
         name: 'Edgar Allen Poe',
         books: [
-          { title: 'The Raven', currency: { name: 'US Dollar', symbol: '$' } },
-          { title: 'Eleonora', currency: { name: 'US Dollar', symbol: '$' } },
+          { ID: 251, title: 'The Raven', currency: { name: 'US Dollar', symbol: '$' } },
+          { ID: 252, title: 'Eleonora', currency: { name: 'US Dollar', symbol: '$' } },
         ],
       },
     ])

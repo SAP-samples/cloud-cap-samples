@@ -1,0 +1,168 @@
+{
+  "services": {
+    "LaunchPage": {
+      "adapter": {
+        "config": {
+          "catalogs": [],
+          "groups": [
+            {
+              "id": "Bookshop",
+              "title": "Bookshop",
+              "isPreset": true,
+              "isVisible": true,
+              "isGroupLocked": false,
+              "tiles": [
+                {
+                  "id": "BrowseBooks",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Browse Books",
+                    "targetURL": "#Books-display"
+                  }
+                },
+                {
+                  "id": "BrowseGenres",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Browse Genres (OData v2)",
+                    "targetURL": "#Genres-display"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "Administration",
+              "title": "Administration",
+              "isPreset": true,
+              "isVisible": true,
+              "isGroupLocked": false,
+              "tiles": [
+                {
+                  "id": "ManageBooks",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Books",
+                    "targetURL": "#Books-manage"
+                  }
+                },
+                {
+                  "id": "ManageAuthors",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Authors",
+                    "targetURL": "#Authors-display"
+                  }
+                },
+                {
+                  "id": "ManageOrders",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Orders",
+                    "targetURL": "#Orders-manage"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "NavTargetResolution": {
+      "config": {
+        "enableClientSideTargetResolution": true
+      }
+    },
+    "ClientSideTargetResolution": {
+      "adapter": {
+        "config": {
+          "inbounds": {
+            "BrowseBooks": {
+              "semanticObject": "Books",
+              "action": "display",
+              "title": "Browse Books",
+              "signature": {
+                "parameters": {
+                  "Books.ID": {
+                    "renameTo": "ID"
+                  },
+                  "Authors.books.ID": {
+                    "renameTo": "ID"
+                  }
+                },
+                "additionalParameters": "ignored"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=bookshop",
+                "url": "/browse/webapp"
+              }
+            },
+            "BrowseAuthors": {
+              "semanticObject": "Authors",
+              "action": "display",
+              "title": "Browse Authors",
+              "signature": {
+                "parameters": {
+                  "Books.author.ID":{
+                    "renameTo": "ID"
+                  }
+                },
+                "additionalParameters": "ignored"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=authors",
+                "url": "/admin-authors/webapp"
+              }
+            },
+            "BrowseGenres": {
+              "semanticObject": "Genres",
+              "action": "display",
+              "title": "Browse Genres",
+              "signature": {
+                "parameters": {
+                  "Genre.ID": {
+                    "renameTo": "ID"
+                  }
+                },
+                "additionalParameters": "ignored"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=genres",
+                "url": "/genres/webapp"
+              }
+            },
+            "ManageBooks": {
+              "semanticObject": "Books",
+              "action": "manage",
+              "title": "Manage Books",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=books",
+                "url": "/admin-books/webapp"
+              }
+            },
+            "ManageOrders": {
+              "semanticObject": "Orders",
+              "action": "manage",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=orders",
+                "url": "/orders/webapp"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

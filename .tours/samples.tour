@@ -1,0 +1,139 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "CAP Samples",
+  "steps": [
+    {
+      "title": "Welcome",
+      "file": "README.md",
+      "description": "### Welcome to CAP Samples!\n\nThis tour leads you through a collection of samples for the [SAP Cloud Application Programming Model (CAP)](https://cap.cloud.sap).\nYou will learn which features of the programming model are demonstrated in which sample.\n\nLet's start!",
+      "line": 2,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 3,
+          "character": 108
+        }
+      }
+    },
+    {
+      "file": "hello/srv/world.cds",
+      "description": "### Hello World!\n\nThis is a simplistic [Hello World](https://cap.cloud.sap/docs/get-started/hello-world) service using [CDS](https://cap.cloud.sap/docs/cds/) and [cds.services](https://cap.cloud.sap/docs/node.js/api#services-api).",
+      "line": 2,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 4,
+          "character": 1
+        }
+      },
+      "title": "Hello World!"
+    },
+    {
+      "file": "bookshop/db/schema.cds",
+      "description": "### A Bookshop!\n\nIntroduces:\n- [Project Setup](https://cap.cloud.sap/docs/get-started/) and [Layouts](https://cap.cloud.sap/docs/get-started/projects)\n- [Domain Modeling](https://cap.cloud.sap/docs/guides/domain-models)\n- [Defining Services](https://cap.cloud.sap/docs/guides/providing-services)\n- [Generic Providers](https://cap.cloud.sap/docs/guides/generic-providers)\n- [Adding Custom Logic](https://cap.cloud.sap/docs/guides/service-impl)\n- [Using Databases](https://cap.cloud.sap/docs/guides/databases)\n",
+      "line": 1,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 32,
+          "character": 1
+        }
+      },
+      "title": "Bookshop"
+    },
+    {
+      "file": "common/index.cds",
+      "description": "### Extend and Reuse\n\nShowcases how to extend [@sap/cds/common](https://cap.cloud.sap/docs/cds/common) thereby covering:\n- Building [extension packages](https://cap.cloud.sap/docs/guides/domain-models#aspects-extensibility)\n- Providing [reuse packages](https://cap.cloud.sap/docs/get-started/projects#sharing-and-reusing-content)\n- [Verticalization](https://cap.cloud.sap/docs/cds/common#adapting-to-your-needs)\n- Using [Aspects](https://cap.cloud.sap/docs/cds/cdl#aspects)\n- Used in the [fiori app sample](#fiori)\n",
+      "line": 1,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 46,
+          "character": 1
+        }
+      },
+      "title": "Common"
+    },
+    {
+      "file": "orders/db/schema.cds",
+      "description": "### Orders - Compositions and Serving Documents\n\nA standalone orders management service, demonstrating:\n- Using [Compositions](https://cap.cloud.sap/docs/cds/cdl#compositions) in [Domain Models](https://cap.cloud.sap/docs/guides/domain-models), along with\n- [Serving deeply nested documents](https://cap.cloud.sap/docs/guides/generic-providers#serving-structured-data)\n",
+      "line": 1,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 27,
+          "character": 1
+        }
+      },
+      "title": "Orders"
+    },
+    {
+      "file": "reviews/db/schema.cds",
+      "description": "### Reviews - More Modularity\n\nShows how to implement a modular service to manage product reviews, including:\n- Consuming other services synchronously and asynchronously\n- Serving requests synchronously\n- Emitting events asynchronously\n- Grow as you go, with:\n- Mocking app services\n- Running service meshes\n- Late-cut Micro Services\n- As well as managed data, input validations, and authorization\n",
+      "line": 1,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 39,
+          "character": 1
+        }
+      },
+      "title": "Reviews"
+    },
+    {
+      "title": "Bookstore",
+      "description": "### Bookstore - Reuse and UI\n\n- A [composite app, reusing and combining](https://cap.cloud.sap/docs/guides/reuse-and-compose) these packages:\n  - [@capire/bookshop](bookshop)\n  - [@capire/reviews](reviews)\n  - [@capire/orders](orders)\n  - [@capire/common](common)\n- [The Vue.js app](bookshop/app/vue) imported from bookshop is served as well\n- [The Vue.js app](reviews/app/vue) imported from reviews is served as well\n- [The Fiori app](orders/app) imported from orders is served as well\n- [OpenAPI export + Swagger UI](https://cap.cloud.sap/docs/advanced/openapi)"
+    },
+    {
+      "file": "fiori/app/services.cds",
+      "description": "### Annotations for SAP Fiori Elements\n\nAdds an SAP Fiori elements application to bookstore, thereby introducing:\n- OData Annotations in `.cds` files\n- Support for Fiori Draft\n- Support for Value Helps\n- Serving SAP Fiori apps locally\n\nSee the [Serving Fiori UIs](https://cap.cloud.sap/docs/advanced/fiori) documentation for more information.",
+      "line": 1,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 13,
+          "character": 1
+        }
+      },
+      "title": "Fiori"
+    },
+    {
+      "file": "package.json",
+      "description": "### All-in-one Monorepo\n\nEach sample sub directory essentially is a standard npm package, some with standard npm dependencies to other samples. The root folder's [package.json](package.json) has local links to the sub folders, such that an `npm install` populates a local `node_modules` folder acts like a local npm registry to the individual sample packages.\n",
+      "selection": {
+        "start": {
+          "line": 8,
+          "character": 1
+        },
+        "end": {
+          "line": 16,
+          "character": 1
+        }
+      },
+      "title": "Packages"
+    }
+  ],
+  "isPrimary": true,
+  "description": "Overview of CAP Samples for Node.js"
+}

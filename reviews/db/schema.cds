@@ -17,7 +17,7 @@ entity Reviews {
   liked    : Integer default 0; // counter for likes as helpful review (count of all _likes belonging to this review)
 }
 
-type Rating : Decimal(3,2) enum {
+type Rating : Integer enum {
   Best  = 5;
   Good  = 4;
   Avg   = 3;
@@ -32,7 +32,6 @@ entity Likes {
 
 // Auto-fill reviewers and review dates
 annotate Reviews with {
-  reviewer @cds.on.insert:$user;
-  date     @cds.on.insert:$now;
-  date     @cds.on.update:$now;
+  reviewer @cds.on:{insert:$user};
+  date     @cds.on:{insert:$now,update:$now};
 }

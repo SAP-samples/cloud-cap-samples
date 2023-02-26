@@ -3,44 +3,87 @@ const $ = sel => document.querySelector(sel)
 const GET = (url) => axios.get('/browse'+url)
 const POST = (cmd,data) => axios.post('/browse'+cmd,data)
 
-const books = new Vue ({
+const books = Vue.createApp ({
 
-    el:'#app',
-
-    data: {
+    data() {
+      return {
         list: [],
-        book: { descr:'( click on a row to see details... )' },
-        order: { amount:1, succeeded:'', failed:'' }
+        book: undefined,
+        order: { quantity:1, succeeded:'', failed:'' },
+        user: undefined
+      }
     },
 
     methods: {
 
-        search: ({target:{value:v}}) => books.fetch (v && '$search='+v),
+        search: ({target:{value:v}}) => books.fetch(v && '&$search='+v),
 
-        async fetch (_filter='') {
-            const columns = 'ID,title,author,price,stock', details = 'genre,currency'
-            const {data} = await GET(`/Books?$select=${columns}&$expand=${details}&${_filter}`)
+        async fetch (etc='') {
+            const {data} = await GET(`/ListOfBooks?$expand=genre,currency${etc}`)
             books.list = data.value
         },
 
-        async inspect () {
-            const book = books.book = books.list [event.currentTarget.rowIndex-1]
-            book.imageSrc || await GET(`/Books/${book.ID}/image`)        .then (({data}) => book.imageSrc = data )
-            book.descr    || await GET(`/Books/${book.ID}/descr/$value`) .then (({data}) => book.descr = data)
-            books.order = { amount:1 }
+        async inspect (eve) {
+            const book = books.book = books.list [eve.currentTarget.rowIndex-1]
+            const res = await GET(`/Books/${book.ID}?$select=descr,stock,image`)
+            Object.assign (book, res.data)
+            books.order = { quantity:1 }
             setTimeout (()=> $('form > input').focus(), 111)
         },
 
-        submitOrder () { event.preventDefault()
-            const {book,order} = books, amount = parseInt (order.amount) || 1
-            POST(`/submitOrder`, { amount, book: book.ID })
-            .then (()=> books.order = { amount, succeeded: `Successfully orderd ${amount} item(s).` })
-            .catch (e=> books.order = { amount, failed: e.response.data.error.message })
-            GET(`/Books/${book.ID}/stock/$value`).then (res => book.stock = res.data)
-        }
+        async submitOrder () {
+            const {book,order} = books, quantity = parseInt (order.quantity) || 1 // REVISIT: Okra should be less strict
+            try {
+                const res = await POST(`/submitOrder`, { quantity, book: book.ID })
+                book.stock = res.data.stock
+                books.order = { quantity, succeeded: `Successfully ordered ${quantity} item(s).` }
+            } catch (e) {
+                books.order = { quantity, failed: e.response.data.error ? e.response.data.error.message : e.response.data }
+            }
+        },
 
+        async login() {
+            try {
+                const { data:user } = await axios.post('/user/login',{})
+                if (user.id !== 'anonymous') books.user = user
+            } catch (err) { books.user = { id: err.message } }
+        },
+
+        async getUserInfo() {
+            try {
+                const { data:user } = await axios.get('/user/me')
+                if (user.id !== 'anonymous') books.user = user
+            } catch (err) { books.user = { id: err.message } }
+        },
     }
+}).mount('#app')
+
+books.getUserInfo()
+books.fetch() // initially fill list of books
+
+document.addEventListener('keydown', (event) => {
+    // hide user info on request
+    if (event.key === 'u')  books.user = undefined
 })
 
-// initially fill list of books
-books.fetch()
+axios.interceptors.request.use(csrfToken)
+function csrfToken (request) {
+    if (request.method === 'head' || request.method === 'get') return request
+    if ('csrfToken' in document) {
+        request.headers['x-csrf-token'] = document.csrfToken
+        return request
+    }
+    return fetchToken().then(token => {
+        document.csrfToken = token
+        request.headers['x-csrf-token'] = document.csrfToken
+        return request
+    }).catch(_ => {
+        document.csrfToken = null // set mark to not try again
+        return request
+    })
+
+    function fetchToken() {
+        return axios.get('/', { headers: { 'x-csrf-token': 'fetch' } })
+        .then(res => res.headers['x-csrf-token'])
+    }
+}
