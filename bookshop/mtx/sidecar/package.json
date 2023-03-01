@@ -1,0 +1,11 @@
+{
+  "name": "mtx-sidecar", "version": "0.0.0",
+  "dependencies": {
+    "@sap/cds-mtxs": "^1",
+    "@sap/cds": "^6",
+    "express": "^4"
+  },
+  "cds": {
+    "profile": "mtx-sidecar"
+  }
+}

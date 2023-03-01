@@ -20,8 +20,9 @@
     "watch": "cds watch"
   },
   "cds": {
+    "profile": "with-mtx-sidecar",
     "requires": {
-      "db": "sql"
+      "db": { "kind": "sql" }
     }
   }
 }
