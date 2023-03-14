@@ -43,6 +43,16 @@
         "[production]": {
           "model": "db/hana"
         }
+      },
+      "pdf": {
+        "kind": "btp-adobe-forms",
+        "vcap": {
+          "label": "adsrestapi"
+        },
+        "[pdfme]": {
+          "kind": "export-pdf",
+          "impl": "./pdfme.js"
+        }
       }
     },
     "hana": {

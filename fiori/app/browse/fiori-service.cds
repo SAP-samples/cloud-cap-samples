@@ -1,5 +1,15 @@
 using CatalogService from '@capire/bookstore';
 
+using from '@sap/cds-pdf-export';
+
+annotate CatalogService with @(
+    Capabilities: { SupportedFormats : [ 'application/pdf' ] },
+    PDF.Features: {
+        DocumentDescriptionReference : '/-pdf/',
+        DocumentDescriptionCollection : 'createDocumentDescription'
+    }
+);
+
 ////////////////////////////////////////////////////////////////////////////
 //
 //	Books Object Page
