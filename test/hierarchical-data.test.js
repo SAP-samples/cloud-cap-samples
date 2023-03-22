@@ -2,7 +2,7 @@ const cds = require('@sap/cds/lib')
 
 describe('cap/samples - Hierarchical Data', ()=>{
 
-	const model = CDL`
+	const csn = CDL`
 		entity Categories {
 			key ID   : Integer;
 			name     : String;
@@ -10,11 +10,12 @@ describe('cap/samples - Hierarchical Data', ()=>{
 			parent   : Association to Categories;
 		}
 	`
+	const model = cds.compile.for.nodejs(csn)
 	const {Categories:Cats} = model.definitions
 	const {expect} = cds.test
 
 	before ('bootstrap sqlite in-memory db...', async()=>{
-		await cds.deploy (model) .to ('sqlite::memory:')
+		await cds.deploy (csn) .to ('sqlite::memory:') // REVISIT: cds.compile.to.sql should accept cds.compiled.for.nodejs models
 		expect (cds.db) .to.exist
 		expect (cds.db.model) .to.exist
 	})
