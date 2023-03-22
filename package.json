@@ -51,6 +51,6 @@
     "parallel": true,
     "timeout": 6666
   },
-  "license": "SAP SAMPLE CODE LICENSE",
+  "license": "Apache-2.0",
   "private": true
 }
