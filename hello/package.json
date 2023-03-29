@@ -12,7 +12,7 @@
   "devDependencies": {
     "@types/jest": "*",
     "@types/node": "*",
-    "typescript": "^4.3.5"
+    "typescript": "^5.0.2"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
