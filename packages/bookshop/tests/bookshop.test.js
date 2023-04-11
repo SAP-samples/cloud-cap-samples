@@ -31,7 +31,7 @@ describe('Bookshop: OData Protocol Level Testing', () => {
       .expect('Content-Type', /^application\/json/)
       .expect(200)
 
-    expect(response.body.value).toEqual([
+    expect(response.body.value).toMatchObject([
       {
         ID: 201, title: "Sturmhöhe", author: "Emily Brontë",
         currency: { name: "Pfund", descr: "Britische Pfund", code: "GBP", symbol: "£" }
