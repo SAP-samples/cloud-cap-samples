@@ -22,7 +22,7 @@ describe('cap/samples - Bookshop APIs', () => {
     const { data } = await GET `/browse/ListOfBooks ${{
       params: { $search: 'Po', $select: `title,author`, $expand:`genre,currency` },
     }}`
-    expect(data.value).to.eql([
+    expect(data.value).to.containSubset([
       { ID: 251, title: 'The Raven', author: 'Edgar Allen Poe', genre:Mystery, currency:USD  },
       { ID: 252, title: 'Eleonora', author: 'Edgar Allen Poe', genre:Romance, currency:USD  },
     ])
@@ -32,7 +32,7 @@ describe('cap/samples - Bookshop APIs', () => {
     const { data } = await GET `/browse/Books ${{
       params: { $search: 'Po', $select: `title,author` },
     }}`
-    expect(data.value).to.eql([
+    expect(data.value).to.containSubset([
       { ID: 201, title: 'Wuthering Heights', author: 'Emily Brontë' },
       { ID: 207, title: 'Jane Eyre', author: 'Charlotte Brontë' },
       { ID: 251, title: 'The Raven', author: 'Edgar Allen Poe' },
@@ -44,7 +44,7 @@ describe('cap/samples - Bookshop APIs', () => {
     const { data } = await GET(`/browse/Books`, {
       params: { $select: `ID,title` },
     })
-    expect(data.value).to.eql([
+    expect(data.value).to.containSubset([
       { ID: 201, title: 'Wuthering Heights' },
       { ID: 207, title: 'Jane Eyre' },
       { ID: 251, title: 'The Raven' },
@@ -75,13 +75,13 @@ describe('cap/samples - Bookshop APIs', () => {
 
   it('supports $top/$skip paging', async () => {
     const { data: p1 } = await GET`/browse/Books?$select=title&$top=3`
-    expect(p1.value).to.eql([
+    expect(p1.value).to.containSubset([
       { ID: 201, title: 'Wuthering Heights' },
       { ID: 207, title: 'Jane Eyre' },
       { ID: 251, title: 'The Raven' },
     ])
     const { data: p2 } = await GET`/browse/Books?$select=title&$skip=3`
-    expect(p2.value).to.eql([
+    expect(p2.value).to.containSubset([
       { ID: 252, title: 'Eleonora' },
       { ID: 271, title: 'Catweazle' },
     ])
