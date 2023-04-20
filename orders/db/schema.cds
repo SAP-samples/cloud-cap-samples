@@ -1,16 +1,30 @@
+<<<<<<< HEAD
 using { sap.capire.bookshop.Books } from '../../bookshop/db/schema';
 using { Currency, managed, cuid }   from '@sap/cds/common';
 namespace sap.capire.bookshop;
+=======
+using { Currency, User, managed, cuid } from '@sap/cds/common';
+namespace sap.capire.orders;
+>>>>>>> 534af7ffee60e086c563dbaa450e86e5fca5cf2b
 
 entity Orders : cuid, managed {
-  OrderNo  : String @title:'Order Number'; //> readable key
-  Items    : Composition of many OrderItems on Items.parent = $self;
+  OrderNo  : String(22) @title:'Order Number'; //> readable key
+  Items    : Composition of many {
+    key ID    : UUID;
+    product   : Association to Products;
+    quantity  : Integer;
+    title     : String; //> intentionally replicated as snapshot from product.title
+    price     : Double; //> materialized calculated field
+  };
+  buyer    : User;
   currency : Currency;
 }
 
-entity OrderItems : cuid {
-  parent    : Association to Orders;
-  book      : Association to Books;
-  amount    : Integer;
-  netAmount : Decimal(9,2);
+/** This is a stand-in for arbitrary ordered Products */
+entity Products @(cds.persistence.skip:'always') {
+  key ID : String;
 }
+
+
+// this is to ensure we have filled-in currencies
+using from '@capire/common';

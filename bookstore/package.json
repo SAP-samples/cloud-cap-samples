@@ -1,0 +1,34 @@
+{
+  "name": "@capire/bookstore",
+  "version": "1.0.0",
+  "dependencies": {
+    "@capire/bookshop": "*",
+    "@capire/reviews": "*",
+    "@capire/orders": "*",
+    "@capire/common": "*",
+    "@capire/data-viewer": "*",
+    "@sap/cds": ">=5",
+    "express": "^4.17.1"
+  },
+  "cds": {
+    "requires": {
+      "ReviewsService": {
+        "kind": "odata",
+        "model": "@capire/reviews"
+      },
+      "OrdersService": {
+        "kind": "odata",
+        "model": "@capire/orders"
+      },
+      "messaging": {
+        "[development]": { "kind": "file-based-messaging" },
+        "[hybrid]": { "kind": "enterprise-messaging-shared" },
+        "[production]": { "kind": "enterprise-messaging" }
+      },
+      "db": {
+        "kind": "sql"
+      }
+    },
+    "log": { "service": true }
+  }
+}

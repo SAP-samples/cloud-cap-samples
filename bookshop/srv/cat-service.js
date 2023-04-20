@@ -1,22 +1,29 @@
 const cds = require('@sap/cds')
-module.exports = async function (){
 
-  const db = await cds.connect.to('db') // connect to database service
-  const { Books } = db.entities         // get reflected definitions
+class CatalogService extends cds.ApplicationService { init(){
+
+  const { Books } = cds.entities ('sap.capire.bookshop')
+  const { ListOfBooks } = this.entities
 
   // Reduce stock of ordered books if available stock suffices
   this.on ('submitOrder', async req => {
-    const {book,amount} = req.data
-    const n = await UPDATE (Books, book)
-      .with ({ stock: {'-=': amount }})
-      .where ({ stock: {'>=': amount }})
-    n > 0 || req.error (409,`${amount} exceeds stock for book #${book}`)
+    const {book,quantity} = req.data
+    if (quantity < 1) return req.reject (400,`quantity has to be 1 or more`)
+    let b = await SELECT `stock` .from (Books,book)
+    if (!b) return req.error (404,`Book #${book} doesn't exist`)
+    let {stock} = b
+    if (quantity > stock) return req.reject (409,`${quantity} exceeds stock for book #${book}`)
+    await UPDATE (Books,book) .with ({ stock: stock -= quantity })
+    await this.emit ('OrderedBook', { book, quantity, buyer:req.user.id })
+    return { stock }
   })
 
   // Add some discount for overstocked books
-  this.after ('READ','Books', each => {
-    if (each.stock > 111) {
-      each.title += ` -- 11% discount!`
-    }
+  this.after ('READ', ListOfBooks, each => {
+    if (each.stock > 111) each.title += ` -- 11% discount!`
   })
-}
+
+  return super.init()
+}}
+
+module.exports = { CatalogService }

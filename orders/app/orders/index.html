@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Bookshop</title>
+
+	<script>
+		window["sap-ushell-config"] = {
+			defaultRenderer: "fiori2",
+			applications: {
+				"manage-orders": {
+					title: "Manage Orders",
+					description: "CAP Sample App",
+					additionalInformation: "SAPUI5.Component=orders",
+					applicationType : "URL",
+					url: "/orders/webapp",
+					navigationMode: "embedded"
+				}
+			}
+		};
+	</script>
+
+	<script id="sap-ushell-bootstrap" src="https://sapui5.hana.ondemand.com/test-resources/sap/ushell/bootstrap/sandbox.js"></script>
+	<script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m, sap.ushell, sap.collaboration, sap.ui.layout"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-theme="sap_horizon"
+			data-sap-ui-frameOptions="allow"
+	></script>
+	<script>
+		sap.ui.getCore().attachInit(()=> sap.ushell.Container.createRenderer().placeAt("content"))
+	</script>
+
+</head>
+<body class="sapUiBody" id="content"></body>
+</html>

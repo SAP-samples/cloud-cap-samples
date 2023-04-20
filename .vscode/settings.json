@@ -1,7 +1,27 @@
 {
   "files.exclude": {
+    ".reuse/**": true,
     "**/.gitignore": true,
-    "**/.vscode": true
+    "**/.vscode": true,
+    "LICENSES/**": true
   },
-  "files.watcherExclude": {}
+  "debug.javascript.terminalOptions": {
+    "skipFiles": [
+      "<node_internals>/**",
+      "**/node_modules/**",
+      "**/cds/lib/lazy.js",
+      "**/cds/lib/req/cds-context.js",
+      "**/odata-v4/okra/**"
+    ]
+  },
+  "mochaExplorer.debuggerConfig": "Debug Mocha Tests",
+  "mochaExplorer.parallel": true,
+  "eslint.validate": [
+    "cds",
+    "csn",
+    "csv",
+    "csv (semicolon)",
+    "tsv",
+    "tab"
+  ]
 }

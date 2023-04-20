@@ -1,0 +1,81 @@
+
+@bookshop = http://localhost:4004
+@reviews-service = {{bookshop}}/reviews
+# Uncomment this when running a separate reviews service
+# @reviews-service = http://localhost:4005/reviews
+
+
+
+#################################################
+#
+#   Reviews Service
+#
+
+GET {{reviews-service}}/Reviews
+
+###
+
+POST {{reviews-service}}/Reviews
+Authorization: Basic {{$processEnv USER}}:
+Content-Type: application/json
+
+{"subject":"201", "title":"boo", "rating":3 }
+
+
+
+#################################################
+#
+#   Bookshop Services
+#
+
+GET {{bookshop}}/browse/Books/201/reviews?
+&$select=rating,date,title
+&$top=3
+
+###
+
+GET {{bookshop}}/browse/Books(201)?
+&$select=ID,title,rating
+&$expand=reviews
+
+###
+
+GET {{bookshop}}/browse/Books?
+  &$select=title,author&$expand=currency
+Accept-Language: de
+
+#################################################
+#
+#   Orders Service, incl. draft choreography
+#
+@newOrderID = e939604c-ab83-4d4f-bdb6-95fe30b3773e
+
+GET {{bookshop}}/orders/Orders
+
+### Create order, still inactive
+POST {{bookshop}}/orders/Orders
+Content-Type: application/json
+
+{"ID": "{{newOrderID}}"}
+
+### Get inactive order.  We have to specify `IsActiveEntity`.
+GET {{bookshop}}/orders/Orders(ID={{newOrderID}},IsActiveEntity=false)
+
+### Activate order using `.../<servicename>.draftActivate`
+POST {{bookshop}}/orders/Orders(ID={{newOrderID}},IsActiveEntity=false)/OrdersService.draftActivate
+Content-Type: application/json
+
+### Get active order
+GET {{bookshop}}/orders/Orders(ID={{newOrderID}},IsActiveEntity=true)
+
+### Create author
+POST {{bookshop}}/admin/Authors
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "ID": 200,
+  "name": "William Shakespeare",
+  "dateOfBirth": "1564-04-26",
+  "dateOfDeath": "1616-04-23"
+}

@@ -2,11 +2,11 @@
   "name": "@capire/fiori",
   "version": "1.0.0",
   "dependencies": {
-    "@capire/bookshop": "../bookshop",
-    "@capire/orders": "../orders",
-    "@capire/common": "../common",
-    "@sap/cds": "^4",
-    "express": "^4.17.1"
+    "@capire/bookstore": "*",
+    "@sap/cds": ">=5",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.0",
+    "express": "^4.17.1",
+    "passport": ">=0.4.1"
   },
   "scripts": {
     "start": "cds run --in-memory?",
@@ -14,9 +14,39 @@
   },
   "cds": {
     "requires": {
+      "ReviewsService": {
+        "kind": "odata",
+        "model": "@capire/reviews"
+      },
+      "OrdersService": {
+        "kind": "odata",
+        "model": "@capire/orders"
+      },
+      "messaging": {
+        "[production]": {
+          "kind": "enterprise-messaging"
+        },
+        "[development]": {
+          "kind": "file-based-messaging"
+        },
+        "[hybrid!]": {
+          "kind": "enterprise-messaging-shared"
+        }
+      },
       "db": {
         "kind": "sql"
+      },
+      "db-ext": {
+        "[development]": {
+          "model": "db/sqlite"
+        },
+        "[production]": {
+          "model": "db/hana"
+        }
       }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
     }
   }
 }

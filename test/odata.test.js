@@ -1,9 +1,11 @@
-const { GET, expect } = require('./cds').test('bookshop').in(__dirname,'..')
+const cds = require('@sap/cds/lib')
 
-describe('OData Protocol', () => {
+describe('cap/samples - Bookshop APIs', () => {
+  const { GET, expect, axios } = cds.test ('@capire/bookshop')
+  axios.defaults.auth = { username: 'alice', password: 'admin' }
 
   it('serves $metadata documents in v4', async () => {
-    const { headers, status, data } = await GET`/browse/$metadata`
+    const { headers, status, data } = await GET `/browse/$metadata`
     expect(status).to.equal(200)
     expect(headers).to.contain({
       'content-type': 'application/xml',
@@ -13,10 +15,23 @@ describe('OData Protocol', () => {
     expect(data).to.contain('<Annotation Term="Common.Label" String="Currency"/>')
   })
 
+  it('serves ListOfBooks?$expand=genre,currency', async () => {
+    const Mystery = { ID: 16, name: 'Mystery', descr: null, parent_ID: 10 }
+    const Romance = { ID: 15, name: 'Romance', descr: null, parent_ID: 10 }
+    const USD = { code: 'USD', name: 'US Dollar', descr: null, symbol: '$' }
+    const { data } = await GET `/browse/ListOfBooks ${{
+      params: { $search: 'Po', $select: `title,author`, $expand:`genre,currency` },
+    }}`
+    expect(data.value).to.eql([
+      { ID: 251, title: 'The Raven', author: 'Edgar Allen Poe', genre:Mystery, currency:USD  },
+      { ID: 252, title: 'Eleonora', author: 'Edgar Allen Poe', genre:Romance, currency:USD  },
+    ])
+  })
+
   it('supports $search in multiple fields', async () => {
-    const { data } = await GET(`/browse/Books`, {
+    const { data } = await GET `/browse/Books ${{
       params: { $search: 'Po', $select: `title,author` },
-    })
+    }}`
     expect(data.value).to.eql([
       { ID: 201, title: 'Wuthering Heights', author: 'Emily Brontë' },
       { ID: 207, title: 'Jane Eyre', author: 'Charlotte Brontë' },
@@ -71,4 +86,12 @@ describe('OData Protocol', () => {
       { ID: 271, title: 'Catweazle' },
     ])
   })
+
+  it('serves user info', async () => {
+    const { data: alice } = await GET `/user/me`
+    expect(alice).to.containSubset({ id: 'alice', locale:'en' })
+    const { data: joe } = await GET (`/user/me`, {auth: { username: 'joe' }})
+    expect(joe).to.containSubset({ id: 'joe', locale:'en' })
+  })
+
 })

@@ -2,6 +2,41 @@
   "name": "@capire/hello-world",
   "version": "1.0.0",
   "scripts": {
-    "watch": "cds serve world.cds"
+    "test": "npx jest --silent",
+    "start": "cds serve srv/world.cds",
+    "start:ts": "cds-ts serve srv/world.cds"
+  },
+  "dependencies": {
+    "@sap/cds": ">=5.0.4"
+  },
+  "devDependencies": {
+    "@types/jest": "*",
+    "@types/node": "*",
+    "typescript": "^4.3.5"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "es2020": true,
+      "node": true,
+      "jest": true,
+      "mocha": true
+    },
+    "globals": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true,
+      "CREATE": true,
+      "DROP": true,
+      "CDL": true,
+      "CQL": true,
+      "CXL": true,
+      "cds": true
+    },
+    "rules": {
+      "no-console": "off",
+      "require-atomic-updates": "off"
+    }
   }
 }
