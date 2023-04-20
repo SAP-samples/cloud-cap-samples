@@ -1,0 +1,8 @@
+{
+  "xs-security": {
+    "xsappname": "gdpr-bookshop",
+    "authorities": ["$ACCEPT_GRANTED_AUTHORITIES"]
+  },
+  "fullyQualifiedApplicationName": "gdpr-bookshop",
+  "appConsentServiceEnabled": true
+}

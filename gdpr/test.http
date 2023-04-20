@@ -1,0 +1,25 @@
+###
+
+get http://localhost:4004/log/AuditLogStore
+
+###
+
+get http://localhost:4004/log/Customers
+
+###
+
+post http://localhost:4004/log/Customers
+Content-Type: application/json
+
+{
+            "ID": "22e718c9-ff99-47f1-8ca3-950c850777d4",
+            "createdAt": "2019-01-30T00:00:00.000Z",
+            "createdBy": "admin@business.com",
+            "modifiedAt": "2019-04-04T00:00:00.000Z",
+            "modifiedBy": "admin@business.com",
+            "email": "johanna.doe@company.org",
+            "firstName": "Queen Johanna",
+            "lastName": "Doe",
+            "creditCardNo": "1313-7171-5656-7878",
+            "dateOfBirth": "2001-11-11"
+}

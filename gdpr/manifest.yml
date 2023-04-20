@@ -1,0 +1,31 @@
+# Generated manifest.yml based on template version 0.1.0
+# appName = gdpr
+# language=nodejs
+# multiTenant=false
+---
+applications:
+# -----------------------------------------------------------------------------------
+# Backend Service
+# -----------------------------------------------------------------------------------
+- name: gdpr-srv
+  path: gen/srv
+  memory: 256M
+  buildpack: nodejs_buildpack
+  services:
+  - gdpr-db
+  - uaa
+#  - name: pdm
+#    parameters: ./pdm-config.json 
+
+# -----------------------------------------------------------------------------------
+# HANA Database Content Deployer App
+# -----------------------------------------------------------------------------------
+- name: gdpr-db-deployer
+  path: gen/db
+  no-route: true
+  health-check-type: process
+  memory: 256M
+  instances: 1
+  buildpack: nodejs_buildpack
+  services:
+  - gdpr-db

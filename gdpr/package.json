@@ -1,0 +1,33 @@
+{
+    "name": "@capire/gdpr",
+    "version": "1.0.0",
+    "dependencies": {
+        "@capire/bookshop": "../bookshop",
+        "@capire/common": "../common",
+        "@capire/orders": "../orders",
+        "@sap/cds": "^5",
+        "@sap/hana-client": "^2.4.177",
+        "@sap/xsenv": "^3.1.0",
+        "@sap/xssec": "^3.1.1",
+        "express": "^4.17.1",
+        "passport": "^0.4.1"
+    },
+    "scripts": {
+        "start": "cds run --in-memory?",
+        "watch": "cds watch"
+    },
+    "cds": {
+        "requires": {
+            "db": {
+                "kind": "sql"
+            },
+            "uaa": {
+                "kind": "xsuaa"
+            },
+            "audit-log": {
+                "impl": "srv/customAuditLog.js"
+            }
+        },
+        "features": {"audit_personal_data": true}
+    }
+}

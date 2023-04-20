@@ -1,0 +1,18 @@
+# Generated services-manifest.yml based on template version 0.1.0
+# appName = gdpr
+---
+create-services:
+# ------------------------------------------------------------
+  - name:   gdpr-db
+    broker: hana  # 'hanatrial' on trial landscapes
+    plan: "hdi-shared"
+  - name:   pdm
+    broker: personal-data-manager-service  
+    plan: standard
+    parameters: ./.pdm/pdm-instance-config.json
+  - name:   uaa
+    broker: xsuaa
+    plan: application
+    parameters: xs-security.json
+     
+

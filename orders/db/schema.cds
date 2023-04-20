@@ -1,5 +1,11 @@
+<<<<<<< HEAD
+using { sap.capire.bookshop.Books } from '../../bookshop/db/schema';
+using { Currency, managed, cuid }   from '@sap/cds/common';
+namespace sap.capire.bookshop;
+=======
 using { Currency, User, managed, cuid } from '@sap/cds/common';
 namespace sap.capire.orders;
+>>>>>>> 534af7ffee60e086c563dbaa450e86e5fca5cf2b
 
 entity Orders : cuid, managed {
   OrderNo  : String(22) @title:'Order Number'; //> readable key
