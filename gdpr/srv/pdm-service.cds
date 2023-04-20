@@ -3,7 +3,7 @@ using {sap.capire.bookshop.Books}      from '../db/data-privacy';
 using {sap.capire.bookshop.Orders}     from '../db/data-privacy';
 using {sap.capire.bookshop.OrderItems} from '../db/data-privacy';
 
-@requires: 'PersonalDataManagerUser' // security check
+//@requires: 'PersonalDataManagerUser' // security check
 service PDMService {
 
   entity Customers             as projection on db.Customers;

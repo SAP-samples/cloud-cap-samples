@@ -1,2 +1,2 @@
 // Incorporate pre-build extensions from...
-using from '@capire/common';
+using from '../../common';

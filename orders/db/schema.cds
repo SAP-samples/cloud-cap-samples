@@ -1,5 +1,5 @@
-using { sap.capire.bookshop.Books } from '@capire/bookshop';
-using { Currency, managed, cuid } from '@sap/cds/common';
+using { sap.capire.bookshop.Books } from '../../bookshop/db/schema';
+using { Currency, managed, cuid }   from '@sap/cds/common';
 namespace sap.capire.bookshop;
 
 entity Orders : cuid, managed {

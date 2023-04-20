@@ -6,5 +6,5 @@ service CatalogService @(path:'/browse') {
   } excluding { createdBy, modifiedBy };
 
   @requires_: 'authenticated-user'
-  action submitOrder (book : Books.ID, amount: Integer);
+  action submitOrder (book : Integer, amount: Integer);
 }
