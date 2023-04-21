@@ -29,7 +29,7 @@
         "[development]": {
           "kind": "file-based-messaging"
         },
-        "[hybrid!]": {
+        "[hybrid]": {
           "kind": "enterprise-messaging-shared"
         }
       },
