@@ -1,7 +1,7 @@
 // Proxy for importing schema from bookshop sample
 using { sap.capire.bookshop.Books }        from '../../bookshop/db/schema';
-using { sap.capire.bookshop.Orders }       from '../../orders/db/schema';
-using { sap.capire.bookshop.OrderItems }   from '../../orders/db/schema';
+using { sap.capire.orders.Orders }         from '../../orders/db/schema';
+using { sap.capire.orders.OrderItems }     from '../../orders/db/schema';
 using { Country, managed, cuid }           from '@sap/cds/common';
 
 namespace sap.capire.bookshop;
