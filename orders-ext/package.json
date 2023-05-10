@@ -2,8 +2,7 @@
   "name": "@capire/orders-ext",
   "extends": "@capire/orders",
   "version": "1.0.0",
-  "description": "A simple CAP project.",
-  "repository": "<Add your repository here>",
+  "description": "An extension to @capire/orders application.",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
@@ -14,10 +13,7 @@
     "sqlite3": "^5.0.4"
   },
   "scripts": {
-    "start": "cds run"
-  },
-  "engines": {
-    "node": "^16.15"
+    "start": "cds watch"
   },
   "eslintConfig": {
     "extends": [
