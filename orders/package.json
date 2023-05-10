@@ -17,8 +17,7 @@
     "requires": {
       "multitenancy": true,
       "toggles": true,
-      "extensibility": true,
-      "db": "sqlite"
+      "extensibility": true
     }
   }
 }
