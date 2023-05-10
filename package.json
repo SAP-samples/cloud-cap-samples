@@ -5,7 +5,7 @@
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
   "dependencies": {
-    "@sap/cds": ">=5.5.3"
+    "@sap/cds": "^6"
   },
   "workspaces": [
     "./bookshop",
@@ -20,9 +20,9 @@
     "./reviews"
   ],
   "devDependencies": {
-    "@sap/eslint-plugin-cds": "^2.6.1",
+    "@sap/eslint-plugin-cds": "^2.6.3",
     "axios": "^1",
-    "chai": "^4.3.4",
+    "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
     "semver": "^7",
