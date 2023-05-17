@@ -15,9 +15,10 @@ entity Customers : cuid, managed {
   email         : String;
   firstName     : String;
   lastName      : String;
-  creditCardNo  : String;
+ // creditCardNo  : String;
   dateOfBirth   : Date;
-  postalAddress : Association to CustomerPostalAddress on postalAddress.Customer = $self; 
+  billingData   : Composition of one CustomerBillingData   on billingData.Customer   = $self;
+  postalAddress : Composition of one CustomerPostalAddress on postalAddress.Customer = $self;
 }
 
 entity CustomerPostalAddress : cuid, managed {
@@ -27,3 +28,10 @@ entity CustomerPostalAddress : cuid, managed {
   country        : Country;           
   someOtherField : String(128);
 };
+
+
+entity CustomerBillingData : cuid, managed {
+  Customer      : Association to one Customers;
+  creditCardNo  : String;
+};
+

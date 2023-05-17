@@ -8,6 +8,7 @@ service PDMService {
 
   entity Customers             as projection on db.Customers;
   entity CustomerPostalAddress as projection on db.CustomerPostalAddress;
+  entity CustomerBillingData   as projection on db.CustomerBillingData;
 
   //   create view on Orders and Items as flat projection
   entity OrderItemView         as

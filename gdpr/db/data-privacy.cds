@@ -11,8 +11,16 @@ annotate bookshop.Customers with @PersonalData : {
   email        @PersonalData.IsPotentiallyPersonal;
   firstName    @PersonalData.IsPotentiallyPersonal;
   lastName     @PersonalData.IsPotentiallyPersonal;
-  creditCardNo @PersonalData.IsPotentiallySensitive;
+ // creditCardNo @PersonalData.IsPotentiallySensitive;
   dateOfBirth  @PersonalData.IsPotentiallyPersonal;
+}
+
+annotate bookshop.CustomerBillingData with @PersonalData : {
+  DataSubjectRole : 'Customer',
+  EntitySemantics : 'DataSubjectDetails'
+} 
+{
+  creditCardNo @PersonalData.IsPotentiallySensitive;
 }
 
 annotate bookshop.CustomerPostalAddress with @PersonalData : {
