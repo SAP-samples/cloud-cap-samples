@@ -12,4 +12,4 @@ Then call the service at: http://localhost:4004/say/hello(to='world')
 Learn more about:
 
 - [Hello World!](https://cap.cloud.sap/docs/get-started/hello-world)
-- [Using TypeScript](https://cap.cloud.sap/docs/get-started/using-typescript)
+- [Using TypeScript](https://cap.cloud.sap/docs/node.js/typescript)
