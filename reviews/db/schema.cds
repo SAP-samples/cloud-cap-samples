@@ -1,23 +1,25 @@
 namespace sap.capire.reviews;
-using { User } from '@sap/cds/common';
+
+using {User} from '@sap/cds/common';
 
 // Reviewed subjects can be any entity that is uniquely identified
 // by a single key element such as a UUID
 type ReviewedSubject : String(111);
 
 entity Reviews {
-  key ID   : UUID;
-  subject  : ReviewedSubject;
-  reviewer : User;
-  rating   : Rating;
-  title    : String(111);
-  text     : String(1111);
-  date     : DateTime;
-  likes    : Composition of many Likes on likes.review = $self;
-  liked    : Integer default 0; // counter for likes as helpful review (count of all _likes belonging to this review)
+  key ID       : UUID;
+      subject  : ReviewedSubject;
+      reviewer : User;
+      rating   : Rating;
+      title    : String(111);
+      text     : String(1111);
+      date     : DateTime;
+      likes    : Composition of many Likes
+                   on likes.review = $self;
+      liked    : Integer default 0; // counter for likes as helpful review (count of all _likes belonging to this review)
 }
 
-type Rating : Integer enum {
+type Rating          : Integer enum {
   Best  = 5;
   Good  = 4;
   Avg   = 3;
@@ -32,6 +34,9 @@ entity Likes {
 
 // Auto-fill reviewers and review dates
 annotate Reviews with {
-  reviewer @cds.on:{insert:$user};
-  date     @cds.on:{insert:$now,update:$now};
+  reviewer @cds.on: {insert: $user};
+  date     @cds.on: {
+    insert: $now,
+    update: $now
+  };
 }

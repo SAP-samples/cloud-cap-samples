@@ -1,4 +1,4 @@
-using { sap.capire.bookshop } from '../../db/common';
+using {sap.capire.bookshop} from '../../db/common';
 
 annotate bookshop.GenreHierarchy {
   ID             @sap.hierarchy.node.for;

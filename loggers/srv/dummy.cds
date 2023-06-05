@@ -1,3 +1,6 @@
 service Sue {
-  entity Dummy { key ID: UUID; title: String; }
+  entity Dummy {
+    key ID    : UUID;
+        title : String;
+  }
 }

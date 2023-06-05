@@ -1,3 +1,3 @@
 service say {
-  function hello (to:String) returns String;
+  function hello(to : String) returns String;
 }
