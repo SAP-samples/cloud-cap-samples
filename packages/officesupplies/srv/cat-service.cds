@@ -1,5 +1,6 @@
 using sap.capire.officesupplies from '../db/schema';
 
+@path:'/catalog'
 service CatalogService {
     entity Products as projection on officesupplies.Products;
     entity Suppliers as projection on officesupplies.Suppliers;
