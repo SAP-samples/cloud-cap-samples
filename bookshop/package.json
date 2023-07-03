@@ -9,6 +9,9 @@
     "index.cds",
     "index.js"
   ],
+  "devDependencies": {
+    "@cap-js/sqlite": "*"
+  },
   "dependencies": {
     "@sap/cds": ">=5.9",
     "express": "^4.17.1",
@@ -18,10 +21,5 @@
     "genres": "cds serve test/genres.cds",
     "start": "cds run",
     "watch": "cds watch"
-  },
-  "cds": {
-    "requires": {
-      "db": "sql"
-    }
   }
 }
