@@ -4,7 +4,10 @@
  * currencies, if not obtained through @capire/common.
  */
 
-module.exports = async ()=>{
+module.exports = async (tx)=>{
+  const has_common = tx.model.definitions['sap.common.Currencies']?.elements.numcode
+  if (has_common) return
+  
   await UPSERT.into ('sap.common.Currencies') .columns (
     [ 'code', 'symbol', 'name' ]
   ) .rows (
