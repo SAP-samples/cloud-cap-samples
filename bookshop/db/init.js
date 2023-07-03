@@ -4,11 +4,10 @@
  * currencies, if not obtained through @capire/common.
  */
 
-module.exports = async (tx)=>{
-  const has_common = tx.model.definitions['sap.common.Currencies']?.elements.numcode
-  if (has_common) return
-  
-  await UPSERT.into ('sap.common.Currencies') .columns (
+// NOTE: We use cds.on('served') to delay the UPSERTs after the db init
+// to run after all INSERTs from .csv files happened.
+module.exports = cds.on('served', ()=> cds.run(
+  UPSERT.into ('sap.common.Currencies') .columns (
     [ 'code', 'symbol', 'name' ]
   ) .rows (
     [ 'EUR', '€', 'Euro' ],
@@ -17,4 +16,4 @@ module.exports = async (tx)=>{
     [ 'ILS', '₪', 'Shekel' ],
     [ 'JPY', '¥', 'Yen' ],
   )
-}
+))
