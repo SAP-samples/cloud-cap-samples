@@ -8,7 +8,7 @@
 		"i18n": "i18n/i18n.properties",
 		"dataSources": {
 			"OrdersService": {
-				"uri": "/orders/",
+				"uri": "/odata/v4/orders/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "4.0"

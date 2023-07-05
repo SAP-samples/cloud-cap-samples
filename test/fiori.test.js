@@ -8,7 +8,7 @@ describe('cap/samples - Fiori APIs - v2', function() {
   // if (this.timeout) this.timeout(1e6)
 
   it('serves $metadata documents in v2', async () => {
-    const { headers, data } = await GET `/v2/browse/$metadata`
+    const { headers, data } = await GET `/odata/v2/browse/$metadata`
     expect(headers).to.contain({
       'content-type': 'application/xml',
       'dataserviceversion': '2.0',
@@ -17,7 +17,7 @@ describe('cap/samples - Fiori APIs - v2', function() {
   })
 
   it('serves Books in v2', async () => {
-    const { data } = await GET `/v2/browse/Books`
+    const { data } = await GET `/odata/v2/browse/Books`
     expect(data).to.containSubset({d:{results:[]}})
     expect(data.d.results.length).to.be.greaterThanOrEqual(5)
   })
