@@ -1,5 +1,5 @@
 /* global Vue axios */ //> from vue.html
-const GET = (url) => axios.get('/-data'+url)
+const GET = (url) => axios.get('/odata/v4/-data'+url)
 const storageGet = (key, def) => localStorage.getItem('data-viewer:'+key) || def
 const storageSet = (key, val) => localStorage.setItem('data-viewer:'+key, val)
 const columnKeysFirst = (c1, c2) => {

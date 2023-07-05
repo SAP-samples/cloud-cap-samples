@@ -33,7 +33,7 @@
     "resources": "resources.json",
     "dataSources": {
       "main": {
-        "uri": "/v2/browse",
+        "uri": "/odata/v2/browse",
         "type": "OData",
         "settings": {
           "annotations": ["localAnnotations"],
