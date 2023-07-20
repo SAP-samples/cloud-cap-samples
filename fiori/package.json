@@ -8,6 +8,9 @@
     "express": "^4.17.1",
     "passport": ">=0.4.1"
   },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1"
+  },
   "scripts": {
     "start": "cds run --in-memory?",
     "watch": "cds watch"
