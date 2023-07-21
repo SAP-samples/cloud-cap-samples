@@ -1,0 +1,1305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="AdminService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="Languages" EntityType="AdminService.Languages"/>
+                <EntitySet Name="Books" EntityType="AdminService.Books"/>
+                <EntitySet Name="Authors" EntityType="AdminService.Authors"/>
+                <FunctionImport Name="Authors_draftPrepare" EntitySet="Authors" ReturnType="AdminService.Authors" m:HttpMethod="POST" sap:action-for="AdminService.Authors">
+                    <Parameter Name="ID" Type="Edm.Int32" Nullable="false" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="Authors_draftActivate" EntitySet="Authors" ReturnType="AdminService.Authors" m:HttpMethod="POST" sap:action-for="AdminService.Authors">
+                    <Parameter Name="ID" Type="Edm.Int32" Nullable="false" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" Mode="In"/>
+                </FunctionImport>
+                <FunctionImport Name="Authors_draftEdit" EntitySet="Authors" ReturnType="AdminService.Authors" m:HttpMethod="POST" sap:action-for="AdminService.Authors">
+                    <Parameter Name="ID" Type="Edm.Int32" Nullable="false" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" Mode="In"/>
+                    <Parameter Name="PreserveChanges" Type="Edm.Boolean" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <EntitySet Name="Genres" EntityType="AdminService.Genres"/>
+                <EntitySet Name="Currencies" EntityType="AdminService.Currencies"/>
+                <EntitySet Name="Reviews" EntityType="AdminService.Reviews"/>
+                <EntitySet Name="DraftAdministrativeData" EntityType="AdminService.DraftAdministrativeData"/>
+                <EntitySet Name="Languages_texts" EntityType="AdminService.Languages_texts"/>
+                <EntitySet Name="Books_texts" EntityType="AdminService.Books_texts"/>
+                <EntitySet Name="Genres_texts" EntityType="AdminService.Genres_texts"/>
+                <EntitySet Name="Currencies_texts" EntityType="AdminService.Currencies_texts"/>
+                <AssociationSet Name="Languages_texts_1" Association="AdminService.Languages_texts_1">
+                    <End Role="Languages" EntitySet="Languages"/>
+                    <End Role="Languages_texts" EntitySet="Languages_texts"/>
+                </AssociationSet>
+                <AssociationSet Name="Languages_localized" Association="AdminService.Languages_localized">
+                    <End Role="Languages" EntitySet="Languages"/>
+                    <End Role="Languages_texts" EntitySet="Languages_texts"/>
+                </AssociationSet>
+                <AssociationSet Name="Books_author" Association="AdminService.Books_author">
+                    <End Role="Books" EntitySet="Books"/>
+                    <End Role="Authors" EntitySet="Authors"/>
+                </AssociationSet>
+                <AssociationSet Name="Books_genre" Association="AdminService.Books_genre">
+                    <End Role="Books" EntitySet="Books"/>
+                    <End Role="Genres" EntitySet="Genres"/>
+                </AssociationSet>
+                <AssociationSet Name="Books_currency" Association="AdminService.Books_currency">
+                    <End Role="Books" EntitySet="Books"/>
+                    <End Role="Currencies" EntitySet="Currencies"/>
+                </AssociationSet>
+                <AssociationSet Name="Books_reviews" Association="AdminService.Books_reviews">
+                    <End Role="Books" EntitySet="Books"/>
+                    <End Role="Reviews" EntitySet="Reviews"/>
+                </AssociationSet>
+                <AssociationSet Name="Books_texts_1" Association="AdminService.Books_texts_1">
+                    <End Role="Books" EntitySet="Books"/>
+                    <End Role="Books_texts" EntitySet="Books_texts"/>
+                </AssociationSet>
+                <AssociationSet Name="Books_localized" Association="AdminService.Books_localized">
+                    <End Role="Books" EntitySet="Books"/>
+                    <End Role="Books_texts" EntitySet="Books_texts"/>
+                </AssociationSet>
+                <AssociationSet Name="Authors_DraftAdministrativeData" Association="AdminService.Authors_DraftAdministrativeData">
+                    <End Role="Authors" EntitySet="Authors"/>
+                    <End Role="DraftAdministrativeData" EntitySet="DraftAdministrativeData"/>
+                </AssociationSet>
+                <AssociationSet Name="Authors_SiblingEntity" Association="AdminService.Authors_SiblingEntity">
+                    <End Role="Authors" EntitySet="Authors"/>
+                    <End Role="Authors1" EntitySet="Authors"/>
+                </AssociationSet>
+                <AssociationSet Name="Genres_parent" Association="AdminService.Genres_parent">
+                    <End Role="Genres" EntitySet="Genres"/>
+                    <End Role="Genres1" EntitySet="Genres"/>
+                </AssociationSet>
+                <AssociationSet Name="Genres_texts_1" Association="AdminService.Genres_texts_1">
+                    <End Role="Genres" EntitySet="Genres"/>
+                    <End Role="Genres_texts" EntitySet="Genres_texts"/>
+                </AssociationSet>
+                <AssociationSet Name="Genres_localized" Association="AdminService.Genres_localized">
+                    <End Role="Genres" EntitySet="Genres"/>
+                    <End Role="Genres_texts" EntitySet="Genres_texts"/>
+                </AssociationSet>
+                <AssociationSet Name="Currencies_texts_1" Association="AdminService.Currencies_texts_1">
+                    <End Role="Currencies" EntitySet="Currencies"/>
+                    <End Role="Currencies_texts" EntitySet="Currencies_texts"/>
+                </AssociationSet>
+                <AssociationSet Name="Currencies_localized" Association="AdminService.Currencies_localized">
+                    <End Role="Currencies" EntitySet="Currencies"/>
+                    <End Role="Currencies_texts" EntitySet="Currencies_texts"/>
+                </AssociationSet>
+            </EntityContainer>
+            <EntityType Name="Languages">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <NavigationProperty Name="texts" Relationship="AdminService.Languages_texts_1" FromRole="Languages" ToRole="Languages_texts"/>
+                <NavigationProperty Name="localized" Relationship="AdminService.Languages_localized" FromRole="Languages" ToRole="Languages_texts"/>
+            </EntityType>
+            <EntityType Name="Books" m:HasStream="true">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="title" Type="Edm.String" MaxLength="111"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1111"/>
+                <NavigationProperty Name="author" Relationship="AdminService.Books_author" FromRole="Books" ToRole="Authors"/>
+                <Property Name="author_ID" Type="Edm.Int32"/>
+                <NavigationProperty Name="genre" Relationship="AdminService.Books_genre" FromRole="Books" ToRole="Genres"/>
+                <Property Name="genre_ID" Type="Edm.Int32"/>
+                <Property Name="stock" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="price" Type="Edm.Decimal" sap:variable-scale="true"/>
+                <NavigationProperty Name="currency" Relationship="AdminService.Books_currency" FromRole="Books" ToRole="Currencies"/>
+                <Property Name="currency_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="newField" Type="Edm.Int32"/>
+                <NavigationProperty Name="reviews" Relationship="AdminService.Books_reviews" FromRole="Books" ToRole="Reviews"/>
+                <Property Name="rating" Type="Edm.Decimal" sap:variable-scale="true"/>
+                <Property Name="numberOfReviews" Type="Edm.Int32"/>
+                <NavigationProperty Name="texts" Relationship="AdminService.Books_texts_1" FromRole="Books" ToRole="Books_texts"/>
+                <NavigationProperty Name="localized" Relationship="AdminService.Books_localized" FromRole="Books" ToRole="Books_texts"/>
+            </EntityType>
+            <EntityType Name="Authors">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="111"/>
+                <Property Name="dateOfBirth" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="dateOfDeath" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="placeOfBirth" Type="Edm.String"/>
+                <Property Name="placeOfDeath" Type="Edm.String"/>
+                <NavigationProperty Name="books" Relationship="AdminService.Books_author" FromRole="Authors" ToRole="Books"/>
+                <Property Name="age" Type="Edm.Int32"/>
+                <Property Name="lifetime" Type="Edm.String"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Relationship="AdminService.Authors_DraftAdministrativeData" FromRole="Authors" ToRole="DraftAdministrativeData"/>
+                <Property Name="DraftAdministrativeData_DraftUUID" Type="Edm.Guid"/>
+                <NavigationProperty Name="SiblingEntity" Relationship="AdminService.Authors_SiblingEntity" FromRole="Authors" ToRole="Authors1"/>
+            </EntityType>
+            <EntityType Name="Genres">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <NavigationProperty Name="parent" Relationship="AdminService.Genres_parent" FromRole="Genres" ToRole="Genres1"/>
+                <Property Name="parent_ID" Type="Edm.Int32"/>
+                <NavigationProperty Name="children" Relationship="AdminService.Genres_parent" FromRole="Genres1" ToRole="Genres"/>
+                <NavigationProperty Name="texts" Relationship="AdminService.Genres_texts_1" FromRole="Genres" ToRole="Genres_texts"/>
+                <NavigationProperty Name="localized" Relationship="AdminService.Genres_localized" FromRole="Genres" ToRole="Genres_texts"/>
+            </EntityType>
+            <EntityType Name="Currencies">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="symbol" Type="Edm.String" MaxLength="5"/>
+                <Property Name="minorUnit" Type="Edm.Int16"/>
+                <Property Name="numcode" Type="Edm.Int32"/>
+                <Property Name="exponent" Type="Edm.Int32"/>
+                <Property Name="minor" Type="Edm.String"/>
+                <NavigationProperty Name="texts" Relationship="AdminService.Currencies_texts_1" FromRole="Currencies" ToRole="Currencies_texts"/>
+                <NavigationProperty Name="localized" Relationship="AdminService.Currencies_localized" FromRole="Currencies" ToRole="Currencies_texts"/>
+            </EntityType>
+            <EntityType Name="Reviews">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="subject" Type="Edm.String" MaxLength="111"/>
+                <Property Name="reviewer" Type="Edm.String" MaxLength="255"/>
+                <Property Name="rating" Type="Edm.Int32"/>
+                <Property Name="title" Type="Edm.String" MaxLength="111"/>
+                <Property Name="text" Type="Edm.String" MaxLength="1111"/>
+                <Property Name="date" Type="Edm.DateTimeOffset"/>
+                <Property Name="liked" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+            </EntityType>
+            <EntityType Name="Languages_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="14" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Books_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="title" Type="Edm.String" MaxLength="111"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1111"/>
+            </EntityType>
+            <EntityType Name="Genres_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Currencies_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <Association Name="Languages_texts_1">
+                <End Role="Languages" Type="AdminService.Languages" Multiplicity="1">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Role="Languages_texts" Type="AdminService.Languages_texts" Multiplicity="*"/>
+            </Association>
+            <Association Name="Languages_localized">
+                <End Role="Languages" Type="AdminService.Languages" Multiplicity="*"/>
+                <End Role="Languages_texts" Type="AdminService.Languages_texts" Multiplicity="0..1"/>
+            </Association>
+            <Association Name="Books_author">
+                <End Role="Books" Type="AdminService.Books" Multiplicity="*"/>
+                <End Role="Authors" Type="AdminService.Authors" Multiplicity="0..1"/>
+            </Association>
+            <Association Name="Books_genre">
+                <End Role="Books" Type="AdminService.Books" Multiplicity="*"/>
+                <End Role="Genres" Type="AdminService.Genres" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Genres">
+                        <PropertyRef Name="ID"/>
+                    </Principal>
+                    <Dependent Role="Books">
+                        <PropertyRef Name="genre_ID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Books_currency">
+                <End Role="Books" Type="AdminService.Books" Multiplicity="*"/>
+                <End Role="Currencies" Type="AdminService.Currencies" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Currencies">
+                        <PropertyRef Name="code"/>
+                    </Principal>
+                    <Dependent Role="Books">
+                        <PropertyRef Name="currency_code"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Books_reviews">
+                <End Role="Books" Type="AdminService.Books" Multiplicity="1">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Role="Reviews" Type="AdminService.Reviews" Multiplicity="*"/>
+            </Association>
+            <Association Name="Books_texts_1">
+                <End Role="Books" Type="AdminService.Books" Multiplicity="1">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Role="Books_texts" Type="AdminService.Books_texts" Multiplicity="*"/>
+            </Association>
+            <Association Name="Books_localized">
+                <End Role="Books" Type="AdminService.Books" Multiplicity="*"/>
+                <End Role="Books_texts" Type="AdminService.Books_texts" Multiplicity="0..1"/>
+            </Association>
+            <Association Name="Authors_DraftAdministrativeData">
+                <End Role="Authors" Type="AdminService.Authors" Multiplicity="*"/>
+                <End Role="DraftAdministrativeData" Type="AdminService.DraftAdministrativeData" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="DraftAdministrativeData">
+                        <PropertyRef Name="DraftUUID"/>
+                    </Principal>
+                    <Dependent Role="Authors">
+                        <PropertyRef Name="DraftAdministrativeData_DraftUUID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Authors_SiblingEntity">
+                <End Role="Authors" Type="AdminService.Authors" Multiplicity="*"/>
+                <End Role="Authors1" Type="AdminService.Authors" Multiplicity="0..1"/>
+            </Association>
+            <Association Name="Genres_parent">
+                <End Role="Genres" Type="AdminService.Genres" Multiplicity="*"/>
+                <End Role="Genres1" Type="AdminService.Genres" Multiplicity="0..1">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <ReferentialConstraint>
+                    <Principal Role="Genres1">
+                        <PropertyRef Name="ID"/>
+                    </Principal>
+                    <Dependent Role="Genres">
+                        <PropertyRef Name="parent_ID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Genres_texts_1">
+                <End Role="Genres" Type="AdminService.Genres" Multiplicity="1">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Role="Genres_texts" Type="AdminService.Genres_texts" Multiplicity="*"/>
+            </Association>
+            <Association Name="Genres_localized">
+                <End Role="Genres" Type="AdminService.Genres" Multiplicity="*"/>
+                <End Role="Genres_texts" Type="AdminService.Genres_texts" Multiplicity="0..1"/>
+            </Association>
+            <Association Name="Currencies_texts_1">
+                <End Role="Currencies" Type="AdminService.Currencies" Multiplicity="1">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Role="Currencies_texts" Type="AdminService.Currencies_texts" Multiplicity="*"/>
+            </Association>
+            <Association Name="Currencies_localized">
+                <End Role="Currencies" Type="AdminService.Currencies" Multiplicity="*"/>
+                <End Role="Currencies_texts" Type="AdminService.Currencies_texts" Multiplicity="0..1"/>
+            </Association>
+            <Annotations Target="AdminService.Languages" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>code</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>name</PropertyPath>
+                        <PropertyPath>descr</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="code"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Language"/>
+                        <PropertyValue Property="TypeNamePlural" String="Languages"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="name"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="descr"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Details"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Details"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Details">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="code"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="name"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="descr"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AdminService.EntityContainer/Languages" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AdminService.Languages/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="AdminService.Languages/descr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="AdminService.Languages/code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Text" Path="name"/>
+                <Annotation Term="Common.Label" String="Language Code"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="General"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#General"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Translations"/>
+                            <PropertyValue Property="Target" AnnotationPath="texts/@UI.LineItem"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Details"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Details"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Admin"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Admin"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="General">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="title"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="author_ID"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="genre_ID"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="descr"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Details">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="stock"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="price"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="currency_code"/>
+                                    <PropertyValue Property="Label" String="Currency"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Admin">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="createdBy"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="createdAt"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="modifiedBy"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="modifiedAt"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="title"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>ID</PropertyPath>
+                        <PropertyPath>author_ID</PropertyPath>
+                        <PropertyPath>price</PropertyPath>
+                        <PropertyPath>currency_code</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ID"/>
+                            <PropertyValue Property="Label" String="Title"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="author/ID"/>
+                            <PropertyValue Property="Label" String="Author"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="genre/name"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="stock"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="price"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="currency/symbol"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Book"/>
+                        <PropertyValue Property="TypeNamePlural" String="Books"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="title"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="author/name"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>ID</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Core.MediaType" String="image/png"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.SemanticObject" String="Books"/>
+                <Annotation Term="Common.Text" Path="title">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.Label" String="ID"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/title" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Title"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/descr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.MultiLineText" Bool="true"/>
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/author" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Author"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/author_ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Text" Path="author/name">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Author"/>
+                        <PropertyValue Property="CollectionPath" String="Authors"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="author_ID"/>
+                                    <PropertyValue Property="ValueListProperty" String="ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Author"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/genre" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Genre"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/genre_ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+                <Annotation Term="Common.Text" Path="genre/name">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Genre"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Genre"/>
+                        <PropertyValue Property="CollectionPath" String="Genres"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="genre_ID"/>
+                                    <PropertyValue Property="ValueListProperty" String="ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AdminService.Books/stock" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Stock"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/price" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Measures.ISOCurrency" Path="currency_code"/>
+                <Annotation Term="Common.Label" String="Price"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Currency"/>
+                <Annotation Term="Core.Description" String="Currency code as specified by ISO 4217"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/currency_code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Currency"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Currency"/>
+                        <PropertyValue Property="CollectionPath" String="Currencies"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="currency_code"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.Description" String="Currency code as specified by ISO 4217"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/image" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Image"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/newField" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/rating" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Rating"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books/numberOfReviews" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Number of Reviews"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Author"/>
+                        <PropertyValue Property="TypeNamePlural" String="Authors"/>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="lifetime"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="name"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Details"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Details"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Books"/>
+                            <PropertyValue Property="Target" AnnotationPath="books/@UI.LineItem"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Details">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="placeOfBirth"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="placeOfDeath"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="dateOfBirth"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="dateOfDeath"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="age"/>
+                                    <PropertyValue Property="Label" String="Age"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>name</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ID"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="dateOfBirth"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="dateOfDeath"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="placeOfBirth"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="placeOfDeath"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>ID</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AdminService.EntityContainer/Authors" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="AdminService.EntityContainer/Authors_draftActivate"/>
+                        <PropertyValue Property="EditAction" String="AdminService.EntityContainer/Authors_draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="AdminService.EntityContainer/Authors_draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.SemanticObject" String="Authors"/>
+                <Annotation Term="Common.Text" Path="name">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.Label" String="ID"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Name"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/dateOfBirth" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Date of Birth"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/dateOfDeath" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Date of Death"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/placeOfBirth" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Place of Birth"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/placeOfDeath" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Place of Death"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/age" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Age"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/lifetime" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Lifetime"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/IsActiveEntity" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/HasActiveEntity" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/HasDraftEntity" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/DraftAdministrativeData" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Authors/DraftAdministrativeData_DraftUUID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.Genres" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>name</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>name</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="parent/name"/>
+                            <PropertyValue Property="Label" String="Main Genre"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Genre"/>
+                        <PropertyValue Property="TypeNamePlural" String="Genres"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="name"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="ID"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Sub Genres"/>
+                            <PropertyValue Property="Target" AnnotationPath="children/@UI.LineItem"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AdminService.Genres/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Genre"/>
+            </Annotations>
+            <Annotations Target="AdminService.Genres/descr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="AdminService.Genres/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Text" Path="name">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.Label" String="ID"/>
+            </Annotations>
+            <Annotations Target="AdminService.Genres/parent_ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Genres"/>
+                        <PropertyValue Property="CollectionPath" String="Genres"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="parent_ID"/>
+                                    <PropertyValue Property="ValueListProperty" String="ID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>code</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>name</PropertyPath>
+                        <PropertyPath>descr</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="descr"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="symbol"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="code"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Currency"/>
+                        <PropertyValue Property="TypeNamePlural" String="Currencies"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="descr"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="code"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Details"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Details"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Extended"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Extended"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Details">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="name"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="symbol"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="code"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="descr"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Extended">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="numcode"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="minor"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="exponent"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies/descr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies/code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Text" Path="name"/>
+                <Annotation Term="Common.Label" String="Currency Code"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies/symbol" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Currency"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies/minorUnit" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Currency Minor Unit Fractions"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies/numcode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Numeric Code"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies/exponent" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Exponent"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies/minor" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Minor Unit"/>
+            </Annotations>
+            <Annotations Target="AdminService.Reviews/subject" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="AdminService.Reviews/reviewer" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="User ID"/>
+            </Annotations>
+            <Annotations Target="AdminService.Reviews/rating" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Best"/>
+                            <PropertyValue Property="Value" Int="5"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Good"/>
+                            <PropertyValue Property="Value" Int="4"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Avg"/>
+                            <PropertyValue Property="Value" Int="3"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Poor"/>
+                            <PropertyValue Property="Value" Int="2"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Worst"/>
+                            <PropertyValue Property="Value" Int="1"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AdminService.Reviews/title" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="AdminService.Reviews/date" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="AdminService.DraftAdministrativeData" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Draft Administrative Data"/>
+            </Annotations>
+            <Annotations Target="AdminService.DraftAdministrativeData/DraftUUID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft (Technical ID)"/>
+            </Annotations>
+            <Annotations Target="AdminService.DraftAdministrativeData/CreationDateTime" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Draft Created On"/>
+            </Annotations>
+            <Annotations Target="AdminService.DraftAdministrativeData/CreatedByUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Draft Created By"/>
+            </Annotations>
+            <Annotations Target="AdminService.DraftAdministrativeData/DraftIsCreatedByMe" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft Created By Me"/>
+            </Annotations>
+            <Annotations Target="AdminService.DraftAdministrativeData/LastChangeDateTime" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Draft Last Changed On"/>
+            </Annotations>
+            <Annotations Target="AdminService.DraftAdministrativeData/LastChangedByUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Draft Last Changed By"/>
+            </Annotations>
+            <Annotations Target="AdminService.DraftAdministrativeData/InProcessByUser" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Draft In Process By"/>
+            </Annotations>
+            <Annotations Target="AdminService.DraftAdministrativeData/DraftIsProcessedByMe" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft In Process By Me"/>
+            </Annotations>
+            <Annotations Target="AdminService.Languages_texts/locale" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Language Code"/>
+            </Annotations>
+            <Annotations Target="AdminService.Languages_texts/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="AdminService.Languages_texts/descr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="AdminService.Languages_texts/code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Text" Path="name"/>
+                <Annotation Term="Common.Label" String="Language Code"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books_texts" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="title"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>locale</PropertyPath>
+                        <PropertyPath>title</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="locale"/>
+                            <PropertyValue Property="Label" String="Locale"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="title"/>
+                            <PropertyValue Property="Label" String="Title"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="descr"/>
+                            <PropertyValue Property="Label" String="Description"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="AdminService.Books_texts/locale" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Language Code"/>
+                        <PropertyValue Property="CollectionPath" String="Languages"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="locale"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Language Code"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books_texts/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.SemanticObject" String="Books"/>
+                <Annotation Term="Common.Text" Path="title">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.Label" String="ID"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books_texts/title" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Title"/>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="AdminService.Books_texts/descr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="UI.MultiLineText" Bool="true"/>
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="AdminService.Genres_texts/locale" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Language Code"/>
+            </Annotations>
+            <Annotations Target="AdminService.Genres_texts/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Genre"/>
+            </Annotations>
+            <Annotations Target="AdminService.Genres_texts/descr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="AdminService.Genres_texts/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Text" Path="name">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.Label" String="ID"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies_texts/locale" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Language Code"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies_texts/name" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies_texts/descr" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="AdminService.Currencies_texts/code" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.Text" Path="name"/>
+                <Annotation Term="Common.Label" String="Currency Code"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

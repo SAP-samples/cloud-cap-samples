@@ -7,10 +7,11 @@ entity Books : managed {
   descr  : localized String(1111);
   author : Association to Authors @mandatory;
   genre  : Association to Genres;
-  stock  : Integer;
-  price  : Decimal;
+  stock  : Integer not null;
+  price  : Decimal not null;
   currency : Currency;
   image : LargeBinary @Core.MediaType : 'image/png';
+  newField : Integer null;
 }
 
 entity Authors : managed {

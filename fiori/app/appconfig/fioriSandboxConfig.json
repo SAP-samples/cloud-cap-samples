@@ -13,11 +13,11 @@
               "isGroupLocked": false,
               "tiles": [
                 {
-                  "id": "BrowseBooks",
+                  "id": "ManageOrdersV2",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
-                    "title": "Browse Books",
-                    "targetURL": "#Books-display"
+                    "title": "Manage Orders Non-draft (OData v2)",
+                    "targetURL": "#BooksV2-manage"
                   }
                 },
                 {
@@ -158,6 +158,20 @@
                 "applicationType": "SAPUI5",
                 "additionalInformation": "SAPUI5.Component=orders",
                 "url": "/orders/webapp"
+              }
+            },
+            "ManageOrdersV2": {
+              "semanticObject": "BooksV2",
+              "action": "manage",
+              "title": "Manage Books (OData v2)",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=nondraft",
+                "url": "/nondraft/webapp"
               }
             }
           }

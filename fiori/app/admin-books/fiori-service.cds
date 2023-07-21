@@ -25,6 +25,8 @@ annotate AdminService.Books with @(
 		FieldGroup#Details: {
 			Data: [
 				{Value: stock},
+				{Value: newField},
+				{Value: newFieldNotNull},
 				{Value: price},
 				{Value: currency_code, Label: '{i18n>Currency}'},
 			]
@@ -47,8 +49,6 @@ annotate AdminService.Books with @(
 //  Draft for Localized Data
 //
 
-annotate sap.capire.bookshop.Books with @fiori.draft.enabled;
-annotate AdminService.Books with @odata.draft.enabled;
 
 annotate AdminService.Books.texts with @(
 	UI: {

@@ -67,6 +67,8 @@ annotate my.Books with {
   stock  @title: '{i18n>Stock}';
   descr  @title: '{i18n>Description}'  @UI.MultiLineText;
   image  @title: '{i18n>Image}';
+  newField @title: 'New Field nullable';
+  newFieldNotNull @title: 'New Field nullable';
 }
 
 ////////////////////////////////////////////////////////////////////////////
