@@ -16,7 +16,7 @@
                   "id": "ManageOrdersV2",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
-                    "title": "Manage Orders Non-draft (OData v2)",
+                    "title": "Manage Books Non-draft (OData v2)",
                     "targetURL": "#BooksV2-manage"
                   }
                 },
