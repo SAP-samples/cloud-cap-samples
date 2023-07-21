@@ -10,5 +10,5 @@ entity GenreHierarchy : bookshop.Genres {
 }
 
 extend service CatalogService with {
-  @readonly entity GenreHierarchy as projection on bookshop.GenreHierarchy;
+  entity GenreHierarchy as projection on bookshop.GenreHierarchy;
 }
