@@ -1,0 +1,11 @@
+{
+  "name": "@capire/bookstore",
+  "version": "1.0.0",
+  "dependencies": {
+    "@capire/bookshop": "*",
+    "@capire/reviews": "*",
+    "@capire/orders": "*",
+    "@sap/cds": ">=5",
+    "express": "^4.17.1"
+  }
+}

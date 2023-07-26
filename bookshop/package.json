@@ -21,5 +21,12 @@
     "genres": "cds serve test/genres.cds",
     "start": "cds run",
     "watch": "cds watch"
+  },
+  "cds": {
+    "requires": {
+      "bookshop-services": {
+        "model": "@capire/bookshop"
+      }
+    }
   }
 }

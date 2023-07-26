@@ -12,6 +12,10 @@
   },
   "cds": {
     "requires": {
+      "ReviewsService": {
+        "kind": "odata",
+        "model": "@capire/reviews"
+      },
       "messaging": {
         "[development]": { "kind": "file-based-messaging" },
         "[hybrid]": { "kind": "enterprise-messaging-shared" },

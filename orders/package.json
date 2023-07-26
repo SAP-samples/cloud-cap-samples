@@ -4,5 +4,12 @@
   "dependencies": {
     "@capire/common": "*",
     "@sap/cds": ">=5"
+  },
+  "cds": {
+    "requires": {
+      "orders-service": {
+        "model": "@capire/orders"
+      }
+    }
   }
 }

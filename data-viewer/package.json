@@ -9,5 +9,12 @@
     "app",
     "srv",
     "index.cds"
-  ]
+  ],
+  "cds": {
+    "requires": {
+      "orders-service": {
+        "model": "@capire/data-viewer"
+      }
+    }
+  }
 }

@@ -1,21 +1,17 @@
 const cds = require ('@sap/cds')
 
+// Add routes to UIs from imported packages
+cds.once('bootstrap',(app)=>{
+  app.serve ('/admin-authors') .from ('@capire/fiori','app/admin-authors')
+  app.serve ('/admin-books') .from ('@capire/fiori','app/admin-books')
+  app.serve ('/browse-books') .from ('@capire/fiori','app/browse')
+})
+
 // Add mashup logic
 cds.once('served', require('./srv/mashup'))
 
-// Add routes to UIs from imported packages
-cds.once('bootstrap',(app)=>{
-  app.serve ('/bookshop') .from ('@capire/bookshop','app/vue')
-  app.serve ('/reviews') .from ('@capire/reviews','app/vue')
-  app.serve ('/orders') .from('@capire/orders','app/orders')
-  app.serve ('/data') .from('@capire/data-viewer','app/viewer')
-})
-
 // Add Swagger UI
 require('./srv/swagger-ui')
-
-// Returning cds.server
-module.exports = cds.server
 
 // For didactic reasons in capire
 const { ReviewsService, OrdersService } = cds.requires
