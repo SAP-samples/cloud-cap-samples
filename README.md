@@ -54,24 +54,6 @@ npx jest
 ```
 > While mocha is a bit smaller and faster, jest runs tests in parallel and isolation, which allows to run all tests.
 
-
-### Serve `npm`
-
-We've included a simple npm registry mock, which allows you to do an `npm install @capire/<package>` locally. Use it as follows:
-
-1. Start the @capire registry:
-```sh
-npm run registry
-```
-> While running this will have `@capire:registry=http://localhost:4444` set with npmrc.
-
-2. Install one of the @capire packages wherever you like, for example:
-
-```sh
-npm add @capire/common @capire/bookshop
-```
-
-
 ## Code Tours
 
 Take one of the [guided tours](.tours) in VS Code through our CAP samples and learn which CAP features are showcased by the different parts of the repository. Just install the [CodeTour extension](https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour) for VS Code. We'll add more code tours in the future. Stay tuned!
