@@ -4,6 +4,7 @@
   "dependencies": {
     "@capire/bookshop": "*",
     "@capire/reviews": "*",
+    "@capire/fiori": "*",
     "@capire/orders": "*",
     "@sap/cds": ">=5",
     "express": "^4.17.1"
