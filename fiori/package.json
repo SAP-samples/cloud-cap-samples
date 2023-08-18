@@ -22,6 +22,9 @@
         "kind": "odata",
         "model": "@capire/orders"
       },
+      "self": {
+        "model": "@capire/fiori"
+      },
       "messaging": {
         "[production]": {
           "kind": "enterprise-messaging"

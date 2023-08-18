@@ -6,6 +6,7 @@
     "@capire/reviews": "*",
     "@capire/orders": "*",
     "@capire/common": "*",
+    "@capire/fiori": "*",    
     "@capire/data-viewer": "*",
     "@sap/cds": ">=5",
     "express": "^4.17.1"
