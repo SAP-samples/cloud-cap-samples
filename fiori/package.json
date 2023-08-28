@@ -9,7 +9,7 @@
     "passport": ">=0.4.1"
   },
   "scripts": {
-    "start": "cds run --in-memory?",
+    "start": "cds-serve",
     "watch": "cds watch"
   },
   "cds": {
