@@ -53,7 +53,7 @@ Each sub directory essentially is an individual npm package arranged in an [all-
 
 ## [@capire/bookstore](bookstore)
 
-- A [composite app, reusing and combining](https://cap.cloud.sap/docs/guides/verticalize) these packages:
+- A [composite app, reusing and combining](https://cap.cloud.sap/docs/guides/extensibility/composition) these packages:
   - [@capire/bookshop](bookshop)
   - [@capire/reviews](reviews)
   - [@capire/orders](orders)
