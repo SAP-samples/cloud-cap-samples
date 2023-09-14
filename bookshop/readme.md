@@ -22,7 +22,7 @@ npm run watch
 | --------------------------------------------------------------------------------------------------------- | ------------------------------------ |
 | [Project Setup & Layouts](https://cap.cloud.sap/docs/get-started/jumpstart#project-structure)             | [`./`](./)                           |
 | [Domain Modeling with CDS](https://cap.cloud.sap/docs/guides/domain-modeling)                               | [`./db/schema.cds`](./db/schema.cds) |
-| [Defining Services](https://cap.cloud.sap/docs/guides/providing-services#defining-services)               | [`./srv/*.cds`](./srv)               |
+| [Defining Services](https://cap.cloud.sap/docs/guides/providing-services#modeling-services)               | [`./srv/*.cds`](./srv)               |
 | [Single-purposed Services](https://cap.cloud.sap/docs/guides/providing-services#single-purposed-services) | [`./srv/*.cds`](./srv)               |
 | [Providing & Consuming Providers](https://cap.cloud.sap/docs/guides/providing-services)                   | http://localhost:4004                |
 | [Using Databases](https://cap.cloud.sap/docs/guides/databases)                                            | [`./db/data/*.csv`](./db/data)       |
