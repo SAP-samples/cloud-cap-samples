@@ -3,6 +3,8 @@
 The following list gives an overview of the samples provided in subdirectories.
 Each sub directory essentially is an individual npm package arranged in an [all-in-one monorepo](#all-in-one-monorepo) umbrella setup.
 
+![](etc/samples.drawio.svg)
+
 
 ## [@capire/hello-world](hello)
 
