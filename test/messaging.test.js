@@ -10,7 +10,6 @@ describe('cap/samples - Messaging', ()=>{
     })
 
     it ('should bootstrap sqlite in-memory db', async()=>{
-        // REVISIT: how to better configure new sqlite
         const db = await cds.deploy (_model) .to ('sqlite::memory:')
         await db.delete(Reviews)
         expect (db.model) .not.undefined

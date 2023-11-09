@@ -15,9 +15,7 @@ describe('cap/samples - Hierarchical Data', ()=>{
 	const {expect} = cds.test
 
 	before ('bootstrap sqlite in-memory db...', async()=>{
-		// REVISIT: cds.compile.to.sql should accept cds.compiled.for.nodejs models
-		// REVISIT: how to better configure new sqlite
-		await cds.deploy (csn) .to ('sqlite::memory:')
+		await cds.deploy (csn) .to ('sqlite::memory:') // REVISIT: cds.compile.to.sql should accept cds.compiled.for.nodejs models
 		expect (cds.db) .to.exist
 		expect (cds.db.model) .to.exist
 	})
