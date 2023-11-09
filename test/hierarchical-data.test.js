@@ -17,7 +17,7 @@ describe('cap/samples - Hierarchical Data', ()=>{
 	before ('bootstrap sqlite in-memory db...', async()=>{
 		// REVISIT: cds.compile.to.sql should accept cds.compiled.for.nodejs models
 		// REVISIT: how to better configure new sqlite
-		await cds.deploy (csn) .to ({impl: '@cap-js/sqlite'}) // 'sqlite::memory:'
+		await cds.deploy (csn) .to ('sqlite::memory:')
 		expect (cds.db) .to.exist
 		expect (cds.db.model) .to.exist
 	})

@@ -11,7 +11,7 @@ describe('cap/samples - Messaging', ()=>{
 
     it ('should bootstrap sqlite in-memory db', async()=>{
         // REVISIT: how to better configure new sqlite
-        const db = await cds.deploy (_model) .to ({impl: '@cap-js/sqlite'}) // 'sqlite::memory:'
+        const db = await cds.deploy (_model) .to ('sqlite::memory:')
         await db.delete(Reviews)
         expect (db.model) .not.undefined
     })
