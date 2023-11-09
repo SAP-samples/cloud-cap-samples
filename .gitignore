@@ -21,4 +21,5 @@ reviews/db/test.db
 *.sqlite
 *.db
 
-**/@types
+@types/
+@cds-models/

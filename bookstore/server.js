@@ -13,10 +13,3 @@ cds.once('bootstrap',(app)=>{
 
 // Add Swagger UI
 require('./srv/swagger-ui')
-
-// Returning cds.server
-module.exports = cds.server
-
-// For didactic reasons in capire
-const { ReviewsService, OrdersService } = cds.requires
-if (!ReviewsService?.credentials && !OrdersService?.credentials) cds.requires.messaging = false

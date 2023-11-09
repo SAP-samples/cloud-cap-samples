@@ -20,12 +20,12 @@ npm run watch
 
 | Links to capire                                                                                           | Sample files / folders               |
 | --------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| [Project Setup & Layouts](https://cap.cloud.sap/docs/get-started/projects#sharing-and-reusing-content)    | [`./`](./)                           |
-| [Domain Modeling with CDS](https://cap.cloud.sap/docs/guides/domain-models)                               | [`./db/schema.cds`](./db/schema.cds) |
-| [Defining Services](https://cap.cloud.sap/docs/guides/services#defining-services)                         | [`./srv/*.cds`](./srv)               |
-| [Single-purposed Services](https://cap.cloud.sap/docs/guides/services#single-purposed-services)           | [`./srv/*.cds`](./srv)               |
+| [Project Setup & Layouts](https://cap.cloud.sap/docs/get-started/jumpstart#project-structure)             | [`./`](./)                           |
+| [Domain Modeling with CDS](https://cap.cloud.sap/docs/guides/domain-modeling)                               | [`./db/schema.cds`](./db/schema.cds) |
+| [Defining Services](https://cap.cloud.sap/docs/guides/providing-services#modeling-services)               | [`./srv/*.cds`](./srv)               |
+| [Single-purposed Services](https://cap.cloud.sap/docs/guides/providing-services#single-purposed-services) | [`./srv/*.cds`](./srv)               |
 | [Providing & Consuming Providers](https://cap.cloud.sap/docs/guides/providing-services)                   | http://localhost:4004                |
 | [Using Databases](https://cap.cloud.sap/docs/guides/databases)                                            | [`./db/data/*.csv`](./db/data)       |
-| [Adding Custom Logic](https://cap.cloud.sap/docs/guides/service-impl)                                     | [`./srv/*.js`](./srv)                |
+| [Adding Custom Logic](https://cap.cloud.sap/docs/guides/providing-services#adding-custom-logic)           | [`./srv/*.js`](./srv)                |
 | Adding Tests                                                                                              | [`./test`](./test)                   |
-| [Sharing for Reuse](https://cap.cloud.sap/docs/guides/reuse-and-compose)                                  | [`./index.cds`](./index.cds)         |
+| [Sharing for Reuse](https://cap.cloud.sap/docs/guides/extensibility/composition)                          | [`./index.cds`](./index.cds)         |
