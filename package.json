@@ -20,6 +20,7 @@
     "./reviews"
   ],
   "devDependencies": {
+    "@cap-js/sqlite": "^1",
     "@sap/eslint-plugin-cds": "^2.6.1",
     "axios": "^1",
     "chai": "^4.3.4",
