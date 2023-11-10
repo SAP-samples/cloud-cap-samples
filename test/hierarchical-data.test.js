@@ -12,7 +12,7 @@ describe('cap/samples - Hierarchical Data', ()=>{
 	`
 	const model = cds.compile.for.nodejs(csn)
 	const {Categories:Cats} = model.definitions
-	const {expect} = cds.test
+	const { expect } = cds.test.in(__dirname,'..')
 
 	before ('bootstrap sqlite in-memory db...', async()=>{
 		await cds.deploy (csn) .to ('sqlite::memory:') // REVISIT: cds.compile.to.sql should accept cds.compiled.for.nodejs models
