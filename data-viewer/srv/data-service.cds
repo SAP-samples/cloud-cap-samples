@@ -20,6 +20,7 @@
    * The actual data, organized by column name
    */
   entity Data @cds.persistence.skip {
+    key ID   : String;   // to be OData-compliant
     record   : array of {
       column : String;
       data   : String;
