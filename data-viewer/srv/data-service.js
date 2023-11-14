@@ -36,8 +36,11 @@ class DataService extends cds.ApplicationService { init(){
     const dataSource = findDataSource(dataSourceName, entityName)
     const res = await dataSource.run(query)
     return res.map((line) => {
-      const record = Object.entries(line).map(([column, data]) => {return {column, data}})
-      return { record }
+      const record = Object.entries(line).map(([column, data]) => ({ column, data }))
+      return {
+        record,
+        ID: cds.utils.uuid() // just to be OData-compliant
+      }
     })
   })
 
