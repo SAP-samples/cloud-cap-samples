@@ -10,6 +10,9 @@
     "jest": true,
     "mocha": true
   },
+  "parserOptions": {
+    "sourceType": "module"
+  },
   "globals": {
     "SELECT": true,
     "INSERT": true,
