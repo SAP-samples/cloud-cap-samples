@@ -14,8 +14,6 @@
       "**/odata-v4/okra/**"
     ]
   },
-  "mochaExplorer.debuggerConfig": "Debug Mocha Tests",
-  "mochaExplorer.parallel": true,
   "eslint.probe": [
     "cds",
     "csn",
