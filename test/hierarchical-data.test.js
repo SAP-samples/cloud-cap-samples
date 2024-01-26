@@ -11,7 +11,7 @@ describe('cap/samples - Hierarchical Data', ()=>{
 			parent   : Association to Categories;
 		}
 	`
-	const model = cds.compile.for.nodejs(csn)
+	const model = cds.unfold ? csn : cds.compile.for.nodejs(csn)
 	const {Categories:Cats} = model.definitions
 
 	before ('bootstrap sqlite in-memory db...', async()=>{
