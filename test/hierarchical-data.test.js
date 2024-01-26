@@ -11,8 +11,8 @@ describe('cap/samples - Hierarchical Data', ()=>{
 			parent   : Association to Categories;
 		}
 	`
-	const model = cds.compile.for.nodejs(csn)
-	const {Categories:Cats} = model.definitions
+	// const model = cds.compile.for.nodejs(csn)
+	const {Categories:Cats} = csn.definitions
 
 	before ('bootstrap sqlite in-memory db...', async()=>{
 		await cds.deploy (csn) .to ('sqlite::memory:') // REVISIT: cds.compile.to.sql should accept cds.compiled.for.nodejs models
