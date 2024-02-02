@@ -34,21 +34,6 @@ describe('cap/samples - Hierarchical Data', ()=>{
 	))
 
 	it ('supports nested reads', async()=>{
-		if (require('semver').gte(cds.version, '5.9.0')) {
-			expect (await
-				SELECT.one.from (Cats, c=>{
-					c.ID, c.name.as('parent'), c.children (c=>{
-						c.name.as('child')
-					})
-				}) .where ({name:'Cat'})
-			) .to.eql (
-				{ ID:101, parent:'Cat', children:[
-					{ child:'Kitty' },
-					{ child:'Catwoman' },
-				]}
-			)
-			return
-		}
 		expect (await
 			SELECT.one.from (Cats, c=>{
 				c.ID, c.name.as('parent'), c.children (c=>{
@@ -57,32 +42,13 @@ describe('cap/samples - Hierarchical Data', ()=>{
 			}) .where ({name:'Cat'})
 		) .to.eql (
 			{ ID:101, parent:'Cat', children:[
-				{ ID:102, child:'Kitty' },
-				{ ID:106, child:'Catwoman' },
+				{ child:'Kitty' },
+				{ child:'Catwoman' },
 			]}
 		)
 	})
 
 	it ('supports deeply nested reads', async()=>{
-		if (require('semver').gte(cds.version, '5.9.0')) {
-			expect (await SELECT.one.from (Cats, c=>{
-				c.ID, c.name, c.children (
-					c => { c.name },
-					{levels:3}
-				)
-			}) .where ({name:'Cat'})
-			) .to.eql (
-				{ ID:101, name:'Cat', children:[
-					{ name:'Kitty', children:[
-						{ name:'Kitty Cat', children:[
-							{ name:'Aristocat' }, ]},  // level 3
-						{ name:'Kitty Bat', children:[] }, ]},
-					{ name:'Catwoman', children:[
-						{ name:'Catalina', children:[] } ]},
-				]}
-			)
-			return
-		}
 		expect (await SELECT.one.from (Cats, c=>{
 			c.ID, c.name, c.children (
 				c => { c.name },
@@ -91,12 +57,12 @@ describe('cap/samples - Hierarchical Data', ()=>{
 		}) .where ({name:'Cat'})
 		) .to.eql (
 			{ ID:101, name:'Cat', children:[
-				{ ID:102, name:'Kitty', children:[
-					{ ID:103, name:'Kitty Cat', children:[
-						{ ID:104, name:'Aristocat' }, ]},  // level 3
-					{ ID:105, name:'Kitty Bat', children:[] }, ]},
-				{ ID:106, name:'Catwoman', children:[
-					{ ID:107, name:'Catalina', children:[] } ]},
+				{ name:'Kitty', children:[
+					{ name:'Kitty Cat', children:[
+						{ name:'Aristocat' }, ]},  // level 3
+					{ name:'Kitty Bat', children:[] }, ]},
+				{ name:'Catwoman', children:[
+					{ name:'Catalina', children:[] } ]},
 			]}
 		)
 	})
