@@ -5,4 +5,8 @@ updates:
   directory: /
   versioning-strategy: increase-if-necessary
   schedule:
-    interval: daily
+    interval: weekly
+  production-dependencies:
+    dependency-type: "production"
+  development-dependencies:
+    dependency-type: "development"
