@@ -11,7 +11,7 @@ describe('cap/samples - Hierarchical Data', ()=>{
 			parent   : Association to Categories;
 		}
 	`
-	const model = cds.unfold ? csn : cds.compile.for.nodejs(csn)
+	const model = cds.compile.for.nodejs(csn)
 	const {Categories:Cats} = model.definitions
 
 	before ('bootstrap sqlite in-memory db...', async()=>{
@@ -32,6 +32,50 @@ describe('cap/samples - Hierarchical Data', ()=>{
 			{ ID:108, name:'Catweazle' }
 		]}
 	))
+
+	it ('should generate correct queries for expands', ()=>{
+		let q = SELECT.from (Cats, c => { c.ID, c.name, c.children (c => c.name) })
+		expect (q) .to.eql ({
+			SELECT: {
+				from: { ref:[ "Categories" ] },
+				columns: [
+					{ ref: [ "ID" ] },
+					{ ref: [ "name" ] },
+					{ ref: [ "children" ], expand: [ {ref:['name']} ] },
+				]
+			}
+		})
+		if (q.forSQL) expect (q.forSQL()) .to.eql ({
+			SELECT: {
+				from: { ref:[ "Categories" ], as: "Categories" },
+				columns: [
+					{ ref: [ "Categories", "ID" ] },
+					{ ref: [ "Categories", "name" ] },
+					{ as: "children", SELECT: { expand: true,
+						one: false,
+						columns: [{ ref: [ "children", "name" ]}],
+						from: { ref:["Categories"], as: "children" },
+						where: [
+							{ref:[ "Categories", "ID" ]}, "=", {ref:[ "children", "parent_ID" ]}
+						],
+					}},
+				],
+			}
+		})
+		if (q.toSql) expect (q.toSql()) .to.eql (
+			`SELECT json_insert('{}',` +
+				`'$."ID"',ID,` +
+				`'$."name"',name,` +
+				`'$."children"',children->'$'` +
+			`) as _json_ FROM (` +
+				`SELECT Categories.ID,Categories.name,(` +
+					`SELECT jsonb_group_array(jsonb_insert('{}','$."name"',name)) as _json_ FROM (` +
+						`SELECT children.name FROM Categories as children WHERE Categories.ID = children.parent_ID` +
+					`)` +
+				`) as children FROM Categories as Categories` +
+			`)`
+		)
+	})
 
 	it ('supports nested reads', async()=>{
 		expect (await
