@@ -79,3 +79,36 @@ Authorization: Basic alice:
   "dateOfBirth": "1564-04-26",
   "dateOfDeath": "1616-04-23"
 }
+
+### Create book
+POST {{bookshop}}/admin/Books
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "ID": 291,
+  "title": "Ttile1",
+  "author_ID": 107,
+  "numberOfReviews": 3,
+  "Y_characteristics": [{
+    "ID": "e326afd9-4688-4bf5-9664-783ff997cdf5",
+    "characteristicId": "myid",
+    "name": "myname"
+  }]
+}
+
+### Update book
+PUT {{bookshop}}/admin/Books(291)
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "title": "Ttile111111111",
+  "author_ID": 107,
+  "numberOfReviews": 4,
+  "Y_characteristics": [{
+    "ID": "e326afd9-4688-4bf5-9664-783ff997cdf5",
+    "characteristicId": "myid123",
+    "name": "myname123"
+  }]
+}
