@@ -4,8 +4,8 @@ module.exports = class CatalogService extends cds.ApplicationService { init() {
   const { ListOfBooks } = this.entities
 
   // Add some discount for overstocked books
-  this.after('READ', ListOfBooks, each => {
-    if (each.stock > 111) each.title += ` -- 11% discount!`
+  this.after('each', ListOfBooks, book => {
+    if (book.stock > 111) book.title += ` -- 11% discount!`
   })
 
   // Reduce stock of ordered books if available stock suffices
