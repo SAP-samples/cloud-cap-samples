@@ -38,6 +38,7 @@
     "jest": "npx jest --silent",
     "start": "cds watch fiori",
     "test": "npm run jest -- --silent",
+    "test:mocha": "npx mocha --parallel --recursive --timeout 20000",
     "test:hello": "cd hello && npm test"
   },
   "jest": {
