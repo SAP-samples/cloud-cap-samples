@@ -1,4 +1,4 @@
-import type { Request } from "@sap/cds/apis/services"
+import { Request } from "@sap/cds"
 
 module.exports = class say {
     hello(req: Request) {
