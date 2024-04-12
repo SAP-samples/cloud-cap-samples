@@ -1,11 +1,22 @@
+const globals = require("globals");
 const js = require('@eslint/js');
 const cds = require('@sap/eslint-plugin-cds');
 
 module.exports = {
   {
-    "files": ["*.js"],
+    "files": ["**/*.js"],
     ...js.configs.recommended,
+  "languageOptions": {
+    "globals": {
+      es2022: true,
+      ...globals.browser,
+      ...globals.node,
+      ...globals.jest,
+      ...globals.mocha
+    }
+  },
   "rules": {
+    ...js.configs.recommended.rules,
     "no-console": "off",
     "require-atomic-updates": "off",
     "require-await": "warn",
@@ -17,11 +28,8 @@ module.exports = {
     "plugins": {
       "@sap/cds": cds
     },
-    "languageOptions": cds.globals,
-    "rules": {
-      "@sap/cds/min-node-version": 0,
-      "@sap/cds/start-elements-lowercase": 1,
-      "@sap/cds/start-entities-uppercase": 1
+    "languageOptions": {
+      globals: cds.globals
     }
   }
 }
