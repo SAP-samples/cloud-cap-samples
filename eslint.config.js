@@ -6,13 +6,13 @@ module.exports = {
   {
     "files": ["**/*.js"],
     ...js.configs.recommended,
-  "languageOptions": {
-    "globals": {
-      es2022: true,
-      ...globals.browser,
-      ...globals.node,
-      ...globals.jest,
-      ...globals.mocha
+    "languageOptions": {
+      "globals": {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.jest,
+        ...globals.mocha,
+        "es2022": true
     }
   },
   "rules": {
@@ -29,7 +29,9 @@ module.exports = {
       "@sap/cds": cds
     },
     "languageOptions": {
-      globals: cds.globals
+      globals: {
+        ...cds.globals
+      }
     }
   }
 }
