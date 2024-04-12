@@ -24,7 +24,7 @@ module.exports = {
   },
   {
     ...cds.configs.recommended,
-    "files": ['*.cds', '**/*.cds'],
+    "files": ['**/*.cds', '**/*.csn', '**/*.csv'],
     "plugins": {
       "@sap/cds": cds
     },
