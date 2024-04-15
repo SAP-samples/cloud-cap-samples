@@ -2,7 +2,7 @@ const globals = require("globals");
 const js = require('@eslint/js');
 const cds = require('@sap/eslint-plugin-cds');
 
-module.exports = [{
+module.exports = [ cds.configs.recommended, {
   "files": ["**/*.js"],
   ...js.configs.recommended,
   "languageOptions": {
@@ -19,17 +19,5 @@ module.exports = [{
     "require-atomic-updates": "off",
     "require-await": "warn",
     "no-unused-vars": ["warn", { "argsIgnorePattern": "_" }]
-  }
-},
-{ 
-  "files": ['**/*.cds', '**/*.csn', '**/*.csv'],
-  ...cds.configs.recommended,
-  "plugins": {
-    "@sap/cds": cds
-  },
-  "languageOptions": {
-    globals: {
-      ...cds.globals
-    }
   }
 }]
