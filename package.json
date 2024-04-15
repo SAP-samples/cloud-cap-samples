@@ -28,6 +28,9 @@
     "chai-subset": "^1.6.0",
     "semver": "^7"
   },
+  "peerDependencies": {
+    "eslint": "^8"
+  }
   "scripts": {
     "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",
     "bookshop": "cds watch bookshop",
