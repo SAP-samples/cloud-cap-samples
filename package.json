@@ -21,12 +21,12 @@
   ],
   "devDependencies": {
     "@cap-js/sqlite": "^1",
-    "@sap/eslint-plugin-cds": "^2.6.1",
+    "@sap/eslint-plugin-cds": "^3",
     "axios": "^1",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
-    "eslint": ">=8",
+    "eslint": "^9",
     "semver": "^7"
   },
   "scripts": {
