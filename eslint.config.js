@@ -2,7 +2,7 @@ const globals = require("globals");
 const js = require('@eslint/js');
 const cds = require('@sap/eslint-plugin-cds');
 
-module.exports = {
+module.exports = [{
   "files": ["**/*.js"],
   ...js.configs.recommended,
   "languageOptions": {
@@ -32,4 +32,4 @@ module.exports = {
       ...cds.globals
     }
   }
-}
+}]
