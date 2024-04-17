@@ -5,6 +5,7 @@
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
   "dependencies": {
+    "@sap-cloud-sdk/resilience": "^3.14.0",
     "@sap/cds": ">=7"
   },
   "workspaces": [
@@ -21,6 +22,7 @@
   ],
   "devDependencies": {
     "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^7",
     "@sap/eslint-plugin-cds": "^2.6.1",
     "axios": "^1",
     "chai": "^4.3.4",

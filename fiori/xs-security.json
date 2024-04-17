@@ -1,0 +1,22 @@
+{
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.emcallback",
+      "description": "Enterprise-Messaging Callback Access",
+      "grant-as-authority-to-apps": [
+        "$XSSERVICENAME(fiori-messaging)"
+      ]
+    },
+    {
+      "name": "$XSAPPNAME.emmanagement",
+      "description": "Enterprise-Messaging Management Access"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [],
+  "authorities-inheritance": false,
+  "authorities": [
+    "$XSAPPNAME.emmanagement",
+    "$XSAPPNAME.mtcallback"
+  ]
+}

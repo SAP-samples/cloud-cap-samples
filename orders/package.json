@@ -3,6 +3,15 @@
   "version": "1.0.0",
   "dependencies": {
     "@capire/common": "*",
-    "@sap/cds": ">=5"
+    "@sap/cds": ">=5",
+    "@sap/xssec": "^3"
+  },
+  "cds": {
+    "requires": {
+      "auth": "xsuaa"
+    }
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^7"
   }
 }

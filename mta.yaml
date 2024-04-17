@@ -1,0 +1,27 @@
+_schema-version: '3.1'
+ID: capire.samples
+version: 2.0.0
+description: "A monorepo with several samples for CAP."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production --ws
+modules:
+  - name: samples-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: samples-db
+
+resources:
+  - name: samples-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared

@@ -21,14 +21,25 @@
         "model": "@capire/orders"
       },
       "messaging": {
-        "[development]": { "kind": "file-based-messaging" },
-        "[hybrid]": { "kind": "enterprise-messaging-shared" },
-        "[production]": { "kind": "enterprise-messaging" }
+        "[development]": {
+          "kind": "file-based-messaging"
+        },
+        "[hybrid]": {
+          "kind": "enterprise-messaging-shared"
+        },
+        "[production]": {
+          "kind": "enterprise-messaging"
+        }
       },
       "db": {
         "kind": "sql"
       }
     },
-    "log": { "service": true }
+    "log": {
+      "service": true
+    }
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^7"
   }
 }
