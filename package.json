@@ -53,6 +53,16 @@
     "parallel": true,
     "timeout": 6666
   },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sql",
+        "[development]": {
+          "model": "db/sqlite"
+        }
+      }
+    }
+  },
   "license": "SEE LICENSE IN LICENSE",
   "private": true
 }

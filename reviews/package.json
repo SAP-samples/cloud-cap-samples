@@ -17,7 +17,17 @@
         "[hybrid]": { "kind": "enterprise-messaging-shared" },
         "[production]": { "kind": "enterprise-messaging" }
       },
-      "db": { "kind": "sql" }
+      
+      "db": { "kind": "sql" },
+      "[multimodule]": {
+        "db": {
+          "kind": "sqlite",
+          "impl": "@cap-js/sqlite",
+          "credentials": {
+            "url": "../db.sqlite"
+          }
+        }
+      }
     }
   }
 }

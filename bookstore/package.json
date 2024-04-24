@@ -31,8 +31,15 @@
           "kind": "enterprise-messaging"
         }
       },
-      "db": {
-        "kind": "sql"
+      "db": { "kind": "sql" },
+      "[multimodule]": {
+        "db": {
+          "kind": "sqlite",
+          "impl": "@cap-js/sqlite",
+          "credentials": {
+            "url": "../db.sqlite"
+          }
+        }
       }
     },
     "log": {

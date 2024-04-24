@@ -3,15 +3,20 @@
   "version": "1.0.0",
   "dependencies": {
     "@capire/common": "*",
-    "@sap/cds": ">=5",
-    "@sap/xssec": "^3"
+    "@sap/cds": ">=5"
   },
   "cds": {
     "requires": {
-      "auth": "xsuaa"
+      "db": { "kind": "sql" },
+      "[multimodule]": {
+        "db": {
+          "kind": "sqlite",
+          "impl": "@cap-js/sqlite",
+          "credentials": {
+            "url": "../db.sqlite"
+          }
+        }
+      }
     }
-  },
-  "devDependencies": {
-    "@sap/cds-dk": "^7"
   }
 }
