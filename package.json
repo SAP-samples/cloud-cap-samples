@@ -39,7 +39,8 @@
       "jest": "npx jest --silent",
       "start": "cds watch fiori",
       "test": "npm run jest -- --silent",
-      "test:hello": "cd hello && npm test"
+      "test:hello": "cd hello && npm test",
+      "lint": "eslint ."
     },
     "jest": {
       "testTimeout": 20000,
