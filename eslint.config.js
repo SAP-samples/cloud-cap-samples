@@ -1,6 +1,6 @@
+const cds = require('@sap/eslint-plugin-cds')
 const globals = require('globals')
 const js = require('@eslint/js')
-const cds = require('@sap/eslint-plugin-cds')
 
 module.exports = [
   cds.configs.recommended,
@@ -28,9 +28,9 @@ module.exports = [
     },
     rules: {
       'no-console': 'off',
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       'require-atomic-updates': 'off',
-      'require-await': 'warn',
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
+      'require-await': 'warn'
     }
   }
 ]
