@@ -9,21 +9,12 @@ module.exports = [
     languageOptions: {
       globals: {
         es2022: true,
+        sap: true,
         ...globals.browser,
         ...globals.node,
         ...globals.jest,
         ...globals.mocha,
-        cds: true,
-        sap: true,
-        CDL: true,
-        CQL: true,
-        CREATE: true,
-        DELETE: true,
-        DROP: true,
-        INSERT: true,
-        SELECT: true,
-        UPDATE: true,
-        UPSERT: true
+        ...cds.configs.recommended.languageOptions.globals
       }
     },
     rules: {
