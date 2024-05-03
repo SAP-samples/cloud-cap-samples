@@ -1,20 +1,20 @@
-const cds = require('@sap/eslint-plugin-cds')
+const eslintCds = require('@sap/eslint-plugin-cds')
+const eslintJs = require('@eslint/js')
 const globals = require('globals')
-const js = require('@eslint/js')
 
 module.exports = [
-  cds.configs.recommended,
-  js.configs.recommended,
+  eslintJs.configs.recommended,
+  eslintCds.configs.recommended,
   {
     languageOptions: {
       globals: {
-        es2022: true,
         sap: true,
+        ...globals.es2022,
         ...globals.browser,
         ...globals.node,
         ...globals.jest,
         ...globals.mocha,
-        ...cds.configs.recommended.languageOptions.globals
+        ...eslintCds.configs.recommended.languageOptions.globals
       }
     },
     rules: {
