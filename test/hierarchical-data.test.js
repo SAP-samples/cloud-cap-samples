@@ -77,49 +77,45 @@ describe('cap/samples - Hierarchical Data', ()=>{
 		)
 	})
 
-	it ('supports nested reads', async()=>{
-		expect (await
-			SELECT.one.from (Cats, c=>{
-				c.ID, c.name.as('parent'), c.children (c=>{
-					c.name.as('child')
-				})
-			}) .where ({name:'Cat'})
-		) .to.eql (
-			{ ID:101, parent:'Cat', children:[
-				{ child:'Kitty' },
-				{ child:'Catwoman' },
-			]}
-		)
-	})
+	it ('supports nested reads', ()=> expect (
+		SELECT.one.from (Cats, c=>{
+			c.ID, c.name.as('parent'), c.children (c=>{
+				c.name.as('child')
+			})
+		}) .where ({name:'Cat'})
+	) .to.eventually.eql (
+		{ ID:101, parent:'Cat', children:[
+			{ child:'Kitty' },
+			{ child:'Catwoman' },
+		]}
+	))
 
-	it ('supports deeply nested reads', async()=>{
-		expect (await SELECT.one.from (Cats, c=>{
+	it ('supports deeply nested reads', ()=> expect (
+		SELECT.one.from (Cats, c=>{
 			c.ID, c.name, c.children (
 				c => { c.name },
 				{levels:3}
 			)
 		}) .where ({name:'Cat'})
-		) .to.eql (
-			{ ID:101, name:'Cat', children:[
-				{ name:'Kitty', children:[
-					{ name:'Kitty Cat', children:[
-						{ name:'Aristocat' }, ]},  // level 3
-					{ name:'Kitty Bat', children:[] }, ]},
-				{ name:'Catwoman', children:[
-					{ name:'Catalina', children:[] } ]},
-			]}
-		)
-	})
+	) .to.eventually.eql (
+		{ ID:101, name:'Cat', children:[
+			{ name:'Kitty', children:[
+				{ name:'Kitty Cat', children:[
+					{ name:'Aristocat' }, ]},  // level 3
+				{ name:'Kitty Bat', children:[] }, ]},
+			{ name:'Catwoman', children:[
+				{ name:'Catalina', children:[] } ]},
+		]}
+	))
 
 	it ('supports cascaded deletes', async()=>{
 		const affectedRows = await DELETE.from (Cats) .where ({ID:[102,106]})
 		expect (affectedRows) .to.be.greaterThan (0)
-		const expected = [
+		await expect (SELECT`ID,name`.from(Cats) ).to.eventually.eql ([
 			{ ID:100, name:'Some Cats...' },
 			{ ID:101, name:'Cat' },
 			{ ID:108, name:'Catweazle' }
-		]
-		expect ( await SELECT`ID,name`.from(Cats) ).to.eql (expected)
+		])
 	})
 
 })

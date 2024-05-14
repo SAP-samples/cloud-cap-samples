@@ -1,7 +1,8 @@
+const cds = require('@sap/cds/lib')
+const { expect } = cds.test
+
 describe('cds.ql → cqn', () => {
 
-  const cds = require('@sap/cds/lib')
-  const { expect } = cds.test
   const Foo = { name: 'Foo' }
   const Books = { name: 'capire.bookshop.Books' }
 
