@@ -1,4 +1,4 @@
-const cds = require('@sap/cds/lib')
+const cds = require('@sap/cds')
 
 describe('cap/samples - Messaging', ()=>{
 
