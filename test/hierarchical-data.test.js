@@ -1,4 +1,4 @@
-const cds = require('@sap/cds/lib')
+const cds = require('@sap/cds')
 const { expect } = cds.test.in(__dirname,'..')
 
 describe('cap/samples - Hierarchical Data', ()=>{

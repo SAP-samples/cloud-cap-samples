@@ -1,4 +1,4 @@
-const cds = require('@sap/cds/lib')
+const cds = require('@sap/cds')
 
 module.exports = class AdminService extends cds.ApplicationService { init(){
   this.before ('NEW','Authors', genid)
