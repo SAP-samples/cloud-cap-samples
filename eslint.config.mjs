@@ -1,4 +1,4 @@
-import cds from '@sap/cds/eslint.config.js'
+import cds from '@sap/cds/eslint.js'
 export default [ ...cds.recommended ]
 
 //
