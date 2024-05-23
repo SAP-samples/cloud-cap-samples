@@ -12,11 +12,7 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "watch": "cds watch"
-  },
-  "cds": {
-    "requires": {
-      "db": "sql"
-    }
+    "watch": "cds watch",
+    "test": "cds test"
   }
 }

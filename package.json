@@ -1,12 +1,9 @@
 {
     "name": "@capire/samples",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "A monorepo with several samples for CAP.",
     "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
     "author": "daniel.hutzel@sap.com",
-    "dependencies": {
-      "@sap/cds": ">=7"
-    },
     "workspaces": [
       "./bookshop",
       "./bookstore",
@@ -19,34 +16,27 @@
       "./loggers",
       "./reviews"
     ],
+    "dependencies": {
+      "@sap/cds": ">=7"
+    },
     "devDependencies": {
       "@cap-js/sqlite": "^1",
       "@sap/eslint-plugin-cds": "^3",
       "axios": "^1",
-      "chai": "^4.3.4",
-      "chai-as-promised": "^7.1.1",
-      "chai-subset": "^1.6.0",
       "eslint": "^9",
       "semver": "^7"
     },
     "scripts": {
-      "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",
       "bookshop": "cds watch bookshop",
+      "start": "cds watch fiori",
       "fiori": "cds watch fiori",
       "hello": "cds watch hello",
       "media": "cds watch media",
-      "mocha": "CDS_TEST_SILENT=y npx mocha",
+      "lint": "eslint",
+      "test": "cds test",
       "jest": "npx jest --silent",
-      "start": "cds watch fiori",
-      "test": "npm run jest -- --silent",
-      "test:hello": "cd hello && npm test",
-      "lint": "eslint ."
-    },
-    "jest": {
-      "testTimeout": 20000,
-      "testMatch": [
-        "**/*.test.js"
-      ]
+      "mocha": "CDS_TEST_SILENT=y npx mocha",
+      "test:hello": "cd hello && npm test"
     },
     "mocha": {
       "recursive": true,
