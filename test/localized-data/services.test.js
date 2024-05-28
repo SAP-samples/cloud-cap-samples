@@ -8,7 +8,7 @@ describe('cap/samples - Localized Data', () => {
   })
 
 
-  it('serves localized $metadata documents', async () => {
+  it('serves localized metadata documents', async () => {
     const { data } = await GET(`/browse/$metadata?sap-language=de`, { headers: { 'accept-language': 'de', Accept: 'application/xml' }})
     expect(data).to.contain('<Annotation Term="Common.Label" String="Währung"/>')
   })
