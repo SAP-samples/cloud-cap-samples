@@ -11,7 +11,6 @@ describe('cap/samples - Bookshop APIs', () => {
     /*expect(headers).to.contain({
       'odata-version': '4.0',
     })*/
-    
     expect(headers['content-type']).to.match(/application\/xml/)
     expect(data).to.contain('<EntitySet Name="Books" EntityType="CatalogService.Books">')
     expect(data).to.contain('<Annotation Term="Common.Label" String="Currency"/>')
