@@ -5,7 +5,7 @@ describe('cap/samples - Bookshop APIs', () => {
   axios.defaults.auth = { username: 'alice', password: 'admin' }
 
   it('serves $metadata documents in v4', async () => {
-    const { headers, status, data } = await GET `/browse/$metadata`
+    const { headers, status, data } = await GET(`/browse/$metadata`, { headers: { Accept: 'application/xml' } })
     expect(status).to.equal(200)
     expect(headers).to.contain({
       'content-type': 'application/xml',
