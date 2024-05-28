@@ -5,14 +5,12 @@ describe('cap/samples - Bookshop APIs', () => {
   axios.defaults.auth = { username: 'alice', password: 'admin' }
 
   it('serves $metadata documents in v4', async () => {
-    const { headers, status, data } = await GET(`/browse/$metadata`, { headers: { Accept: 'application/xml' } })
+    const { headers, status, data } = await GET(`/browse/$metadata`, { headers: { accept: 'application/xml' } })
     expect(status).to.equal(200)
-
-    // TODO
-    /*expect(headers).to.contain({
+    expect(headers).to.contain({
+      // 'content-type': 'application/xml', //> fails with 'application/xml;charset=utf-8'
       'odata-version': '4.0',
-    })*/
-
+    })
     expect(headers['content-type']).to.match(/application\/xml/)
     expect(data).to.contain('<EntitySet Name="Books" EntityType="CatalogService.Books">')
     expect(data).to.contain('<Annotation Term="Common.Label" String="Currency"/>')
