@@ -8,9 +8,10 @@ describe('cap/samples - Bookshop APIs', () => {
     const { headers, status, data } = await GET(`/browse/$metadata`, { headers: { accept: 'application/xml' } })
     expect(status).to.equal(200)
     expect(headers).to.contain({
-      'content-type': 'application/xml',
+      // 'content-type': 'application/xml', //> fails with 'application/xml;charset=utf-8'
       'odata-version': '4.0',
     })
+    expect(headers['content-type']).to.match(/application\/xml/)
     expect(data).to.contain('<EntitySet Name="Books" EntityType="CatalogService.Books">')
     expect(data).to.contain('<Annotation Term="Common.Label" String="Currency"/>')
   })
