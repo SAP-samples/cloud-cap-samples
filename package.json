@@ -24,7 +24,7 @@
       "@sap/eslint-plugin-cds": "^3",
       "axios": "^1",
       "chai": "^4.3.4",
-      "chai-as-promised": "^7.1.1",
+      "chai-as-promised": "^8.0.0",
       "chai-subset": "^1.6.0",
       "eslint": "^9",
       "semver": "^7"
