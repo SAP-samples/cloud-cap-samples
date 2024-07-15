@@ -13,10 +13,5 @@
   "scripts": {
     "start": "cds-serve",
     "watch": "cds watch"
-  },
-  "cds": {
-    "requires": {
-      "db": "sql"
-    }
   }
 }
