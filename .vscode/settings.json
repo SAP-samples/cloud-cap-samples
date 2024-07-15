@@ -13,13 +13,5 @@
       "**/cds/lib/req/cds-context.js",
       "**/odata-v4/okra/**"
     ]
-  },
-  "eslint.probe": [
-    "cds",
-    "csn",
-    "csv",
-    "csv (semicolon)",
-    "tsv",
-    "tab"
-  ]
+  }
 }

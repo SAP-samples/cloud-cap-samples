@@ -18,7 +18,7 @@ class DataService extends cds.ApplicationService { init(){
       .sort((e1, e2) => e1.name.localeCompare(e2.name))
       .map(e => {
         const columns = Object.entries(e.elements)
-          .filter(([_, el]) => !(el instanceof cds.Association)) // exclude assocs+compositions
+          .filter(([,el]) => !(el instanceof cds.Association)) // exclude assocs+compositions
           .map(([name, el]) => { return { name, type: el.type, isKey:!!el.key }})
         return { name: e.name, columns }
       })

@@ -50,7 +50,6 @@ const reviews = Vue.createApp ({
                     const res = await POST(`/Reviews`,review)
                     reviews.ID = res.data.ID
                 } else {
-                    console.trace()
                     await PUT(`/Reviews/${review.ID}`,review)
                 }
                 reviews.message = { succeeded: 'Your review was submitted successfully. Thanks.' }
