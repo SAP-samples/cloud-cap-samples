@@ -19,7 +19,6 @@
   "scripts": {
     "genres": "cds serve test/genres.cds",
     "start": "cds-serve",
-    "watch": "cds watch",
-    "test": "cds test"
+    "watch": "cds watch"
   }
 }

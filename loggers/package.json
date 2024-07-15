@@ -12,7 +12,6 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "watch": "cds watch",
-    "test": "cds test"
+    "watch": "cds watch"
   }
 }
