@@ -15,3 +15,6 @@ updates:
     - dependency-name: "chai"
         # chai 5 doesn't work atm w/ cds.test, TODO fix that in cds.test
       versions: ["5.x"]
+    - dependency-name: "chai-as-promised"
+        # chai-as-promised 8 doesn't work atm w/ cds.test, TODO fix that in cds.test
+      versions: ["8.x"]
