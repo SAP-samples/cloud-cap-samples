@@ -1,5 +1,6 @@
 const cds = require('@sap/cds')
-module.exports = class CatalogService extends cds.ApplicationService { init() {
+
+class CatalogService extends cds.ApplicationService { init() {
 
   const { Books } = cds.entities('sap.capire.bookshop')
   const { ListOfBooks } = this.entities
@@ -33,3 +34,5 @@ module.exports = class CatalogService extends cds.ApplicationService { init() {
   // Delegate requests to the underlying generic service
   return super.init()
 }}
+
+module.exports = CatalogService
