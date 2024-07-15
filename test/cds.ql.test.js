@@ -795,7 +795,6 @@ describe('cds.ql → cqn', () => {
 
   describe(`DELETE...`, () => {
     test('from (..., <key>)', () => {
-      debugger
       const cqnWhere = {
           DELETE: {
             from: { ref: ['capire.bookshop.Books'] },
