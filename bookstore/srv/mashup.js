@@ -18,7 +18,7 @@ module.exports = async()=>{ // called by server.js
   // Note: prepend is neccessary to intercept generic default handler
   //
   CatalogService.prepend (srv => srv.on ('READ', 'Books/reviews', (req) => {
-    console.debug ('> delegating request to ReviewsService')
+    console.debug ('> delegating request to ReviewsService') // eslint-disable-line no-console
     const [id] = req.params, { columns, limit } = req.query.SELECT
     return ReviewsService.read ('Reviews',columns).limit(limit).where({subject:String(id)})
   }))
@@ -40,7 +40,7 @@ module.exports = async()=>{ // called by server.js
   // Update Books' average ratings when ReviewsService signals updated reviews
   //
   ReviewsService.on ('reviewed', (msg) => {
-    console.debug ('> received:', msg.event, msg.data)
+    console.debug ('> received:', msg.event, msg.data) // eslint-disable-line no-console
     const { subject, count, rating } = msg.data
     return UPDATE(Books,subject).with({ numberOfReviews:count, rating })
   })
@@ -49,7 +49,7 @@ module.exports = async()=>{ // called by server.js
   // Reduce stock of ordered books for orders are created from Orders admin UI
   //
   OrdersService.on ('OrderChanged', (msg) => {
-    console.debug ('> received:', msg.event, msg.data)
+    console.debug ('> received:', msg.event, msg.data) // eslint-disable-line no-console
     const { product, deltaQuantity } = msg.data
     return UPDATE (Books) .where ('ID =', product)
     .and ('stock >=', deltaQuantity)

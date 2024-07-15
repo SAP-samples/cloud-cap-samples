@@ -15,7 +15,7 @@ module.exports = cds.service.impl (function(){
     const { count, rating } = await cds.tx(req) .run (
       SELECT.one `round(avg(rating),2) as rating, count(*) as count` .from (Reviews) .where ({subject})
     )
-    global.it || console.log ('< emitting:', 'reviewed', { subject, count, rating })
+    global.it || console.log ('< emitting:', 'reviewed', { subject, count, rating }) // eslint-disable-line no-console
     await this.emit ('reviewed', { subject, count, rating })
   })
 
