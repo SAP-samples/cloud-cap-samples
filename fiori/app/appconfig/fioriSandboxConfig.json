@@ -50,7 +50,7 @@
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Manage Authors",
-                    "targetURL": "#Authors-display"
+                    "targetURL": "#Authors-manage"
                   }
                 },
                 {
@@ -99,7 +99,7 @@
             },
             "BrowseAuthors": {
               "semanticObject": "Authors",
-              "action": "display",
+              "action": "manage",
               "title": "Browse Authors",
               "signature": {
                 "parameters": {

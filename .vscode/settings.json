@@ -13,15 +13,5 @@
       "**/cds/lib/req/cds-context.js",
       "**/odata-v4/okra/**"
     ]
-  },
-  "mochaExplorer.debuggerConfig": "Debug Mocha Tests",
-  "mochaExplorer.parallel": true,
-  "eslint.probe": [
-    "cds",
-    "csn",
-    "csv",
-    "csv (semicolon)",
-    "tsv",
-    "tab"
-  ]
+  }
 }

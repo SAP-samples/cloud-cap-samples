@@ -1,4 +1,4 @@
-const cds = require('@sap/cds/lib')
+const cds = require('@sap/cds')
 
 describe('cap/samples - Custom Handlers', () => {
 
@@ -8,9 +8,10 @@ describe('cap/samples - Custom Handlers', () => {
   })
 
   it('should reject out-of-stock orders', async () => {
-    await POST `/browse/submitOrder ${{ book: 201, quantity: 5 }}`
-    await POST `/browse/submitOrder ${{ book: 201, quantity: 5 }}`
-    await expect(POST `/browse/submitOrder ${{ book: 201, quantity: 5 }}`).to.be.rejectedWith(/409 - 5 exceeds stock for book #201/)
+    await expect(POST `/browse/submitOrder ${{ book: 201, quantity: 5 }}`).to.be.fulfilled
+    await expect(POST `/browse/submitOrder ${{ book: 201, quantity: 5 }}`).to.be.fulfilled
+    await expect(POST `/browse/submitOrder ${{ book: 201, quantity: 5 }}`).to.be.rejectedWith(
+      /409 - 5 exceeds stock for book #201/)
     const { data } = await GET`/admin/Books/201/stock/$value`
     expect(data).to.equal(2)
   })

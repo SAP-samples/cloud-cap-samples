@@ -1,7 +1,8 @@
+const cds = require('@sap/cds')
+const { expect } = cds.test
+
 describe('cds.ql → cqn', () => {
 
-  const cds = require('@sap/cds/lib')
-  const { expect } = cds.test
   const Foo = { name: 'Foo' }
   const Books = { name: 'capire.bookshop.Books' }
 
@@ -676,7 +677,7 @@ describe('cds.ql → cqn', () => {
         .to.eql(INSERT.into(Foo).entries(...entries))
         .to.eql(INSERT.into(Foo).entries(entries))
         .to.eql({
-          INSERT: { into: 'Foo', entries },
+          INSERT: { into: { ref: ['Foo'] }, entries },
         })
     })
 
@@ -692,7 +693,7 @@ describe('cds.ql → cqn', () => {
         .to.eql(INSERT.into(Foo).columns('a', 'b').rows([1, 2], [3, 4]))
         .to.eql({
           INSERT: {
-            into: 'Foo',
+            into: { ref: ['Foo'] },
             columns: ['a', 'b'],
             rows: [
               [1, 2],
@@ -706,7 +707,7 @@ describe('cds.ql → cqn', () => {
       expect(INSERT.into(Foo).columns('a', 'b').values([1, 2]))
         .to.eql(INSERT.into(Foo).columns('a', 'b').values(1, 2))
         .to.eql({
-          INSERT: { into: 'Foo', columns: ['a', 'b'], values: [1, 2] },
+          INSERT: { into:  { ref: ['Foo'] }, columns: ['a', 'b'], values: [1, 2] },
         })
     })
 
@@ -721,7 +722,7 @@ describe('cds.ql → cqn', () => {
     test('entity (..., <key>)', () => {
       const cqnWhere = {
           UPDATE: {
-            entity: 'capire.bookshop.Books',
+            entity: { ref: ['capire.bookshop.Books'] },
             where: [{ ref: ['ID'] }, '=', { val: 4711 }],
           },
         }
@@ -765,7 +766,7 @@ describe('cds.ql → cqn', () => {
         .to.eql(UPDATE(Foo).with({ foo: 11, bar: { '-=': 22 } }))
         .to.eql({
           UPDATE: {
-            entity: 'Foo',
+            entity: { ref: ['Foo'] },
             data: { foo: 11 },
             with: {
               bar: { xpr: [{ ref: ['bar'] }, '-', { val: 22 }] },
@@ -776,7 +777,7 @@ describe('cds.ql → cqn', () => {
       // some more
       expect(UPDATE(Foo).with(`bar = coalesce(x,y), car = 'foo''s bar, car'`)).to.eql({
         UPDATE: {
-          entity: 'Foo',
+          entity: { ref: ['Foo'] },
           data: {
             car: "foo's bar, car",
           },
@@ -796,7 +797,7 @@ describe('cds.ql → cqn', () => {
     test('from (..., <key>)', () => {
       const cqnWhere = {
           DELETE: {
-            from: 'capire.bookshop.Books',
+            from: { ref: ['capire.bookshop.Books'] },
             where: [{ ref: ['ID'] }, '=', { val: 4711 }],
           },
         }

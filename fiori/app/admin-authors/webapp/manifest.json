@@ -35,7 +35,7 @@
             "additionalParameters": "ignored"
           },
           "semanticObject": "Authors",
-          "action": "display",
+          "action": "manage",
           "title": "{{appTitle}}",
           "info": "{{appInfo}}",
           "subTitle": "{{appSubTitle}}",

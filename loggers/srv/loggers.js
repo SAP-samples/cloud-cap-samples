@@ -1,4 +1,4 @@
-const cds = require ('@sap/cds/lib')
+const cds = require ('@sap/cds')
 const LOG = cds.log('cds.log')
 
 module.exports = class LogService extends cds.Service {

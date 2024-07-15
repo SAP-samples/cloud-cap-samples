@@ -5,8 +5,10 @@
     "@capire/bookstore": "*",
     "@sap/cds": ">=5",
     "@cap-js-community/odata-v2-adapter": "^1",
-    "express": "^4.17.1",
-    "passport": ">=0.4.1"
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1"
   },
   "scripts": {
     "start": "cds-serve",
@@ -48,5 +50,10 @@
     "hana": {
       "deploy-format": "hdbtable"
     }
-  }
+  },
+  "sapux": [
+    "app/admin-authors",
+    "app/admin-books",
+    "app/browse"
+  ]
 }

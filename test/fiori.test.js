@@ -1,4 +1,8 @@
-const cds = require('@sap/cds/lib')
+// Quick hack: suppress deprecation warnings w/ Node22 caused by http-proxy (used by OData v2 proxy)
+// See also: https://github.com/http-party/node-http-proxy/pull/1666
+require('util')._extend = Object.assign
+
+const cds = require('@sap/cds')
 
 describe('cap/samples - Fiori APIs - v2', function() {
 
