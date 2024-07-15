@@ -17,7 +17,7 @@
       "./reviews"
     ],
     "dependencies": {
-      "@sap/cds": ">=7"
+      "@sap/cds": ">=8"
     },
     "devDependencies": {
       "@cap-js/sqlite": "^1",
