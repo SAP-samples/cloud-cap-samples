@@ -1,4 +1,4 @@
-const cds = require('@sap/cds')
+import cds from '@sap/cds'
 
 /**
  * In order to keep basic bookshop sample as simple as possible, we don't add
@@ -8,7 +8,7 @@ const cds = require('@sap/cds')
 
 // NOTE: We use cds.on('served') to delay the UPSERTs after the db init
 // to run after all INSERTs from .csv files happened.
-module.exports = cds.on('served', ()=>
+export default cds.on('served', ()=>
   UPSERT.into ('sap.common.Currencies') .columns (
     [ 'code', 'symbol', 'name' ]
   ) .rows (

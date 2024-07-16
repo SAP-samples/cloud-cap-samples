@@ -1,6 +1,7 @@
 {
   "name": "@capire/hello-world",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "test": "npx jest --silent",
     "start": "cds-serve srv/world.cds",
