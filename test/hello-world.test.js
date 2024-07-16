@@ -5,7 +5,7 @@ describe('cap/samples - Hello world!', () => {
   const { GET, expect } = cds.test (__dirname+'/../hello')
 
   it('should say hello with class impl', async () => {
-    const {data} = await GET `/say/hello(to='world')`
+    const {data} = await GET `/odata/v4/say/hello(to='world')`
     expect(data.value).to.eql('Hello world!')
   })
 

@@ -1,3 +1,3 @@
-service say @(path: '/say') {
+service say {
   function hello (to:String) returns String;
 }
