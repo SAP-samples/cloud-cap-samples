@@ -28,9 +28,9 @@ describe("Consuming actions locally", () => {
   });
 
   it("calls unbound actions - basic variant using srv.send", async () => {
-    const res1 = await tx.send("submitOrder", {
-      book: BOOK_ID,
-      quantity: QUANTITY,
+    // Use a managed transaction to create a continuation with an authenticated user
+    const res1 = await cats.tx({ user: "alice" }, () => {
+      return cats.send("submitOrder", { book: BOOK_ID, quantity: QUANTITY });
     });
     expect(res1.stock).to.eql(stockBefore - QUANTITY);
   });
