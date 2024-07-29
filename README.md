@@ -36,7 +36,7 @@ cd samples
 In the samples folder run:
 
 ```sh
-npm install
+npm ci
 ```
 
 ### Run
