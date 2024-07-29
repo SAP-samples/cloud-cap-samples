@@ -48,7 +48,10 @@ describe("Consuming actions locally", () => {
   });
 
   it("calls unbound actions - positional args variant", async () => {
-    const res3 = await tx.submitOrder(BOOK_ID, QUANTITY);
+    // Use a managed transaction to create a continuation with an authenticated user
+    const res3 = await cats.tx({ user: "alice" }, () => {
+      return cats.submitOrder(BOOK_ID, QUANTITY);
+    });
     expect(res3.stock).to.eql(stockBefore - QUANTITY);
   });
 });
