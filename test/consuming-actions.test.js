@@ -25,9 +25,6 @@ describe("Consuming actions locally", () => {
   beforeEach(async () => {
     // Read the stock before the action is called
     stockBefore = (await cats.get(Books, BOOK_ID)).stock;
-
-    // Use a manual transaction to create a continuation with an authenticated user
-    tx = await cats.tx({user: "alice"});
   });
 
   afterEach(async() => {
