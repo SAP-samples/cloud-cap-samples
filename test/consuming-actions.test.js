@@ -27,10 +27,6 @@ describe("Consuming actions locally", () => {
     stockBefore = (await cats.get(Books, BOOK_ID)).stock;
   });
 
-  afterEach(async() => {
-    await tx.rollback();
-  })
-
   it("calls unbound actions - basic variant using srv.send", async () => {
     const res1 = await tx.send("submitOrder", {
       book: BOOK_ID,
