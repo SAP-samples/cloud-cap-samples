@@ -20,3 +20,6 @@ reviews/db/test.db
 *.openapi3.json
 *.sqlite
 *.db
+
+@types/
+@cds-models/

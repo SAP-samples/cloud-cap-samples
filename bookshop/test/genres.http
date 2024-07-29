@@ -3,15 +3,15 @@
 #   Genres
 #
 
-GET http://localhost:4004/test/Genres?
+GET http://localhost:4004/odata/v4/test/Genres?
 ###
 
-GET http://localhost:4004/test/Genres?
+GET http://localhost:4004/odata/v4/test/Genres?
 &$filter=parent_ID eq null&$select=name
 &$expand=children($select=name)
 ###
 
-POST http://localhost:4004/test/Genres?
+POST http://localhost:4004/odata/v4/test/Genres?
 Content-Type: application/json
 
 { "ID":100, "name":"Some Sample Genres...", "children":[
@@ -26,13 +26,13 @@ Content-Type: application/json
 ]}
 ###
 
-GET http://localhost:4004/test/Genres(100)?
+GET http://localhost:4004/odata/v4/test/Genres(100)?
 # &$expand=children
 # &$expand=children($expand=children($expand=children($expand=children)))
 ###
 
-DELETE http://localhost:4004/test/Genres(103)
+DELETE http://localhost:4004/odata/v4/test/Genres(103)
 ###
 
-DELETE http://localhost:4004/test/Genres(100)
+DELETE http://localhost:4004/odata/v4/test/Genres(100)
 ###

@@ -1,6 +1,6 @@
 using { sap.capire.reviews as my } from '../db/schema';
 
-service ReviewsService {
+service ReviewsService @(path:'/reviews') {
 
   // Sync API
   entity Reviews as projection on my.Reviews excluding { likes }

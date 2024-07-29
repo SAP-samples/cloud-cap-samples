@@ -10,17 +10,8 @@
       "<node_internals>/**",
       "**/node_modules/**",
       "**/cds/lib/lazy.js",
-      "**/cds/lib/req/cls.js",
+      "**/cds/lib/req/cds-context.js",
       "**/odata-v4/okra/**"
     ]
-  },
-  "mochaExplorer.parallel": true,
-  "eslint.validate": [
-    "cds",
-    "csn",
-    "csv",
-    "csv (semicolon)",
-    "tsv",
-    "tab"
-  ]
+  }
 }

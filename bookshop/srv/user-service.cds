@@ -1,7 +1,7 @@
 /**
  * Exposes user information
  */
-service UserService {
+service UserService @(path: '/user') {
   /**
    * The current user
    */

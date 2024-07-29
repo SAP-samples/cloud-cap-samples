@@ -77,7 +77,7 @@ function csrfToken (request) {
         document.csrfToken = token
         request.headers['x-csrf-token'] = document.csrfToken
         return request
-    }).catch(_ => {
+    }).catch(() => {
         document.csrfToken = null // set mark to not try again
         return request
     })

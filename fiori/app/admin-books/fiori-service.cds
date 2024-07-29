@@ -62,6 +62,11 @@ annotate AdminService.Books.texts with @(
 	}
 );
 
+annotate AdminService.Books.texts with {
+    ID       @UI.Hidden;
+    ID_texts @UI.Hidden;
+};
+
 // Add Value Help for Locales
 annotate AdminService.Books.texts {
 	locale @(
@@ -76,3 +81,6 @@ extend service AdminService {
 
 // Workaround for Fiori popup for asking user to enter a new UUID on Create
 annotate AdminService.Books with { ID @Core.Computed; }
+
+// Show Genre as drop down, not a dialog
+annotate AdminService.Books with { genre @Common.ValueListWithFixedValues; }

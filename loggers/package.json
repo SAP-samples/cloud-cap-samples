@@ -1,0 +1,17 @@
+{
+  "name": "@capire/loggers",
+  "version": "1.0.0",
+  "description": "Simple sample on how to dynamically set cds.log levels and formats.",
+  "files": [
+    "app",
+    "srv"
+  ],
+  "dependencies": {
+    "@sap/cds": ">=5.9",
+    "express": "^4.17.1"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch"
+  }
+}

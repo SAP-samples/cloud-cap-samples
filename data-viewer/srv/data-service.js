@@ -18,7 +18,7 @@ class DataService extends cds.ApplicationService { init(){
       .sort((e1, e2) => e1.name.localeCompare(e2.name))
       .map(e => {
         const columns = Object.entries(e.elements)
-          .filter(([_, el]) => !(el instanceof cds.Association)) // exclude assocs+compositions
+          .filter(([,el]) => !(el instanceof cds.Association)) // exclude assocs+compositions
           .map(([name, el]) => { return { name, type: el.type, isKey:!!el.key }})
         return { name: e.name, columns }
       })
@@ -36,8 +36,11 @@ class DataService extends cds.ApplicationService { init(){
     const dataSource = findDataSource(dataSourceName, entityName)
     const res = await dataSource.run(query)
     return res.map((line) => {
-      const record = Object.entries(line).map(([column, data]) => {return {column, data}})
-      return { record }
+      const record = Object.entries(line).map(([column, data]) => ({ column, data }))
+      return {
+        record,
+        ID: cds.utils.uuid() // just to be OData-compliant
+      }
     })
   })
 

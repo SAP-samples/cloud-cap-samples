@@ -12,11 +12,12 @@
 #
 
 GET {{reviews-service}}/Reviews
+Authorization: Basic me:
 
 ###
 
 POST {{reviews-service}}/Reviews
-Authorization: Basic {{$processEnv USER}}:
+Authorization: Basic me:
 Content-Type: application/json
 
 {"subject":"201", "title":"boo", "rating":3 }
@@ -41,7 +42,7 @@ GET {{bookshop}}/browse/Books(201)?
 ###
 
 GET {{bookshop}}/browse/Books?
-  &$select=title,author&$expand=currency
+&$select=title,author&$expand=currency
 Accept-Language: de
 
 #################################################
@@ -50,23 +51,23 @@ Accept-Language: de
 #
 @newOrderID = e939604c-ab83-4d4f-bdb6-95fe30b3773e
 
-GET {{bookshop}}/orders/Orders
+GET {{bookshop}}/odata/v4/orders/Orders
 
 ### Create order, still inactive
-POST {{bookshop}}/orders/Orders
+POST {{bookshop}}/odata/v4/orders/Orders
 Content-Type: application/json
 
 {"ID": "{{newOrderID}}"}
 
 ### Get inactive order.  We have to specify `IsActiveEntity`.
-GET {{bookshop}}/orders/Orders(ID={{newOrderID}},IsActiveEntity=false)
+GET {{bookshop}}/odata/v4/orders/Orders(ID={{newOrderID}},IsActiveEntity=false)
 
 ### Activate order using `.../<servicename>.draftActivate`
-POST {{bookshop}}/orders/Orders(ID={{newOrderID}},IsActiveEntity=false)/OrdersService.draftActivate
+POST {{bookshop}}/odata/v4/orders/Orders(ID={{newOrderID}},IsActiveEntity=false)/OrdersService.draftActivate
 Content-Type: application/json
 
 ### Get active order
-GET {{bookshop}}/orders/Orders(ID={{newOrderID}},IsActiveEntity=true)
+GET {{bookshop}}/odata/v4/orders/Orders(ID={{newOrderID}},IsActiveEntity=true)
 
 ### Create author
 POST {{bookshop}}/admin/Authors

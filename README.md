@@ -1,9 +1,15 @@
 # Welcome to cap/samples
 
-Find here a collection of samples for the [SAP Cloud Application Programming Model](https://cap.cloud.sap) organized in a simplistic [monorepo setup](samples.md#all-in-one-monorepo). &rarr; See [**Overview** of contained samples](samples.md)
+Find here a collection of samples for the [SAP Cloud Application Programming Model](https://cap.cloud.sap) organized in a simplistic [monorepo setup](samples.md#all-in-one-monorepo).
+
+[See **Overview** of contained samples](samples.md):
+
+![](etc/samples.drawio.svg)
 
 ![](https://github.com/SAP-samples/cloud-cap-samples/workflows/CI/badge.svg)
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/cloud-cap-samples)](https://api.reuse.software/info/github.com/SAP-samples/cloud-cap-samples)
+
+
 
 ### Preliminaries
 
@@ -53,24 +59,6 @@ Run the provided tests with [_jest_](http://jestjs.io) or [_mocha_](http://mocha
 npx jest
 ```
 > While mocha is a bit smaller and faster, jest runs tests in parallel and isolation, which allows to run all tests.
-
-
-### Serve `npm`
-
-We've included a simple npm registry mock, which allows you to do an `npm install @capire/<package>` locally. Use it as follows:
-
-1. Start the @capire registry:
-```sh
-npm run registry
-```
-> While running this will have `@capire:registry=http://localhost:4444` set with npmrc.
-
-2. Install one of the @capire packages wherever you like, for example:
-
-```sh
-npm add @capire/common @capire/bookshop
-```
-
 
 ## Code Tours
 

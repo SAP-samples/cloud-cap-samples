@@ -1,13 +1,15 @@
 # Overview of Samples
 
 The following list gives an overview of the samples provided in subdirectories.
-Each sub directory essentially is an individual npm package arranged in an [all-in-one monorepo](all-in-one-monorepo) umbrella setup.
+Each sub directory essentially is an individual npm package arranged in an [all-in-one monorepo](#all-in-one-monorepo) umbrella setup.
+
+![](etc/samples.drawio.svg)
 
 
 ## [@capire/hello-world](hello)
 
 - A simplistic [Hello World](https://cap.cloud.sap/docs/get-started/hello-world) service using [CDS](https://cap.cloud.sap/docs/cds/) and [cds.services](https://cap.cloud.sap/docs/node.js/api#services-api).
-- [Typescript support](https://cap.cloud.sap/docs/get-started/using-typescript)
+- [Typescript support](https://cap.cloud.sap/docs/node.js/typescript)
 
 
 ## [@capire/bookshop](bookshop)
@@ -53,7 +55,7 @@ Each sub directory essentially is an individual npm package arranged in an [all-
 
 ## [@capire/bookstore](bookstore)
 
-- A [composite app, reusing and combining](https://cap.cloud.sap/docs/guides/verticalize) these packages:
+- A [composite app, reusing and combining](https://cap.cloud.sap/docs/guides/extensibility/composition) these packages:
   - [@capire/bookshop](bookshop)
   - [@capire/reviews](reviews)
   - [@capire/orders](orders)
