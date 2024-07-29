@@ -1,24 +1,16 @@
-const cds = require('@sap/cds/lib')
-const { GET, expect } = cds.test.run ('serve', __dirname+'/localized-data.cds', '--in-memory')
-if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
-else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
+const cds = require('@sap/cds')
 
-describe('Localized Data', () => {
+describe('cap/samples - Localized Data', () => {
 
-  it('serves localized $metadata documents', async () => {
-    const { data } = await GET`/browse/$metadata?sap-language=de`
-    expect(data).to.contain('<Annotation Term="Common.Label" String="Währung"/>')
+  const { GET, expect } = cds.test (__dirname)
+  beforeAll(()=>{
+    cds.User.default = cds.User.Privileged // hard core monkey patch
   })
 
-  it('supports sap-language param', async () => {
-    const { data } = await GET(`/browse/Books?$select=title,author` + '&sap-language=de')
-    expect(data.value).to.containSubset([
-      { title: 'Sturmhöhe', author: 'Emily Brontë' },
-      { title: 'Jane Eyre', author: 'Charlotte Brontë' },
-      { title: 'The Raven', author: 'Edgar Allen Poe' },
-      { title: 'Eleonora', author: 'Edgar Allen Poe' },
-      { title: 'Catweazle', author: 'Richard Carpenter' },
-    ])
+
+  it('serves localized $metadata documents', async () => {
+    const { data } = await GET(`/browse/$metadata?sap-language=de`, { headers: { 'accept-language': 'de' }})
+    expect(data).to.contain('<Annotation Term="Common.Label" String="Währung"/>')
   })
 
   it('supports accept-language header', async () => {

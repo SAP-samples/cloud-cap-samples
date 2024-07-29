@@ -4,21 +4,21 @@ const GET = (url) => axios.get('/reviews'+url)
 const PUT = (cmd,data) => axios.patch('/reviews'+cmd,data)
 const POST = (cmd,data) => axios.post('/reviews'+cmd,data)
 
-const reviews = new Vue ({
+const reviews = Vue.createApp ({
 
-    el:'#app',
-
-    data: {
-        list: [],
-        review: undefined,
-        message: {},
-        Ratings: Object.entries({
+    data() {
+        return {
+          list: [],
+          review: undefined,
+          message: {},
+          Ratings: Object.entries({
             5 : '★★★★★',
             4 : '★★★★',
             3 : '★★★',
             2 : '★★',
             1 : '★',
-        }).reverse()
+          }).reverse()
+        }
     },
 
     methods: {
@@ -50,7 +50,6 @@ const reviews = new Vue ({
                     const res = await POST(`/Reviews`,review)
                     reviews.ID = res.data.ID
                 } else {
-                    console.trace()
                     await PUT(`/Reviews/${review.ID}`,review)
                 }
                 reviews.message = { succeeded: 'Your review was submitted successfully. Thanks.' }
@@ -66,7 +65,7 @@ const reviews = new Vue ({
         datetime: (d) => d && new Date(d).toLocaleString(),
     },
 
-})
+}).mount("#app")
 
 // initially fill list of my reviews
 reviews.fetch()

@@ -1,14 +1,17 @@
-const cds = require('@sap/cds/lib')
-const { expect } = cds.test
-const _model = '@capire/reviews'
-if (cds.User.default) cds.User.default = cds.User.Privileged // hard core monkey patch
-else cds.User = cds.User.Privileged // hard core monkey patch for older cds releases
+const cds = require('@sap/cds')
 
-describe('Messaging', ()=>{
+describe('cap/samples - Messaging', ()=>{
+
+    const { expect } = cds.test.in(__dirname,'..')
+    const _model = '@capire/reviews'
+    const Reviews = 'sap.capire.reviews.Reviews'
+    beforeAll(()=>{
+        cds.User.default = cds.User.Privileged // hard core monkey patch
+    })
 
     it ('should bootstrap sqlite in-memory db', async()=>{
         const db = await cds.deploy (_model) .to ('sqlite::memory:')
-        await db.delete('Reviews')
+        await db.delete(Reviews)
         expect (db.model) .not.undefined
     })
 
@@ -29,6 +32,7 @@ describe('Messaging', ()=>{
 
     it ('should add review', async ()=>{
         const review = { subject: "201", title: "Captivating", rating: ++N }
+        cds._debug = 1
         const response = await srv.create ('Reviews') .entries (review)
         expect (response) .to.containSubset (review)
     })

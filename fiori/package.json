@@ -3,19 +3,19 @@
   "version": "1.0.0",
   "dependencies": {
     "@capire/bookstore": "*",
-    "@sap/cds": "^5",
-    "express": "^4.17.1",
-    "passport": "^0.4.1"
+    "@sap/cds": ">=5",
+    "@cap-js-community/odata-v2-adapter": "^1",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1"
   },
   "scripts": {
-    "start": "cds run --in-memory?",
+    "start": "cds-serve",
     "watch": "cds watch"
   },
   "cds": {
     "requires": {
-      "auth": {
-        "strategy": "dummy"
-      },
       "ReviewsService": {
         "kind": "odata",
         "model": "@capire/reviews"
@@ -31,7 +31,7 @@
         "[development]": {
           "kind": "file-based-messaging"
         },
-        "[hybrid!]": {
+        "[hybrid]": {
           "kind": "enterprise-messaging-shared"
         }
       },
@@ -45,10 +45,15 @@
         "[production]": {
           "model": "db/hana"
         }
-      },
-      "hana": {
-        "deploy-format": "hdbtable"
       }
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
     }
-  }
+  },
+  "sapux": [
+    "app/admin-authors",
+    "app/admin-books",
+    "app/browse"
+  ]
 }

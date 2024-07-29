@@ -3,52 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "test": "npx jest --silent",
-    "start": "cds serve srv/world.cds",
+    "start": "cds-serve srv/world.cds",
     "start:ts": "cds-ts serve srv/world.cds"
   },
-  "devDependencies": {
-    "@types/jest": "^27.0.2",
-    "@types/node": "^16.11.6",
-    "ts-jest": "^27.0.2",
-    "typescript": "^4.3.5"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "preset": "ts-jest",
-    "globals": {
-      "ts-jest": {
-        "diagnostics": {
-          "_comment": "see https://githubmemory.com/repo/kulshekhar/ts-jest/issues/2722",
-          "ignoreCodes": [
-            151001
-          ]
-        }
-      }
-    }
-  },
-  "eslintConfig": {
-    "extends": "eslint:recommended",
-    "env": {
-      "es2020": true,
-      "node": true,
-      "jest": true,
-      "mocha": true
-    },
-    "globals": {
-      "SELECT": true,
-      "INSERT": true,
-      "UPDATE": true,
-      "DELETE": true,
-      "CREATE": true,
-      "DROP": true,
-      "CDL": true,
-      "CQL": true,
-      "CXL": true,
-      "cds": true
-    },
-    "rules": {
-      "no-console": "off",
-      "require-atomic-updates": "off"
-    }
+  "dependencies": {
+    "@sap/cds": ">=5.0.4"
   }
 }

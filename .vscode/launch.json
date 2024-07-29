@@ -13,7 +13,7 @@
         "<node_internals>/**",
         "**/node_modules/**",
         "**/cds/lib/lazy.js",
-        "**/cds/lib/req/cls.js",
+        "**/cds/lib/req/cds-context.js",
         "**/odata-v4/okra/**"
       ]
     },
@@ -26,10 +26,24 @@
         "<node_internals>/**",
         "**/node_modules/**",
         "**/cds/lib/lazy.js",
-        "**/cds/lib/req/cls.js",
+        "**/cds/lib/req/cds-context.js",
         "**/odata-v4/okra/**"
       ]
-    }
+    },
+    {
+      "name": "Debug Mocha Tests",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "continueOnAttach": true,
+      "skipFiles": [
+        "<node_internals>/**",
+        "**/node_modules/**",
+        "**/cds/lib/lazy.js",
+        "**/cds/lib/req/cds-context.js",
+        "**/odata-v4/okra/**",
+      ]
+    },
   ],
   "inputs": [
     {

@@ -29,7 +29,7 @@ class OrdersService extends cds.ApplicationService {
   /** order changed -> broadcast event */
   orderChanged (product, deltaQuantity) {
     // Emit events to inform subscribers about changes in orders
-    console.log ('> emitting:', 'OrderChanged', { product, deltaQuantity })
+    console.log ('> emitting:', 'OrderChanged', { product, deltaQuantity }) // eslint-disable-line no-console
     return this.emit ('OrderChanged', { product, deltaQuantity })
   }
 

@@ -1,48 +1,50 @@
 {
-  "name": "@capire/samples",
-  "version": "2.0.0",
-  "description": "A monorepo with several samples for CAP.",
-  "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
-  "author": "daniel.hutzel@sap.com",
-  "dependencies": {
-    "@capire/bookstore": "./bookstore",
-    "@capire/bookshop": "./bookshop",
-    "@capire/common": "./common",
-    "@capire/fiori": "./fiori",
-    "@capire/hello": "./hello",
-    "@capire/media": "./media",
-    "@capire/orders": "./orders",
-    "@capire/reviews": "./reviews",
-    "@sap/cds": "^5.5.3"
-  },
-  "devDependencies": {
-    "chai": "^4.3.4",
-    "chai-as-promised": "^7.1.1",
-    "chai-subset": "^1.6.0",
-    "sqlite3": "^5"
-  },
-  "scripts": {
-    "cleanup": "rm -rf node_modules && rm -rf */node_modules && rm -rf */*/node_modules",
-    "registry": "node .registry/server.js",
-    "bookshop": "cds watch bookshop",
-    "fiori": "cds watch fiori",
-    "hello": "cds watch hello",
-    "media": "cds watch media",
-    "mocha": "npx mocha || echo",
-    "jest": "npx jest",
-    "test": "npm run jest -- --silent",
-    "test:hello": "cd hello && npm test"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "testTimeout": 20000,
-    "testMatch": [
-      "**/*.test.js"
-    ]
-  },
-  "mocha": {
-    "parallel": true
-  },
-  "license": "SAP SAMPLE CODE LICENSE",
-  "private": true
-}
+    "name": "@capire/samples",
+    "version": "2.1.0",
+    "description": "A monorepo with several samples for CAP.",
+    "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
+    "author": "daniel.hutzel@sap.com",
+    "dependencies": {
+      "@sap/cds": ">=8"
+    },
+    "workspaces": [
+      "./bookshop",
+      "./bookstore",
+      "./common",
+      "./data-viewer",
+      "./fiori",
+      "./hello",
+      "./media",
+      "./orders",
+      "./loggers",
+      "./reviews"
+    ],
+    "devDependencies": {
+      "@cap-js/sqlite": "^1",
+      "axios": "^1",
+      "chai": "^4.3.4",
+      "chai-as-promised": "^7.1.1",
+      "chai-subset": "^1.6.0",
+      "eslint": "^9",
+      "semver": "^7"
+    },
+    "scripts": {
+      "bookshop": "cds watch bookshop",
+      "start": "cds watch fiori",
+      "fiori": "cds watch fiori",
+      "hello": "cds watch hello",
+      "media": "cds watch media",
+      "lint": "eslint",
+      "test": "npx jest --silent",
+      "jest": "npx jest --silent",
+      "mocha": "CDS_TEST_SILENT=y npx mocha",
+      "test:hello": "cd hello && npm test"
+    },
+    "mocha": {
+      "recursive": true,
+      "parallel": true,
+      "timeout": 6666
+    },
+    "license": "SEE LICENSE IN LICENSE",
+    "private": true
+  }

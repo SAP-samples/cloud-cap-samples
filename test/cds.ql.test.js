@@ -1,28 +1,26 @@
-const cds = require('@sap/cds/lib')
+const cds = require('@sap/cds')
 const { expect } = cds.test
-const { cdr } = cds.ql
-const Foo = { name: 'Foo' }
-const Books = { name: 'capire.bookshop.Books' }
-
-
-const STAR = cdr ? '*' : { ref: ['*'] }
-const skip = {to:{eql:()=>skip}}
-const srv = new cds.Service
-let cqn
-
-expect.plain = (cqn) => !cqn.SELECT.one && !cqn.SELECT.distinct ? expect(cqn) : skip
-expect.one = (cqn) => !cqn.SELECT.distinct ? expect(cqn) : skip
 
 describe('cds.ql → cqn', () => {
-  //
 
-  for (let each of ['SELECT', 'SELECT one', 'SELECT distinct']) {
+  const Foo = { name: 'Foo' }
+  const Books = { name: 'capire.bookshop.Books' }
+
+  const STAR = '*'
+  const skip = {to:{eql:()=>skip}}
+  const srv = new cds.Service
+  let cqn
+
+  expect.plain = (cqn) => !cqn.SELECT.one && !cqn.SELECT.distinct ? expect(cqn) : skip
+  expect.one = (cqn) => !cqn.SELECT.distinct ? expect(cqn) : skip
+
+  describe.each(['SELECT', 'SELECT one', 'SELECT distinct'])(`%s...`, (each) => {
+
     let SELECT; beforeEach(()=> SELECT = (
       each === 'SELECT distinct' ? cds.ql.SELECT.distinct :
       each === 'SELECT one' ? cds.ql.SELECT.one :
       cds.ql.SELECT
     ))
-  describe(`${each}...`, () => {
 
     test(`from Foo`, () => {
       expect(cqn = SELECT `from Foo`)
@@ -81,6 +79,8 @@ describe('cds.ql → cqn', () => {
       .to.eql(SELECT('Foo','Boo').from('Bar'))
       .to.eql(SELECT(['Foo','Boo']).from('Bar'))
       .to.eql(SELECT `Bar` .columns `Foo, Boo`)
+      .to.eql(SELECT `Bar` .columns `{ Foo, Boo }`)
+      .to.eql(SELECT `Bar` .columns ('{ Foo, Boo }'))
       .to.eql(SELECT `Bar` .columns ('Foo','Boo'))
       .to.eql(SELECT `Bar` .columns (['Foo','Boo']))
       .to.eql(SELECT.from `Bar` .columns ('Foo','Boo'))
@@ -185,7 +185,7 @@ describe('cds.ql → cqn', () => {
         }},
       })
 
-      if (cdr) expect.plain (cqn)
+      expect.plain (cqn)
       .to.eql(SELECT`Foo[ID=${11}]`)
       .to.eql(srv.read`Foo[ID=${11}]`)
 
@@ -242,7 +242,7 @@ describe('cds.ql → cqn', () => {
         },
       })
 
-      cdr && expect.plain(cqn)
+      expect.plain(cqn)
       .to.eql(CQL`SELECT *,a,b as c from Foo`)
       .to.eql(CQL`SELECT from Foo {*,a,b as c}`)
 
@@ -333,7 +333,7 @@ describe('cds.ql → cqn', () => {
       })
     })
 
-  })}
+  })
 
   describe ('SELECT where...', ()=>{
 
@@ -341,7 +341,7 @@ describe('cds.ql → cqn', () => {
       expect(SELECT.from(Foo).where({ x: 1, and: { y: 2, or: { z: 3 } } })).to.eql({
         SELECT: {
           from: { ref: ['Foo'] },
-          where: cdr ? [
+          where: [
             { ref: ['x'] },
             '=',
             { val: 1 },
@@ -357,29 +357,12 @@ describe('cds.ql → cqn', () => {
               { val: 3 },
             ]},
             // ')',
-          ] : [
-            { ref: ['x'] },
-            '=',
-            { val: 1 },
-            'and',
-            '(',
-            // {xpr:[
-              { ref: ['y'] },
-              '=',
-              { val: 2 },
-              'or',
-              { ref: ['z'] },
-              '=',
-              { val: 3 },
-            // ]},
-            ')',
           ],
         },
       })
     })
 
     test ("where x='*'", ()=>{
-      if (cdr)
       expect (SELECT.from(Foo).where({x:'*'}))
       .to.eql(SELECT.from(Foo).where("x='*'"))
       .to.eql(SELECT.from(Foo).where("x=",'*'))
@@ -387,7 +370,6 @@ describe('cds.ql → cqn', () => {
       .to.eql(
         CQL`SELECT from Foo where x='*'`
       )
-      if (cdr)
       expect (SELECT.from(Foo).where({x:['*',1]}))
       .to.eql(SELECT.from(Foo).where("x in ('*',1)"))
       .to.eql(SELECT.from(Foo).where("x in",['*',1]))
@@ -411,18 +393,67 @@ describe('cds.ql → cqn', () => {
         ]
       }})
 
-      expect (
-        SELECT.from(Foo).where({x:1,or:{y:2}})
-      ).to.eql (
-        CQL`SELECT from Foo where x=1 or y=2`
-      ).to.eql ({ SELECT: {
-        from: {ref:['Foo']},
-        where: [
-          {ref:['x']}, '=', {val:1},
-          'or',
-          {ref:['y']}, '=', {val:2}
-        ]
-      }})
+      const ql_with_groups_fix = !!cds.ql.Query.prototype.flat
+      if (ql_with_groups_fix) {
+
+        expect (
+          SELECT.from(Foo).where({x:1}).or({y:2}).and({z:3})
+        ).to.eql ({ SELECT: {
+          from: {ref:['Foo']},
+          where: [
+            {ref:['x']}, '=', {val:1},
+            'or',
+            {ref:['y']}, '=', {val:2},
+            'and',
+            {ref:['z']}, '=', {val:3},
+          ]
+        }})
+
+        expect (
+          SELECT.from(Foo).where({x:1,or:{y:2}}).and({z:3})
+        ).to.eql ({ SELECT: {
+          from: {ref:['Foo']},
+          where: [
+            {xpr:[
+              {ref:['x']}, '=', {val:1},
+              'or',
+              {ref:['y']}, '=', {val:2},
+            ]},
+            'and',
+            {ref:['z']}, '=', {val:3},
+          ]
+        }})
+
+        expect (
+          SELECT.from(Foo).where({a:1}).or({x:1,or:{y:2}}).and({z:3})
+        ).to.eql ({ SELECT: {
+          from: {ref:['Foo']},
+          where: [
+            {ref:['a']}, '=', {val:1},
+            'or',
+            {xpr:[
+              {ref:['x']}, '=', {val:1},
+              'or',
+              {ref:['y']}, '=', {val:2},
+            ]},
+            'and',
+            {ref:['z']}, '=', {val:3},
+          ]
+        }})
+
+        expect (
+          { SELECT: SELECT.from(Foo).where({x:1,or:{y:2}}).SELECT }
+        ).to.eql ({ SELECT: {
+          from: {ref:['Foo']},
+          where: [
+            {ref:['x']}, '=', {val:1},
+            'or',
+            {ref:['y']}, '=', {val:2},
+          ]
+        }})
+
+      }
+
 
       expect (
         SELECT.from(Foo).where({x:1,and:{y:2}}).or({z:3})
@@ -430,19 +461,19 @@ describe('cds.ql → cqn', () => {
         CQL`SELECT from Foo where x=1 and y=2 or z=3`
       )
 
-      if (cdr) expect (
+      expect (
         SELECT.from(Foo).where({x:1}).and({y:2,or:{z:3}})
       ).to.eql (
         CQL`SELECT from Foo where x=1 and ( y=2 or z=3 )`
       )
 
-      if (cdr) expect (
+      expect (
         SELECT.from(Foo).where({1:1}).and({x:1,or:{x:2}}).and({y:2,or:{z:3}})
       ).to.eql (
         CQL`SELECT from Foo where 1=1 and ( x=1 or x=2 ) and ( y=2 or z=3 )`
       )
 
-      if (cdr) expect (
+      expect (
         SELECT.from(Foo).where({x:1,or:{x:2}}).and({y:2,or:{z:3}})
       ).to.eql (
         CQL`SELECT from Foo where ( x=1 or x=2 ) and ( y=2 or z=3 )`
@@ -450,7 +481,7 @@ describe('cds.ql → cqn', () => {
     })
 
     test('where ({x:[undefined]})', () => {
-      if (cdr) expect (
+      expect (
         SELECT.from(Foo).where({x:[undefined]})
       ).to.eql ({ SELECT: {
         from: {ref:['Foo']},
@@ -477,7 +508,7 @@ describe('cds.ql → cqn', () => {
       ).to.eql({
         SELECT: {
           from: { ref: ['Foo'] },
-          where: cdr ? [
+          where: [
             { ref: ['ID'] },
             '=',
             { val: ID },
@@ -497,24 +528,6 @@ describe('cds.ql → cqn', () => {
                 { val: 9 },
               ]
             },
-          ] : [
-            { ref: ['ID'] },
-            '=',
-            { val: ID },
-            'and',
-            { ref: ['args'] },
-            'in',
-            { list: args.map(val => ({ val })) },
-            'and',
-            '(',
-            { ref: ['x'] },
-            'like',
-            { val: '%x%' },
-            'or',
-            { ref: ['y'] },
-            '>=',
-            { val: 9 },
-            ')',
           ],
         }
       })
@@ -608,7 +621,6 @@ describe('cds.ql → cqn', () => {
     })
 
     it('should consistently handle *', () => {
-      if (!cdr) return
       expect({
         SELECT: { from: { ref: ['Foo'] }, columns: ['*'] },
       })
@@ -619,7 +631,6 @@ describe('cds.ql → cqn', () => {
     })
 
     it('should consistently handle lists', () => {
-      if (!cdr) return
       const ID = 11,  args = [{ref:['foo']}, "bar", 3]
       const cqn = CQL`SELECT from Foo where ID=11 and x in (foo,'bar',3)`
       expect(SELECT.from(Foo).where`ID=${ID} and x in ${args}`).to.eql(cqn)
@@ -630,6 +641,34 @@ describe('cds.ql → cqn', () => {
     //
   })
 
+  describe(`SELECT for update`, () => {
+    beforeAll(() => {
+      delete cds.env.sql.lock_acquire_timeout
+    })
+
+    it('no wait', () => {
+      const q = SELECT.from('Foo').forUpdate()
+      expect(q.SELECT.forUpdate).eqls({})
+    })
+
+    it('specific wait', () => {
+      const q = SELECT.from('Foo').forUpdate({ wait: 1 })
+      expect(q.SELECT.forUpdate).eqls({ wait: 1 })
+    })
+
+    it('default wait', () => {
+      cds.env.sql.lock_acquire_timeout = 2
+      const q = SELECT.from('Foo').forUpdate()
+      expect(q.SELECT.forUpdate).eqls({ wait: 2 })
+    })
+
+    it('override default', () => {
+      cds.env.sql.lock_acquire_timeout = 1
+      const q = SELECT.from('Foo').forUpdate({ wait:-1 })
+      expect(q.SELECT.forUpdate).eqls({})
+    })
+  })
+
   describe(`INSERT...`, () => {
     test('entries ({a,b}, ...)', () => {
       const entries = [{ foo: 1 }, { boo: 2 }]
@@ -638,7 +677,7 @@ describe('cds.ql → cqn', () => {
         .to.eql(INSERT.into(Foo).entries(...entries))
         .to.eql(INSERT.into(Foo).entries(entries))
         .to.eql({
-          INSERT: { into: 'Foo', entries },
+          INSERT: { into: { ref: ['Foo'] }, entries },
         })
     })
 
@@ -654,7 +693,7 @@ describe('cds.ql → cqn', () => {
         .to.eql(INSERT.into(Foo).columns('a', 'b').rows([1, 2], [3, 4]))
         .to.eql({
           INSERT: {
-            into: 'Foo',
+            into: { ref: ['Foo'] },
             columns: ['a', 'b'],
             rows: [
               [1, 2],
@@ -668,7 +707,7 @@ describe('cds.ql → cqn', () => {
       expect(INSERT.into(Foo).columns('a', 'b').values([1, 2]))
         .to.eql(INSERT.into(Foo).columns('a', 'b').values(1, 2))
         .to.eql({
-          INSERT: { into: 'Foo', columns: ['a', 'b'], values: [1, 2] },
+          INSERT: { into:  { ref: ['Foo'] }, columns: ['a', 'b'], values: [1, 2] },
         })
     })
 
@@ -683,7 +722,7 @@ describe('cds.ql → cqn', () => {
     test('entity (..., <key>)', () => {
       const cqnWhere = {
           UPDATE: {
-            entity: 'capire.bookshop.Books',
+            entity: { ref: ['capire.bookshop.Books'] },
             where: [{ ref: ['ID'] }, '=', { val: 4711 }],
           },
         }
@@ -727,7 +766,7 @@ describe('cds.ql → cqn', () => {
         .to.eql(UPDATE(Foo).with({ foo: 11, bar: { '-=': 22 } }))
         .to.eql({
           UPDATE: {
-            entity: 'Foo',
+            entity: { ref: ['Foo'] },
             data: { foo: 11 },
             with: {
               bar: { xpr: [{ ref: ['bar'] }, '-', { val: 22 }] },
@@ -738,7 +777,7 @@ describe('cds.ql → cqn', () => {
       // some more
       expect(UPDATE(Foo).with(`bar = coalesce(x,y), car = 'foo''s bar, car'`)).to.eql({
         UPDATE: {
-          entity: 'Foo',
+          entity: { ref: ['Foo'] },
           data: {
             car: "foo's bar, car",
           },
@@ -758,7 +797,7 @@ describe('cds.ql → cqn', () => {
     test('from (..., <key>)', () => {
       const cqnWhere = {
           DELETE: {
-            from: 'capire.bookshop.Books',
+            from: { ref: ['capire.bookshop.Books'] },
             where: [{ ref: ['ID'] }, '=', { val: 4711 }],
           },
         }

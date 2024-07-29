@@ -11,7 +11,7 @@
     },
     "dataSources": {
       "AdminService": {
-        "uri": "/admin/",
+        "uri": "admin/",
         "type": "OData",
         "settings": {
           "odataVersion": "4.0"
@@ -35,7 +35,7 @@
             "additionalParameters": "ignored"
           },
           "semanticObject": "Authors",
-          "action": "display",
+          "action": "manage",
           "title": "{{appTitle}}",
           "info": "{{appInfo}}",
           "subTitle": "{{appSubTitle}}",

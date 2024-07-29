@@ -4,13 +4,11 @@
 
 	// List of extensions which should be recommended for users of this workspace.
 	"recommendations": [
+		"qwtel.sqlite-viewer",
 		"sapse.vscode-cds",
 		"dbaeumer.vscode-eslint",
-		"esbenp.prettier-vscode",
 		"mechatroner.rainbow-csv",
 		"humao.rest-client",
-		"alexcvzz.vscode-sqlite",
-		"hbenl.vscode-mocha-test-adapter",
 		"sdras.night-owl",
 		"vsls-contrib.codetour"
 	],

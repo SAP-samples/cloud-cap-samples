@@ -1,3 +1,7 @@
 module.exports = class say {
-  hello(req) { return `Hello ${req.data.to}!` }
+  hello(req) {
+    let {to} = req.data
+    if (to === 'me') to = require('os').userInfo().username
+    return `Hello ${to}!`
+  }
 }

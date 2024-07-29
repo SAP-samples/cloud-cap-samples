@@ -19,6 +19,14 @@
                     "title": "Browse Books",
                     "targetURL": "#Books-display"
                   }
+                },
+                {
+                  "id": "BrowseGenres",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Browse Genres (OData v2)",
+                    "targetURL": "#Genres-display"
+                  }
                 }
               ]
             },
@@ -42,7 +50,7 @@
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Manage Authors",
-                    "targetURL": "#Authors-display"
+                    "targetURL": "#Authors-manage"
                   }
                 },
                 {
@@ -91,7 +99,7 @@
             },
             "BrowseAuthors": {
               "semanticObject": "Authors",
-              "action": "display",
+              "action": "manage",
               "title": "Browse Authors",
               "signature": {
                 "parameters": {
@@ -105,6 +113,24 @@
                 "applicationType": "SAPUI5",
                 "additionalInformation": "SAPUI5.Component=authors",
                 "url": "/admin-authors/webapp"
+              }
+            },
+            "BrowseGenres": {
+              "semanticObject": "Genres",
+              "action": "display",
+              "title": "Browse Genres",
+              "signature": {
+                "parameters": {
+                  "Genre.ID": {
+                    "renameTo": "ID"
+                  }
+                },
+                "additionalParameters": "ignored"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=genres",
+                "url": "/genres/webapp"
               }
             },
             "ManageBooks": {
