@@ -8,7 +8,7 @@ const { expect } = cds.test(
 );
 
 describe("Consuming actions locally", () => {
-  let cats, CatalogService, Books, tx, stockBefore;
+  let cats, CatalogService, Books, stockBefore;
   const BOOK_ID = 251;
   const QUANTITY = 1;
 
