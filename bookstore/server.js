@@ -11,7 +11,7 @@ cds.once('bootstrap',(app)=>{
     app.serve ('/orders') .from('@capire/orders','app/orders')
     app.serve ('/data') .from('@capire/data-viewer','app/viewer')
   } catch (err) {
-    if (err.code === 'MODULE_NOT_FOUND') throw new Error('Run "npm ci" to install the required dependencies')
+    if (err.code === 'MODULE_NOT_FOUND') throw new Error('Run "npm ci" to install the required dependencies', { cause: err })
     throw err
   }
 })
