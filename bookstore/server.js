@@ -10,8 +10,9 @@ cds.once('bootstrap',(app)=>{
     app.serve ('/reviews') .from ('@capire/reviews','app/vue')
     app.serve ('/orders') .from('@capire/orders','app/orders')
     app.serve ('/data') .from('@capire/data-viewer','app/viewer')
-  } catch {
-      throw new Error('Run "npm ci" to install the required dependencies')
+  } catch (err) {
+    if (err.code === 'MODULE_NOT_FOUND') throw new Error('Run "npm ci" to install the required dependencies')
+    throw err
   }
 })
 
