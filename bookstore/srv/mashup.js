@@ -1,10 +1,11 @@
+import cds from '@sap/cds'
+
 ////////////////////////////////////////////////////////////////////////////
 //
 //    Mashing up bookshop services with required services...
 //
-module.exports = async()=>{ // called by server.js
+export default async()=>{ // called by server.js
 
-  const cds = require('@sap/cds')
   const CatalogService = await cds.connect.to ('CatalogService')
   const ReviewsService = await cds.connect.to ('ReviewsService')
   const OrdersService = await cds.connect.to ('OrdersService')
