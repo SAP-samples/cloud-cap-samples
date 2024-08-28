@@ -19,7 +19,7 @@ const books = Vue.createApp ({
         search: ({target:{value:v}}) => books.fetch(v && '&$search='+v),
 
         async fetch (etc='') {
-            const {data} = await GET(`/ListOfBooks?$expand=genre,currency${etc}`)
+            const {data} = await GET(`/ListOfBooks?$expand=genre($select=name),currency($select=symbol)${etc}`)
             books.list = data.value
         },
 
