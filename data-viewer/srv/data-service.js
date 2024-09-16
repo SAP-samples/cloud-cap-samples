@@ -49,6 +49,7 @@ class DataService extends cds.ApplicationService { init(){
 
 module.exports = { DataService }
 
+/** @returns {cds.Service} */
 function findDataSource(dataSourceName, entityName) {
   for (let srv of Object.values(cds.services)) { // all connected services
     if (!srv.name)  continue // FIXME intermediate/pending in cds.services ?

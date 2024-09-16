@@ -5,46 +5,47 @@
     "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
     "author": "daniel.hutzel@sap.com",
     "dependencies": {
-      "@sap/cds": ">=8"
+        "@sap/cds": ">=8"
     },
     "workspaces": [
-      "./bookshop",
-      "./bookstore",
-      "./common",
-      "./data-viewer",
-      "./fiori",
-      "./hello",
-      "./media",
-      "./orders",
-      "./loggers",
-      "./reviews"
+        "./bookshop",
+        "./bookstore",
+        "./common",
+        "./data-viewer",
+        "./fiori",
+        "./hello",
+        "./media",
+        "./orders",
+        "./loggers",
+        "./reviews"
     ],
     "devDependencies": {
-      "@cap-js/sqlite": "^1",
-      "axios": "^1",
-      "chai": "^4.3.4",
-      "chai-as-promised": "^7.1.1",
-      "chai-subset": "^1.6.0",
-      "eslint": "^9",
-      "semver": "^7"
+        "@cap-js/cds-types": "^0",
+        "@cap-js/sqlite": "^1",
+        "axios": "^1",
+        "chai": "^4.3.4",
+        "chai-as-promised": "^7.1.1",
+        "chai-subset": "^1.6.0",
+        "eslint": "^9",
+        "semver": "^7"
     },
     "scripts": {
-      "bookshop": "cds watch bookshop",
-      "start": "cds watch fiori",
-      "fiori": "cds watch fiori",
-      "hello": "cds watch hello",
-      "media": "cds watch media",
-      "lint": "eslint",
-      "test": "npx jest --silent",
-      "jest": "npx jest --silent",
-      "mocha": "CDS_TEST_SILENT=y npx mocha",
-      "test:hello": "cd hello && npm test"
+        "bookshop": "cds watch bookshop",
+        "start": "cds watch fiori",
+        "fiori": "cds watch fiori",
+        "hello": "cds watch hello",
+        "media": "cds watch media",
+        "lint": "eslint",
+        "test": "npx jest --silent",
+        "jest": "npx jest --silent",
+        "mocha": "CDS_TEST_SILENT=y npx mocha",
+        "test:hello": "cd hello && npm test"
     },
     "mocha": {
-      "recursive": true,
-      "parallel": true,
-      "timeout": 6666
+        "recursive": true,
+        "parallel": true,
+        "timeout": 6666
     },
     "license": "SEE LICENSE IN LICENSE",
     "private": true
-  }
+}
