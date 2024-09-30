@@ -1,7 +1,6 @@
-module.exports = class say {
-  hello(req) {
-    let {to} = req.data
-    if (to === 'me') to = require('os').userInfo().username
+import cds from '@sap/cds'
+export class say extends cds.ApplicationService {
+  hello (to = 'World') {
     return `Hello ${to}!`
   }
 }
