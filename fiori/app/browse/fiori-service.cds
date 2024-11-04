@@ -6,8 +6,8 @@ using CatalogService from '@capire/bookstore';
 //
 annotate CatalogService.Books with @(UI : {
     HeaderInfo        : {
-        TypeName       : 'Book',
-        TypeNamePlural : 'Books',
+        TypeName       : '{i18n>Book}',
+        TypeNamePlural : '{i18n>Books}',
         Description    : {Value : author}
     },
     HeaderFacets      : [{
