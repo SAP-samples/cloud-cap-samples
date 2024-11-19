@@ -18,7 +18,6 @@ annotate my.Books with @(
       ID,
       author_ID,
       price,
-      currency_code
     ],
     LineItem        : [
       { Value: ID, Label: '{i18n>Title}' },
@@ -26,7 +25,6 @@ annotate my.Books with @(
       { Value: genre.name },
       { Value: stock },
       { Value: price },
-      { Value: currency.symbol },
     ]
   }
 ) {
@@ -63,7 +61,7 @@ annotate my.Books with {
   title  @title: '{i18n>Title}';
   genre  @title: '{i18n>Genre}'   @Common: { Text: genre.name, TextArrangement: #TextOnly };
   author @title: '{i18n>Author}'  @Common: { Text: author.name, TextArrangement: #TextOnly };
-  price  @title: '{i18n>Price}'   @Measures.ISOCurrency : currency_code;
+  price  @title: '{i18n>Price}'   @Measures.ISOCurrency : currency;
   stock  @title: '{i18n>Stock}';
   descr  @title: '{i18n>Description}'  @UI.MultiLineText;
   image  @title: '{i18n>Image}';

@@ -27,15 +27,15 @@ describe('cap/samples - Localized Data', () => {
   })
 
   it('supports queries with $expand', async () => {
-    const { data } = await GET(`/browse/Books?&$select=title,author&$expand=currency`, {
+    const { data } = await GET(`/browse/Book?&$select=title,author,currencyName`, {
       headers: { 'Accept-Language': 'de' },
     })
     expect(data.value).to.containSubset([
-      { title: 'Sturmhöhe', author: 'Emily Brontë', currency: { name: 'Pfund' } },
-      { title: 'Jane Eyre', author: 'Charlotte Brontë', currency: { name: 'Pfund' } },
-      { title: 'The Raven', author: 'Edgar Allen Poe', currency: { name: 'US-Dollar' } },
-      { title: 'Eleonora', author: 'Edgar Allen Poe', currency: { name: 'US-Dollar' } },
-      { title: 'Catweazle', author: 'Richard Carpenter', currency: { name: 'Yen' } },
+      { title: 'Sturmhöhe', author: 'Emily Brontë', currencyName: 'Pfund' },
+      { title: 'Jane Eyre', author: 'Charlotte Brontë', currencyName: 'Pfund' },
+      { title: 'The Raven', author: 'Edgar Allen Poe', currencyName: 'US-Dollar' },
+      { title: 'Eleonora', author: 'Edgar Allen Poe', currencyName: 'US-Dollar' },
+      { title: 'Catweazle', author: 'Richard Carpenter', currencyName: 'Yen' },
     ])
   })
 
