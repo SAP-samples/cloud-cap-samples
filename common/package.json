@@ -4,5 +4,12 @@
   "version": "1.0.0",
   "dependencies": {
     "@sap/cds": "*"
+  },
+  "cds": {
+    "requires": {
+      "@capire/common/data": {
+        "model": "@capire/common"
+      }
+    }
   }
 }
