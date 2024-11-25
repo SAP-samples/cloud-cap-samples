@@ -10,7 +10,7 @@ module.exports = srv => {
   })
 
   srv.on('UPDATE', 'Media', (req, next) => {
-    const url = req._.req.path
+    const url = req.path
     if (url.includes('content')) {
       const id = req.data.id
       const obj = mediaDB.get(id)
@@ -32,7 +32,7 @@ module.exports = srv => {
   })
 
   srv.on('READ', 'Media', (req, next) => {
-    const url = req._.req.path
+    const url = req.path
     if (url.includes('content')) {
       const id = req.data.id
       const mediaObj = mediaDB.get(id)
