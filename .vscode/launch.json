@@ -41,16 +41,21 @@
         "**/node_modules/**",
         "**/cds/lib/lazy.js",
         "**/cds/lib/req/cds-context.js",
-        "**/odata-v4/okra/**",
+        "**/odata-v4/okra/**"
       ]
-    },
+    }
   ],
   "inputs": [
     {
       "type": "pickString",
       "id": "sample",
       "description": "Which sample do you want to start?",
-      "options": [ "bookshop", "fiori", "reviews", "reviews" ],
+      "options": [
+        "bookshop",
+        "fiori",
+        "reviews",
+        "reviews"
+      ],
       "default": "bookshop"
     }
   ]
