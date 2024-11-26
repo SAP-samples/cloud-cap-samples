@@ -5,8 +5,6 @@
     "test": "npx jest --silent",
     "start": "cds-serve srv/world.cds",
     "start:ts": "cds-ts serve srv/world.cds"
-  },
-  "dependencies": {
-    "@sap/cds": ">=5.0.4"
   }
+  
 }
