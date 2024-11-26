@@ -1,0 +1,9 @@
+applications:
+  - name: cloud-cap-samples
+    path: .
+    memory: 256M
+    disk_quota: 512M
+    buildpacks:
+      - nodejs_buildpack
+    services:
+      - my-postgres-db
