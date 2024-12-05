@@ -1,7 +1,8 @@
-const cds = require ('@sap/cds')
+import mashup from './srv/mashup.js'
+import cds from '@sap/cds'
 
 // Add mashup logic
-cds.once('served', require('./srv/mashup'))
+cds.once('served', mashup)
 
 // Add routes to UIs from imported packages
 cds.once('bootstrap',(app)=>{
@@ -15,6 +16,3 @@ cds.once('bootstrap',(app)=>{
     throw err
   }
 })
-
-// Add Swagger UI
-require('./srv/swagger-ui')

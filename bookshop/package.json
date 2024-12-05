@@ -2,6 +2,7 @@
   "name": "@capire/bookshop",
   "version": "1.0.0",
   "description": "A simple self-contained bookshop service.",
+  "type": "module",
   "files": [
     "app",
     "srv",
