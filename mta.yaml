@@ -1,0 +1,79 @@
+_schema-version: 3.3.0
+ID: capire.samples
+version: 2.1.0
+description: "A monorepo with several samples for CAP."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --for hana --production --ws
+        - npx cds build ./bookshop --for nodejs --production --ws-pack
+modules:
+  - name: bookshop-srv
+    type: nodejs
+    path: bookshop/gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-type: http
+      readiness-health-check-http-endpoint: /health
+    build-parameters:
+      builder: npm
+    provides:
+      - name: bookshop-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: samples-messaging
+      - name: samples-db
+      - name: samples-auth
+
+  - name: samples-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: samples-db
+
+  - name: samples
+    type: approuter.nodejs
+    path: app/router
+    parameters:
+      keep-existing-routes: true
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: bookshop-api
+        group: destinations
+        properties:
+          name: bookshop-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: samples-auth
+
+resources:
+  - name: samples-messaging
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: enterprise-messaging
+      service-plan: default
+      path: ./event-mesh.json
+  - name: samples-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: samples-auth
+    type: org.cloudfoundry.managed-service
+    processed-after:
+      - samples-messaging
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: samples-${org}-${space}
+        tenant-mode: dedicated

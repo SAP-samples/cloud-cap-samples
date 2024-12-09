@@ -14,7 +14,21 @@
   },
   "dependencies": {
     "@sap/cds": ">=7",
+    "@sap/xssec": "^4",
+    "@cap-js/hana": "^1",
     "express": "^4.17.1"
+  },
+  "cds": {
+    "requires": {
+      "[production]": {
+        "auth": "xsuaa",
+        "db": "hana",
+        "messaging": "enterprise-messaging"
+      }
+    }
+  },
+  "sql": {
+    "native_hana_associations": false
   },
   "scripts": {
     "genres": "cds serve test/genres.cds",
