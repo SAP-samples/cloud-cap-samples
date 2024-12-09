@@ -50,5 +50,10 @@
     "timeout": 6666
   },
   "license": "SEE LICENSE IN LICENSE",
-  "private": true
+  "private": true,
+  "cds": {
+    "requires": {
+      "destinations": true
+    }
+  }
 }

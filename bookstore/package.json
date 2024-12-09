@@ -7,6 +7,8 @@
     "@capire/orders": "*",
     "@capire/common": "*",
     "@capire/data-viewer": "*",
+    "@sap-cloud-sdk/http-client": "^3.24.0",
+    "@sap-cloud-sdk/resilience": "^3.24.0",
     "@sap/cds": ">=5",
     "express": "^4.17.1"
   },
@@ -14,11 +16,19 @@
     "requires": {
       "ReviewsService": {
         "kind": "odata",
-        "model": "@capire/reviews"
+        "model": "@capire/reviews",
+        "credentials": {
+          "destination": "reviews-dest",
+          "path": "/reviews"
+        }
       },
       "OrdersService": {
         "kind": "odata",
-        "model": "@capire/orders"
+        "model": "@capire/orders",
+        "credentials": {
+          "destination": "orders-dest",
+          "path": "/odata/v4/orders"
+        }
       },
       "[production]": {
         "auth": "xsuaa",

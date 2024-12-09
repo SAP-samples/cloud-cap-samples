@@ -58,18 +58,6 @@
       "target": "/user/$1",
       "destination": "bookstore-api",
       "csrfProtection": true
-    },
-    {
-      "source": "^/mashup/orders/(.*)$",
-      "target": "/odata/v4/orders/$1",
-      "destination": "bookstore-api",
-      "csrfProtection": true
-    },
-    {
-      "source": "^/mashup/reviews/(.*)$",
-      "target": "/reviews/$1",
-      "destination": "bookstore-api",
-      "csrfProtection": true
     }
   ]
 }
