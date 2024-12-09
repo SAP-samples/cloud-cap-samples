@@ -12,9 +12,63 @@
       "cacheControl": "no-cache, no-store, must-revalidate"
     },
     {
-      "source": "^/(.*)$",
-      "target": "$1",
+      "source": "^/admin/(.*)$",
+      "target": "/admin/$1",
       "destination": "bookshop-api",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/browse/(.*)$",
+      "target": "/browse/$1",
+      "destination": "bookshop-api",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/user/(.*)$",
+      "target": "/user/$1",
+      "destination": "bookshop-api",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/odata/v4/orders/(.*)$",
+      "target": "/odata/v4/orders/$1",
+      "destination": "orders-api",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/reviews/(.*)$",
+      "target": "/reviews/$1",
+      "destination": "reviews-api",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/mashup/admin/(.*)$",
+      "target": "/admin/$1",
+      "destination": "bookstore-api",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/mashup/browse/(.*)$",
+      "target": "/browse/$1",
+      "destination": "bookstore-api",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/mashup/user/(.*)$",
+      "target": "/user/$1",
+      "destination": "bookstore-api",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/mashup/orders/(.*)$",
+      "target": "/odata/v4/orders/$1",
+      "destination": "bookstore-api",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/mashup/reviews/(.*)$",
+      "target": "/reviews/$1",
+      "destination": "bookstore-api",
       "csrfProtection": true
     }
   ]

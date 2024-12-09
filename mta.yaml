@@ -11,6 +11,9 @@ build-parameters:
         - npm ci
         - npx cds build --for hana --production --ws
         - npx cds build ./bookshop --for nodejs --production --ws-pack
+        - npx cds build ./orders --for nodejs --production --ws-pack
+        - npx cds build ./reviews --for nodejs --production --ws-pack
+        - npx cds build ./bookstore --for nodejs --production --ws-pack
 modules:
   - name: bookshop-srv
     type: nodejs
@@ -19,10 +22,72 @@ modules:
       buildpack: nodejs_buildpack
       readiness-health-check-type: http
       readiness-health-check-http-endpoint: /health
+      disk-quota: 256M
+      memory: 256M
     build-parameters:
       builder: npm
     provides:
-      - name: bookshop-api # required by consumers of CAP services (e.g. approuter)
+      - name: bookshop-api
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: samples-messaging
+      - name: samples-db
+      - name: samples-auth
+
+  - name: orders-srv
+    type: nodejs
+    path: orders/gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-type: http
+      readiness-health-check-http-endpoint: /health
+      disk-quota: 256M
+      memory: 256M
+    build-parameters:
+      builder: npm
+    provides:
+      - name: orders-api
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: samples-messaging
+      - name: samples-db
+      - name: samples-auth
+
+  - name: reviews-srv
+    type: nodejs
+    path: reviews/gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-type: http
+      readiness-health-check-http-endpoint: /health
+      disk-quota: 256M
+      memory: 256M
+    build-parameters:
+      builder: npm
+    provides:
+      - name: reviews-api
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: samples-messaging
+      - name: samples-db
+      - name: samples-auth
+
+  - name: bookstore-srv
+    type: nodejs
+    path: bookstore/gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-type: http
+      readiness-health-check-http-endpoint: /health
+      disk-quota: 256M
+      memory: 256M
+    build-parameters:
+      builder: npm
+    provides:
+      - name: bookstore-api
         properties:
           srv-url: ${default-url}
     requires:
@@ -50,6 +115,24 @@ modules:
         group: destinations
         properties:
           name: bookshop-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: orders-api
+        group: destinations
+        properties:
+          name: orders-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: reviews-api
+        group: destinations
+        properties:
+          name: reviews-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: bookstore-api
+        group: destinations
+        properties:
+          name: bookstore-api # must be used in xs-app.json as well
           url: ~{srv-url}
           forwardAuthToken: true
       - name: samples-auth

@@ -20,15 +20,18 @@
         "kind": "odata",
         "model": "@capire/orders"
       },
-      "messaging": {
-        "[development]": { "kind": "file-based-messaging" },
-        "[hybrid]": { "kind": "enterprise-messaging-shared" },
-        "[production]": { "kind": "enterprise-messaging" }
+      "[production]": {
+        "auth": "xsuaa",
+        "db": "hana",
+        "messaging": "enterprise-messaging"
       },
-      "db": {
-        "kind": "sql"
+      "sql": {
+        "native_hana_associations": false
       }
     },
     "log": { "service": true }
+  },
+  "scripts": {
+    "start": "cds-serve"
   }
 }
