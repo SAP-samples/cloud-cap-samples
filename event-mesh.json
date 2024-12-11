@@ -1,7 +1,7 @@
 {
-  "emname": "samples-emname",
+  "emname": "samples-multi-service-shared-db",
   "version": "1.1.0",
-  "namespace": "default/samples/1",
+  "namespace": "cap/samples/shdb",
   "options": {
     "management": true,
     "messagingrest": true,
@@ -10,7 +10,7 @@
   "rules": {
     "topicRules": {
       "publishFilter": [
-        "${namespace}/*"
+        "*"
       ],
       "subscribeFilter": [
         "*"
@@ -18,10 +18,10 @@
     },
     "queueRules": {
       "publishFilter": [
-        "${namespace}/*"
+        "*"
       ],
       "subscribeFilter": [
-        "${namespace}/*"
+        "*"
       ]
     }
   },

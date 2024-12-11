@@ -58,6 +58,12 @@
       "target": "/user/$1",
       "destination": "bookstore-api",
       "csrfProtection": true
+    },
+    {
+      "source": "^(.*)$",
+      "target": "$1",
+      "localDir": ".",
+      "cacheControl": "no-cache, no-store, must-revalidate"
     }
   ]
 }
