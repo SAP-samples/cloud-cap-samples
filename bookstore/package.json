@@ -17,17 +17,21 @@
       "ReviewsService": {
         "kind": "odata",
         "model": "@capire/reviews",
-        "credentials": {
-          "destination": "reviews-dest",
-          "path": "/reviews"
+        "[production]": {
+          "credentials": {
+              "destination": "reviews-dest",
+              "path": "/reviews"
+          }
         }
       },
       "OrdersService": {
         "kind": "odata",
         "model": "@capire/orders",
-        "credentials": {
-          "destination": "orders-dest",
-          "path": "/odata/v4/orders"
+        "[production]": {
+          "credentials": {
+            "destination": "orders-dest",
+            "path": "/odata/v4/orders"
+          }
         }
       },
       "[production]": {
