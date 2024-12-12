@@ -6,4 +6,10 @@ service OrdersService {
   @odata.draft.bypass
   @(requires: 'system-user')
   entity OrdersNoDraft as projection on my.Orders;
+
+  event OrderChanged : {
+    product: String;
+    deltaQuantity: Integer;
+  }
+
 }
