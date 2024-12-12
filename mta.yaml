@@ -24,14 +24,12 @@ modules:
       readiness-health-check-http-endpoint: /health
       disk-quota: 256M
       memory: 256M
-      destination-name: bookshop-dest
     build-parameters:
       builder: npm
     provides:
       - name: bookshop-api
         properties:
           srv-url: ${default-url}
-          destination: ${destination-name}
     requires:
       - name: samples-messaging
       - name: samples-db
@@ -46,14 +44,12 @@ modules:
       readiness-health-check-http-endpoint: /health
       disk-quota: 256M
       memory: 256M
-      destination-name: orders-dest
     build-parameters:
       builder: npm
     provides:
       - name: orders-api
         properties:
           srv-url: ${default-url}
-          destination: ${destination-name}
     requires:
       - name: samples-messaging
       - name: samples-db
@@ -68,14 +64,12 @@ modules:
       readiness-health-check-http-endpoint: /health
       disk-quota: 256M
       memory: 256M
-      destination-name: reviews-dest
     build-parameters:
       builder: npm
     provides:
       - name: reviews-api
         properties:
           srv-url: ${default-url}
-          destination: ${destination-name}
     requires:
       - name: samples-messaging
       - name: samples-db
@@ -166,17 +160,12 @@ modules:
         instance:
           existing_destinations_policy: update
           destinations:
-            - Name: ~{bookshop-api/destination}
-              URL: ~{bookshop-api/srv-url}
-              Authentication: OAuth2ClientCredentials
-              TokenServiceInstanceName: samples-auth
-              TokenServiceKeyName: xsuaa_service-key
-            - Name: ~{orders-api/destination}
+            - Name: orders-dest
               URL: ~{orders-api/srv-url}
               Authentication: OAuth2ClientCredentials
               TokenServiceInstanceName: samples-auth
               TokenServiceKeyName: xsuaa_service-key
-            - Name: ~{reviews-api/destination}
+            - Name: reviews-dest
               URL: ~{reviews-api/srv-url}
               Authentication: OAuth2ClientCredentials
               TokenServiceInstanceName: samples-auth
