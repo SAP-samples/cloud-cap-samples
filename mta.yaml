@@ -137,7 +137,6 @@ modules:
           url: ~{srv-url}
           forwardAuthToken: true
       - name: samples-auth
-      - name: samples-destination
 
   - name: destination-content
     type: com.sap.application.content
