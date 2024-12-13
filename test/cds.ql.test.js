@@ -672,11 +672,13 @@ describe('cds.ql → cqn', () => {
   describe(`INSERT...`, () => {
     test('entries ({a,b}, ...)', () => {
       const entries = [{ foo: 1 }, { boo: 2 }]
-      expect(INSERT(...entries).into(Foo).INSERT)
-        .to.eql(INSERT(entries).into(Foo).INSERT)
-        .to.eql(INSERT.into(Foo).entries(...entries).INSERT)
-        .to.eql(INSERT.into(Foo).entries(entries).INSERT)
-        .to.eql({ into: { ref: ['Foo'] }, entries })
+      expect(INSERT(...entries).into(Foo))
+        .to.eql(INSERT(entries).into(Foo))
+        .to.eql(INSERT.into(Foo).entries(...entries))
+        .to.eql(INSERT.into(Foo).entries(entries))
+        .to.eql({
+          INSERT: { into: { ref: ['Foo'] }, entries },
+        })
     })
 
     test('rows ([1,2], ...)', () => {
@@ -687,9 +689,8 @@ describe('cds.ql → cqn', () => {
             [1, 2],
             [3, 4],
           ])
-        .INSERT
       )
-        .to.eql(INSERT.into(Foo).columns('a', 'b').rows([1, 2], [3, 4]).INSERT)
+        .to.eql(INSERT.into(Foo).columns('a', 'b').rows([1, 2], [3, 4]))
         .to.eql({
           INSERT: {
             into: { ref: ['Foo'] },
@@ -699,15 +700,15 @@ describe('cds.ql → cqn', () => {
               [3, 4],
             ],
           },
-        }.INSERT)
+        })
     })
 
     test('values (1,2)', () => {
-      expect(INSERT.into(Foo).columns('a', 'b').values([1, 2]).INSERT)
-        .to.eql(INSERT.into(Foo).columns('a', 'b').values(1, 2).INSERT)
+      expect(INSERT.into(Foo).columns('a', 'b').values([1, 2]))
+        .to.eql(INSERT.into(Foo).columns('a', 'b').values(1, 2))
         .to.eql({
           INSERT: { into:  { ref: ['Foo'] }, columns: ['a', 'b'], values: [1, 2] },
-        }.INSERT)
+        })
     })
 
     test('w/ plain SQL', () => {
