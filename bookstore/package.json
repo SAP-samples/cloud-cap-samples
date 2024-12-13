@@ -1,6 +1,7 @@
 {
   "name": "@capire/bookstore",
   "version": "1.0.0",
+  "type": "module",
   "dependencies": {
     "@capire/bookshop": "*",
     "@capire/reviews": "*",
