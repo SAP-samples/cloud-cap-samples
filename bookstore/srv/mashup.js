@@ -26,8 +26,7 @@ module.exports = async()=>{ // called by server.js
   //
   // Create an order with the OrdersService when CatalogService signals a new order
   //
-  const messaging = await cds.connect.to('messaging')
-  messaging.on('CatalogService.OrderedBook', async (msg) => {
+  CatalogService.on ('OrderedBook', async (msg) => {
     const { book, quantity, buyer } = msg.data
     const { title, price } = await db.read (Books, book, b => { b.title, b.price })
     return OrdersService.create ('OrdersNoDraft').entries({

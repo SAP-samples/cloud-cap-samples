@@ -14,19 +14,19 @@
     {
       "source": "^/admin/(.*)$",
       "target": "/admin/$1",
-      "destination": "bookshop-api",
+      "destination": "bookstore-api",
       "csrfProtection": true
     },
     {
       "source": "^/browse/(.*)$",
       "target": "/browse/$1",
-      "destination": "bookshop-api",
+      "destination": "bookstore-api",
       "csrfProtection": true
     },
     {
       "source": "^/user/(.*)$",
       "target": "/user/$1",
-      "destination": "bookshop-api",
+      "destination": "bookstore-api",
       "csrfProtection": true
     },
     {
@@ -39,24 +39,6 @@
       "source": "^/reviews/(.*)$",
       "target": "/reviews/$1",
       "destination": "reviews-api",
-      "csrfProtection": true
-    },
-    {
-      "source": "^/mashup/admin/(.*)$",
-      "target": "/admin/$1",
-      "destination": "bookstore-api",
-      "csrfProtection": true
-    },
-    {
-      "source": "^/mashup/browse/(.*)$",
-      "target": "/browse/$1",
-      "destination": "bookstore-api",
-      "csrfProtection": true
-    },
-    {
-      "source": "^/mashup/user/(.*)$",
-      "target": "/user/$1",
-      "destination": "bookstore-api",
       "csrfProtection": true
     },
     {

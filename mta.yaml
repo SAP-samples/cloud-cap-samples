@@ -10,31 +10,10 @@ build-parameters:
       commands:
         - npm ci
         - npx cds build --for hana --production --ws
-        - npx cds build ./bookshop --for nodejs --production --ws-pack
         - npx cds build ./orders --for nodejs --production --ws-pack
         - npx cds build ./reviews --for nodejs --production --ws-pack
         - npx cds build ./bookstore --for nodejs --production --ws-pack
 modules:
-  - name: bookshop-srv
-    type: nodejs
-    path: bookshop/gen/srv
-    parameters:
-      buildpack: nodejs_buildpack
-      readiness-health-check-type: http
-      readiness-health-check-http-endpoint: /health
-      disk-quota: 256M
-      memory: 256M
-    build-parameters:
-      builder: npm
-    provides:
-      - name: bookshop-api
-        properties:
-          srv-url: ${default-url}
-    requires:
-      - name: samples-messaging
-      - name: samples-db
-      - name: samples-auth
-
   - name: orders-srv
     type: nodejs
     path: orders/gen/srv
@@ -106,18 +85,12 @@ modules:
 
   - name: samples
     type: approuter.nodejs
-    path: app/router
+    path: app-router
     parameters:
       keep-existing-routes: true
       disk-quota: 256M
       memory: 256M
     requires:
-      - name: bookshop-api
-        group: destinations
-        properties:
-          name: bookshop-api # must be used in xs-app.json as well
-          url: ~{srv-url}
-          forwardAuthToken: true
       - name: orders-api
         group: destinations
         properties:
@@ -141,7 +114,6 @@ modules:
   - name: destination-content
     type: com.sap.application.content
     requires:
-      - name: bookshop-api
       - name: orders-api
       - name: reviews-api
       - name: bookstore-api
