@@ -1,6 +1,10 @@
 {
   "scopes": [
     {
+      "name": "$XSAPPNAME.admin",
+      "description": "admin"
+    },
+    {
       "name": "$XSAPPNAME.emcallback",
       "description": "Enterprise-Messaging Callback Access",
       "grant-as-authority-to-apps": [
@@ -12,8 +16,22 @@
       "description": "Enterprise-Messaging Management Access"
     }
   ],
-  "attributes": [],
-  "role-templates": [],
+  "attributes": [
+    {
+      "name": "level",
+      "description": "level",
+      "valueType": "s"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "admin",
+      "scope-references": [
+        "$XSAPPNAME.admin"
+      ],
+      "description": "cap samples multi-service shared-db"
+    }
+  ],
   "authorities-inheritance": false,
   "authorities": [
     "$XSAPPNAME.emmanagement",
