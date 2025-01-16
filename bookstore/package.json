@@ -10,7 +10,8 @@
     "@sap-cloud-sdk/http-client": "^3.24.0",
     "@sap-cloud-sdk/resilience": "^3.24.0",
     "@sap/cds": ">=5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "@cap-js/hana": "^1"
   },
   "cds": {
     "requires": {
@@ -19,8 +20,8 @@
         "model": "@capire/reviews",
         "[production]": {
           "credentials": {
-              "destination": "reviews-dest",
-              "path": "/reviews"
+            "destination": "reviews-dest",
+            "path": "/reviews"
           }
         }
       },
@@ -38,12 +39,11 @@
         "auth": "xsuaa",
         "db": "hana",
         "messaging": "enterprise-messaging"
-      },
-      "sql": {
-        "native_hana_associations": false
       }
     },
-    "log": { "service": true }
+    "log": {
+      "service": true
+    }
   },
   "scripts": {
     "start": "cds-serve"

@@ -27,9 +27,6 @@
       }
     }
   },
-  "sql": {
-    "native_hana_associations": false
-  },
   "scripts": {
     "genres": "cds serve test/genres.cds",
     "start": "cds-serve",
