@@ -16,9 +16,6 @@
       }
     }
   },
-  "sql": {
-    "native_hana_associations": false
-  },
   "scripts": {
     "start": "cds-serve"
   }
