@@ -12,7 +12,8 @@ build-parameters:
         - npx cds build --for hana --production --ws
         - npx cds build ./orders --for nodejs --production --ws-pack
         - npx cds build ./reviews --for nodejs --production --ws-pack
-        - npx cds build ./bookstore --for nodejs --production --ws-pack
+        - npx cds build ./fiori --for nodejs --production --ws-pack
+
 modules:
   - name: orders-srv
     type: nodejs
@@ -54,9 +55,9 @@ modules:
       - name: samples-db
       - name: samples-auth
 
-  - name: bookstore-srv
+  - name: fiori-srv
     type: nodejs
-    path: bookstore/gen/srv
+    path: fiori/gen/srv
     parameters:
       buildpack: nodejs_buildpack
       readiness-health-check-type: http

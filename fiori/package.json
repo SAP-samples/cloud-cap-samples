@@ -2,10 +2,18 @@
   "name": "@capire/fiori",
   "version": "1.0.0",
   "dependencies": {
+    "@capire/bookshop": "*",
+    "@capire/reviews": "*",
+    "@capire/orders": "*",
+    "@capire/common": "*",
+    "@capire/data-viewer": "*",
     "@capire/bookstore": "*",
+    "@sap-cloud-sdk/http-client": "^3.24.0",
+    "@sap-cloud-sdk/resilience": "^3.24.0",
     "@sap/cds": ">=5",
     "@cap-js-community/odata-v2-adapter": "^1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "@cap-js/hana": "^1"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1"
@@ -18,25 +26,36 @@
     "requires": {
       "ReviewsService": {
         "kind": "odata",
-        "model": "@capire/reviews"
+        "model": "@capire/reviews",
+        "[production]": {
+          "credentials": {
+            "destination": "reviews-dest",
+            "path": "/reviews"
+          }
+        }
       },
       "OrdersService": {
         "kind": "odata",
-        "model": "@capire/orders"
-      },
-      "messaging": {
+        "model": "@capire/orders",
         "[production]": {
-          "kind": "enterprise-messaging"
-        },
-        "[development]": {
-          "kind": "file-based-messaging"
-        },
-        "[hybrid]": {
-          "kind": "enterprise-messaging-shared"
+          "credentials": {
+            "destination": "orders-dest",
+            "path": "/odata/v4/orders"
+          }
         }
       },
-      "db": {
-        "kind": "sql"
+      "[production]": {
+        "auth": "xsuaa",
+        "db": "hana",
+        "messaging": "enterprise-messaging"
+      },
+      "[development]": {
+        "db": "sql",
+        "messaging": "file-based-messaging"
+      },
+      "[hybrid]": {
+        "db": "hana",
+        "messaging": "enterprise-messaging-shared"
       },
       "db-ext": {
         "[development]": {
