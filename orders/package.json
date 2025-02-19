@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "dependencies": {
     "@capire/common": "*",
-    "@sap/cds": ">=5"
+    "@sap/cds": "*"
+  },
+  "cds": {
+    "requires": {
+      "messaging": true,
+      "db": true
+    }
   }
 }
