@@ -69,3 +69,25 @@ const reviews = Vue.createApp ({
 
 // initially fill list of my reviews
 reviews.fetch()
+
+axios.interceptors.request.use(csrfToken)
+function csrfToken (request) {
+    if (request.method === 'head' || request.method === 'get') return request
+    if ('csrfToken' in document) {
+        request.headers['x-csrf-token'] = document.csrfToken
+        return request
+    }
+    return fetchToken().then(token => {
+        document.csrfToken = token
+        request.headers['x-csrf-token'] = document.csrfToken
+        return request
+    }).catch(() => {
+        document.csrfToken = null // set mark to not try again
+        return request
+    })
+
+    function fetchToken() {
+        return axios.get('/', { headers: { 'x-csrf-token': 'fetch' } })
+        .then(res => res.headers['x-csrf-token'])
+    }
+}

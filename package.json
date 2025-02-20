@@ -5,7 +5,8 @@
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
   "dependencies": {
-    "@sap/cds": ">=8"
+    "@sap/cds": ">=8",
+    "@cap-js/hana": "^1"
   },
   "workspaces": [
     "./bookshop",
@@ -30,6 +31,9 @@
     "semver": "^7"
   },
   "scripts": {
+    "build": "mbt build -t gen --mtar mta.tar",
+    "deploy": "cf deploy gen/mta.tar",
+    "undeploy": "cf undeploy capire.samples --delete-services --delete-service-keys",
     "bookshop": "cds watch bookshop",
     "start": "cds watch fiori",
     "fiori": "cds watch fiori",
@@ -45,6 +49,11 @@
     "recursive": true,
     "parallel": true,
     "timeout": 6666
+  },
+  "cds": {
+    "requires": {
+      "destinations": true
+    }
   },
   "license": "SEE LICENSE IN LICENSE",
   "private": true
