@@ -51,7 +51,7 @@ export class OrdService extends cds.ApplicationService {
     })
 
     /**
-     * Example how to register arbitrary use the express app routes,
+     * Example how to register arbitrary express routes,
      * and map them to our service's interface.
      * Try it out with URLs like that:
      *
