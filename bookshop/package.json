@@ -13,6 +13,7 @@
     "@cap-js/sqlite": "*"
   },
   "dependencies": {
+    "@cap-js/ord": "2",
     "@sap/cds": ">=7",
     "express": "^4.17.1"
   },

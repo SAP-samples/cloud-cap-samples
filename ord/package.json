@@ -1,0 +1,12 @@
+{
+  "name": "@cap-js/ord",
+  "version": "2.0.0",
+  "cds": {
+    "requires": {
+      "SAP ORD Service": {
+        "model": "@cap-js/ord/srv/ord-service",
+        "service": "OrdService"
+      }
+    }
+  }
+}

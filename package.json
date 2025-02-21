@@ -15,6 +15,7 @@
     "./fiori",
     "./hello",
     "./media",
+    "./ord",
     "./orders",
     "./loggers",
     "./reviews"
