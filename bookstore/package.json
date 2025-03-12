@@ -7,8 +7,11 @@
     "@capire/orders": "*",
     "@capire/common": "*",
     "@capire/data-viewer": "*",
+    "@sap-cloud-sdk/http-client": "^3.24.0",
+    "@sap-cloud-sdk/resilience": "^3.24.0",
     "@sap/cds": ">=5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "@cap-js/hana": "^1"
   },
   "cds": {
     "requires": {
@@ -20,15 +23,12 @@
         "kind": "odata",
         "model": "@capire/orders"
       },
-      "messaging": {
-        "[development]": { "kind": "file-based-messaging" },
-        "[hybrid]": { "kind": "enterprise-messaging-shared" },
-        "[production]": { "kind": "enterprise-messaging" }
-      },
-      "db": {
-        "kind": "sql"
-      }
+      "messaging": true,
+      "db": true
     },
     "log": { "service": true }
+  },
+  "scripts": {
+    "start": "cds-serve"
   }
 }
