@@ -12,20 +12,20 @@ describe('cap/samples - Bookshop APIs', () => {
       'odata-version': '4.0',
     })
     expect(headers['content-type']).to.match(/application\/xml/)
-    expect(data).to.contain('<EntitySet Name="Books" EntityType="CatalogService.Books">')
-    expect(data).to.contain('<Annotation Term="Common.Label" String="Currency"/>')
+    expect(data).to.contain('<EntitySet Name="Books" EntityType="CatalogService.Books"/>')
+    expect(data).to.contain('<Annotation Term="Common.Label" String="Currency Symbol"/>')
   })
 
-  it('serves ListOfBooks?$expand=genre,currency', async () => {
+  it('serves Books?$expand=genre,currency', async () => {
     const Mystery = { ID: 16, name: 'Mystery', descr: null, parent_ID: 10 }
     const Romance = { ID: 15, name: 'Romance', descr: null, parent_ID: 10 }
     const USD = { code: 'USD', name: 'US Dollar', descr: null, symbol: '$' }
-    const { data } = await GET `/browse/ListOfBooks ${{
+    const { data } = await GET `/admin/Books ${{
       params: { $search: 'Po', $select: `title,author`, $expand:`genre,currency` },
     }}`
     expect(data.value).to.containSubset([
-      { ID: 251, title: 'The Raven', author: 'Edgar Allen Poe', genre:Mystery, currency:USD  },
-      { ID: 252, title: 'Eleonora', author: 'Edgar Allen Poe', genre:Romance, currency:USD  },
+      { ID: 251, title: 'The Raven', author_ID: 150, genre:Mystery, currency:USD  },
+      { ID: 252, title: 'Eleonora', author_ID: 150, genre:Romance, currency:USD  },
     ])
   })
 
