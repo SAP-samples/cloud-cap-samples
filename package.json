@@ -25,6 +25,9 @@
     "semver": "^7"
   },
   "scripts": {
+    "build": "mbt build -t gen --mtar mta.tar",
+    "deploy": "cf deploy gen/mta.tar",
+    "undeploy": "cf undeploy capire.samples --delete-services --delete-service-keys",
     "bookshop": "cds watch bookshop",
     "fiori": "cds watch fiori",
     "lint": "eslint",
