@@ -6,12 +6,6 @@ Each sub directory essentially is an individual npm package arranged in an [all-
 ![](etc/samples.drawio.svg)
 
 
-## [@capire/hello-world](hello)
-
-- A simplistic [Hello World](https://cap.cloud.sap/docs/get-started/hello-world) service using [CDS](https://cap.cloud.sap/docs/cds/) and [cds.services](https://cap.cloud.sap/docs/node.js/api#services-api).
-- [Typescript support](https://cap.cloud.sap/docs/node.js/typescript)
-
-
 ## [@capire/bookshop](bookshop)
 
 - [Getting Started](https://cap.cloud.sap/docs/get-started/in-a-nutshell) with CAP, briefly introducing:
@@ -60,10 +54,10 @@ Each sub directory essentially is an individual npm package arranged in an [all-
   - [@capire/reviews](reviews)
   - [@capire/orders](orders)
   - [@capire/common](common)
-  - [@capire/data-viewer](data-viewer)
+  - [@capire/data-viewer](etc/data-viewer)
 - [The Vue.js app](bookshop/app/vue) imported from `bookshop` is served as well
 - [The Vue.js app](reviews/app/vue) imported from `reviews` is served as well
-- [The Vue.js app](data-viewer/app/data) imported from `data-viewer` is served as well
+- [The Vue.js app](etc/data-viewer/app/data) imported from `data-viewer` is served as well
 - [The Fiori app](orders/app) imported from `orders` is served as well
 - [OpenAPI export + Swagger UI](https://cap.cloud.sap/docs/advanced/openapi)
 

@@ -1,5 +1,0 @@
-GET http://localhost:4004/odata/v4/say/hello
-###
-
-GET http://localhost:4004/odata/v4/say/hello(to='me')
-###
