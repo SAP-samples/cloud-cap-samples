@@ -34,7 +34,8 @@ class DataService extends cds.ApplicationService { init(){
     query.SELECT.limit = req.query.SELECT.limit  // forward $skip / $top
 
     const dataSource = findDataSource(dataSourceName, entityName)
-    const res = await dataSource.run(query)
+    let res = await dataSource.run(query)
+    if (!Array.isArray(res))  res = [res] // singleton result
     return res.map((line) => {
       const record = Object.entries(line).map(([column, data]) => ({ column, data }))
       return {
