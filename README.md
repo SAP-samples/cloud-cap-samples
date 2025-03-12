@@ -16,7 +16,7 @@ Find here a collection of samples for the [SAP Cloud Application Programming Mod
 
 ### Preliminaries
 
-Ensure you have the latest LTS version of node.js, @sap/cds-dk installed globally, git and your IDE ready (see [Initial Setup](https://cap.cloud.sap/docs/get-started/#setup))
+Ensure you have the latest LTS version of Node.js, [`@sap/cds-dk`](https://www.npmjs.com/package/@sap/cds-dk) installed globally, `git` and your IDE ready (see [Initial Setup](https://cap.cloud.sap/docs/get-started/#setup))
 
 ### Download
 
