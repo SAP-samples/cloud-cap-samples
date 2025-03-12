@@ -1,6 +1,6 @@
 {
   "name": "@capire/samples",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "A monorepo with several samples for CAP.",
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
@@ -11,13 +11,11 @@
     "./bookshop",
     "./bookstore",
     "./common",
-    "./data-viewer",
     "./fiori",
-    "./hello",
-    "./media",
     "./orders",
-    "./loggers",
-    "./reviews"
+    "./reviews",
+    "./etc/data-viewer",
+    "./etc/loggers"
   ],
   "devDependencies": {
     "@cap-js/cds-types": "^0",
@@ -31,15 +29,11 @@
   },
   "scripts": {
     "bookshop": "cds watch bookshop",
-    "start": "cds watch fiori",
     "fiori": "cds watch fiori",
-    "hello": "cds watch hello",
-    "media": "cds watch media",
     "lint": "eslint",
     "test": "npx jest --silent",
     "jest": "npx jest --silent",
-    "mocha": "CDS_TEST_SILENT=y npx mocha",
-    "test:hello": "cd hello && npm test"
+    "mocha": "CDS_TEST_SILENT=y npx mocha"
   },
   "mocha": {
     "recursive": true,
