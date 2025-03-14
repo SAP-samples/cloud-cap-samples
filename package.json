@@ -4,9 +4,6 @@
   "description": "A monorepo with several samples for CAP.",
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
-  "dependencies": {
-    "@sap/cds": ">=8"
-  },
   "workspaces": [
     "./bookshop",
     "./bookstore",
@@ -17,10 +14,12 @@
     "./etc/data-viewer",
     "./etc/loggers"
   ],
+  "dependencies": {
+    "@sap/cds": ">=8"
+  },
   "devDependencies": {
     "@cap-js/cds-test": "^0",
-    "@cap-js/cds-types": "^0",
-    "eslint": "^9.22.0"
+    "@eslint/js": "^9.22.0"
   },
   "scripts": {
     "bookshop": "cds watch bookshop",

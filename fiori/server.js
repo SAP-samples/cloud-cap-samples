@@ -1,0 +1,1 @@
+require('@capire/bookstore/server')
