@@ -1,8 +1,8 @@
 const cds = require('@sap/cds')
+const { expect } = cds.test.in(__dirname,'..')
 
 describe('cap/samples - Messaging', ()=>{
 
-    const { expect } = cds.test.in(__dirname,'..')
     const _model = '@capire/reviews'
     const Reviews = 'sap.capire.reviews.Reviews'
     beforeAll(()=>{
