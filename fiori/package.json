@@ -23,20 +23,8 @@
         "kind": "odata",
         "model": "@capire/orders"
       },
-      "messaging": {
-        "[production]": {
-          "kind": "enterprise-messaging"
-        },
-        "[development]": {
-          "kind": "file-based-messaging"
-        },
-        "[hybrid]": {
-          "kind": "enterprise-messaging-shared"
-        }
-      },
-      "db": {
-        "kind": "sql"
-      },
+      "messaging": true,
+      "db": true,
       "db-ext": {
         "[development]": {
           "model": "db/sqlite"
@@ -45,9 +33,6 @@
           "model": "db/hana"
         }
       }
-    },
-    "hana": {
-      "deploy-format": "hdbtable"
     }
   },
   "sapux": [

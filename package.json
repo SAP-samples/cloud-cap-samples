@@ -14,20 +14,17 @@
     "./etc/data-viewer",
     "./etc/loggers"
   ],
-  "dependencies": {
-    "@sap/cds": ">=8"
-  },
   "devDependencies": {
     "@cap-js/cds-test": "^0",
     "@eslint/js": "^9.22.0"
   },
   "scripts": {
+    "bookstore": "cds watch bookstore",
     "bookshop": "cds watch bookshop",
     "fiori": "cds watch fiori",
-    "lint": "eslint",
-    "test": "npx jest --silent",
-    "jest": "npx jest --silent",
-    "mocha": "CDS_TEST_SILENT=y npx mocha"
+    "orders": "cds watch orders",
+    "reviews": "cds watch reviews",
+    "test": "npx jest --silent"
   },
   "mocha": {
     "recursive": true,
