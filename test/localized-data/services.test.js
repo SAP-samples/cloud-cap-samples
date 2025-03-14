@@ -1,12 +1,8 @@
 const cds = require('@sap/cds')
+const { GET, expect } = cds.test (__dirname)
+cds.User.default = cds.User.Privileged // hard core monkey patch
 
 describe('cap/samples - Localized Data', () => {
-
-  const { GET, expect } = cds.test (__dirname)
-  beforeAll(()=>{
-    cds.User.default = cds.User.Privileged // hard core monkey patch
-  })
-
 
   it('serves localized $metadata documents', async () => {
     const { data } = await GET(`/browse/$metadata?sap-language=de`, { headers: { 'accept-language': 'de' }})

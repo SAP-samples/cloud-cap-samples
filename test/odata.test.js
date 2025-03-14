@@ -1,8 +1,8 @@
 const cds = require('@sap/cds')
+const { GET, expect, axios } = cds.test ('@capire/bookshop')
+axios.defaults.auth = { username: 'alice', password: 'admin' }
 
 describe('cap/samples - Bookshop APIs', () => {
-  const { GET, expect, axios } = cds.test ('@capire/bookshop')
-  axios.defaults.auth = { username: 'alice', password: 'admin' }
 
   it('serves $metadata documents in v4', async () => {
     const { headers, status, data } = await GET `/browse/$metadata`

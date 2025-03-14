@@ -1,8 +1,7 @@
 const cds = require('@sap/cds')
+const { expect } = cds.test ('@capire/bookshop')
 
 describe('cap/samples - Consuming Services locally', () => {
-
-  const { expect } = cds.test ('@capire/bookshop')
 
   it('bootstrapped the database successfully', ()=>{
     const { AdminService } = cds.services
