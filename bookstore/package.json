@@ -20,15 +20,11 @@
         "kind": "odata",
         "model": "@capire/orders"
       },
-      "messaging": {
-        "[development]": { "kind": "file-based-messaging" },
-        "[hybrid]": { "kind": "enterprise-messaging-shared" },
-        "[production]": { "kind": "enterprise-messaging" }
-      },
-      "db": {
-        "kind": "sql"
-      }
+      "messaging": true,
+      "db": true
     },
-    "log": { "service": true }
+    "log": {
+      "service": true
+    }
   }
 }
