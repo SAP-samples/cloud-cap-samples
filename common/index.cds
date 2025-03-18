@@ -1,5 +1,7 @@
 using { sap } from '@sap/cds/common';
 
+using from '@sap/cds-common-content';
+
 extend sap.common.Currencies with {
   // Currencies.code = ISO 4217 alphabetic three-letter code
   // with the first two letters being equal to ISO 3166 alphabetic country codes
