@@ -16,13 +16,7 @@
       "description": "Enterprise-Messaging Management Access"
     }
   ],
-  "attributes": [
-    {
-      "name": "level",
-      "description": "level",
-      "valueType": "s"
-    }
-  ],
+  "attributes": [],
   "role-templates": [
     {
       "name": "admin",
