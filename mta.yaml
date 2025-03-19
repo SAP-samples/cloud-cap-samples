@@ -123,7 +123,7 @@ modules:
       - name: samples-auth
         parameters:
           service-key:
-            name: xsuaa_service-key
+            name: xsuaa-service-key
       - name: samples-destination
         parameters:
           content-target: true

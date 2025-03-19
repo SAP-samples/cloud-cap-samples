@@ -29,7 +29,7 @@
       "scope-references": [
         "$XSAPPNAME.admin"
       ],
-      "description": "cap samples multi-service shared-db"
+      "description": "cloud-cap-samples bookstore admin"
     }
   ],
   "authorities-inheritance": false,
