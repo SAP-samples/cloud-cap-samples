@@ -138,12 +138,12 @@ modules:
               URL: ~{orders-api/srv-url}
               Authentication: OAuth2ClientCredentials
               TokenServiceInstanceName: samples-auth
-              TokenServiceKeyName: xsuaa_service-key
+              TokenServiceKeyName: xsuaa-service-key
             - Name: reviews-dest
               URL: ~{reviews-api/srv-url}
               Authentication: OAuth2ClientCredentials
               TokenServiceInstanceName: samples-auth
-              TokenServiceKeyName: xsuaa_service-key
+              TokenServiceKeyName: xsuaa-service-key
 
 resources:
   - name: samples-messaging
