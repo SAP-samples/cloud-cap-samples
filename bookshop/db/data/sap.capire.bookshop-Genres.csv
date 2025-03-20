@@ -1,16 +1,34 @@
 ID,parent_ID,name
-10,,Fiction
-11,10,Drama
-12,10,Poetry
-13,10,Fantasy
-14,10,Science Fiction
-15,10,Romance
-16,10,Mystery
-17,10,Thriller
-18,10,Dystopia
-19,10,Fairy Tale
-20,,Non-Fiction
-21,20,Biography
-22,21,Autobiography
-23,20,Essay
-24,20,Speech
+8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,,Fiction
+08467c69-4b69-4b30-bf51-998f9c4b8a12,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Action
+c5247996-2516-40c5-b3ea-02492a1e1f4d,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Adventure
+d74eb118-ff57-4776-96d3-0d649278bf6b,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Drama
+b84a7e92-cc0c-4599-8b62-9e3ae39e343f,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Poetry
+445a6c1e-071f-4e9d-b0bb-670ec73b0a49,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Fantasy
+0d4f268f-c5c5-4a82-b54a-2120271cf54e,445a6c1e-071f-4e9d-b0bb-670ec73b0a49,Epic fantasy
+5ccfe8e7-009f-4744-91fd-c1c1e9a0c9c6,445a6c1e-071f-4e9d-b0bb-670ec73b0a49,High fantasy
+86e9f4d5-3e7c-4c06-8421-8b6d72fe9c93,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Science Fiction
+9f8653a2-6d6d-4fd7-b02f-b90d15d6f67f,86e9f4d5-3e7c-4c06-8421-8b6d72fe9c93,Utopian and Dystopian
+7c7b2c30-c24e-4627-bb84-0f9d09f9e91b,9f8653a2-6d6d-4fd7-b02f-b90d15d6f67f,Dystopia
+34f6a939-2708-4cc0-9882-daf36a8ed5e6,7c7b2c30-c24e-4627-bb84-0f9d09f9e91b,Cyberpunk
+4297bff9-c4b3-4097-b68f-5605f89c6e4c,34f6a939-2708-4cc0-9882-daf36a8ed5e6,Steampunk
+f283b1b3-b763-42f9-95f0-38e1d78a1d7e,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Romance
+5d2c5060-84cf-4a94-9118-8d9ad88f2a24,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Mystery
+7d6cc413-cf8c-4cf9-b30a-bf8cf6f97b72,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Graphic Novel
+f846b0b9-01d4-4f6d-82a4-d79204f62576,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Thriller
+82f9a2d9-bd77-4cfd-9c76-d03b8f6827a3,f846b0b9-01d4-4f6d-82a4-d79204f62576,Suspense
+a7b5b4d7-bff3-430d-9d7e-25fd67b66022,f846b0b9-01d4-4f6d-82a4-d79204f62576,Crime thriller
+5f93c395-6f8a-43de-84c1-bf22cfba8f56,f846b0b9-01d4-4f6d-82a4-d79204f62576,Spy thriller
+3ff51d9c-5ff5-421f-8d0d-d75b08e32a25,f846b0b9-01d4-4f6d-82a4-d79204f62576,Political thriller
+a530cd31-b0cf-4a32-9f28-72ee7b9f29fc,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Short Story
+5b091c64-8b4f-401a-a06d-61b19857635b,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Fairy Tale
+7125da65-b3ae-4a0b-a735-1db410a3e079,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Horror
+a02b5c9b-b79f-43ef-b2ab-28e4b431cc18,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Historical Fiction
+d6c3448e-d771-47f0-b6c7-8d2159b29d2a,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Contemporary Fiction
+7ed5cfab-8c4d-46a3-b89b-c5b8fa74f049,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Magical Realism
+23e86990-66d3-4488-8272-98ed056710b5,8bbf14c6-b378-4e35-9b4f-5a9c8b8762da,Literary Fiction
+85b5a640-7e9a-468e-80e2-e9268486031b,,Non-Fiction
+10d19b1a-832b-4d60-bf9b-88dcd089db85,85b5a640-7e9a-468e-80e2-e9268486031b,Biography
+1f1c8b5b-451e-48f6-bdbb-759be4ea1a8f,10d19b1a-832b-4d60-bf9b-88dcd089db85,Autobiography
+4bc5ad4d-b7a3-47a7-9938-325c6fdf8041,85b5a640-7e9a-468e-80e2-e9268486031b,Essay
+e0d350c2-1f42-45b5-b768-67cccd997b56,85b5a640-7e9a-468e-80e2-e9268486031b,Speech

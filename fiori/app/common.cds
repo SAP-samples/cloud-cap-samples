@@ -80,7 +80,8 @@ annotate my.Genres with @(
     LineItem        : [
       { Value: name },
       {
-        Value : parent.name,
+        Value : name,
+        // TODO: i18n 
         Label: 'Main Genre'
       },
     ],
@@ -115,7 +116,6 @@ annotate my.Genres with @(UI : {
 //	Genres Elements
 //
 annotate my.Genres with {
-  ID   @title: '{i18n>ID}';
   name @title: '{i18n>Genre}';
 }
 
