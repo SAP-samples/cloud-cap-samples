@@ -1,0 +1,52 @@
+{
+  "welcomeFile": "app/bookshop/index.html",
+  "routes": [
+    {
+      "source": "^/app/(.*)$",
+      "target": "$1",
+      "localDir": ".",
+      "cacheControl": "no-cache, no-store, must-revalidate"
+    },
+    {
+      "source": "^/appconfig/",
+      "localDir": ".",
+      "cacheControl": "no-cache, no-store, must-revalidate"
+    },
+    {
+      "source": "^/admin/(.*)$",
+      "target": "/admin/$1",
+      "destination": "bookstore-api",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/browse/(.*)$",
+      "target": "/browse/$1",
+      "destination": "bookstore-api",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/user/(.*)$",
+      "target": "/user/$1",
+      "destination": "bookstore-api",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/odata/v4/orders/(.*)$",
+      "target": "/odata/v4/orders/$1",
+      "destination": "orders-api",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/reviews/(.*)$",
+      "target": "/reviews/$1",
+      "destination": "reviews-api",
+      "csrfProtection": true
+    },
+    {
+      "source": "^(.*)$",
+      "target": "$1",
+      "localDir": ".",
+      "cacheControl": "no-cache, no-store, must-revalidate"
+    }
+  ]
+}

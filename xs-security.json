@@ -1,0 +1,34 @@
+{
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.admin",
+      "description": "admin"
+    },
+    {
+      "name": "$XSAPPNAME.emcallback",
+      "description": "Enterprise-Messaging Callback Access",
+      "grant-as-authority-to-apps": [
+        "$XSSERVICENAME(samples-messaging)"
+      ]
+    },
+    {
+      "name": "$XSAPPNAME.emmanagement",
+      "description": "Enterprise-Messaging Management Access"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "admin",
+      "scope-references": [
+        "$XSAPPNAME.admin"
+      ],
+      "description": "cloud-cap-samples bookstore admin"
+    }
+  ],
+  "authorities-inheritance": false,
+  "authorities": [
+    "$XSAPPNAME.emmanagement",
+    "$XSAPPNAME.mtcallback"
+  ]
+}
