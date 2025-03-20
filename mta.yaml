@@ -1,0 +1,178 @@
+_schema-version: 3.3.0
+ID: capire.samples
+version: 2.1.0
+description: "A monorepo with several samples for CAP."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build ./shared-db --for hana --production
+        - npx cds build ./orders --for nodejs --production --ws-pack
+        - npx cds build ./reviews --for nodejs --production
+        - npx cds build ./bookstore --for nodejs --production --ws-pack
+modules:
+  - name: orders-srv
+    type: nodejs
+    path: orders/gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-type: http
+      readiness-health-check-http-endpoint: /health
+      disk-quota: 256M
+      memory: 256M
+    build-parameters:
+      builder: npm
+    provides:
+      - name: orders-api
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: samples-messaging
+      - name: samples-db
+      - name: samples-auth
+
+  - name: reviews-srv
+    type: nodejs
+    path: reviews/gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-type: http
+      readiness-health-check-http-endpoint: /health
+      disk-quota: 256M
+      memory: 256M
+    build-parameters:
+      builder: npm
+    provides:
+      - name: reviews-api
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: samples-messaging
+      - name: samples-db
+      - name: samples-auth
+
+  - name: bookstore-srv
+    type: nodejs
+    path: bookstore/gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-type: http
+      readiness-health-check-http-endpoint: /health
+      disk-quota: 256M
+      memory: 256M
+    properties:
+      cds_requires_ReviewsService_credentials: {"destination": "reviews-dest","path": "/reviews"}
+      cds_requires_OrdersService_credentials: {"destination": "orders-dest","path": "/odata/v4/orders"}
+    build-parameters:
+      builder: npm
+    provides:
+      - name: bookstore-api
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: samples-messaging
+      - name: samples-db
+      - name: samples-auth
+      - name: samples-destination
+
+  - name: samples-db-deployer
+    type: hdb
+    path: shared-db/gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: samples-db
+
+  - name: samples
+    type: approuter.nodejs
+    path: app-router
+    parameters:
+      keep-existing-routes: true
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: orders-api
+        group: destinations
+        properties:
+          name: orders-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: reviews-api
+        group: destinations
+        properties:
+          name: reviews-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: bookstore-api
+        group: destinations
+        properties:
+          name: bookstore-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: samples-auth
+
+  - name: destination-content
+    type: com.sap.application.content
+    requires:
+      - name: orders-api
+      - name: reviews-api
+      - name: bookstore-api
+      - name: samples-auth
+        parameters:
+          service-key:
+            name: xsuaa-service-key
+      - name: samples-destination
+        parameters:
+          content-target: true
+    build-parameters:
+      no-source: true
+    parameters:
+      content:
+        instance:
+          existing_destinations_policy: update
+          destinations:
+            - Name: orders-dest
+              URL: ~{orders-api/srv-url}
+              Authentication: OAuth2ClientCredentials
+              TokenServiceInstanceName: samples-auth
+              TokenServiceKeyName: xsuaa-service-key
+            - Name: reviews-dest
+              URL: ~{reviews-api/srv-url}
+              Authentication: OAuth2ClientCredentials
+              TokenServiceInstanceName: samples-auth
+              TokenServiceKeyName: xsuaa-service-key
+
+resources:
+  - name: samples-messaging
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: enterprise-messaging
+      service-plan: default
+      path: ./event-mesh.json
+      config:
+        emname: bookstore-${org}-${space}
+        namespace: cap/samples/${space}
+  - name: samples-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: samples-auth
+    type: org.cloudfoundry.managed-service
+    processed-after:
+      - samples-messaging
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: samples-${org}-${space}
+        tenant-mode: dedicated
+  - name: samples-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
