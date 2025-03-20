@@ -24,7 +24,8 @@
     "fiori": "cds watch fiori",
     "orders": "cds watch orders",
     "reviews": "cds watch reviews",
-    "test": "npx jest --silent",
+    "lint": "npx eslint",
+    "test": "npx jest",
     "build": "mbt build -t gen --mtar mta.tar",
     "deploy": "cf deploy gen/mta.tar",
     "undeploy": "cf undeploy capire.samples --delete-services --delete-service-keys"
