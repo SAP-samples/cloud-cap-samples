@@ -25,7 +25,7 @@
     "orders": "cds watch orders",
     "reviews": "cds watch reviews",
     "lint": "npx eslint",
-    "test": "npx jest",
+    "test": "chest test",
     "build": "mbt build -t gen --mtar mta.tar",
     "deploy": "cf deploy gen/mta.tar",
     "undeploy": "cf undeploy capire.samples --delete-services --delete-service-keys"
