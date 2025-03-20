@@ -4,7 +4,7 @@ using CatalogService from '@capire/bookstore';
 //
 //	Books Object Page
 //
-annotate CatalogService.Books with @(UI : {
+annotate CatalogService.Book with @(UI : {
     HeaderInfo        : {
         TypeName       : '{i18n>Book}',
         TypeNamePlural : '{i18n>Books}',
@@ -24,7 +24,7 @@ annotate CatalogService.Books with @(UI : {
     FieldGroup #Price : {Data : [
         {Value : price},
         {
-            Value : currency.symbol,
+            Value : currencyName,
             Label : '{i18n>Currency}'
         },
     ]},
@@ -35,11 +35,11 @@ annotate CatalogService.Books with @(UI : {
 //
 //	Books List Page
 //
-annotate CatalogService.Books with @(UI : {
+annotate CatalogService.Book with @(UI : {
     SelectionFields : [
         ID,
         price,
-        currency_code
+        currencyName
     ],
     LineItem        : [
         {
@@ -50,8 +50,10 @@ annotate CatalogService.Books with @(UI : {
             Value : author,
             Label : '{i18n>Author}'
         },
-        {Value : genre.name},
+        {Value : genre},
         {Value : price},
-        {Value : currency.symbol},
+        {Value : currencyName},
     ]
-}, );
+}) {
+    currencyName @Common.Label : '{i18n>Currency}';
+};

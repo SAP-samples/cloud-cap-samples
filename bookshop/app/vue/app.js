@@ -19,13 +19,13 @@ const books = Vue.createApp ({
         search: ({target:{value:v}}) => books.fetch(v && '&$search='+v),
 
         async fetch (etc='') {
-            const {data} = await GET(`/ListOfBooks?$expand=genre($select=name),currency($select=symbol)${etc}`)
+            const {data} = await GET(`/Books?${etc}`)
             books.list = data.value
         },
 
         async inspect (eve) {
             const book = books.book = books.list [eve.currentTarget.rowIndex-1]
-            const res = await GET(`/Books/${book.ID}?$select=descr,stock,image`)
+            const res = await GET(`/Book/${book.ID}?$select=descr,stock,image`)
             Object.assign (book, res.data)
             books.order = { quantity:1 }
             setTimeout (()=> $('form > input').focus(), 111)
