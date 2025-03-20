@@ -3,18 +3,31 @@
   "sap.app": {
     "id": "genres",
     "type": "application",
+    "title": "Browse genres",
+    "description": "Sample Application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
       "version": "1.0.0"
     },
-    "title": "Browse Genres Hierarchy (OData v2)",
-    "description": "{{appDescription}}",
+    "dataSources": {
+      "CatalogService": {
+        "uri": "browse/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      }
+    },
     "tags": {
       "keywords": []
     },
     "crossNavigation": {
       "inbounds": {
-        "appShow": {
+        "Genres-display": {
+          "signature": {
+						"parameters": {},
+						"additionalParameters": "allowed"
+					},
           "title": "{{appTitle}}",
           "semanticObject": "GenreHierarchy",
           "action": "display",
@@ -28,25 +41,6 @@
         }
       },
       "outbounds": {}
-    },
-    "ach": "",
-    "resources": "resources.json",
-    "dataSources": {
-      "main": {
-        "uri": "/odata/v2/browse",
-        "type": "OData",
-        "settings": {
-          "annotations": ["localAnnotations"],
-          "localUri": "localService/metadata.xml"
-        }
-      },
-      "localAnnotations": {
-        "type": "ODataAnnotation",
-        "uri": "annotations/localAnnotations.xml",
-        "settings": {
-          "localUri": "annotations/localAnnotations.xml"
-        }
-      }
     },
     "offline": false,
     "sourceTemplate": {
@@ -86,70 +80,79 @@
         "type": "sap.ui.model.resource.ResourceModel",
         "uri": "i18n/i18n.properties"
       },
-      "@i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "uri": "i18n/i18n.properties"
-      },
-      "json": {
-        "type": "sap.ui.model.json.JSONModel"
-      },
-      "i18n|sap.suite.ui.generic.template.ListReport|Genres": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "uri": "i18n/ListReport/Genres/i18n.properties"
-      },
       "": {
-        "dataSource": "main",
-        "preload": true,
+        "dataSource": "CatalogService",
         "settings": {
-          "useBatch": true,
-          "defaultBindingMode": "TwoWay",
-          "defaultCountMode": "Inline",
-          "refreshAfterChange": true,
-          "metadataUrlParams": {
-            "sap-value-list": "none"
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true,
+          "groupProperties": {
+            "default": {
+              "submit": "Auto"
+            }
           }
         }
       }
     },
+    "routing": {
+			"routes": [
+				{
+					"pattern": ":?query:",
+					"name": "GenreHierarchyList",
+					"target": "GenreHierarchyList"
+				},
+				{
+					"pattern": "GenreHierarchy({key}):?query:",
+					"name": "GenreHierarchyDetails",
+					"target": "GenreHierarchyDetails"
+				}
+			],
+			"targets": {
+				"GenreHierarchyList": {
+					"type": "Component",
+					"id": "GenreHierarchyList",
+					"name": "sap.fe.templates.ListReport",
+					"options": {
+						"settings" : {
+							"contextPath" : "/GenreHierarchy",
+							"navigation" : {
+								"GenreHierarchy" : {
+									"detail" : {
+										"route" : "GenreHierarchyDetails"
+									}
+								}
+							},
+							"controlConfiguration": {
+                  "@com.sap.vocabularies.UI.v1.LineItem": {
+                      "tableSettings": {
+                            "hierarchyQualifier": "GenreHierarchy",
+                                "type": "TreeTable"
+                                  }
+                  }
+              }
+						}
+					}
+				},
+				"GenreHierarchyDetails": {
+					"type": "Component",
+					"id": "GenreHierarchyDetails",
+					"name": "sap.fe.templates.ObjectPage",
+					"options": {
+						"settings" : {
+							"contextPath" : "/GenreHierarchy"
+						}
+					}
+				}
+			}
+		},
     "contentDensities": {
       "compact": true,
       "cozy": true
     }
   },
-  "sap.ui.generic.app": {
-    "_version": "1.3.0",
-    "settings": {
-      "forceGlobalRefresh": false,
-      "useColumnLayoutForSmartForm": false,
-      "showBasicSearch": false
-    },
-    "pages": {
-      "ListReport|Genres": {
-        "entitySet": "GenreHierarchy",
-        "component": {
-          "name": "sap.suite.ui.generic.template.ListReport",
-          "list": true,
-          "settings": {
-            "condensedTableLayout": true,
-            "smartVariantManagement": true,
-            "tableType": "TreeTable",
-            "enableTableFilterInPageVariant": true,
-            "dataLoadSettings": {
-              "loadDataOnAppLaunch": "always"
-            }
-          }
-        }
-      }
-    }
-  },
   "sap.fiori": {
     "registrationIds": [],
     "archeType": "transactional"
-  },
-  "sap.platform.hcp": {
-    "uri": ""
-  },
-  "sap.platform.cf": {
-    "oAuthScopes": []
   }
 }

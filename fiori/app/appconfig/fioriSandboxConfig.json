@@ -24,7 +24,7 @@
                   "id": "BrowseGenres",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
-                    "title": "Browse Genres (OData v2)",
+                    "title": "Browse Genres",
                     "targetURL": "#Genres-display"
                   }
                 }

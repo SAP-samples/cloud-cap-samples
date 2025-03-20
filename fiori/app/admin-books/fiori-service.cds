@@ -40,7 +40,68 @@ annotate AdminService.Books with @(
 	}
 );
 
+////////////////////////////////////////////////////////////////////////////
+//
+//	Value Help for Tree Table
+//
+annotate AdminService.Books with {
+    genre @(Common: {
+        Label    : 'Genre',
+        ValueList: {
+            CollectionPath              : 'GenreHierarchy',
+            Parameters                  : [
+            {
+                $Type            : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty: 'name',
+            },
+            {
+                $Type            : 'Common.ValueListParameterInOut',
+                LocalDataProperty: genre_ID,
+                ValueListProperty: 'ID',
+            }
+            ],
+            PresentationVariantQualifier: 'VH',
+        }
+    });
+}
 
+annotate AdminService.GenreHierarchy with @UI: {
+    PresentationVariant #VH: {
+        $Type                      : 'UI.PresentationVariantType',
+        Visualizations             : ['@UI.LineItem'],
+        RecursiveHierarchyQualifier: 'GenreHierarchy'
+    },
+    LineItem               : [{
+        $Type: 'UI.DataField',
+        Value: name,
+        Label : 'Genre'
+    }],
+};
+
+// Hide ID because of the ValueHelp
+annotate AdminService.GenreHierarchy with {
+  ID @UI.Hidden;
+};
+
+////////////////////////////////////////////////////////////////////////////
+//
+//	Tree Table
+//
+annotate AdminService.GenreHierarchy with @Aggregation.RecursiveHierarchy#GenreHierarchy: {
+    $Type: 'Aggregation.RecursiveHierarchyType',
+    NodeProperty: ID, // identifies a node
+    ParentNavigationProperty: parent // navigates to a node's parent
+  };
+
+annotate AdminService.GenreHierarchy with @Hierarchy.RecursiveHierarchy#GenreHierarchy: {
+  $Type: 'Hierarchy.RecursiveHierarchyType',
+  LimitedDescendantCount: LimitedDescendantCount,
+  DistanceFromRoot: DistanceFromRoot,
+  DrillState: DrillState,
+  Matched: Matched,
+  MatchedDescendantCount: MatchedDescendantCount,
+  LimitedRank: LimitedRank
+};
 
 ////////////////////////////////////////////////////////////
 //
@@ -82,5 +143,3 @@ extend service AdminService {
 // Workaround for Fiori popup for asking user to enter a new UUID on Create
 annotate AdminService.Books with { ID @Core.Computed; }
 
-// Show Genre as drop down, not a dialog
-annotate AdminService.Books with { genre @Common.ValueListWithFixedValues; }
