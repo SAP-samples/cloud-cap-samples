@@ -13,16 +13,52 @@ build-parameters:
 
         - npx cds build --production
 modules:
-  - name: samples-srv
+  - name: bookstore-srv
     type: nodejs
-    path: gen/srv
+    path: bookstore/gen/srv
     parameters:
       instances: 1
       buildpack: nodejs_buildpack
     build-parameters:
       builder: npm-ci
     provides:
-      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+      - name: bookstore-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: samples-db
+      - name: samples-auth
+      - name: samples-messaging
+      - name: samples-destination
+
+  - name: orders-srv
+    type: nodejs
+    path: orders/gen/srv
+    parameters:
+      instances: 1
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm
+    provides:
+      - name: orders-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: samples-db
+      - name: samples-auth
+      - name: samples-messaging
+      - name: samples-destination
+
+  - name: reviews-srv
+    type: nodejs
+    path: reviews/gen/srv
+    parameters:
+      instances: 1
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: reviews-api # required by consumers of CAP services (e.g. approuter)
         properties:
           srv-url: ${default-url}
     requires:
