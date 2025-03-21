@@ -29,7 +29,7 @@ module.exports = async()=>{ // called by server.js
   CatalogService.on ('OrderedBook', async (msg) => {
     const { book, quantity, buyer } = msg.data
     const { title, price } = await db.read (Books, book, b => { b.title, b.price })
-    return OrdersService.create ('Orders').entries({
+    return OrdersService.create ('OrdersNoDraft').entries({
       OrderNo: 'Order at '+ (new Date).toLocaleString(),
       Items: [{ product:{ID:`${book}`}, title, price, quantity }],
       buyer, createdBy: buyer

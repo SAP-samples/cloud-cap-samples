@@ -21,6 +21,9 @@ modules:
       buildpack: nodejs_buildpack
     build-parameters:
       builder: npm-ci
+    properties:
+      cds_requires_ReviewsService_credentials: {"destination": "reviews-dest","path": "/reviews"} 
+      cds_requires_OrdersService_credentials: {"destination": "orders-dest","path": "/odata/v4/orders"} 
     provides:
       - name: bookstore-api # required by consumers of CAP services (e.g. approuter)
         properties:
@@ -108,6 +111,8 @@ modules:
         properties:
           app-protocol: ${protocol}
           app-uri: ${default-uri}
+    requires: 
+      - name: samples-auth
 
 - name: destination-content
     type: com.sap.application.content
