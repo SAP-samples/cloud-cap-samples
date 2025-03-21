@@ -1,9 +1,8 @@
 {
   "files.exclude": {
-    ".reuse/**": true,
-    "**/.gitignore": true,
-    "**/.vscode": true,
-    "LICENSES/**": true
+    "**/node_modules": true,
+    "LICENSES": true,
+    ".reuse": true
   },
   "debug.javascript.terminalOptions": {
     "skipFiles": [

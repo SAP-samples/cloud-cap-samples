@@ -1,8 +1,7 @@
 const cds = require('@sap/cds')
+const { expect } = cds.test ('@capire/bookshop')
 
 describe('cap/samples - Consuming Services locally', () => {
-
-  const { expect } = cds.test ('@capire/bookshop')
 
   it('bootstrapped the database successfully', ()=>{
     const { AdminService } = cds.services
@@ -33,33 +32,11 @@ describe('cap/samples - Consuming Services locally', () => {
             })
         })
     }).where(`name like`, 'E%')
-    if (require('semver').gte(cds.version, '5.9.0')) {
-      expect(authors).to.containSubset([
-        {
-          name: 'Emily Brontë',
-          books: [
-            {
-              title: 'Wuthering Heights',
-              currency: { name: 'British Pound', symbol: '£' },
-            },
-          ],
-        },
-        {
-          name: 'Edgar Allen Poe',
-          books: [
-            { title: 'The Raven', currency: { name: 'US Dollar', symbol: '$' } },
-            { title: 'Eleonora', currency: { name: 'US Dollar', symbol: '$' } },
-          ],
-        },
-      ])
-      return
-    }
     expect(authors).to.containSubset([
       {
         name: 'Emily Brontë',
         books: [
           {
-            ID: 201,
             title: 'Wuthering Heights',
             currency: { name: 'British Pound', symbol: '£' },
           },
@@ -68,8 +45,8 @@ describe('cap/samples - Consuming Services locally', () => {
       {
         name: 'Edgar Allen Poe',
         books: [
-          { ID: 251, title: 'The Raven', currency: { name: 'US Dollar', symbol: '$' } },
-          { ID: 252, title: 'Eleonora', currency: { name: 'US Dollar', symbol: '$' } },
+          { title: 'The Raven', currency: { name: 'US Dollar', symbol: '$' } },
+          { title: 'Eleonora', currency: { name: 'US Dollar', symbol: '$' } },
         ],
       },
     ])

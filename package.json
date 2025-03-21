@@ -4,9 +4,6 @@
   "description": "A monorepo with several samples for CAP.",
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
-  "dependencies": {
-    "@sap/cds": ">=8"
-  },
   "workspaces": [
     "./bookshop",
     "./bookstore",
@@ -19,21 +16,19 @@
   ],
   "devDependencies": {
     "@cap-js/cds-test": "^0",
-    "@cap-js/cds-types": "^0",
-    "@cap-js/sqlite": "^1",
-    "eslint": "^9",
-    "semver": "^7"
+    "@eslint/js": "^9.22.0"
   },
   "scripts": {
-    "build": "mbt build -t gen --mtar mta.tar",
-    "deploy": "cf deploy gen/mta.tar",
-    "undeploy": "cf undeploy capire.samples --delete-services --delete-service-keys",
+    "bookstore": "cds watch bookstore",
     "bookshop": "cds watch bookshop",
     "fiori": "cds watch fiori",
-    "lint": "eslint",
-    "test": "npx jest --silent",
-    "jest": "npx jest --silent",
-    "mocha": "CDS_TEST_SILENT=y npx mocha"
+    "orders": "cds watch orders",
+    "reviews": "cds watch reviews",
+    "lint": "npx eslint",
+    "test": "chest test",
+    "build": "mbt build -t gen --mtar mta.tar",
+    "deploy": "cf deploy gen/mta.tar",
+    "undeploy": "cf undeploy capire.samples --delete-services --delete-service-keys"
   },
   "mocha": {
     "recursive": true,
