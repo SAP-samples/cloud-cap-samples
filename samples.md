@@ -59,8 +59,6 @@ Each sub directory essentially is an individual npm package arranged in an [all-
 - [The Vue.js app](reviews/app/vue) imported from `reviews` is served as well
 - [The Vue.js app](etc/data-viewer/app/data) imported from `data-viewer` is served as well
 - [The Fiori app](orders/app) imported from `orders` is served as well
-- [OpenAPI export + Swagger UI](https://cap.cloud.sap/docs/advanced/openapi)
-
 
 
 ## [@capire/fiori](fiori)
@@ -70,10 +68,6 @@ Each sub directory essentially is an individual npm package arranged in an [all-
 - Support for Fiori Draft
 - Support for Value Helps
 - Serving SAP Fiori apps locally
-- Fiori Elements V2
-  - OData V2 using CDS OData V2 Adapter Proxy
-  - List Report (type `TreeTable`)
-  - `@sap.hierarchy` annotations
 
 See the [Serving Fiori UIs](https://cap.cloud.sap/docs/advanced/fiori) documentation for more information.
 
