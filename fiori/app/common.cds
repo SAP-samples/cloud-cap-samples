@@ -74,18 +74,15 @@ annotate my.Books with {
 //	Genres List
 //
 annotate my.Genres with @(
-  Common.SemanticKey : [name],
-  UI                 : {
-    SelectionFields : [name],
-    LineItem        : [
-      { Value: name },
-      {
-        Value : name,
-        // TODO: i18n 
-        Label: 'Main Genre'
-      },
-    ],
-  }
+    Common.SemanticKey : [name],
+    UI : {
+        SelectionFields : [name],
+        LineItem : [
+            {Value : name,
+            Label : '{i18n>Name}',
+            },
+        ],
+    }
 );
 
 annotate my.Genres with {

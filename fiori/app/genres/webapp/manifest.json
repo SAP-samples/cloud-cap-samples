@@ -3,7 +3,7 @@
   "sap.app": {
     "id": "genres",
     "type": "application",
-    "title": "Browse genres",
+    "title": "{{appTitle}}",
     "description": "Sample Application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {

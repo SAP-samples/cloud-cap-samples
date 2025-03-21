@@ -74,7 +74,7 @@ annotate AdminService.GenreHierarchy with @UI: {
     LineItem               : [{
         $Type: 'UI.DataField',
         Value: name,
-        Label : 'Genre'
+        Label :'{i18n>Name}'
     }],
 };
 
