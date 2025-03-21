@@ -92,3 +92,6 @@ resources:
       service: enterprise-messaging
       service-plan: default
       path: ./event-mesh.json
+      config: 
+        emname: bookstore-${org}-${space}
+        namespace: cap/samples/${space}

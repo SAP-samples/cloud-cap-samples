@@ -12,6 +12,7 @@
   },
   "cds": {
     "requires": {
+      "messaging": true,
       "db": true
     }
   }

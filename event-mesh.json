@@ -1,7 +1,5 @@
 {
-  "emname": "samples-emname",
   "version": "1.1.0",
-  "namespace": "default/samples/1",
   "options": {
     "management": true,
     "messagingrest": true,
@@ -10,7 +8,7 @@
   "rules": {
     "topicRules": {
       "publishFilter": [
-        "${namespace}/*"
+        "*"
       ],
       "subscribeFilter": [
         "*"
@@ -18,10 +16,10 @@
     },
     "queueRules": {
       "publishFilter": [
-        "${namespace}/*"
+        "*"
       ],
       "subscribeFilter": [
-        "${namespace}/*"
+        "*"
       ]
     }
   },
