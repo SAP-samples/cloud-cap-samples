@@ -9,6 +9,7 @@
     "@capire/orders": "*",
     "@capire/reviews": "*",
     "@sap/cds": ">=5",
+    "@sap/xssec": "^4.4.0",
     "express": "^4.17.1"
   },
   "scripts": {

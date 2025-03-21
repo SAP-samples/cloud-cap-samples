@@ -1,6 +1,19 @@
 {
-  "scopes": [],
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.admin", 
+      "description": "admin"
+    }
+  ],
   "attributes": [],
-  "role-templates": [],
+  "role-templates": [
+    {
+      "name": "admin", 
+      "scope-references": [ 
+        "$XSAPPNAME.admin"
+      ], 
+      "description": "cap samples multi-service shared-db"
+    }
+  ],
   "authorities-inheritance": false
 }
