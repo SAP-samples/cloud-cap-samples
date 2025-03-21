@@ -4,5 +4,8 @@
   "dependencies": {
     "@capire/common": "*",
     "@sap/cds": ">=5"
+  },
+  "scripts": {
+    "start": "cds-serve"
   }
 }

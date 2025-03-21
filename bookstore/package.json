@@ -10,6 +10,9 @@
     "@sap/cds": ">=5",
     "express": "^4.17.1"
   },
+  "scripts": {
+    "start": "cds-serve"
+  },
   "cds": {
     "requires": {
       "ReviewsService": {
