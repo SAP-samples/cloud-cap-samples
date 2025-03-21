@@ -2,10 +2,16 @@
   "name": "@capire/orders",
   "version": "1.0.0",
   "dependencies": {
+    "@cap-js/hana": "^1.7.0",
     "@capire/common": "*",
     "@sap/cds": ">=5"
   },
   "scripts": {
     "start": "cds-serve"
+  },
+  "cds": {
+    "requires": {
+      "db": true
+    }
   }
 }

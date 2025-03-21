@@ -9,6 +9,8 @@ build-parameters:
     - builder: custom
       commands:
         - npm ci
+        - npx cds build ./shared-db --for hana --production
+
         - npx cds build --production
 modules:
   - name: samples-srv
@@ -28,7 +30,7 @@ modules:
 
   - name: samples-db-deployer
     type: hdb
-    path: gen/db
+    path: shared-db/gen/db
     parameters:
       buildpack: nodejs_buildpack
     requires:
