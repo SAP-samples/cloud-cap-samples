@@ -8,6 +8,8 @@
     "@capire/data-viewer": "*",
     "@capire/orders": "*",
     "@capire/reviews": "*",
+    "@sap-cloud-sdk/http-client": "^3.26.4",
+    "@sap-cloud-sdk/resilience": "^3.26.4",
     "@sap/cds": ">=5",
     "@sap/xssec": "^4.4.0",
     "express": "^4.17.1"
