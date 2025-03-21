@@ -44,12 +44,24 @@ modules:
       disk-quota: 256M
       memory: 256M
     requires:
-      - name: srv-api
-        group: destinations
-        properties:
-          name: srv-api # must be used in xs-app.json as well
-          url: ~{srv-url}
-          forwardAuthToken: true
+    - name: orders-api
+      group: destinations
+      properties:  
+        name: orders-api
+        url: ~{srv-url}
+        forwardAuthToken: true
+    - name: reviews-api
+      group: destinations
+      properties:  
+        name: reviews-api
+        url: ~{srv-url}
+        forwardAuthToken: true
+    - name: bookstore-api
+      group: destinations
+      properties:  
+        name: bookstore-api
+        url: ~{srv-url}
+        forwardAuthToken: true
     provides:
       - name: app-api
         properties:
