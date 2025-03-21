@@ -1,7 +1,7 @@
 {
   "name": "approuter",
   "dependencies": {
-    "@sap/approuter": "^17.0.0"
+    "@sap/approuter": "^19.0.4"
   },
   "engines": {
     "node": "^20"
