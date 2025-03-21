@@ -112,6 +112,8 @@ resources:
       service-plan: hdi-shared
   - name: samples-auth
     type: org.cloudfoundry.managed-service
+    processed-after:
+      - samples-messaging
     parameters:
       service: xsuaa
       service-plan: application
