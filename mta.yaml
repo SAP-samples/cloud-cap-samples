@@ -29,6 +29,7 @@ modules:
       - name: samples-db
       - name: samples-auth
       - name: samples-messaging
+      - name: samples-destination
 
   - name: samples-db-deployer
     type: hdb
@@ -65,6 +66,7 @@ modules:
           url: ~{srv-url}
           forwardAuthToken: true
       - name: samples-auth
+      - name: samples-destination
     provides:
       - name: app-api
         properties:
@@ -92,6 +94,11 @@ resources:
       service: enterprise-messaging
       service-plan: default
       path: ./event-mesh.json
-      config: 
+      config:
         emname: bookstore-${org}-${space}
         namespace: cap/samples/${space}
+  - name: samples-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite

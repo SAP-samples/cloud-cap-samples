@@ -52,7 +52,8 @@
       },
       "messaging": {
         "kind": "enterprise-messaging"
-      }
+      },
+      "destinations": true
     }
   }
 }
