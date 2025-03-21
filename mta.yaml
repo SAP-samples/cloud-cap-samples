@@ -27,6 +27,7 @@ modules:
           srv-url: ${default-url}
     requires:
       - name: samples-db
+      - name: samples-auth
 
   - name: samples-db-deployer
     type: hdb
@@ -44,24 +45,25 @@ modules:
       disk-quota: 256M
       memory: 256M
     requires:
-    - name: orders-api
-      group: destinations
-      properties:  
-        name: orders-api
-        url: ~{srv-url}
-        forwardAuthToken: true
-    - name: reviews-api
-      group: destinations
-      properties:  
-        name: reviews-api
-        url: ~{srv-url}
-        forwardAuthToken: true
-    - name: bookstore-api
-      group: destinations
-      properties:  
-        name: bookstore-api
-        url: ~{srv-url}
-        forwardAuthToken: true
+      - name: orders-api
+        group: destinations
+        properties:
+          name: orders-api
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: reviews-api
+        group: destinations
+        properties:
+          name: reviews-api
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: bookstore-api
+        group: destinations
+        properties:
+          name: bookstore-api
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: samples-auth
     provides:
       - name: app-api
         properties:
@@ -74,3 +76,12 @@ resources:
     parameters:
       service: hana
       service-plan: hdi-shared
+  - name: samples-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: samples-${org}-${space}
+        tenant-mode: dedicated

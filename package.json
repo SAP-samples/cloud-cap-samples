@@ -6,7 +6,8 @@
   "author": "daniel.hutzel@sap.com",
   "dependencies": {
     "@sap/cds": ">=8",
-    "@cap-js/hana": "^1"
+    "@cap-js/hana": "^1",
+    "@sap/xssec": "^4"
   },
   "workspaces": [
     "./bookshop",
@@ -44,6 +45,11 @@
   "cds": {
     "sql": {
       "native_hana_associations": false
+    },
+    "requires": {
+      "[production]": {
+        "auth": "xsuaa"
+      }
     }
   }
 }
