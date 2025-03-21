@@ -55,16 +55,3 @@ annotate CatalogService.Books with @(UI : {
         {Value : currency.symbol},
     ]
 }, );
-
-annotate CatalogService.GenreHierarchy with @UI: {
-    PresentationVariant  : {
-        $Type         : 'UI.PresentationVariantType',
-        RequestAtLeast: [name],
-        Visualizations: ['@UI.LineItem'],
-    },
-    LineItem               : [{
-        $Type: 'UI.DataField',
-        Value: name,
-        Label : 'Genre'
-    }],
-};
