@@ -28,6 +28,7 @@ modules:
     requires:
       - name: samples-db
       - name: samples-auth
+      - name: samples-messaging
 
   - name: samples-db-deployer
     type: hdb
@@ -85,3 +86,9 @@ resources:
       config:
         xsappname: samples-${org}-${space}
         tenant-mode: dedicated
+  - name: samples-messaging
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: enterprise-messaging
+      service-plan: default
+      path: ./event-mesh.json

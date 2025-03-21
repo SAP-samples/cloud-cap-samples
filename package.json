@@ -49,6 +49,9 @@
     "requires": {
       "[production]": {
         "auth": "xsuaa"
+      },
+      "messaging": {
+        "kind": "enterprise-messaging"
       }
     }
   }
