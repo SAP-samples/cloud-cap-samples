@@ -54,10 +54,6 @@ npx jest
 ```
 > While mocha is a bit smaller and faster, jest runs tests in parallel and isolation, which allows to run all tests.
 
-## Code Tours
-
-Take one of the [guided tours](.tours) in VS Code through our CAP samples and learn which CAP features are showcased by the different parts of the repository. Just install the [CodeTour extension](https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour) for VS Code. We'll add more code tours in the future. Stay tuned!
-
 ## Get Support
 
 Check out the documentation at [https://cap.cloud.sap](https://cap.cloud.sap). <br>
