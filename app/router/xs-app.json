@@ -8,8 +8,7 @@
       "cacheControl": "no-cache, no-store, must-revalidate"
     },
     {
-      "source": "^(.*)$",
-      "target": "$1",
+      "source": "^/appconfig/",
       "localDir": ".",
       "cacheControl": "no-cache, no-store, must-revalidate"
     },
@@ -42,6 +41,12 @@
       "target": "/reviews/$1",
       "destination": "reviews-api",
       "csrfProtection": true
+    },
+    {
+      "source": "^(.*)$",
+      "target": "$1",
+      "localDir": ".",
+      "cacheControl": "no-cache, no-store, must-revalidate"
     }
   ]
 }

@@ -21,7 +21,7 @@ modules:
       instances: 1
       buildpack: nodejs_buildpack
     build-parameters:
-      builder: npm-ci
+      builder: npm
     properties:
       cds_requires_ReviewsService_credentials: {"destination": "reviews-dest","path": "/reviews"} 
       cds_requires_OrdersService_credentials: {"destination": "orders-dest","path": "/odata/v4/orders"} 
@@ -60,7 +60,7 @@ modules:
       instances: 1
       buildpack: nodejs_buildpack
     build-parameters:
-      builder: npm-ci
+      builder: npm
     provides:
       - name: reviews-api # required by consumers of CAP services (e.g. approuter)
         properties:
@@ -112,10 +112,8 @@ modules:
         properties:
           app-protocol: ${protocol}
           app-uri: ${default-uri}
-    requires: 
-      - name: samples-auth
 
-- name: destination-content
+  - name: destination-content
     type: com.sap.application.content
     requires:
       - name: orders-api
