@@ -1,11 +1,7 @@
 const cds = require ('@sap/cds')
 
 // Add routes to UIs from imported packages
-try { 
-  cds.once ('bootstrap', require('../app/routes'))
-} catch(e) {
-  if(!cds.env.production) throw e
-}
+if (!cds.env.production) cds.once ('bootstrap', require('../app/routes'))
 
 // Mashing up bookshop services with required services...
 cds.once ('served', async ()=>{ // called by server.js
