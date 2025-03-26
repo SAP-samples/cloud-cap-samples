@@ -11,8 +11,7 @@
     "./fiori",
     "./orders",
     "./reviews",
-    "./etc/data-viewer",
-    "./etc/loggers"
+    "./etc/*"
   ],
   "devDependencies": {
     "@cap-js/cds-test": "^0"
