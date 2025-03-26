@@ -88,7 +88,7 @@ modules:
 
   - name: samples
     type: approuter.nodejs
-    path: app-router
+    path: .deploy/app-router
     parameters:
       keep-existing-routes: true
       disk-quota: 256M
