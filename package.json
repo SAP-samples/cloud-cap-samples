@@ -9,8 +9,7 @@
     "./etc/*"
   ],
   "devDependencies": {
-    "@cap-js/cds-test": "^0",
-    "@eslint/js": "^9.22.0"
+    "@cap-js/cds-test": "^0"
   },
   "scripts": {
     "start": "cds watch bookshop --open http://localhost:4004",
