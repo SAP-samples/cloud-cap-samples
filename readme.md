@@ -8,7 +8,7 @@ Find here a collection of samples for the [SAP Cloud Application Programming Mod
 
 ## Get Started
 
-Assumed you have finished your [initial setup of CAP Node.js](https://cap.cloud.sap/docs/get-started/#setup), simply copy and paste these lines to your terminal for a jumpstart:
+Assumed you did your [initial setup of CAP Node.js](https://cap.cloud.sap/docs/get-started/#setup), simply copy and paste these lines to a terminal for a jumpstart:
 
 ```sh
 git clone -q https://github.com/sap-samples/cloud-cap-samples cap/samples
@@ -20,7 +20,7 @@ npm start
 
 This download the sample content, does a minimum setup, and after running some tests and launching the bookshop server, it should open a browser window on http://localhost:4004 which looks like that:
 
-<img src="etc/index-html.png" alt="bookshop showing up in browser" style="zoom:40%;" />
+<img src="etc/index-html.png" alt="bookshop showing up in browser" style="zoom:33%;" />
 
 Click on the *[/vue](http:/localhost:4004/vue)* link at the top to display the bookshop app (when asked to log in, type `alice` as user and leave the password field blank).
 
