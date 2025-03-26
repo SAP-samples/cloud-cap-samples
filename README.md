@@ -51,7 +51,7 @@ cds watch bookshop
 Run the provided tests like so:
 
 ```sh
-npx jest
+npm test
 ```
 > You can alternative run the tests with [_jest_](http://jestjs.io) or [_mocha_](http://mochajs.org).
 
