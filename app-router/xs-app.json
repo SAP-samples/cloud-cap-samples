@@ -8,11 +8,6 @@
       "cacheControl": "no-cache, no-store, must-revalidate"
     },
     {
-      "source": "^/appconfig/",
-      "localDir": ".",
-      "cacheControl": "no-cache, no-store, must-revalidate"
-    },
-    {
       "source": "^/admin/(.*)$",
       "target": "/admin/$1",
       "destination": "bookstore-api",
@@ -41,12 +36,6 @@
       "target": "/reviews/$1",
       "destination": "reviews-api",
       "csrfProtection": true
-    },
-    {
-      "source": "^(.*)$",
-      "target": "$1",
-      "localDir": ".",
-      "cacheControl": "no-cache, no-store, must-revalidate"
     }
   ]
 }
