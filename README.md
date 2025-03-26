@@ -41,18 +41,19 @@ With that you're ready to run the samples, for example:
 cds watch bookshop
 ```
 
-After that open this link in your browser: [http://localhost:4004](http://localhost:4004)
+> After that open this link in your browser: [http://localhost:4004](http://localhost:4004)
+> <br> When asked to log in, type `alice` as user and leave the password field blank. 
+> <br> Learn more about [default users](https://cap.cloud.sap/docs/node.js/authentication#mocked).
 
-When asked to log in, type `alice` as user and leave the password field blank, which is the [default user](https://cap.cloud.sap/docs/node.js/authentication#mocked).
 
 ### Testing
 
-Run the provided tests with [_jest_](http://jestjs.io) or [_mocha_](http://mochajs.org), for example:
+Run the provided tests like so:
 
 ```sh
 npx jest
 ```
-> While mocha is a bit smaller and faster, jest runs tests in parallel and isolation, which allows to run all tests.
+> You can alternative run the tests with [_jest_](http://jestjs.io) or [_mocha_](http://mochajs.org).
 
 ## Get Support
 
