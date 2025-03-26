@@ -15,8 +15,7 @@
     "./etc/loggers"
   ],
   "devDependencies": {
-    "@cap-js/cds-test": "^0",
-    "@eslint/js": "^9.22.0"
+    "@cap-js/cds-test": "^0"
   },
   "scripts": {
     "start": "cds watch bookshop --open http://localhost:4004",
@@ -27,6 +26,8 @@
     "reviews": "cds watch reviews",
     "lint": "npx eslint",
     "test": "chest test",
+    "jest": "npx jest",
+    "mocha": "npx mocha",
     "build": "mbt build -t gen --mtar mta.tar",
     "deploy": "cf deploy gen/mta.tar",
     "undeploy": "cf undeploy capire.samples --delete-services --delete-service-keys"
