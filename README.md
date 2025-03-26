@@ -18,7 +18,7 @@ Ensure you have the latest LTS version of Node.js, [`@sap/cds-dk`](https://www.n
 
 ### Download
 
-[Git](https://git-scm.com/downloads) clone this repo as shown below, or [download as zip file](archive/refs/heads/main.zip).
+[Git](https://git-scm.com/downloads) clone this repo as shown below, or [download as zip file](../../archive/refs/heads/main.zip).
 
 ```sh
 git clone https://github.com/sap-samples/cloud-cap-samples samples
