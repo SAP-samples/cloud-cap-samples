@@ -12,5 +12,6 @@
       "**/cds/lib/req/cds-context.js",
       "**/odata-v4/okra/**"
     ]
-  }
+  },
+  "jest.jestCommandLine": "npx jest"
 }
