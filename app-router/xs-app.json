@@ -4,7 +4,7 @@
     {
       "source": "^/app/(.*)$",
       "target": "$1",
-      "localDir": ".",
+      "localDir": "resources",
       "cacheControl": "no-cache, no-store, must-revalidate"
     },
     {
