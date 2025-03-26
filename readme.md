@@ -20,7 +20,7 @@ npm start
 
 This download the sample content, does a minimum setup, and after running some tests and launching the bookshop server, it should open a browser window on http://localhost:4004 which looks like that:
 
-<img src="etc/index-html.png" alt="bookshop showing up in browser" style="zoom:40%;" />
+<img src="etc/index-html.png" alt="bookshop showing up in browser" style="zoom:50%;" />
 
 Click on the *[/vue](http:/localhost:4004/vue)* link at the top to display the bookshop app (when asked to log in, type `alice` as user and leave the password field blank).
 
