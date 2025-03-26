@@ -8,7 +8,7 @@ entity Books : managed {
   author   : Association to Authors @mandatory;
   genre    : Association to Genres;
   stock    : Integer;
-  price    : Decimal;
+  price    : Price;
   currency : Currency;
   image    : LargeBinary @Core.MediaType: 'image/png';
 }
@@ -29,3 +29,5 @@ entity Genres : sap.common.CodeList {
   parent   : Association to Genres;
   children : Composition of many Genres on children.parent = $self;
 }
+
+type Price : Decimal(9,2);

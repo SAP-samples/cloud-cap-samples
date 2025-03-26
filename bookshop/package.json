@@ -6,8 +6,7 @@
     "app",
     "srv",
     "db",
-    "index.cds",
-    "index.js"
+    "index.cds"
   ],
   "devDependencies": {
     "@cap-js/sqlite": "*"

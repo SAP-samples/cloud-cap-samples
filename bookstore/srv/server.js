@@ -1,10 +1,11 @@
-////////////////////////////////////////////////////////////////////////////
-//
-//    Mashing up bookshop services with required services...
-//
-module.exports = async()=>{ // called by server.js
+const cds = require ('@sap/cds')
 
-  const cds = require('@sap/cds')
+// Add routes to UIs from imported packages
+if (!cds.env.production) cds.once ('bootstrap', require('../app/routes'))
+
+// Mashing up bookshop services with required services...
+cds.once ('served', async ()=>{ // called by server.js
+
   const CatalogService = await cds.connect.to ('CatalogService')
   const ReviewsService = await cds.connect.to ('ReviewsService')
   const OrdersService = await cds.connect.to ('OrdersService')
@@ -55,4 +56,4 @@ module.exports = async()=>{ // called by server.js
     .and ('stock >=', deltaQuantity)
     .set ('stock -=', deltaQuantity)
   })
-}
+})
