@@ -1,4 +1,5 @@
-namespace my.common;
+namespace sap.capire.bookshop;
+using { sap.capire.bookshop.Genres } from '@capire/bookshop';
 
 aspect Hierarchy {
   LimitedDescendantCount : Integer64 = null;
@@ -27,3 +28,5 @@ annotate Hierarchy with @Capabilities.SortRestrictions.NonSortableProperties: [
   'MatchedDescendantCount',
   'LimitedRank'
 ];
+
+extend sap.capire.bookshop.Genres with Hierarchy;
