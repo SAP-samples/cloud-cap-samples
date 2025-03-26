@@ -43,7 +43,7 @@ cds watch bookshop
 
 > After that open this link in your browser: [http://localhost:4004](http://localhost:4004)
 > <br> When asked to log in, type `alice` as user and leave the password field blank. 
-> <br> Learn more about [default users](https://cap.cloud.sap/docs/node.js/authentication#mocked).
+> <br> Learn more about [mock users](https://cap.cloud.sap/docs/node.js/authentication#mocked).
 
 
 ### Testing
