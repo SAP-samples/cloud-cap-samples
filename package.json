@@ -5,14 +5,8 @@
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
   "workspaces": [
-    "./bookshop",
-    "./bookstore",
-    "./common",
-    "./fiori",
-    "./orders",
-    "./reviews",
-    "./etc/data-viewer",
-    "./etc/loggers"
+    "./*",
+    "./etc/*"
   ],
   "devDependencies": {
     "@cap-js/cds-test": "^0",
@@ -27,6 +21,8 @@
     "reviews": "cds watch reviews",
     "lint": "npx eslint",
     "test": "chest test",
+    "jest": "npx jest",
+    "mocha": "npx mocha",
     "build": "mbt build -t gen --mtar mta.tar",
     "deploy": "cf deploy gen/mta.tar",
     "undeploy": "cf undeploy capire.samples --delete-services --delete-service-keys"
