@@ -1,12 +1,12 @@
 namespace my.common;
 
 aspect Hierarchy {
-  virtual LimitedDescendantCount : Integer64;
-  virtual DistanceFromRoot       : Integer64;
-  virtual DrillState             : String;
-  virtual Matched                : Boolean;
-  virtual MatchedDescendantCount : Integer64;
-  virtual LimitedRank            : Integer64;
+  LimitedDescendantCount : Integer64 = null;
+  DistanceFromRoot       : Integer64 = null;
+  DrillState             : String = null;
+  Matched                : Boolean = null;
+  MatchedDescendantCount : Integer64 = null;
+  LimitedRank            : Integer64 = null;
 }
 
 
