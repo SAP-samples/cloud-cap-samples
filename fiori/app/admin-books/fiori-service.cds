@@ -1,12 +1,7 @@
-using { AdminService } from '@capire/bookstore';
-using { sap.capire.bookshop } from '../../db/hierarchy';
+using { AdminService } from '../services';
 using from '../common'; // to help UI linter get the complete annotations
 
-extend service AdminService with {
-  @readonly 
-  @cds.search: {name}
-  entity GenreHierarchy as projection on bookshop.Genres;
-}
+
 
 ////////////////////////////////////////////////////////////////////////////
 //
