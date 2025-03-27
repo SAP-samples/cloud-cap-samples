@@ -8,7 +8,7 @@ Find here a collection of samples for the [SAP Cloud Application Programming Mod
 
 ## Get Started
 
-Assumed you did your [initial setup of CAP Node.js](https://cap.cloud.sap/docs/get-started/#setup), simply copy and paste these lines to a terminal for a jumpstart:
+Assumed you did your [initial setup of CAP Node.js](https://cap.cloud.sap/docs/get-started/#setup), simply copy & paste these lines to a terminal for a jumpstart:
     
 ```sh
 git clone -q https://github.com/sap-samples/cloud-cap-samples cap/samples
@@ -28,7 +28,18 @@ Click on the *[/vue](http:/localhost:4004/vue)* link at the top to display the b
 
 ## Grow as you go...
 
-[See Overview of contained samples](samples.md):
+After the jumpstart, have a look into the enclosed sub folders/projects, which are:
+
+- [bookstore](bookstore) - an app composing the below
+- [bookshop](bookshop) – a simplistic [primer app](https://cap.cloud.sap/docs/get-started/in-a-nutshell)
+- [reviews](reviews) - a generic reuse service
+- [orders](orders) - a generic reuse service
+- [common](common) - a reuse content package
+- [fiori](fiori) - Fiori elements UIs for the bookstore
+- [etc/*](etc) - Plugins adding cross-cutting concerns
+- [test](test) - Tests for all the above
+
+> see also [samples.md](samples.md)
 
 <p align="center">
   <img width=480 src="etc/samples.drawio.svg">
