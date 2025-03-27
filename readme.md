@@ -18,7 +18,7 @@ npm test
 npm start
 ```
 
-After download and setup this starts the bookshop server and opens a browser window on http://localhost:4004 looking like that:
+After download and setup this starts the bookshop server and opens a browser window on _http://localhost:4004_ looking like that:
 
 <p align="center">
    <img width=480 src="etc/index-html.png" alt="bookshop showing up in browser" />
@@ -54,4 +54,4 @@ After the jumpstart, have a look into the enclosed sub folders/projects, which a
 
 ## License
 
-Copyright (c) 2022 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSE) file.
+Copyright (c) 2022 SAP SE or an SAP affiliate company. All rights reserved. This file is licensed under the Apache Software License, version 2.0 except as noted otherwise in the _[LICENSE](LICENSE)_ file.
