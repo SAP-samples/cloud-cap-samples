@@ -30,16 +30,16 @@ Click on the *[/vue](http:/localhost:4004/vue)* link at the top to display the b
 
 After the jumpstart, have a look into the enclosed sub folders/projects, which are:
 
-- [bookstore](bookstore) - an app composing the below
 - [bookshop](bookshop) – a simplistic [primer app](https://cap.cloud.sap/docs/get-started/in-a-nutshell)
 - [reviews](reviews) - a generic reuse service
 - [orders](orders) - a generic reuse service
 - [common](common) - a reuse content package
+- [bookstore](bookstore) - a composite app of the above
 - [fiori](fiori) - Fiori elements UIs for the bookstore
 - [etc/*](etc) - Plugins adding cross-cutting concerns
 - [test](test) - Tests for all the above
 
-> see also [samples.md](samples.md)
+> _see also [samples.md](samples.md)_
 
 <p align="center">
   <img width=480 src="etc/samples.drawio.svg">
