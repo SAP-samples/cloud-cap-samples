@@ -37,7 +37,7 @@ Click on the *[/vue](http:/localhost:4004/vue)* link at the top to display the b
 ## Get Help
 
 - Visit the [*capire* docs](https://cap.cloud.sap) to learn about CAP, ...
-- especially the [*Getting Started in a Nutshell*](https://cap.cloud.sap/docs/get-started/in-a-nutshell) guide.
+- especially [*Getting Started in a Nutshell*](https://cap.cloud.sap/docs/get-started/in-a-nutshell).
 - Visit our [*SAP Community*](https://answers.sap.com/tags/9f13aee1-834c-4105-8e43-ee442775e5ce) to ask questions.
 
 
