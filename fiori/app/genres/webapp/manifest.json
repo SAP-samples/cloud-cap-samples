@@ -1,163 +1,124 @@
 {
-  "_version": "1.8.0",
-  "sap.app": {
-    "id": "genres",
-    "type": "application",
-    "title": "{{appTitle}}",
-    "description": "Sample Application",
-    "i18n": "i18n/i18n.properties",
-    "applicationVersion": {
-      "version": "1.0.0"
-    },
-    "dataSources": {
-      "AdminService": {
-        "uri": "admin/",
-        "type": "OData",
-        "settings": {
-          "odataVersion": "4.0"
-        }
-      }
-    },
-    "tags": {
-      "keywords": []
-    },
-    "crossNavigation": {
-      "inbounds": {
-        "Genres-display": {
-          "signature": {
-            "parameters": {},
-            "additionalParameters": "allowed"
-          },
-          "title": "{{appTitle}}",
-          "semanticObject": "GenreHierarchy",
-          "action": "display",
-          "deviceTypes": {
-            "desktop": true,
-            "tablet": true,
-            "phone": true
-          },
-          "icon": "sap-icon://settings",
-          "size": "1x1"
-        }
-      },
-      "outbounds": {}
-    },
-    "offline": false,
-    "sourceTemplate": {
-      "id": "ui5template.smartTemplate",
-      "version": "1.40.12"
-    }
-  },
-  "sap.ui": {
-    "technology": "UI5",
-    "icons": {
-      "icon": "",
-      "favIcon": "",
-      "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
-    },
-    "deviceTypes": {
-      "desktop": true,
-      "tablet": true,
-      "phone": true
-    },
-    "supportedThemes": [
-      "sap_hcb",
-      "sap_belize",
-      "sap_belize_deep",
-      "sap_fiori_3"
-    ]
-  },
-  "sap.ui5": {
-    "resources": {
-      "js": [],
-      "css": []
-    },
-    "dependencies": {
-      "minUI5Version": "1.65.6",
-      "libs": {},
-      "components": {}
-    },
-    "models": {
-      "i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "uri": "i18n/i18n.properties"
-      },
-      "": {
-        "dataSource": "AdminService",
-        "settings": {
-          "synchronizationMode": "None",
-          "operationMode": "Server",
-          "autoExpandSelect": true,
-          "earlyRequests": true,
-          "groupProperties": {
-            "default": {
-              "submit": "Auto"
-            }
-          }
-        }
-      }
-    },
-    "routing": {
-      "routes": [
-        {
-          "pattern": ":?query:",
-          "name": "GenreHierarchyList",
-          "target": "GenreHierarchyList"
-        },
-        {
-          "pattern": "GenreHierarchy({key}):?query:",
-          "name": "GenreHierarchyDetails",
-          "target": "GenreHierarchyDetails"
-        }
-      ],
-      "targets": {
-        "GenreHierarchyList": {
-          "type": "Component",
-          "id": "GenreHierarchyList",
-          "name": "sap.fe.templates.ListReport",
-          "options": {
-            "settings": {
-              "contextPath": "/GenreHierarchy",
-              "navigation": {
-                "GenreHierarchy": {
-                  "detail": {
-                    "route": "GenreHierarchyDetails"
-                  }
-                }
-              },
-              "controlConfiguration": {
-                "@com.sap.vocabularies.UI.v1.LineItem": {
-                  "tableSettings": {
-                    "hierarchyQualifier": "GenreHierarchy",
-                    "type": "TreeTable"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "GenreHierarchyDetails": {
-          "type": "Component",
-          "id": "GenreHierarchyDetails",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "contextPath": "/GenreHierarchy"
-            }
-          }
-        }
-      }
-    },
-    "contentDensities": {
-      "compact": true,
-      "cozy": true
-    }
-  },
-  "sap.fiori": {
-    "registrationIds": [],
-    "archeType": "transactional"
-  }
+	"_version": "1.8.0",
+	"sap.app": {
+		"id": "genres",
+		"type": "application",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"AdminService": {
+				"uri": "admin/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "4.0"
+				}
+			}
+		},
+		"crossNavigation": {
+			"inbounds": {
+				"Genres-display": {
+					"signature": {
+						"parameters": {},
+						"additionalParameters": "allowed"
+					},
+					"semanticObject": "GenreHierarchy",
+					"action": "display"
+				}
+			}
+		}
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.122.0",
+			"libs": {
+				"sap.fe.templates": {}
+			}
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			},
+			"": {
+				"dataSource": "AdminService",
+				"settings": {
+					"synchronizationMode": "None",
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true,
+					"groupProperties": {
+						"default": {
+						  "submit": "Auto"
+						}
+					}
+				}
+			}
+		},
+		"routing": {
+			"routes": [
+				{
+					"pattern": ":?query:",
+					"name": "GenreHierarchyList",
+					"target": "GenreHierarchyList"
+				},
+				{
+					"pattern": "GenreHierarchy({key}):?query:",
+					"name": "GenreHierarchyDetails",
+					"target": "GenreHierarchyDetails"
+				}
+			],
+			"targets": {
+				"GenreHierarchyList": {
+					"type": "Component",
+					"id": "GenreHierarchyList",
+					"name": "sap.fe.templates.ListReport",
+					"options": {
+						"settings": {
+							"contextPath": "/GenreHierarchy",
+							"navigation": {
+								"GenreHierarchy": {
+									"detail": {
+										"route": "GenreHierarchyDetails"
+										}
+								}
+							},
+							"controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "hierarchyQualifier": "GenreHierarchy",
+                                        "type": "TreeTable"
+                                    }
+                                }
+                            }
+						}
+					}
+				},
+				"GenreHierarchyDetails": {
+					"type": "Component",
+					"id": "GenreHierarchyDetails",
+					"name": "sap.fe.templates.ObjectPage",
+					"options": {
+						"settings": {
+							"contextPath": "/GenreHierarchy"
+						}
+					}
+				}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"fullWidth": false
+	},
+	"sap.fiori": {
+		"registrationIds": [],
+		"archeType": "transactional"
+	}
 }
