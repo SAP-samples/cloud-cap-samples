@@ -8,7 +8,6 @@ build-parameters:
   before-all:
     - builder: custom
       commands:
-        - cd ..
         - npm ci
         - npx cds build shared-db --for hana --production
         - npx cds build orders --for nodejs --production --ws-pack
