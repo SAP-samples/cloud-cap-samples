@@ -1,5 +1,5 @@
 {
-  "name": "@capire/samples-shared-db",
+  "name": "@capire/shared-db",
   "version": "3.0.0",
   "description": "CAP Sample CDS model deployment for shared-db scenario",
   "cds": {

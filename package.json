@@ -5,12 +5,7 @@
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
   "workspaces": [
-    "./bookshop",
-    "./bookstore",
-    "./common",
-    "./fiori",
-    "./orders",
-    "./reviews",
+    "./*",
     "./etc/*"
   ],
   "devDependencies": {
