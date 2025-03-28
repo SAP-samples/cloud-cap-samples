@@ -17,7 +17,7 @@ build-parameters:
 modules:
   - name: orders-srv
     type: nodejs
-    path: ../orders/gen/srv
+    path: ./orders/gen/srv
     parameters:
       buildpack: nodejs_buildpack
       readiness-health-check-type: http
@@ -37,7 +37,7 @@ modules:
 
   - name: reviews-srv
     type: nodejs
-    path: ../reviews/gen/srv
+    path: ./reviews/gen/srv
     parameters:
       buildpack: nodejs_buildpack
       readiness-health-check-type: http
@@ -57,7 +57,7 @@ modules:
 
   - name: bookstore-srv
     type: nodejs
-    path: ../bookstore/gen/srv
+    path: ./bookstore/gen/srv
     parameters:
       buildpack: nodejs_buildpack
       readiness-health-check-type: http
@@ -81,7 +81,7 @@ modules:
 
   - name: samples-db-deployer
     type: hdb
-    path: ../shared-db/gen/db
+    path: ./shared-db/gen/db
     parameters:
       buildpack: nodejs_buildpack
     requires:
@@ -89,7 +89,7 @@ modules:
 
   - name: samples
     type: approuter.nodejs
-    path: ./app-router
+    path: .deploy/app-router
     parameters:
       keep-existing-routes: true
       disk-quota: 256M
