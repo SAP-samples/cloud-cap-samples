@@ -1,6 +1,7 @@
 using { Currency, managed, sap } from '@sap/cds/common';
 namespace sap.capire.bookshop;
 
+@fiori.draft.enabled // workaround for reuse in fiori sample and hana deployment
 entity Books : managed {
   key ID   : Integer;
   title    : localized String(111)  @mandatory;
