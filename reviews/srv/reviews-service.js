@@ -12,9 +12,7 @@ module.exports = cds.service.impl (function(){
   // Emit an event to inform subscribers about new avg ratings for reviewed subjects
   this.after (['CREATE','UPDATE','DELETE'], 'Reviews', async function(_,req) {
     const {subject} = req.data
-    const { count, rating } = await cds.tx(req) .run (
-      SELECT.one `round(avg(rating),2) as rating, count(*) as count` .from (Reviews) .where ({subject})
-    )
+    const { count, rating } = await SELECT.one `round(avg(rating),2) as rating, count(*) as count` .from (Reviews) .where ({subject})
     global.it || console.log ('< emitting:', 'reviewed', { subject, count, rating }) // eslint-disable-line no-console
     await this.emit ('reviewed', { subject, count, rating })
   })
@@ -23,8 +21,7 @@ module.exports = cds.service.impl (function(){
   this.on ('like', (req) => {
     if (!req.user)  return req.reject(400, 'You must be identified to like a review')
     const {review} = req.data, {user} = req
-    const tx = cds.tx(req)
-    return tx.run ([
+    return cds.run ([
       INSERT.into (Likes) .entries ({review_ID: review, user: user.id}),
       UPDATE (Reviews) .set({liked: {'+=': 1}}) .where({ID:review})
     ]).catch(() => req.reject(400, 'You already liked that review'))
@@ -34,9 +31,8 @@ module.exports = cds.service.impl (function(){
   this.on ('unlike', async (req) => {
     if (!req.user)  return req.reject(400, 'You must be identified to remove a former like of yours')
     const {review} = req.data, {user} = req
-    const tx = cds.tx(req)
-    const affectedRows = await tx.run (DELETE.from (Likes) .where ({review_ID: review,user: user.id}))
-    if (affectedRows === 1)  return tx.run (UPDATE (Reviews) .set ({liked: {'-=': 1}}) .where ({ID:review}))
+    const affectedRows = await DELETE.from (Likes) .where ({review_ID: review,user: user.id})
+    if (affectedRows === 1)  return UPDATE (Reviews) .set ({liked: {'-=': 1}}) .where ({ID:review})
   })
 
 })
