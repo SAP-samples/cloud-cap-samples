@@ -24,7 +24,7 @@
 						"parameters": {},
 						"additionalParameters": "allowed"
 					},
-					"semanticObject": "GenreHierarchy",
+					"semanticObject": "Genres",
 					"action": "display"
 				}
 			}
@@ -61,27 +61,27 @@
 			"routes": [
 				{
 					"pattern": ":?query:",
-					"name": "GenreHierarchyList",
-					"target": "GenreHierarchyList"
+					"name": "GenresList",
+					"target": "GenresList"
 				},
 				{
-					"pattern": "GenreHierarchy({key}):?query:",
-					"name": "GenreHierarchyDetails",
-					"target": "GenreHierarchyDetails"
+					"pattern": "Genres({key}):?query:",
+					"name": "GenresDetails",
+					"target": "GenresDetails"
 				}
 			],
 			"targets": {
-				"GenreHierarchyList": {
+				"GenresList": {
 					"type": "Component",
-					"id": "GenreHierarchyList",
+					"id": "GenresList",
 					"name": "sap.fe.templates.ListReport",
 					"options": {
 						"settings": {
-							"contextPath": "/GenreHierarchy",
+							"contextPath": "/Genres",
 							"navigation": {
-								"GenreHierarchy": {
+								"Genres": {
 									"detail": {
-										"route": "GenreHierarchyDetails"
+										"route": "GenresDetails"
 										}
 								}
 							},
@@ -96,13 +96,13 @@
 						}
 					}
 				},
-				"GenreHierarchyDetails": {
+				"GenresDetails": {
 					"type": "Component",
-					"id": "GenreHierarchyDetails",
+					"id": "GenresDetails",
 					"name": "sap.fe.templates.ObjectPage",
 					"options": {
 						"settings": {
-							"contextPath": "/GenreHierarchy"
+							"contextPath": "/Genres"
 						}
 					}
 				}

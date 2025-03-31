@@ -1,4 +1,4 @@
-using { AdminService } from '../services';
+using { AdminService } from '@capire/bookstore';
 using from '../common'; // to help UI linter get the complete annotations
 
 
@@ -50,7 +50,7 @@ annotate AdminService.Books with {
     genre @(Common: {
         Label    : 'Genre',
         ValueList: {
-            CollectionPath              : 'GenreHierarchy',
+            CollectionPath              : 'Genres',
             Parameters                  : [
             {
                 $Type            : 'Common.ValueListParameterDisplayOnly',
@@ -67,7 +67,7 @@ annotate AdminService.Books with {
     });
 }
 
-annotate AdminService.GenreHierarchy with @UI: {
+annotate AdminService.Genres with @UI: {
     PresentationVariant #VH: {
         $Type                      : 'UI.PresentationVariantType',
         Visualizations             : ['@UI.LineItem'],
@@ -81,7 +81,7 @@ annotate AdminService.GenreHierarchy with @UI: {
 };
 
 // Hide ID because of the ValueHelp
-annotate AdminService.GenreHierarchy with {
+annotate AdminService.Genres with {
   ID @UI.Hidden;
 };
 
