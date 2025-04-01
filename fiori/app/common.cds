@@ -73,6 +73,8 @@ annotate my.Books with {
 //
 //	Computed Fields for Tree Tables 
 //
+//  DISCLAIMER: The below are an alpha version implementation and will change in final release !!!
+//
 aspect Hierarchy {
   LimitedDescendantCount : Integer64 = null;
   DistanceFromRoot       : Integer64 = null;
