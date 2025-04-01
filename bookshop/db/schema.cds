@@ -1,7 +1,6 @@
 using { Currency, managed, sap } from '@sap/cds/common';
 namespace sap.capire.bookshop;
 
-@fiori.draft.enabled // workaround for reuse in fiori sample and hana deployment
 entity Books : managed {
   key ID   : Integer;
   title    : localized String(111)  @mandatory;
@@ -32,3 +31,8 @@ entity Genres : sap.common.CodeList {
 }
 
 type Price : Decimal(9,2);
+
+
+// ------------------------------------------------------------------
+// temporary workaround for reuse in fiori sample and hana deployment
+annotate Books with @fiori.draft.enabled
