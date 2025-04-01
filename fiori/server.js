@@ -5,8 +5,12 @@ cds.on('served', () => {
   if (cds.db.kind === 'sqlite') {
     const { AdminService } = cds.services
     AdminService.prepend(() => {
-      AdminService.on('READ', 'Genres', () => {
-        return SELECT.from('AdminService.Genres')
+      AdminService.on('READ', 'Genres', (req,next) => {
+        const { SELECT } = req.query
+        // Suppress error message: Feature "recurse" queries not supported.
+        delete SELECT.__proto__.recurse
+        delete SELECT.recurse
+        return next()
       })
     })
   }
