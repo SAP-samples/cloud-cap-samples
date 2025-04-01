@@ -1,5 +1,5 @@
 const cds = require('@sap/cds/lib')
-if (cds.requires.db.kind === 'sqlite') {
+if (cds.requires.db?.kind === 'sqlite') {
 
   // Add a column to the Genres table, to efficiently determine if a node
   // is a leaf, and use it for DrillState in hierarchy queries.
