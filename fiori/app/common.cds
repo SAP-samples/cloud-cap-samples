@@ -106,6 +106,8 @@ extend my.Genres with Hierarchy;
 //
 //	Genres Tree Table Annotations
 //
+//  DISCLAIMER: The below are an alpha version implementation and will change in final release !!!
+//
 annotate my.Genres with @Aggregation.RecursiveHierarchy #GenreHierarchy: {
   $Type                   : 'Aggregation.RecursiveHierarchyType',
   NodeProperty            : ID, // identifies a node
