@@ -1,32 +1,33 @@
 const cds = require('@sap/cds/lib')
 if (cds.requires.db?.kind === 'sqlite') {
-
-  // Add a column to the Genres table, to efficiently determine if a node
-  // is a leaf, and use it for DrillState in hierarchy queries.
-  cds.on('loaded', m => Object.assign (
-    m.definitions['sap.capire.bookshop.Genres'].elements,
-    cds.parse (`entity Genres {
-      DrillState: String = coalesce(leaf,'collapsed');
-      leaf: String;
-    }`).definitions.Genres.elements
-  ))
-
-  // Fill in `leaf` helper column for initial data entries
-  cds.on('served', ()=> cds.run(`
-    UPDATE sap_capire_bookshop_Genres as g SET leaf='leaf' WHERE not exists (
-      SELECT 1 from sap_capire_bookshop_Genres WHERE parent_ID = g.ID
-    )`
-  ))
-
+  cds.on ('serving:AdminService', srv => srv.prepend(() => {
+    const {Genres} = srv.entities
   // Register a simplistic handler for hierarchical queries
-  cds.on('serving:AdminService', srv => srv.prepend(() => srv.on('READ', 'Genres', (req,next) => {
-    const q = req.query, parent = {ref:['parent','ID']}
-    if (q.SELECT.recurse?.where?.[0].ref[0] === 'Distance') q.SELECT.where[0] = parent
-    else if (!q.SELECT.search) q.SELECT.where ??= [ parent, 'is null' ]
-    // Suppress error message: Feature "recurse" queries not supported.
-    delete q.SELECT.__proto__.recurse
-    delete q.SELECT.recurse
-    return next()
-  })))
-
+    srv.on('READ', Genres, (req,next) => {
+      const q = req.query
+      // Expand query on a single row
+      if (q.SELECT.recurse?.where?.[0].ref[0] === 'Distance') {
+        q.SELECT.from.as = 'g'
+        q.SELECT.columns = q.SELECT.columns.map (c => {
+          if (c.ref?.[0] === 'DrillState') return { xpr:[`
+            CASE WHEN exists (
+              SELECT 1 from ${Genres} where parent_ID = g.ID
+            ) THEN 'collapsed' ELSE 'leaf' END`
+          ], as: 'DrillState' }
+          else return c
+        })
+        q.SELECT.where[0] = 'parent_ID'
+      // Initial query
+      } else if (!q.SELECT.search && !is_count(q)) {
+        q.SELECT.where ??= [ 'parent_ID is null' ]
+      }
+      // Suppress error message: Feature "recurse" queries not supported.
+      delete q.SELECT.__proto__.recurse
+      delete q.SELECT.recurse
+      return next()
+    })
+  }))
 }
+
+
+const is_count = q => q.SELECT.columns.length === 1 && q.SELECT.columns[0].func === 'count'
