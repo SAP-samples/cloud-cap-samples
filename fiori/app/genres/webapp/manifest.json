@@ -1,0 +1,124 @@
+{
+	"_version": "1.8.0",
+	"sap.app": {
+		"id": "genres",
+		"type": "application",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"AdminService": {
+				"uri": "admin/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "4.0"
+				}
+			}
+		},
+		"crossNavigation": {
+			"inbounds": {
+				"Genres-display": {
+					"signature": {
+						"parameters": {},
+						"additionalParameters": "allowed"
+					},
+					"semanticObject": "Genres",
+					"action": "display"
+				}
+			}
+		}
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.122.0",
+			"libs": {
+				"sap.fe.templates": {}
+			}
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			},
+			"": {
+				"dataSource": "AdminService",
+				"settings": {
+					"synchronizationMode": "None",
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true,
+					"groupProperties": {
+						"default": {
+						  "submit": "Auto"
+						}
+					}
+				}
+			}
+		},
+		"routing": {
+			"routes": [
+				{
+					"pattern": ":?query:",
+					"name": "GenresList",
+					"target": "GenresList"
+				},
+				{
+					"pattern": "Genres({key}):?query:",
+					"name": "GenresDetails",
+					"target": "GenresDetails"
+				}
+			],
+			"targets": {
+				"GenresList": {
+					"type": "Component",
+					"id": "GenresList",
+					"name": "sap.fe.templates.ListReport",
+					"options": {
+						"settings": {
+							"contextPath": "/Genres",
+							"navigation": {
+								"Genres": {
+									"detail": {
+										"route": "GenresDetails"
+										}
+								}
+							},
+							"controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "hierarchyQualifier": "GenreHierarchy",
+                                        "type": "TreeTable"
+                                    }
+                                }
+                            }
+						}
+					}
+				},
+				"GenresDetails": {
+					"type": "Component",
+					"id": "GenresDetails",
+					"name": "sap.fe.templates.ObjectPage",
+					"options": {
+						"settings": {
+							"contextPath": "/Genres"
+						}
+					}
+				}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"fullWidth": false
+	},
+	"sap.fiori": {
+		"registrationIds": [],
+		"archeType": "transactional"
+	}
+}

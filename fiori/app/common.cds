@@ -71,25 +71,78 @@ annotate my.Books with {
 
 ////////////////////////////////////////////////////////////////////////////
 //
+//	Computed Fields for Tree Tables 
+//
+//  DISCLAIMER: The below are an alpha version implementation and will change in final release !!!
+//
+aspect Hierarchy {
+  LimitedDescendantCount : Integer64 = null;
+  DistanceFromRoot       : Integer64 = null;
+  DrillState             : String = null;
+  Matched                : Boolean = null;
+  MatchedDescendantCount : Integer64 = null;
+  LimitedRank            : Integer64 = null;
+}
+
+annotate Hierarchy with @Capabilities.FilterRestrictions.NonFilterableProperties: [
+  'LimitedDescendantCount',
+  'DistanceFromRoot',
+  'DrillState',
+  'Matched',
+  'MatchedDescendantCount',
+  'LimitedRank'
+];
+
+annotate Hierarchy with @Capabilities.SortRestrictions.NonSortableProperties: [
+  'LimitedDescendantCount',
+  'DistanceFromRoot',
+  'DrillState',
+  'Matched',
+  'MatchedDescendantCount',
+  'LimitedRank'
+];
+
+extend my.Genres with Hierarchy;
+
+////////////////////////////////////////////////////////////////////////////
+//
+//	Genres Tree Table Annotations
+//
+//  DISCLAIMER: The below are an alpha version implementation and will change in final release !!!
+//
+annotate my.Genres with @Aggregation.RecursiveHierarchy #GenreHierarchy: {
+  $Type                   : 'Aggregation.RecursiveHierarchyType',
+  NodeProperty            : ID, // identifies a node
+  ParentNavigationProperty: parent // navigates to a node's parent
+};
+
+annotate my.Genres with @Hierarchy.RecursiveHierarchy #GenreHierarchy: {
+  $Type                 : 'Hierarchy.RecursiveHierarchyType',
+  LimitedDescendantCount: LimitedDescendantCount,
+  DistanceFromRoot      : DistanceFromRoot,
+  DrillState            : DrillState,
+  Matched               : Matched,
+  MatchedDescendantCount: MatchedDescendantCount,
+  LimitedRank           : LimitedRank
+};
+
+annotate my.Genres with @(
+ readonly,
+ cds.search: {name}
+);
+////////////////////////////////////////////////////////////////////////////
+//
 //	Genres List
 //
 annotate my.Genres with @(
-  Common.SemanticKey : [name],
-  UI                 : {
-    SelectionFields : [name],
-    LineItem        : [
-      { Value: name },
-      {
-        Value : parent.name,
-        Label: 'Main Genre'
-      },
-    ],
-  }
+    Common.SemanticKey : [name],
+    UI : {
+        SelectionFields : [name],
+        LineItem : [
+         { Value : name, Label : '{i18n>Name}' },
+        ],
+    }
 );
-
-annotate my.Genres with {
-  ID  @Common.Text : name  @Common.TextArrangement : #TextOnly;
-}
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -102,12 +155,7 @@ annotate my.Genres with @(UI : {
     TypeNamePlural : '{i18n>Genres}',
     Title          : { Value: name },
     Description    : { Value: ID }
-  },
-  Facets         : [{
-    $Type  : 'UI.ReferenceFacet',
-    Label  : '{i18n>SubGenres}',
-    Target : 'children/@UI.LineItem'
-  }, ],
+  }
 });
 
 ////////////////////////////////////////////////////////////////////////////
@@ -115,7 +163,6 @@ annotate my.Genres with @(UI : {
 //	Genres Elements
 //
 annotate my.Genres with {
-  ID   @title: '{i18n>ID}';
   name @title: '{i18n>Genre}';
 }
 

@@ -17,8 +17,8 @@ describe('cap/samples - Bookshop APIs', () => {
   })
 
   it('serves ListOfBooks?$expand=genre,currency', async () => {
-    const Mystery = { ID: 16, name: 'Mystery', descr: null, parent_ID: 10 }
-    const Romance = { ID: 15, name: 'Romance', descr: null, parent_ID: 10 }
+    const Mystery = { name: 'Mystery' }
+    const Romance = { name: 'Romance' }
     const USD = { code: 'USD', name: 'US Dollar', descr: null, symbol: '$' }
     const { data } = await GET `/browse/ListOfBooks ${{
       params: { $search: 'Po', $select: `title,author`, $expand:`genre,currency` },

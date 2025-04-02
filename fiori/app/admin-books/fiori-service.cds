@@ -1,6 +1,8 @@
 using { AdminService } from '@capire/bookstore';
 using from '../common'; // to help UI linter get the complete annotations
 
+
+
 ////////////////////////////////////////////////////////////////////////////
 //
 //	Books Object Page
@@ -40,7 +42,48 @@ annotate AdminService.Books with @(
 	}
 );
 
+////////////////////////////////////////////////////////////////////////////
+//
+//	Value Help for Tree Table
+//
+annotate AdminService.Books with {
+    genre @(Common: {
+        Label    : 'Genre',
+        ValueList: {
+            CollectionPath              : 'Genres',
+            Parameters                  : [
+            {
+                $Type            : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty: 'name',
+            },
+            {
+                $Type            : 'Common.ValueListParameterInOut',
+                LocalDataProperty: genre_ID,
+                ValueListProperty: 'ID',
+            }
+            ],
+            PresentationVariantQualifier: 'VH',
+        }
+    });
+}
 
+annotate AdminService.Genres with @UI: {
+    PresentationVariant #VH: {
+        $Type                      : 'UI.PresentationVariantType',
+        Visualizations             : ['@UI.LineItem'],
+        RecursiveHierarchyQualifier: 'GenreHierarchy'
+    },
+    LineItem               : [{
+        $Type: 'UI.DataField',
+        Value: name,
+        Label :'{i18n>Name}'
+    }],
+};
+
+// Hide ID because of the ValueHelp
+annotate AdminService.Genres with {
+  ID @UI.Hidden;
+};
 
 ////////////////////////////////////////////////////////////
 //
@@ -82,5 +125,3 @@ extend service AdminService {
 // Workaround for Fiori popup for asking user to enter a new UUID on Create
 annotate AdminService.Books with { ID @Core.Computed; }
 
-// Show Genre as drop down, not a dialog
-annotate AdminService.Books with { genre @Common.ValueListWithFixedValues; }
