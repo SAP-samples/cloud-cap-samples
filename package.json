@@ -22,6 +22,7 @@
     "test": "chest test",
     "jest": "npx jest",
     "mocha": "npx mocha",
+    "node:test": "node --test",
     "build": "mbt build -t gen --mtar mta.tar",
     "deploy": "cf deploy gen/mta.tar",
     "undeploy": "cf undeploy capire.samples --delete-services --delete-service-keys"
