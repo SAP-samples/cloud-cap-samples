@@ -19,7 +19,7 @@
     "orders": "cds watch orders",
     "reviews": "cds watch reviews",
     "lint": "npx eslint",
-    "test": "chest",
+    "test": "chest test",
     "jest": "npx jest",
     "mocha": "npx mocha",
     "build": "mbt build -t gen --mtar mta.tar",
