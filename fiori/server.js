@@ -15,7 +15,7 @@ if (cds.requires.db?.kind === 'sqlite') {
       // Use scalar subselect for DrillState
       q.SELECT.from.as = 'g'
       q.SELECT.columns = q.SELECT.columns.map (c => {
-        if (c.ref?.[0] === 'DrillState') return { xpr:[`
+        if (c.ref == 'DrillState') return { xpr:[`
           CASE WHEN ( SELECT count(1) from ${Genres} where parent_ID = g.ID ) > 0
           THEN 'collapsed' ELSE 'leaf' END`
         ], as: 'DrillState' }
