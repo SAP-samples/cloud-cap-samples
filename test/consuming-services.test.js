@@ -15,15 +15,15 @@ describe('cap/samples - Consuming Services locally', () => {
     const { Authors } = AdminService.entities
     expect (await SELECT.from(Authors))
     // .to.eql(await SELECT.from('Authors'))
-    .to.eql(await AdminService.read(Authors))
-    .to.eql(await AdminService.read('Authors'))
-    .to.eql(await AdminService.run(SELECT.from(Authors)))
-    .to.eql(await AdminService.run(SELECT.from('Authors')))
+    .to.eql(await AdminService.tx({user: cds.User.privileged}, tx => tx.read(Authors)))
+    .to.eql(await AdminService.tx({user: cds.User.privileged}, tx => tx.read('Authors')))
+    .to.eql(await AdminService.tx({user: cds.User.privileged}, tx => tx.run(SELECT.from(Authors))))
+    .to.eql(await AdminService.tx({user: cds.User.privileged}, tx => tx.run(SELECT.from('Authors'))))
   })
 
   it('allows reading from local services using cds.ql', async () => {
     const AdminService = await cds.connect.to('AdminService')
-    const authors = await AdminService.read (`Authors`, a => {
+    const authors = await AdminService.tx({user: cds.User.privileged}, tx => tx.read (`Authors`, a => {
       a.name,
         a.books((b) => {
           b.title,
@@ -31,7 +31,7 @@ describe('cap/samples - Consuming Services locally', () => {
               c.name, c.symbol
             })
         })
-    }).where(`name like`, 'E%')
+    }).where(`name like`, 'E%'))
     expect(authors).to.containSubset([
       {
         name: 'Emily Brontë',
@@ -69,13 +69,14 @@ describe('cap/samples - Consuming Services locally', () => {
     }
     const query1 = SELECT.from(Authors, projection).where(`name like`, 'E%')
     const query2 = cds.read(Authors, projection).where(`name like`, 'E%')
+    // cds.context = {user: cds.User.privileged}
     expect(await cds.run(query1))
     .to.eql(await db.run(query1))
-    .to.eql(await srv.run(query1))
-    .to.eql(await srv.read(Authors, projection).where(`name like`, 'E%'))
+    .to.eql(await srv.tx({user: cds.User.privileged}, tx => tx.run(query1)))
+    .to.eql(await srv.tx({user: cds.User.privileged}, tx => tx.read(Authors, projection).where(`name like`, 'E%')))
     .to.eql(await cds.run(query2))
     .to.eql(await db.run(query2))
-    .to.eql(await srv.run(query2))
+    .to.eql(await srv.tx({user: cds.User.privileged}, tx => tx.run(query2)))
     .to.eql(await db.read(Authors, projection).where(`name like`, 'E%'))
   })
 })
