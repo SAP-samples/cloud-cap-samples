@@ -7,10 +7,10 @@
     "@capire/orders": "*",
     "@capire/common": "*",
     "@capire/data-viewer": "*",
-    "@sap-cloud-sdk/http-client": "^3.24.0",
-    "@sap-cloud-sdk/resilience": "^3.24.0",
+    "@sap-cloud-sdk/http-client": "^4.0.2",
+    "@sap-cloud-sdk/resilience": "^4.0.2",
     "@sap/cds": ">=5",
-    "express": "^4.17.1",
+    "express": "^5.1.0",
     "@cap-js/hana": "^1"
   },
   "cds": {
