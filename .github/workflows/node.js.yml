@@ -23,7 +23,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
+    - run: npm i
     - run: npm test
 
   lint:
@@ -34,5 +34,5 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 22.x
-    - run: npm ci
+    - run: npm i
     - run: npm run lint
