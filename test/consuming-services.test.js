@@ -4,7 +4,6 @@ cds.User.default = cds.User.privileged // disable auth checks
 
 describe('cap/samples - Consuming Services locally', () => {
 
-
   it('bootstrapped the database successfully', ()=>{
     const { AdminService } = cds.services
     const { Authors } = AdminService.entities
