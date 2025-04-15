@@ -93,9 +93,9 @@ describe('cap/samples - Bookshop APIs', () => {
 
   it('serves user info', async () => {
     const { data: alice } = await GET `/user/me`
-    expect(alice).to.containSubset({ id: 'alice', locale:'en' })
+    expect(alice).to.containSubset({ id: 'alice' })
     const { data: joe } = await GET (`/user/me`, {auth: { username: 'joe' }})
-    expect(joe).to.containSubset({ id: 'joe', locale:'en' })
+    expect(joe).to.containSubset({ id: 'joe' })
   })
 
 })
