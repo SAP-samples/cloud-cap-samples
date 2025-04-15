@@ -1,5 +1,6 @@
 const cds = require('@sap/cds')
 const { expect } = cds.test ('@capire/bookshop')
+cds.User.default = cds.User.privileged // disable auth checks
 
 describe('cap/samples - Consuming Services locally', () => {
 
