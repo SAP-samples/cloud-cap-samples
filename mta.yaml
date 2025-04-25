@@ -9,7 +9,7 @@ build-parameters:
     - builder: custom
       commands:
         - npm ci
-        - npx cds build shared-db --for hana --production
+        - npx cds build --production
         - npx cds build orders --for nodejs --production --ws-pack
         - npx cds build reviews --for nodejs --production
         - npx cds build bookstore --for nodejs --production --ws-pack
@@ -78,14 +78,6 @@ modules:
       - name: samples-auth
       - name: samples-destination
 
-  - name: samples-db-deployer
-    type: hdb
-    path: shared-db/gen/db
-    parameters:
-      buildpack: nodejs_buildpack
-    requires:
-      - name: samples-db
-
   - name: samples
     type: approuter.nodejs
     path: .deploy/app-router
@@ -93,6 +85,8 @@ modules:
       keep-existing-routes: true
       disk-quota: 256M
       memory: 256M
+    properties:
+      TENANT_HOST_PATTERN: "^(.*)-${default-uri}"
     requires:
       - name: orders-api
         group: destinations
@@ -112,7 +106,17 @@ modules:
           name: bookstore-api # must be used in xs-app.json as well
           url: ~{srv-url}
           forwardAuthToken: true
+      - name: mtx-api
+        group: destinations
+        properties:
+          name: mtx-api # must be used in xs-app.json as well
+          url: ~{mtx-url}
       - name: samples-auth
+    provides:
+      - name: app-api
+        properties:
+          app-protocol: ${protocol}
+          app-uri: ${default-uri}
 
   - name: destination-content
     type: com.sap.application.content
@@ -145,6 +149,27 @@ modules:
               TokenServiceInstanceName: samples-auth
               TokenServiceKeyName: xsuaa-service-key
 
+  - name: samples-mtx
+    type: nodejs
+    path: gen/mtx/sidecar
+    build-parameters:
+      builder: npm
+    parameters:
+      instances: 1
+      memory: 256M
+      disk-quota: 512M
+    provides:
+      - name: mtx-api
+        properties:
+          mtx-url: ${default-url}
+    requires:
+      - name: samples-db
+      - name: samples-registry
+      - name: samples-auth
+      - name: app-api
+        properties:
+          SUBSCRIPTION_URL: ~{app-protocol}://\${tenant_subdomain}-~{app-uri}
+
 resources:
   - name: samples-messaging
     type: org.cloudfoundry.managed-service
@@ -156,23 +181,51 @@ resources:
         emname: bookstore-${org}-${space}
         namespace: cap/samples/${space}
   - name: samples-db
-    type: com.sap.xs.hdi-container
+    type: org.cloudfoundry.managed-service
     parameters:
-      service: hana
-      service-plan: hdi-shared
+      service: service-manager
+      service-plan: container
+
   - name: samples-auth
     type: org.cloudfoundry.managed-service
     processed-after:
       - samples-messaging
+    requires:
+      - name: app-api
     parameters:
       service: xsuaa
       service-plan: application
       path: ./xs-security.json
       config:
         xsappname: samples-${org}-${space}
-        tenant-mode: dedicated
+        tenant-mode: shared
+        oauth2-configuration:
+          redirect-uris:
+            - https://*-~{app-api/app-uri}/**
+
   - name: samples-destination
     type: org.cloudfoundry.managed-service
     parameters:
       service: destination
       service-plan: lite
+
+  - name: samples-registry
+    type: org.cloudfoundry.managed-service
+    requires:
+      - name: mtx-api
+    parameters:
+      service: saas-registry
+      service-plan: application
+      config:
+        xsappname: samples-${org}-${space}
+        appName: samples-${org}-${space}
+        displayName: samples-shared-db
+        description: CAP Samples with shared-db and multitenancy
+        category: 'Samples shared-db'
+        appUrls:
+          getDependencies: ~{mtx-api/mtx-url}/-/cds/saas-provisioning/dependencies
+          onSubscription: ~{mtx-api/mtx-url}/-/cds/saas-provisioning/tenant/{tenantId}
+          onSubscriptionAsync: true
+          onUnSubscriptionAsync: true
+          onUpdateDependenciesAsync: true
+          callbackTimeoutMillis: 300000 # Increase if your deployments are taking longer than that

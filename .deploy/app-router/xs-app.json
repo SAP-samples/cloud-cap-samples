@@ -2,6 +2,11 @@
   "welcomeFile": "app/bookshop/index.html",
   "routes": [
     {
+      "source": "^/-/cds/.*",
+      "destination": "mtx-api",
+      "authenticationType": "none"
+    },
+    {
       "source": "^/app/(.*)$",
       "target": "$1",
       "localDir": "resources",

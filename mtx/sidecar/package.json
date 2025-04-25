@@ -1,0 +1,19 @@
+{
+  "name": "samples-mtx",
+  "dependencies": {
+    "@cap-js/hana": "^1",
+    "@sap/cds": "^8",
+    "@sap/cds-mtxs": "^2",
+    "@sap/xssec": "^4",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1"
+  },
+  "scripts": {
+    "start": "cds-serve"
+  },
+  "cds": {
+    "profile": "mtx-sidecar"
+  }
+}

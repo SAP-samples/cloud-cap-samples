@@ -14,6 +14,13 @@
     {
       "name": "$XSAPPNAME.emmanagement",
       "description": "Enterprise-Messaging Management Access"
+    },
+    {
+      "name": "$XSAPPNAME.mtcallback",
+      "description": "Subscription via SaaS Registry",
+      "grant-as-authority-to-apps": [
+        "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
+      ]
     }
   ],
   "attributes": [],

@@ -33,5 +33,15 @@
     "timeout": 6666
   },
   "license": "SEE LICENSE IN LICENSE",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@sap/cds-mtxs": "^2"
+  },
+  "cds": {
+    "profile": "with-mtx-sidecar",
+    "requires": {
+      "multitenancy": true,
+      "auth": "xsuaa"
+    }
+  }
 }
