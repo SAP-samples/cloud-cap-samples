@@ -99,7 +99,7 @@
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "entitySet": "Books",
+              "contextPath": "/Books",
               "initialLoad": true,
               "navigation": {
                 "Books": {
@@ -117,7 +117,7 @@
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
-              "entitySet": "Books"
+              "contextPath": "/Books"
             }
           }
         }
