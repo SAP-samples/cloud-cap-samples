@@ -11,7 +11,7 @@
     "@sap-cloud-sdk/resilience": "^4",
     "@sap/cds": ">=5",
     "express": "^4.17.1",
-    "@cap-js/hana": "^1"
+    "@cap-js/hana": ">=1"
   },
   "cds": {
     "requires": {
