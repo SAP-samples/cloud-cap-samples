@@ -9,7 +9,7 @@
     "index.cds"
   ],
   "devDependencies": {
-    "@cap-js/sqlite": "*"
+    "@cap-js/sqlite": ">=1"
   },
   "dependencies": {
     "@sap/cds": ">=7",

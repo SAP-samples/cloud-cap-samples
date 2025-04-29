@@ -7,7 +7,7 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "@cap-js/sqlite": "^1"
+    "@cap-js/sqlite": ">=1"
   },
   "scripts": {
     "start": "cds-serve",
