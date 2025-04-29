@@ -3,7 +3,7 @@ module.exports = cds.service.impl (function(){
 
   // Get the CSN definition for Reviews from the db schema for sub-sequent queries
   // ( Note: we explicitly specify the namespace to support embedded reuse )
-  const { Reviews, Likes } = this.entities ('sap.capire.reviews')
+  const { Reviews, Likes } = this.entities
 
   this.before (['CREATE','UPDATE'], 'Reviews', req => {
     if (!req.data.rating) req.data.rating = Math.round(Math.random()*4)+1

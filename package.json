@@ -5,8 +5,15 @@
   "repository": "https://github.com/sap-samples/cloud-cap-samples.git",
   "author": "daniel.hutzel@sap.com",
   "workspaces": [
-    "./*",
-    "./etc/*"
+    "bookshop",
+    "bookstore",
+    "common",
+    "fiori",
+    "orders",
+    "reviews",
+    "shared-db",
+    "etc/data-viewer",
+    "etc/loggers"
   ],
   "devDependencies": {
     "@cap-js/cds-test": "^0"
