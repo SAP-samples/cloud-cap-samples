@@ -13,3 +13,7 @@ entity Weights : CodeList {
 entity Lengths : CodeList {
   key code : String(3); // e.g. m for Meter(s)
 }
+
+type PackagingUnit : Association to PackagingUnits;
+type Length : Association to Lengths;
+type Weight : Association to Weights;
