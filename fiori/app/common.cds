@@ -71,34 +71,36 @@ annotate my.Books with {
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	Computed Fields for Tree Tables 
+//	Computed Fields for Tree Tables
 //
 //  DISCLAIMER: The below are an alpha version implementation and will change in final release !!!
 //
 aspect Hierarchy {
-  LimitedDescendantCount : Integer64 = null;
-  DistanceFromRoot       : Integer64 = null;
+  LimitedDescendantCount : Int16 = null;
+  LimitedRank            : Int16 = null;
+  DistanceFromRoot       : Int16 = null;
   DrillState             : String = null;
-  Matched                : Boolean = null;
-  MatchedDescendantCount : Integer64 = null;
-  LimitedRank            : Integer64 = null;
+  // Matched                : Boolean = null;
+  // MatchedDescendantCount : Int16 = null;
 }
 
+// REVISIT: Do we really need to do that? -> answer shall be: no.
 annotate Hierarchy with @Capabilities.FilterRestrictions.NonFilterableProperties: [
   'LimitedDescendantCount',
   'DistanceFromRoot',
   'DrillState',
-  'Matched',
-  'MatchedDescendantCount',
+  // 'Matched',
+  // 'MatchedDescendantCount',
   'LimitedRank'
 ];
 
+// REVISIT: Do we really need to do that? -> answer shall be: no.
 annotate Hierarchy with @Capabilities.SortRestrictions.NonSortableProperties: [
   'LimitedDescendantCount',
   'DistanceFromRoot',
   'DrillState',
-  'Matched',
-  'MatchedDescendantCount',
+  // 'Matched',
+  // 'MatchedDescendantCount',
   'LimitedRank'
 ];
 
@@ -116,15 +118,15 @@ annotate my.Genres with @Aggregation.RecursiveHierarchy #GenreHierarchy: {
   ParentNavigationProperty: parent // navigates to a node's parent
 };
 
-annotate my.Genres with @Hierarchy.RecursiveHierarchy #GenreHierarchy: {
-  $Type                 : 'Hierarchy.RecursiveHierarchyType',
-  LimitedDescendantCount: LimitedDescendantCount,
-  DistanceFromRoot      : DistanceFromRoot,
-  DrillState            : DrillState,
-  Matched               : Matched,
-  MatchedDescendantCount: MatchedDescendantCount,
-  LimitedRank           : LimitedRank
-};
+// annotate my.Genres with @Hierarchy.RecursiveHierarchy #GenreHierarchy: {
+//   $Type                 : 'Hierarchy.RecursiveHierarchyType',
+//   LimitedDescendantCount: LimitedDescendantCount,
+//   DistanceFromRoot      : DistanceFromRoot,
+//   DrillState            : DrillState,
+//   // Matched               : Matched,
+//   // MatchedDescendantCount: MatchedDescendantCount,
+//   LimitedRank           : LimitedRank
+// };
 
 annotate my.Genres with @(
  readonly,
