@@ -112,11 +112,15 @@ extend my.Genres with Hierarchy;
 //
 //  DISCLAIMER: The below are an alpha version implementation and will change in final release !!!
 //
-annotate my.Genres with @Aggregation.RecursiveHierarchy #GenreHierarchy: {
-  $Type                   : 'Aggregation.RecursiveHierarchyType',
-  NodeProperty            : ID, // identifies a node
-  ParentNavigationProperty: parent // navigates to a node's parent
-};
+
+// Envisioned target annotation for the below:
+annotate my.Genres with @Fiori.TreeView #GenreHierarchy .via: parent;
+
+// annotate my.Genres with @Aggregation.RecursiveHierarchy #GenreHierarchy: {
+//   $Type                   : 'Aggregation.RecursiveHierarchyType',
+//   NodeProperty            : ID, // identifies a node
+//   ParentNavigationProperty: parent // navigates to a node's parent
+// };
 
 // annotate my.Genres with @Hierarchy.RecursiveHierarchy #GenreHierarchy: {
 //   $Type                 : 'Hierarchy.RecursiveHierarchyType',
