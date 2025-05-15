@@ -80,8 +80,6 @@ aspect Hierarchy {
   LimitedRank            : Int16 = null;
   DistanceFromRoot       : Int16 = null;
   DrillState             : String = null;
-  // Matched                : Boolean = null;
-  // MatchedDescendantCount : Int16 = null;
 }
 
 // REVISIT: Do we really need to do that? -> answer shall be: no.
@@ -89,8 +87,6 @@ annotate Hierarchy with @Capabilities.FilterRestrictions.NonFilterableProperties
   'LimitedDescendantCount',
   'DistanceFromRoot',
   'DrillState',
-  // 'Matched',
-  // 'MatchedDescendantCount',
   'LimitedRank'
 ];
 
@@ -99,8 +95,6 @@ annotate Hierarchy with @Capabilities.SortRestrictions.NonSortableProperties: [
   'LimitedDescendantCount',
   'DistanceFromRoot',
   'DrillState',
-  // 'Matched',
-  // 'MatchedDescendantCount',
   'LimitedRank'
 ];
 
@@ -127,8 +121,6 @@ annotate my.Genres with @Fiori.TreeView #GenreHierarchy .via: parent;
 //   LimitedDescendantCount: LimitedDescendantCount,
 //   DistanceFromRoot      : DistanceFromRoot,
 //   DrillState            : DrillState,
-//   // Matched               : Matched,
-//   // MatchedDescendantCount: MatchedDescendantCount,
 //   LimitedRank           : LimitedRank
 // };
 
