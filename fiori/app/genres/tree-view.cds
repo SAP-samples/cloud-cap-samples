@@ -11,7 +11,7 @@ annotate AdminService.Genres with @Aggregation.RecursiveHierarchy #GenresHierarc
   NodeProperty             : ID, // identifies a node, usually the key
 };
 
-// Fiori the following to be defined explicitly, even though they're always the same
+// Fiori expects the following to be defined explicitly, even though they're always the same
 extend AdminService.Genres with @(
   // The columns expected by Fiori to be present in hierarchy entities
   Hierarchy.RecursiveHierarchy #GenresHierarchy : {
