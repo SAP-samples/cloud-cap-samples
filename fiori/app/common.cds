@@ -4,7 +4,6 @@
 
 using { sap.capire.bookshop as my } from '@capire/bookstore';
 using { sap.common } from '@capire/common';
-using { sap.common.Currencies } from '@sap/cds/common';
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -38,7 +37,7 @@ annotate my.Books with @(
   author @ValueList.entity      : 'Authors';
 };
 
-annotate Currencies with {
+annotate common.Currencies with {
   symbol @Common.Label : '{i18n>Currency}';
 }
 
@@ -67,101 +66,6 @@ annotate my.Books with {
   stock  @title: '{i18n>Stock}';
   descr  @title: '{i18n>Description}'  @UI.MultiLineText;
   image  @title: '{i18n>Image}';
-}
-
-////////////////////////////////////////////////////////////////////////////
-//
-//	Computed Fields for Tree Tables
-//
-//  DISCLAIMER: The below are an alpha version implementation and will change in final release !!!
-//
-aspect Hierarchy {
-  LimitedDescendantCount : Int16 = null;
-  LimitedRank            : Int16 = null;
-  DistanceFromRoot       : Int16 = null;
-  DrillState             : String = null;
-}
-
-// REVISIT: Do we really need to do that? -> answer shall be: no.
-annotate Hierarchy with @Capabilities.FilterRestrictions.NonFilterableProperties: [
-  'LimitedDescendantCount',
-  'DistanceFromRoot',
-  'DrillState',
-  'LimitedRank'
-];
-
-// REVISIT: Do we really need to do that? -> answer shall be: no.
-annotate Hierarchy with @Capabilities.SortRestrictions.NonSortableProperties: [
-  'LimitedDescendantCount',
-  'DistanceFromRoot',
-  'DrillState',
-  'LimitedRank'
-];
-
-extend my.Genres with Hierarchy;
-
-////////////////////////////////////////////////////////////////////////////
-//
-//	Genres Tree Table Annotations
-//
-//  DISCLAIMER: The below are an alpha version implementation and will change in final release !!!
-//
-
-// Envisioned target annotation for the below:
-annotate my.Genres with @Fiori.TreeView #GenreHierarchy .via: parent;
-
-// annotate my.Genres with @Aggregation.RecursiveHierarchy #GenreHierarchy: {
-//   $Type                   : 'Aggregation.RecursiveHierarchyType',
-//   NodeProperty            : ID, // identifies a node
-//   ParentNavigationProperty: parent // navigates to a node's parent
-// };
-
-// annotate my.Genres with @Hierarchy.RecursiveHierarchy #GenreHierarchy: {
-//   $Type                 : 'Hierarchy.RecursiveHierarchyType',
-//   LimitedDescendantCount: LimitedDescendantCount,
-//   DistanceFromRoot      : DistanceFromRoot,
-//   DrillState            : DrillState,
-//   LimitedRank           : LimitedRank
-// };
-
-annotate my.Genres with @(
- readonly,
- cds.search: {name}
-);
-////////////////////////////////////////////////////////////////////////////
-//
-//	Genres List
-//
-annotate my.Genres with @(
-    Common.SemanticKey : [name],
-    UI : {
-        SelectionFields : [name],
-        LineItem : [
-         { Value : name, Label : '{i18n>Name}' },
-        ],
-    }
-);
-
-////////////////////////////////////////////////////////////////////////////
-//
-//	Genre Details
-//
-annotate my.Genres with @(UI : {
-  Identification : [{ Value: name}],
-  HeaderInfo     : {
-    TypeName       : '{i18n>Genre}',
-    TypeNamePlural : '{i18n>Genres}',
-    Title          : { Value: name },
-    Description    : { Value: ID }
-  }
-});
-
-////////////////////////////////////////////////////////////////////////////
-//
-//	Genres Elements
-//
-annotate my.Genres with {
-  name @title: '{i18n>Genre}';
 }
 
 ////////////////////////////////////////////////////////////////////////////
