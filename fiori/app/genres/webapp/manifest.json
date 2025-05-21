@@ -51,7 +51,7 @@
 					"earlyRequests": true,
 					"groupProperties": {
 						"default": {
-						  "submit": "Auto"
+							"submit": "Auto"
 						}
 					}
 				}
@@ -82,17 +82,17 @@
 								"Genres": {
 									"detail": {
 										"route": "GenresDetails"
-										}
+									}
 								}
 							},
 							"controlConfiguration": {
-                                "@com.sap.vocabularies.UI.v1.LineItem": {
-                                    "tableSettings": {
-                                        "hierarchyQualifier": "GenresHierarchy",
-                                        "type": "TreeTable"
-                                    }
-                                }
-                            }
+								"@com.sap.vocabularies.UI.v1.LineItem": {
+									"tableSettings": {
+										"hierarchyQualifier": "GenresHierarchy",
+										"type": "TreeTable"
+									}
+								}
+							}
 						}
 					}
 				},
