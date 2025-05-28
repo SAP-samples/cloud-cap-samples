@@ -1,6 +1,10 @@
 using { AdminService } from '@capire/bookstore';
 using from '../common'; // to help UI linter get the complete annotations
 
+annotate sap.capire.bookshop.Genres with @fiori.draft.enabled;
+annotate AdminService.Genres with @odata.draft.enabled;
+annotate AdminService.Genres with @odata.draft.bypass;
+annotate AdminService.Genres with @odata.draft.bypass;
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -84,6 +88,7 @@ annotate AdminService.Genres with @UI: {
 annotate AdminService.Genres with {
   ID @UI.Hidden;
 };
+
 
 ////////////////////////////////////////////////////////////
 //
