@@ -127,7 +127,6 @@ annotate my.Genres with @Hierarchy.RecursiveHierarchy #GenreHierarchy: {
 };
 
 annotate my.Genres with @(
- readonly,
  cds.search: {name}
 );
 ////////////////////////////////////////////////////////////////////////////
