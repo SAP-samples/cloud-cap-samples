@@ -11,6 +11,7 @@ entity Books : managed {
   price    : Price;
   currency : Currency;
   image    : LargeBinary @Core.MediaType: 'image/png';
+  contents : Composition of many Contents on contents.book = $self;
 }
 
 entity Authors : managed {
@@ -28,6 +29,15 @@ entity Genres : sap.common.CodeList {
   key ID   : UUID;
   parent   : Association to Genres;
   children : Composition of many Genres on children.parent = $self;
+}
+
+/** Hierarchically organized entity for Contents */
+entity Contents {
+    key ID     : UUID;
+        name   : String;
+        page   : Integer;
+        parent : Association to Contents;
+        book   : Association to Books;
 }
 
 type Price : Decimal(9,2);
