@@ -33,11 +33,12 @@ entity Genres : sap.common.CodeList {
 
 /** Hierarchically organized entity for Contents */
 entity Contents {
-    key ID     : UUID;
-        name   : String;
-        page   : Integer;
-        parent : Association to Contents;
-        book   : Association to Books;
+    key ID       : UUID;
+        name     : String;
+        page     : Integer;
+        parent   : Association to Contents;
+        children : Composition of many Contents on children.parent = $self;
+        book     : Association to Books;
 }
 
 type Price : Decimal(9,2);
