@@ -103,6 +103,7 @@ annotate Hierarchy with @Capabilities.SortRestrictions.NonSortableProperties: [
 ];
 
 extend my.Genres with Hierarchy;
+extend my.Contents with Hierarchy;
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -164,6 +165,76 @@ annotate my.Genres with @(UI : {
 annotate my.Genres with {
   name @title: '{i18n>Genre}';
 }
+
+////////////////////////////////////////////////////////////////////////////
+//
+//	Contents Tree Table Annotations
+//
+//  DISCLAIMER: The below are an alpha version implementation and will change in final release !!!
+//
+annotate my.Contents with @Aggregation.RecursiveHierarchy #ContentsHierarchy: {
+    $Type: 'Aggregation.RecursiveHierarchyType',
+    NodeProperty: ID, // identifies a node
+    ParentNavigationProperty: parent // navigates to a node's parent
+};
+
+annotate my.Contents with @Hierarchy.RecursiveHierarchy #ContentsHierarchy: {
+  $Type: 'Hierarchy.RecursiveHierarchyType',
+  LimitedDescendantCount: LimitedDescendantCount,
+  DistanceFromRoot: DistanceFromRoot,
+  DrillState: DrillState,
+  Matched: Matched,
+  MatchedDescendantCount: MatchedDescendantCount,
+  LimitedRank: LimitedRank
+};
+
+annotate my.Contents with @(
+ cds.search: {name}
+);
+
+////////////////////////////////////////////////////////////////////////////
+//
+//	Contents List
+//
+annotate my.Contents with @UI: {
+    PresentationVariant  : {
+        $Type         : 'UI.PresentationVariantType',
+        RequestAtLeast: [name],
+        Visualizations: ['@UI.LineItem'],
+    },
+    LineItem             : [{
+        $Type: 'UI.DataField',
+        Value: name,
+        Label : '{i18n>Name}'
+        },
+        {
+        $Type: 'UI.DataField',
+        Value: page,
+        Label : '{i18n>Page}'
+    }],
+    HeaderInfo            : {
+        $Type         : 'UI.HeaderInfoType',
+        TypeName      : '{i18n>ContentsLevel}',
+        TypeNamePlural: '{i18n>ContentsLevels}',
+        Title         : {
+            $Type: 'UI.DataField',
+            Value: name,
+        }
+    },
+    FieldGroup : {
+        $Type: 'UI.FieldGroupType',
+        Data : [{
+            $Type: 'UI.DataField',
+            Value: page,
+            Label : '{i18n>PageNumber}'
+        }],
+    },
+    Facets                 : [{
+        $Type : 'UI.ReferenceFacet',
+        Target: '@UI.FieldGroup',
+        Label : '{i18n>Informations}',
+    }],
+};
 
 ////////////////////////////////////////////////////////////////////////////
 //
