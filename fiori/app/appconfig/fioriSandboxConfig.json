@@ -18,14 +18,6 @@
                     "title": "Browse Books",
                     "targetURL": "#Books-display"
                   }
-                },
-                {
-                  "id": "BrowseGenres",
-                  "tileType": "sap.ushell.ui.tile.StaticTile",
-                  "properties": {
-                    "title": "Browse Genres",
-                    "targetURL": "#Genres-display"
-                  }
                 }
               ]
             },
@@ -42,6 +34,14 @@
                   "properties": {
                     "title": "Manage Books",
                     "targetURL": "#Books-manage"
+                  }
+                },
+                                {
+                  "id": "ManageGenres",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Genres",
+                    "targetURL": "#Genres-manage"
                   }
                 },
                 {
@@ -114,10 +114,10 @@
                 "url": "/admin-authors/webapp"
               }
             },
-            "BrowseGenres": {
+            "ManageGenres": {
               "semanticObject": "Genres",
-              "action": "display",
-              "title": "Browse Genres",
+              "action": "manage",
+              "title": "Manage Genres",
               "signature": {
                 "parameters": {
                   "Genre.ID": {

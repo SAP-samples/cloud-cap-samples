@@ -68,6 +68,10 @@ annotate my.Books with {
   image  @title: '{i18n>Image}';
 }
 
+annotate my.Contents with @(
+ cds.search: {name}
+);
+
 ////////////////////////////////////////////////////////////////////////////
 //
 //	Contents List

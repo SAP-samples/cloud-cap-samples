@@ -115,3 +115,5 @@ extend service AdminService {
 
 // Workaround for Fiori popup for asking user to enter a new UUID on Create
 annotate AdminService.Books with { ID @Core.Computed; }
+
+using from './tree-view';

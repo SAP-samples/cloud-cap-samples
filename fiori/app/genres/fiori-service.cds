@@ -1,7 +1,6 @@
 using { sap.capire.bookshop.Genres } from '@capire/bookstore';
 
 annotate Genres with @cds.search: {name};
-annotate Genres with @readonly;
 annotate Genres with {
   name @title: '{i18n>Genre}';
 }
