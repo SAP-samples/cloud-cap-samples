@@ -40,8 +40,7 @@ Authorization: Basic alice:
 
 {
   "ID": 112,
-  "name": "Shakespeeeeere",
-  "age": 22
+  "name": "Shakespeeeeere"
 }
 
 
@@ -56,7 +55,7 @@ Authorization: Basic alice:
   "title": "Poems : Pocket Poets",
   "descr": "The Everyman's Library Pocket Poets hardcover series is popular for its compact size and reasonable price which does not compromise content. Poems: Bronte contains poems that demonstrate a sensibility elemental in its force with an imaginative discipline and flexibility of the highest order. Also included are an Editor's Note and an index of first lines.",
   "author": { "ID": 101 },
-  "genre": { "ID": 12 },
+  "genre": { "ID": "12aaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa" },
   "stock": 5,
   "price": "12.05",
   "currency": { "code": "USD" }

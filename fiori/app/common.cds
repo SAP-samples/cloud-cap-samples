@@ -4,7 +4,6 @@
 
 using { sap.capire.bookshop as my } from '@capire/bookstore';
 using { sap.common } from '@capire/common';
-using { sap.common.Currencies } from '@sap/cds/common';
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -38,7 +37,7 @@ annotate my.Books with @(
   author @ValueList.entity      : 'Authors';
 };
 
-annotate Currencies with {
+annotate common.Currencies with {
   symbol @Common.Label : '{i18n>Currency}';
 }
 
@@ -68,129 +67,6 @@ annotate my.Books with {
   descr  @title: '{i18n>Description}'  @UI.MultiLineText;
   image  @title: '{i18n>Image}';
 }
-
-////////////////////////////////////////////////////////////////////////////
-//
-//	Computed Fields for Tree Tables 
-//
-//  DISCLAIMER: The below are an alpha version implementation and will change in final release !!!
-//
-aspect Hierarchy {
-  LimitedDescendantCount : Integer64 = null;
-  DistanceFromRoot       : Integer64 = null;
-  DrillState             : String = null;
-  Matched                : Boolean = null;
-  MatchedDescendantCount : Integer64 = null;
-  LimitedRank            : Integer64 = null;
-}
-
-annotate Hierarchy with @Capabilities.FilterRestrictions.NonFilterableProperties: [
-  'LimitedDescendantCount',
-  'DistanceFromRoot',
-  'DrillState',
-  'Matched',
-  'MatchedDescendantCount',
-  'LimitedRank'
-];
-
-annotate Hierarchy with @Capabilities.SortRestrictions.NonSortableProperties: [
-  'LimitedDescendantCount',
-  'DistanceFromRoot',
-  'DrillState',
-  'Matched',
-  'MatchedDescendantCount',
-  'LimitedRank'
-];
-
-extend my.Genres with Hierarchy;
-extend my.Contents with Hierarchy;
-
-////////////////////////////////////////////////////////////////////////////
-//
-//	Genres Tree Table Annotations
-//
-//  DISCLAIMER: The below are an alpha version implementation and will change in final release !!!
-//
-annotate my.Genres with @Aggregation.RecursiveHierarchy #GenreHierarchy: {
-  $Type                   : 'Aggregation.RecursiveHierarchyType',
-  NodeProperty            : ID, // identifies a node
-  ParentNavigationProperty: parent // navigates to a node's parent
-};
-
-annotate my.Genres with @Hierarchy.RecursiveHierarchy #GenreHierarchy: {
-  $Type                 : 'Hierarchy.RecursiveHierarchyType',
-  LimitedDescendantCount: LimitedDescendantCount,
-  DistanceFromRoot      : DistanceFromRoot,
-  DrillState            : DrillState,
-  Matched               : Matched,
-  MatchedDescendantCount: MatchedDescendantCount,
-  LimitedRank           : LimitedRank
-};
-
-annotate my.Genres with @(
- cds.search: {name}
-);
-////////////////////////////////////////////////////////////////////////////
-//
-//	Genres List
-//
-annotate my.Genres with @(
-    Common.SemanticKey : [name],
-    UI : {
-        SelectionFields : [name],
-        LineItem : [
-         { Value : name, Label : '{i18n>Name}' },
-        ],
-    }
-);
-
-////////////////////////////////////////////////////////////////////////////
-//
-//	Genre Details
-//
-annotate my.Genres with @(UI : {
-  Identification : [{ Value: name}],
-  HeaderInfo     : {
-    TypeName       : '{i18n>Genre}',
-    TypeNamePlural : '{i18n>Genres}',
-    Title          : { Value: name },
-    Description    : { Value: ID }
-  }
-});
-
-////////////////////////////////////////////////////////////////////////////
-//
-//	Genres Elements
-//
-annotate my.Genres with {
-  name @title: '{i18n>Genre}';
-}
-
-////////////////////////////////////////////////////////////////////////////
-//
-//	Contents Tree Table Annotations
-//
-//  DISCLAIMER: The below are an alpha version implementation and will change in final release !!!
-//
-annotate my.Contents with @Aggregation.RecursiveHierarchy #ContentsHierarchy: {
-    $Type: 'Aggregation.RecursiveHierarchyType',
-    NodeProperty: ID, // identifies a node
-    ParentNavigationProperty: parent // navigates to a node's parent
-};
-
-annotate my.Contents with @Hierarchy.RecursiveHierarchy #ContentsHierarchy: {
-  $Type: 'Hierarchy.RecursiveHierarchyType',
-  LimitedDescendantCount: LimitedDescendantCount,
-  DistanceFromRoot: DistanceFromRoot,
-  DrillState: DrillState,
-  Matched: Matched,
-  MatchedDescendantCount: MatchedDescendantCount,
-  LimitedRank: LimitedRank
-};
-
-annotate my.Contents with @(
- cds.search: {name}
-);
 
 ////////////////////////////////////////////////////////////////////////////
 //

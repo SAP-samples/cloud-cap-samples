@@ -14,25 +14,24 @@ GET http://localhost:4004/odata/v4/test/Genres?
 POST http://localhost:4004/odata/v4/test/Genres?
 Content-Type: application/json
 
-{ "ID":100, "name":"Some Sample Genres...", "children":[
-    { "ID":101, "name":"Cat", "children":[
-        { "ID":102, "name":"Kitty", "children":[
-            { "ID":103, "name":"Kitty Cat", "children":[
-                { "ID":104, "name":"Aristocat" } ]},
-            { "ID":105, "name":"Kitty Bat" } ]},
-        { "ID":106, "name":"Catwoman", "children":[
-            { "ID":107, "name":"Catalina" } ]} ]},
-    { "ID":108, "name":"Catweazle" }
+{ "ID":"100aaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "name":"Some Sample Genres...", "children":[
+    { "ID":"101aaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "name":"Cat", "children":[
+        { "ID":"102aaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "name":"Kitty", "children":[
+            { "ID":"103aaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "name":"Aristocat" },
+            { "ID":"104aaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "name":"Kitty Bat" } ]},
+        { "ID":"105aaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "name":"Catwoman", "children":[
+            { "ID":"106aaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "name":"Catalina" } ]} ]},
+    { "ID":"107aaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "name":"Catweazle" }
 ]}
 ###
 
-GET http://localhost:4004/odata/v4/test/Genres(100)?
-# &$expand=children
-# &$expand=children($expand=children($expand=children($expand=children)))
+GET http://localhost:4004/odata/v4/test/Genres(100aaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa)?
+&$expand=children
+&$expand=children($expand=children($expand=children($expand=children)))
 ###
 
-DELETE http://localhost:4004/odata/v4/test/Genres(103)
+DELETE http://localhost:4004/odata/v4/test/Genres(103aaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa)
 ###
 
-DELETE http://localhost:4004/odata/v4/test/Genres(100)
+DELETE http://localhost:4004/odata/v4/test/Genres(100aaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa)
 ###

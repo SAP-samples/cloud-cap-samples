@@ -66,23 +66,9 @@ annotate AdminService.Books with {
                 ValueListProperty: 'ID',
             }
             ],
-            PresentationVariantQualifier: 'VH',
         }
     });
 }
-
-annotate AdminService.Genres with @UI: {
-    PresentationVariant #VH: {
-        $Type                      : 'UI.PresentationVariantType',
-        Visualizations             : ['@UI.LineItem'],
-        RecursiveHierarchyQualifier: 'GenreHierarchy'
-    },
-    LineItem               : [{
-        $Type: 'UI.DataField',
-        Value: name,
-        Label :'{i18n>Name}'
-    }],
-};
 
 // Hide ID because of the ValueHelp
 annotate AdminService.Genres with {
@@ -129,4 +115,3 @@ extend service AdminService {
 
 // Workaround for Fiori popup for asking user to enter a new UUID on Create
 annotate AdminService.Books with { ID @Core.Computed; }
-
