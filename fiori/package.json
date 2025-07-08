@@ -19,7 +19,7 @@
         "kind": "odata",
         "model": "@capire/reviews"
       },
-      "OrdersService": {
+      "--> OrdersService": {
         "kind": "odata",
         "model": "@capire/orders"
       },
