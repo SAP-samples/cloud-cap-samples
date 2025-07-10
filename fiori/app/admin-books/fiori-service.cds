@@ -1,6 +1,9 @@
 using { AdminService } from '@capire/bookstore';
 using from '../common'; // to help UI linter get the complete annotations
 
+annotate sap.capire.bookshop.Genres with @fiori.draft.enabled;
+annotate AdminService.Genres with @odata.draft.enabled;
+annotate AdminService.Genres with @odata.draft.bypass;
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -11,10 +14,11 @@ using from '../common'; // to help UI linter get the complete annotations
 annotate AdminService.Books with @(
 	UI: {
 		Facets: [
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>General}', Target: '@UI.FieldGroup#General'},
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Translations}', Target:  'texts/@UI.LineItem'},
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}', Target: '@UI.FieldGroup#Details'},
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Admin}', Target: '@UI.FieldGroup#Admin'},
+			{$Type: 'UI.ReferenceFacet',   Label: '{i18n>General}',      Target: '@UI.FieldGroup#General'},
+			{$Type: 'UI.ReferenceFacet',   Label: '{i18n>Translations}', Target:  'texts/@UI.LineItem'},
+			{$Type: 'UI.ReferenceFacet',   Label: '{i18n>Details}',      Target: '@UI.FieldGroup#Details'},
+			{$Type: 'UI.ReferenceFacet',   Label: '{i18n>Admin}',        Target: '@UI.FieldGroup#Admin'},
+			{$Type: 'UI.ReferenceFacet',   Label: '{i18n>Contents}',     Target: 'contents/@UI.PresentationVariant'}
 		],
 		FieldGroup#General: {
 			Data: [
@@ -71,6 +75,7 @@ annotate AdminService.Genres with {
   ID @UI.Hidden;
 };
 
+
 ////////////////////////////////////////////////////////////
 //
 //  Draft for Localized Data
@@ -110,3 +115,5 @@ extend service AdminService {
 
 // Workaround for Fiori popup for asking user to enter a new UUID on Create
 annotate AdminService.Books with { ID @Core.Computed; }
+
+using from './tree-view';

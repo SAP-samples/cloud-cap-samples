@@ -7,6 +7,6 @@ extend service CatalogService with {
     *, //> non-localized defaults, e.g. title
     key ID,
     texts.title as localized_title,
-    texts.locale
-  };
+    texts.locale,
+  } excluding { contents };
 }

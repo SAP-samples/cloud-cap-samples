@@ -79,6 +79,11 @@
                     "pattern": "Books({key}/author({key2}):?query:",
                     "name": "AuthorsDetails",
                     "target": "AuthorsDetails"
+                },
+                {
+                    "pattern": "Books({key})/contents({key2}):?query:",
+                    "name": "ContentsDetails",
+                    "target": "ContentsDetails"
                 }
             ],
             "targets": {
@@ -112,8 +117,31 @@
                                     "detail" : {
                                         "route" : "AuthorsDetails"
                                     }
+                                },
+                                "contents": {
+                                    "detail": {
+                                        "route": "ContentsDetails"
+                                    }
+                                }
+                            },
+                            "controlConfiguration": {
+                                "contents/@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "hierarchyQualifier": "ContentsHierarchy",
+                                        "type": "TreeTable"
+                                    }
                                 }
                             }
+                        }
+                    }
+                },
+                "ContentsDetails": {
+                    "type": "Component",
+                    "id": "ContentsDetails",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "contextPath": "/Books/contents"
                         }
                     }
                 },

@@ -68,6 +68,54 @@ annotate my.Books with {
   image  @title: '{i18n>Image}';
 }
 
+annotate my.Contents with @(
+ cds.search: {name}
+);
+
+////////////////////////////////////////////////////////////////////////////
+//
+//	Contents List
+//
+annotate my.Contents with @UI: {
+    PresentationVariant  : {
+        $Type         : 'UI.PresentationVariantType',
+        RequestAtLeast: [name],
+        Visualizations: ['@UI.LineItem'],
+    },
+    LineItem             : [{
+        $Type: 'UI.DataField',
+        Value: name,
+        Label : '{i18n>Name}'
+        },
+        {
+        $Type: 'UI.DataField',
+        Value: page,
+        Label : '{i18n>Page}'
+    }],
+    HeaderInfo            : {
+        $Type         : 'UI.HeaderInfoType',
+        TypeName      : '{i18n>ContentsLevel}',
+        TypeNamePlural: '{i18n>ContentsLevels}',
+        Title         : {
+            $Type: 'UI.DataField',
+            Value: name,
+        }
+    },
+    FieldGroup : {
+        $Type: 'UI.FieldGroupType',
+        Data : [{
+            $Type: 'UI.DataField',
+            Value: page,
+            Label : '{i18n>PageNumber}'
+        }],
+    },
+    Facets                 : [{
+        $Type : 'UI.ReferenceFacet',
+        Target: '@UI.FieldGroup',
+        Label : '{i18n>Informations}',
+    }],
+};
+
 ////////////////////////////////////////////////////////////////////////////
 //
 //	Authors List

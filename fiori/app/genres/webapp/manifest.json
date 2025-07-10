@@ -19,13 +19,13 @@
 		},
 		"crossNavigation": {
 			"inbounds": {
-				"Genres-display": {
+				"Genres-manage": {
 					"signature": {
 						"parameters": {},
 						"additionalParameters": "allowed"
 					},
 					"semanticObject": "Genres",
-					"action": "display"
+					"action": "manage"
 				}
 			}
 		}
