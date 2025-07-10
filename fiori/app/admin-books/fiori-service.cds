@@ -18,7 +18,7 @@ annotate AdminService.Books with @(
 			{$Type: 'UI.ReferenceFacet',   Label: '{i18n>Translations}', Target:  'texts/@UI.LineItem'},
 			{$Type: 'UI.ReferenceFacet',   Label: '{i18n>Details}',      Target: '@UI.FieldGroup#Details'},
 			{$Type: 'UI.ReferenceFacet',   Label: '{i18n>Admin}',        Target: '@UI.FieldGroup#Admin'},
-			{$Type  : 'UI.ReferenceFacet', Label  : '{i18n>Contents}',   Target : 'contents/@UI.PresentationVariant'}
+			{$Type  : 'UI.ReferenceFacet', Label: '{i18n>Contents}',     Target: 'contents/@UI.PresentationVariant'}
 		],
 		FieldGroup#General: {
 			Data: [
