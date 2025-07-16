@@ -54,7 +54,7 @@ view Authors.constraints as select from Authors { ID,
   null as name,
 
   // constraint related to two fields
-  dateOfDeath > dateOfBirth ? 'date of birth must be before date of death' : null as _born_before_death,
+  dateOfDeath > dateOfBirth ? 'we must be born before we die' : null as _born_before_death,
   $self._born_before_death as dateOfBirth,
   $self._born_before_death as dateOfDeath,
 
