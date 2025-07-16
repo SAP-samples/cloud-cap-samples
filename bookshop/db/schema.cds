@@ -16,6 +16,14 @@ entity Books : managed {
       price    : Price;
       currency : Currency;
       image    : LargeBinary            @Core.MediaType: 'image/png';
+      pages    : Composition of many Pages
+                   on pages.parent = $self;
+}
+
+entity Pages {
+  key parent  : Association to Books;
+  key number  : Integer;
+      content : String(1111);
 }
 
 entity Authors : managed {
