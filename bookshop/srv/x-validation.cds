@@ -29,12 +29,17 @@ view Books.constraints as select from Books { ID,
 
   // multiple constraints: mandatory + assert target + special
   not exists author ? 'Author does not exist: ' || author.ID :
-  author.ID is null ? 'is missing' : // FIXME: expected author.ID to refer to foreign key, apparently that is not the case -> move one line up to see
-  count(author.books.ID) -1 > 1 ? author.name || ' already wrote multiple books, please choose another author' : // TODO: we should support count(author.books)
+  author.ID is null ? 'is missing' : // FIXME: 1)
+  count(author.books.ID) -1 > 1 ? author.name || ' already wrote too many books' : // TODO: 2)
   null as author,
 
 } group by ID;
 
+// 1) FIXME: expected author.ID to refer to foreign key,
+// apparently that is not the case -> move one line up
+// and run test to see the erroneous impact.
+
+// 2) TODO: we should support count(author.books)
 
 
 /**
