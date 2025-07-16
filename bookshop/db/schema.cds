@@ -6,6 +6,7 @@ using {
 
 namespace sap.capire.bookshop;
 
+@Capabilities.ExpandRestrictions.MaxLevels: 1
 entity Books : managed {
   key ID       : Integer;
       title    : localized String(111)  @mandatory;
@@ -20,7 +21,7 @@ entity Books : managed {
                    on pages.parent = $self;
 }
 
-@Capabilities.ExpandRestrictions.NonExpandableProperties: [parent]
+@Capabilities.ExpandRestrictions.MaxLevels: 1
 entity Pages {
   key parent  : Association to Books;
   key number  : Integer;
