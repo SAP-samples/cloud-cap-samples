@@ -20,6 +20,7 @@ entity Books : managed {
                    on pages.parent = $self;
 }
 
+@Capabilities.ExpandRestrictions.NonExpandableProperties: [parent]
 entity Pages {
   key parent  : Association to Books;
   key number  : Integer;
