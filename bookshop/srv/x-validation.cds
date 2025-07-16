@@ -8,8 +8,12 @@ using from '../db/schema';
 view Books.constraints as select from Books { ID,
 
   // two-step mandatory check
-  title = null ? 'is missing' : trim(title)='' ? 'must not be empty' :
-  null as title,
+  case
+    when title is null  then 'is missing'
+    when trim(title)='' then 'must not be empty'
+  end as title,
+  // the above is equivalent to:
+  // title is null ? 'is missing' : trim(title)='' ? 'must not be empty' :
 
   // range check
   stock < 0 ? 'must not be negative' :
