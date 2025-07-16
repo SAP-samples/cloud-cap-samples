@@ -28,9 +28,9 @@ view Books.constraints as select from Books { ID,
   null as genre,
 
   // multiple constraints: mandatory + assert target + special
+  author.ID is null ? 'is missing' : // FIXME: 1) // TODO: 2)
   not exists author ? 'Author does not exist: ' || author.ID :
-  author.ID is null ? 'is missing' : // FIXME: 1)
-  count(author.books.ID) -1 > 1 ? author.name || ' already wrote too many books' : // TODO: 2)
+  count(author.books.ID) -1 > 1 ? author.name || ' already wrote too many books' : // TODO: 3)
   null as author,
 
 } group by ID;
@@ -39,7 +39,9 @@ view Books.constraints as select from Books { ID,
 // apparently that is not the case -> move one line up
 // and run test to see the erroneous impact.
 
-// 2) TODO: we should support count(author.books)
+// 2) TODO: we should allow to write author is null instead of author.ID is null
+
+// 3) TODO: we should support count(author.books)
 
 
 /**
