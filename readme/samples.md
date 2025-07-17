@@ -3,10 +3,10 @@
 The following list gives an overview of the samples provided in subdirectories.
 Each sub directory essentially is an individual npm package arranged in an [all-in-one monorepo](#all-in-one-monorepo) umbrella setup.
 
-![](etc/samples.drawio.svg)
+![](samples.drawio.svg)
 
 
-## [@capire/bookshop](bookshop)
+## [@capire/bookshop](../bookshop)
 
 - [Getting Started](https://cap.cloud.sap/docs/get-started/in-a-nutshell) with CAP, briefly introducing:
 - [Project Setup](https://cap.cloud.sap/docs/get-started/) and [Layouts](https://cap.cloud.sap/docs/get-started/projects)
@@ -17,24 +17,24 @@ Each sub directory essentially is an individual npm package arranged in an [all-
 - [Using Databases](https://cap.cloud.sap/docs/guides/databases)
 
 
-## [@capire/common](common)
+## [@capire/common](../common)
 
 - Showcases how to extend [@sap/cds/common](https://cap.cloud.sap/docs/cds/common) thereby covering:
 - Building [extension packages](https://cap.cloud.sap/docs/guides/domain-models#aspects-extensibility)
 - Providing [reuse packages](https://cap.cloud.sap/docs/get-started/projects#sharing-and-reusing-content)
 - [Verticalization](https://cap.cloud.sap/docs/cds/common#adapting-to-your-needs)
 - Using [Aspects](https://cap.cloud.sap/docs/cds/cdl#aspects)
-- Used in the [fiori app sample](#fiori)
+- Used in the [bookstore sample](#capire-bookstore)
 
 
-## [@capire/orders](orders)
+## [@capire/orders](../orders)
 
 - A standalone orders management service, demonstrating:
 - Using [Compositions](https://cap.cloud.sap/docs/cds/cdl#compositions) in [Domain Models](https://cap.cloud.sap/docs/guides/domain-models), along with
 - [Serving deeply nested documents](https://cap.cloud.sap/docs/guides/generic-providers#serving-structured-data)
 
 
-## [@capire/reviews](reviews)
+## [@capire/reviews](../reviews)
 
 - Shows how to implement a modular service to manage product reviews, including:
 - Consuming other services synchronously and asynchronously
@@ -47,22 +47,18 @@ Each sub directory essentially is an individual npm package arranged in an [all-
 - As well as managed data, input validations, and authorization
 
 
-## [@capire/bookstore](bookstore)
+## [@capire/bookstore](../bookstore)
 
 - A [composite app, reusing and combining](https://cap.cloud.sap/docs/guides/extensibility/composition) these packages:
-  - [@capire/bookshop](bookshop)
-  - [@capire/reviews](reviews)
-  - [@capire/orders](orders)
-  - [@capire/common](common)
-  - [@capire/data-viewer](etc/data-viewer)
-- [The Vue.js app](bookshop/app/vue) imported from `bookshop` is served as well
-- [The Vue.js app](reviews/app/vue) imported from `reviews` is served as well
-- [The Vue.js app](etc/data-viewer/app/data) imported from `data-viewer` is served as well
-- [The Fiori app](orders/app) imported from `orders` is served as well
-
-
-## [@capire/fiori](fiori)
-
+  - [@capire/bookshop](../bookshop)
+  - [@capire/reviews](../reviews)
+  - [@capire/orders](../orders)
+  - [@capire/common](../common)
+  - [@capire/data-viewer](data-viewer)
+- [The Vue.js app](../bookshop/app/vue) imported from `bookshop` is served as well
+- [The Vue.js app](../reviews/app/vue) imported from `reviews` is served as well
+- [The Vue.js app](data-viewer/app/data) imported from `data-viewer` is served as well
+- [The Fiori app](../orders/app) imported from `orders` is served as well
 - Adds an SAP Fiori elements application to bookstore, thereby introducing:
 - OData Annotations in `.cds` files
 - Support for Fiori Draft
@@ -75,4 +71,4 @@ See the [Serving Fiori UIs](https://cap.cloud.sap/docs/advanced/fiori) documenta
 
 # All-in-one Monorepo
 
-Each sample sub directory essentially is a standard npm package, some with standard npm dependencies to other samples. The root folder's [package.json](package.json) has local links to the sub folders, such that an `npm install` populates a local `node_modules` folder and acts like a local npm registry to the individual sample packages.
+Each sample sub directory essentially is a standard npm package, some with standard npm dependencies to other samples. The root folder's [package.json](../package.json) has local links to the sub folders, such that an `npm install` populates a local `node_modules` folder and acts like a local npm registry to the individual sample packages.

@@ -2,14 +2,14 @@
 
 # Welcome to cap/samples
 
-Find here a collection of samples for the [SAP Cloud Application Programming Model](https://cap.cloud.sap) organized in a simplistic [monorepo setup](samples.md#all-in-one-monorepo).
+Find here a collection of samples for the [SAP Cloud Application Programming Model](https://cap.cloud.sap) organized in a simplistic [monorepo setup](readme/samples.md#all-in-one-monorepo).
 
 ![](https://github.com/SAP-samples/cloud-cap-samples/workflows/CI/badge.svg)
 
 ## Get Started
 
 Assumed you did your [initial setup of CAP Node.js](https://cap.cloud.sap/docs/get-started/#setup), simply copy & paste these lines to a terminal for a jumpstart:
-    
+
 ```sh
 git clone -q https://github.com/sap-samples/cloud-cap-samples cap/samples
 cd cap/samples
@@ -21,7 +21,7 @@ npm start
 After download and setup this starts the bookshop server and opens a browser window on _http://localhost:4004_ looking like that:
 
 <p align="center">
-   <img width=480 src="etc/index-html.png" alt="bookshop showing up in browser" />
+   <img width=480 src="readme/index-html.png" alt="bookshop showing up in browser" />
 </p>
 
 Click on the *[/vue](http:/localhost:4004/vue)* link at the top to display the bookshop app (when asked to log in, type `alice` as user and leave the password field blank).
@@ -35,14 +35,13 @@ After the jumpstart, have a look into the enclosed sub folders/projects, which a
 - [orders](orders) - a generic reuse service
 - [common](common) - a reuse content package
 - [bookstore](bookstore) - a composite app of the above
-- [fiori](fiori) - Fiori elements UIs for the bookstore
-- [etc/*](etc) - Plugins adding cross-cutting concerns
+- [etc/*](readme) - Plugins adding cross-cutting concerns
 - [test](test) - Tests for all the above
 
-> _see also [samples.md](samples.md)_
+> _see also [samples.md](readme/samples.md)_
 
 <p align="center">
-  <img width=480 src="etc/samples.drawio.svg">
+  <img width=480 src="readme/samples.drawio.svg">
 </p>
 
 ## Get Help
