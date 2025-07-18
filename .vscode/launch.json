@@ -18,8 +18,8 @@
       ]
     },
     {
-      "name": "Fiori App",
-      "command": "npx cds watch fiori",
+      "name": "bookstore",
+      "command": "npx cds watch bookstore",
       "type": "node-terminal",
       "request": "launch",
       "skipFiles": [
@@ -29,29 +29,6 @@
         "**/cds/lib/req/cds-context.js",
         "**/odata-v4/okra/**"
       ]
-    },
-    {
-      "name": "Debug Mocha Tests",
-      "type": "node",
-      "request": "attach",
-      "port": 9229,
-      "continueOnAttach": true,
-      "skipFiles": [
-        "<node_internals>/**",
-        "**/node_modules/**",
-        "**/cds/lib/lazy.js",
-        "**/cds/lib/req/cds-context.js",
-        "**/odata-v4/okra/**",
-      ]
-    },
-  ],
-  "inputs": [
-    {
-      "type": "pickString",
-      "id": "sample",
-      "description": "Which sample do you want to start?",
-      "options": [ "bookshop", "fiori", "reviews", "reviews" ],
-      "default": "bookshop"
     }
   ]
 }

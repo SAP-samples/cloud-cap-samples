@@ -1,5 +1,5 @@
 const cds = require('@sap/cds')
-const { GET, POST, expect } = cds.test(__dirname+'/../bookshop')
+const { GET, POST, expect } = cds.test(__dirname+'/..')
 cds.User.default = cds.User.Privileged // hard core monkey patch
 
 describe('cap/samples - Custom Handlers', () => {

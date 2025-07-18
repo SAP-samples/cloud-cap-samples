@@ -1,0 +1,225 @@
+@server = http://localhost:4004
+
+GET {{server}}/odata/v4/admin/Authors?
+&$select=ID,name
+&$expand=books($select=ID,title)
+&$count=true
+###
+
+#
+#  The basic variant expects a CQN object passed as an application/json body
+#  to a POST request. This is also the fastest one, as it doesn't need CQL parsing.
+#  Note: $count is returned in X-Total-Count response header
+#
+GET {{server}}/hcql/admin
+Content-Type: application/json
+# Accept-Language: de
+
+{ "SELECT": {
+  "from": { "ref": [ "Authors" ] },
+  "columns": [
+    { "ref": [ "name" ] },
+    { "ref": [ "books" ], "expand": [
+      { "ref": [ "ID" ] },
+      { "ref": [ "title" ] }
+    ]}
+  ],
+  "count": true
+}}
+###
+
+POST {{server}}/hcql/browse/submitOrder?book=201&quantity=2
+Authorization: Basic alice:
+###
+
+POST {{server}}/hcql/browse/submitOrder
+Authorization: Basic alice:
+Content-Type: application/json
+
+{
+  "book": 201,
+  "quantity": 2
+}
+###
+
+GET {{server}}/hcql/browse/submitOrder?book=201&quantity=2
+Authorization: Basic alice:
+###
+
+#
+#   Alternatively you can pass a CQL string as plain/text body
+#
+GET {{server}}/hcql/admin
+Content-Type: text/plain
+# X-Total-Count: true
+
+SELECT from Authors { name, books { title }}
+# SELECT from Books { title, currency }
+###
+
+#
+# In addition we offer convenience slug routes...
+# .e.g. /srv/entity routes
+#
+
+
+GET {{server}}/hcql/admin/Books
+###
+
+GET {{server}}/hcql/admin/Books/201
+###
+
+GET {{server}}/hcql/admin/Books { ID, title, author.name as author }
+###
+
+GET {{server}}/hcql/admin/Books order by stock desc
+Content-Type: text/plain
+
+{ title, stock }
+###
+
+GET {{server}}/hcql/admin/Books/201 { ID, title, author.name }
+###
+
+GET {{server}}/hcql/admin/Books/201 { ID, title, author{name} }
+###
+
+
+POST {{server}}/hcql/admin/Books?title=The Black Cat&author_ID=101
+###
+
+
+POST {{server}}/hcql/admin/Books?title=The Black Cat
+Content-Type: application/json
+
+{
+  "author_ID": 101
+}
+###
+
+POST {{server}}/hcql/admin/Books
+Content-Type: application/json
+
+{
+  "title": "The Black Cat",
+  "author": { "ID": 101 }
+}
+###
+
+PUT {{server}}/hcql/admin/Books/275?title=Catastrophe
+###
+
+PATCH {{server}}/hcql/admin/Books/275
+Content-Type: application/json
+
+{
+  "title": "Catastrophe"
+}
+###
+
+GET {{server}}/hcql/admin/Authors { name, books { ID, title }}
+###
+
+GET {{server}}/hcql/admin/Books { ID, title, author.name as author } order by ID desc
+###
+
+
+
+// ------------------------------------
+
+POST {{server}}/hcql/admin
+Content-Type: application/json
+
+{"SELECT": { "from": { "ref": ["Books"] }}}
+###
+
+POST {{server}}/hcql/admin
+Content-Type: text/plain
+
+SELECT from Authors {
+  name as author,
+  books {
+    title,
+    stock,
+    price,
+    currency { * }
+  }
+}
+where name like '%Bro%'
+order by name asc
+###
+
+
+#
+#   Simple REST-style URLs as supported as well
+#
+
+GET {{server}}/hcql/admin/Books
+###
+
+GET {{server}}/hcql/admin/Books/201
+###
+
+
+#
+#   REST-style URLs can be combined with trailing CQL in the path, in plain
+#   text body, or with projections sent as application/json array
+#
+
+GET {{server}}/hcql/admin/Books order by stock desc
+###
+
+GET {{server}}/hcql/admin/Books { title as book, stock } order by stock desc
+###
+
+GET {{server}}/hcql/admin/Authors
+Content-Type: text/plain
+Accept-Language: fr
+
+{
+  ID, name as author,
+  books {
+    title,
+    stock,
+    currency { * }
+  }
+}
+where name like '%Bro%'
+order by name asc
+###
+
+
+GET {{server}}/hcql/admin/Books/201 { title, stock }
+###
+
+GET {{server}}/hcql/admin/Books order by stock desc
+Content-Type: text/plain
+
+{ title, stock }
+###
+
+
+#
+#   CQL adaptor also provides access to the underlying CSN schema
+#
+
+GET {{server}}/hcql/admin/$csn
+###
+
+
+
+#
+#   CQL adaptor also supports INSERTs, UPDATEs, DELETEs ...
+#
+
+POST {{server}}/hcql/admin
+Content-Type: application/jsonin wonderland
+
+{ "INSERT": {
+  "into": "Books",
+  "entries": [{
+    "title": "The Black Cat",
+    "author": { "ID": 150 }
+  }]
+}}
+###

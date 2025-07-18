@@ -1,0 +1,26 @@
+@server = http://localhost:4004
+
+GET {{server}}/odata/v2/admin/Authors
+Authorization: Basic alice:
+###
+
+GET {{server}}/odata/v2/admin/Authors?$select=ID,name&$expand=books($select=ID,title)
+Authorization: Basic alice:
+###
+
+GET {{server}}/odata/v4/admin/Authors
+Authorization: Basic alice:
+###
+
+GET {{server}}/odata/v4/admin/Authors?$select=ID,name&$expand=books($select=ID,title)
+Authorization: Basic alice:
+###
+
+
+GET {{server}}/rest/admin/Authors
+Authorization: Basic alice:
+###
+
+GET {{server}}/rest/admin/Authors?$select=ID,name&$expand=books($select=ID,title)
+Authorization: Basic alice:
+###
