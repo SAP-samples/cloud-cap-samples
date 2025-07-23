@@ -1,19 +1,31 @@
 //
 //  Quick and dirty implementation for cds.validate() using db-level constraints
 //  Test in cds.repl like that:
+//  {Books} = AdminService.entities
 //  await cds.run (()=> INSERT.into (Books, { title:'   ', author_ID:150 }) .then (cds.validate(Books)))
+//  await AdminService.create ('Books', { title:'   ', author_ID:150 })
 //
 
 const cds = require('@sap/cds')
 cds.on('served', ()=> {
 
-  const $ = cds.validate; cds.validate = function (entity, key, ...columns) {
+  const $ = cds.validate
+  cds.validate = function (entity, key, ...columns) {
 
-    if (!entity.is_entity) return $(...arguments)
-    if (!key) return key => cds.validate(entity,key)
+    if (entity?.ref) entity = { // quick and dirty
+      name: entity.ref[0],
+      constraints: { // even quicker and dirtier
+        name: entity.ref[0] +'.constraints',
+        keys: {ID:1}
+      }
+    }
+    else if (!entity.is_entity) return // we skip all standard validations for the experiments
+    else if (!entity.is_entity) return $(...arguments) // eslint-disable-line no-dupe-else-if
 
     if (entity.constraints) entity = entity.constraints
-    if (key.results) key = key.results[0].lastInsertRowid
+    if (!key) return key => cds.validate(entity,key)
+    if (key.results) key = key.results[0].lastInsertRowid // quick and dirty
+    if (key.ID) key = key.ID // quick and dirty
 
     return SELECT.one.from (entity, key, columns.length && columns) .then (checks => {
       const failed = {}; for (let c in checks) {
@@ -25,6 +37,8 @@ cds.on('served', ()=> {
     })
   }
 
+  const { AdminService } = cds.services
+  AdminService.after (['CREATE','UPDATE'], (result,req) =>  cds.validate (req.subject, result))
 })
 
 Object.defineProperties (cds.entity.prototype, {
