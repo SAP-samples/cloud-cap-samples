@@ -35,8 +35,6 @@ After the jumpstart, have a look into the enclosed sub folders/projects, which a
 - [orders](orders) - a generic reuse service
 - [common](common) - a reuse content package
 - [bookstore](bookstore) - a composite app of the above
-- [etc/*](readme) - Plugins adding cross-cutting concerns
-- [test](test) - Tests for all the above
 
 > _see also [samples.md](readme/samples.md)_
 
