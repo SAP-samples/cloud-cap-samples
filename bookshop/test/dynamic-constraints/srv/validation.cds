@@ -68,7 +68,7 @@ extend service AdminService with {
     null as name,
 
     // constraint related to two fields
-    dateOfDeath > dateOfBirth ? 'we must be born before we die' : null as _born_before_death,
+    dateOfDeath < dateOfBirth ? 'we can''t die before we are born' : null as _born_before_death,
     $self._born_before_death as dateOfBirth,
     $self._born_before_death as dateOfDeath,
 
