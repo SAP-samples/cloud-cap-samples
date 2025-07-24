@@ -52,7 +52,7 @@ module.exports = { DataService }
 
 /** @returns {cds.Service} */
 function findDataSource(dataSourceName, entityName) {
-  for (let srv of Object.values(cds.services)) { // all connected services
+  for (let srv of cds.service.providers) { // all connected services
     if (!srv.name)  continue // FIXME intermediate/pending in cds.services ?
     if (dataSourceName === srv.name || entityName.startsWith(srv.name+'.')) {
       log._debug && log.debug(`using ${srv.name} as data source`)
