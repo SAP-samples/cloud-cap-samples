@@ -1,5 +1,5 @@
 namespace sap.capire.bookshop;
-using from '../db/schema';
+using from './admin-service';
 
 view Books.field.control as select from Books { ID,
   genre.name == 'Drama' ? 'readonly' :

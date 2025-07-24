@@ -1,9 +1,6 @@
 //
-//  Quick and dirty implementation for cds.validate() using db-level constraints
-//  Test in cds.repl like that:
-//  {Books} = AdminService.entities
-//  await cds.run (()=> INSERT.into (Books, { title:'   ', author_ID:150 }) .then (cds.validate(Books)))
-//  await AdminService.create ('Books', { title:'   ', author_ID:150 })
+// Quick and dirty implementation for cds.validate()
+// using db-level constraints.
 //
 
 const cds = require('@sap/cds')
