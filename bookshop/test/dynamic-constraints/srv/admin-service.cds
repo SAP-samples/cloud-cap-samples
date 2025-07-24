@@ -1,3 +1,5 @@
+namespace AdminService; //> for cds.entities
+
 using { AdminService } from '../../../srv/admin-service';
 annotate AdminService with @requires: false;
 extend AdminService.Authors with columns {

@@ -22,5 +22,9 @@ cds repl --run bookshop/test/dynamic-constraints
 ````
 
 ```javascript
+await AdminService.create ('Books', {})
 await AdminService.create ('Books', { title:'   ', author_ID:150 })
+await AdminService.create ('Books', { title:'x' })
+await cds.validate (Books.constraints, 201)
+await cds.validate (Books.constraints)
 ```
