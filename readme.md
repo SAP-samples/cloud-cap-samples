@@ -1,4 +1,7 @@
 
+> [!CAUTION]
+> This repo is sealed, with the new location being anounced soon.
+
 
 # Welcome to cap/samples
 
