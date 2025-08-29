@@ -18,7 +18,7 @@ class CatalogService extends cds.ApplicationService { init() {
     // Validate input data
     if (!book) return req.error (404, `Book #${id} doesn't exist`)
     if (quantity < 1) return req.error (400, `quantity has to be 1 or more`)
-    if (quantity > book.stock) return req.error (409, `${quantity} exceeds stock for book #${id}`)
+    if (quantity > book.stock) return req.error (409, "ORDER_EXCEEDS_STOCK", [quantity, id])
 
     // Reduce stock in database and return updated stock value
     await UPDATE (Books, id) .with ({ stock: book.stock -= quantity })
